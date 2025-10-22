@@ -74,13 +74,13 @@ The goal is efficient progress and lasting consistency.
 
 ## ⚙️ Settings Page (New Feature)
 
-A dedicated **Settings page** gives users full control over personal preferences and interface options.
+A dedicated **Settings page** gives users full control over personal preferences, health integrations, and interface behavior.
 
 ### 🧭 General
 - **Language:** English / Norwegian / Spanish / German  
-- **Units:** Kilograms (kg) or Pounds (lbs)  
+- **Units:** Kilograms (kg) / Pounds (lbs)  
 - **Measurement System:** Metric / Imperial  
-- **Time Format:** 12-hour / 24-hour clock  
+- **Time Format:** 12-hour / 24-hour  
 
 ### 🎨 Appearance
 - **Theme Mode:** Light / Dark / System Default  
@@ -92,20 +92,48 @@ A dedicated **Settings page** gives users full control over personal preferences
 - **Data Sync Frequency:** Realtime / Daily / Manual  
 - **Offline Mode:** Enable caching of workouts and logs  
 - **Clear Local Cache:** Button to reset stored data  
-- **Live Heart Rate (BLE):** On/Off  
-- **HR Source Preference:** Auto (Wearable) / BLE Broadcast  
-- **Broadcast Timeout:** 5–120 min (default 60)
-- **Apple Health Sync:** On/Off
-- **Data Types:** Workouts / Heart Rate / HRV / Sleep
-- **Sync Mode:** Background (recommended) / Manual Pull
-- **Backfill Range:** 7 / 30 / 90 days
 
+### ❤️ Health & Wearables
+**Available integrations (toggle per source):**
+- **Apple Health (iOS / Apple Watch)** — via companion app + HealthKit  
+- **Samsung Health (via Health Connect on Android)**  
+- **Google Fit (Android)**  
+- **Fitbit**  
+- **Garmin Connect**  
+- **Polar Flow**
+
+**Per-integration options (displayed when enabled):**
+- **Data Types:** Workouts / Heart Rate / HRV / Sleep  
+- **Sync Mode:** Background (recommended) / Manual Pull  
+- **Backfill Range:** 7 / 30 / 90 days  
+- **Last Sync:** <timestamp>  **[Sync now]**  
+
+**Apple Health (extra visibility when on iOS):**
+- Permission status per category  
+- Background Delivery: On / Off  
+- Manage in Health app: [Open permissions]  
+
+**Health Connect (Android):**
+- Shows granted permissions  
+- Link to system-level Health Connect permissions  
+
+### 📡 Live Heart Rate (Workout)
+- **Live HR (BLE):** On / Off  
+- **HR Source Preference:** Auto (Wearable) / BLE Broadcast  
+- **Broadcast Timeout:** 5–120 min (default 60)  
+- **AI Live Coaching:** On / Off  *(real-time cues when HR thresholds are exceeded)*
+
+### 🎵 Music & Playback
+- **Spotify Connection:** Connect / Reconnect / Disconnect  
+- **Use Session Mix:** On / Off  
+- **BPM Matching by Workout Phase:** On / Off  
 
 ### 🔒 Privacy & Account
+- **Consent Settings:** Manage analytics and AI permissions  
+- **Revoke Integrations:** Spotify / Apple Health / Health Connect / Google Fit / Fitbit / Garmin / Polar  
 - **Data Export:** Download workout + health data (JSON/CSV)  
-- **Revoke Integrations:** Disconnect Spotify, Google Fit, etc.  
-- **Delete Account:** Full GDPR-compliant data deletion  
-- **Consent Settings:** Manage permissions for AI and analytics  
+- **Delete Account:** Full GDPR-compliant account removal  
+  
 
 ---
 
@@ -163,31 +191,60 @@ Sensitive data is encrypted (tokens, HRV, photos).
 
 ## 🔌 API (FastAPI) — Endpoints
 
-```http
-POST /auth/verify
-POST /plans/generate
-GET  /plans/{planId}
-POST /logs
+### Auth
+POST /auth/register                 # email+password sign-up
+POST /auth/login                    # email+password sign-in
+POST /auth/oauth/google             # Google OAuth callback
+POST /auth/oauth/apple              # Apple OAuth callback
+POST /auth/verify                   # verify email (if applicable)
+POST /auth/forgot-password          # start password reset
+POST /auth/reset-password           # complete password reset
+DELETE /auth/user                   # GDPR account deletion
 
-POST /music/connect/spotify
-GET  /music/devices
-POST /music/play
-POST /music/pause
-GET  /music/recently-played
-GET  /music/status
+### Plans & Logs
+POST /plans/generate                # generate AI daily plan
+GET  /plans/{planId}                # fetch a plan by id
+POST /logs                          # append workout set/rep/RPE logs
+PATCH /workouts/{id}                # edit synced/completed workout (versioned)
 
-POST /wearables/sync
-GET  /wearables/workouts
+### Context
+POST /context                       # add/update today's context
+GET  /context/current               # get current context snapshot
+DELETE /context/{id}                # delete a context entry
 
-POST /apple-health/sync/start        # returns per-type anchors & signed session token
-POST /apple-health/sync/upload       # receives batches of samples (JSON), updates anchors
-POST /apple-health/sync/finish       # finalizes a sync window
+### Music (Spotify)
+POST /music/connect/spotify         # connect via OAuth (PKCE)
+GET  /music/recently-played         # history for BPM/genre profiling
+GET  /music/devices                 # available playback devices
+POST /music/create-playlist         # create Session Mix playlist
+POST /music/play                    # control playback (play)
+POST /music/pause                   # control playback (pause)
+GET  /music/status                  # current playback status
 
+### Wearables & Health (Cloud sources)
+POST /wearables/sync                # Strava/Google Fit/Fitbit/Garmin/Polar sync
+GET  /wearables/workouts            # aggregated workouts for dashboard
 
-POST /context
-GET  /context/current
-DELETE /context/{id}
-```
+### Apple Health (iOS via HealthKit)
+POST /apple-health/sync/start       # get per-type anchors + signed session token
+POST /apple-health/sync/upload      # upload batched samples (JSON), update anchors
+POST /apple-health/sync/finish      # finalize a sync window
+GET  /apple-health/export           # (optional) export Apple Health samples
+
+### Health Connect (Android)
+POST /health-connect/sync/start     # begin anchored sync window
+POST /health-connect/sync/upload    # upload batched samples
+POST /health-connect/sync/finish    # finish window
+
+### Live Heart Rate (BLE)
+POST /live/hr                       # optional batch logging of live HR to session
+
+### Settings & Preferences
+PATCH /settings/user/{id}           # persist toggles (units, language, sources, etc.)
+
+### Data Export
+GET  /export                        # generate signed URL for GDPR data export
+
 
 **BPM Ranges:**  
 Warm-up 100–120 BPM • Main 130–160 BPM • Intervals 160–180 BPM • Cooldown 80–100 BPM
@@ -216,28 +273,44 @@ Warm-up 100–120 BPM • Main 130–160 BPM • Intervals 160–180 BPM • Coo
 
 ---
 
-### ✅ Flow 1 – Account Creation & Authentication
+### ✅ Flow 1 – Account Creation & Authentication (Google • Apple • Email)
 
 **Trigger:**  
 User opens the app for the first time or returns after logging out.
 
 **Steps:**  
-1. User selects “Sign In / Continue”.  
-2. User chooses login method (Google OAuth or Email & Password).  
-3. If new user → system creates a new profile entry in `Users`.  
-4. If returning user → existing profile is retrieved.  
-5. First-time users are redirected to onboarding; returning users go to Dashboard.
+1. User selects **“Sign In / Continue.”**  
+2. User is presented with multiple authentication options:
+   - **Continue with Google (OAuth)**
+   - **Continue with Apple (OAuth)**
+   - **Sign in with Email & Password**
+   - **Create Account (Email & Password)**
+3. If the user selects Google or Apple, an OAuth flow is initiated → on success, user is authenticated.
+4. If the user selects “Create Account”, they register using email + password → system sends an optional verification email.
+5. Upon successful login or registration, backend checks whether this is a first-time user.
+6. If **new user** → a new entry is created in `Users` with fields such as `provider` (`google`, `apple`, or `password`).
+7. If **returning user** → existing profile is retrieved.
+8. First-time users are redirected to **Onboarding**; returning users go directly to the **Dashboard**.
 
 **APIs & Data:**  
-- `POST /auth/verify`  
-- Inserts/updates in `Users` table: `id`, `email`, `createdAt`, metadata
+- `POST /auth/register` – Create account (Email + Password)  
+- `POST /auth/login` – Manual sign-in  
+- `POST /auth/oauth/google` – Google OAuth callback  
+- `POST /auth/oauth/apple` – Apple OAuth callback  
+- `POST /auth/verify` – Email verification (if required)
+
+**Users table fields updated/created:**  
+`id`, `email`, `provider('google'|'apple'|'password')`, `email_verified_at`, `createdAt`, `metadata`
 
 **Success Outcome:**  
-✅ User is authenticated and can proceed to onboarding or dashboard.
+✅ User is authenticated and redirected either to Onboarding (first-time) or Dashboard (returning).
 
 **Failure / Fallback:**  
-❌ Invalid login → error message displayed.  
-❌ Network failure → retry or fallback to cached session (if available).
+❌ Invalid email/password → error message displayed  
+❌ Canceled OAuth flow → user returns to login screen  
+❌ Unverified email (manual accounts) → prompt to verify or resend link  
+❌ Network failure → retry or fallback to cached session (if available)
+
 
 ---
 
@@ -267,83 +340,158 @@ Immediately after first authentication or when user re-enters onboarding.
 
 ---
 
-### ✅ Flow 3 – Connect Spotify (Optional)
+### ✅ Flow 3 – Connect Spotify (Optional Music Integration)
 
 **Trigger:**  
-User clicks “Connect Spotify” during onboarding or in Settings.
+User clicks **“Connect Spotify”** during onboarding or later in **Settings → Music & Playback**.
 
 **Steps:**  
-1. App opens Spotify OAuth (PKCE) screen.  
-2. User grants permissions for playback control and listening history.  
-3. Backend receives tokens (access + refresh).  
-4. Tokens are encrypted and stored in `Integrations`.  
-5. App displays “Spotify connected” status.
+1. App redirects the user to Spotify OAuth (PKCE) consent screen.  
+2. User grants permissions for:
+   - Playback control  
+   - Device access  
+   - Listening history (“Recently Played”)  
+3. After approval, Spotify redirects back with an authorization code.  
+4. Backend exchanges the code for an access token + refresh token.  
+5. Tokens are securely encrypted and stored in `Integrations`.  
+6. App confirms connection status with a success state: **“Spotify connected”**.  
+7. Optional: User can now enable features such as:
+   - Session Mix (AI-generated workout playlists)  
+   - BPM-based music matching per workout phase  
+   - Auto-playback within Workout Player  
 
 **APIs & Data:**  
-- `POST /music/connect/spotify`  
-- Spotify scopes: `user-read-playback-state`, `user-modify-playback-state`, `user-read-recently-played`  
-- Stored in `Integrations(spotify_token, refresh_token, expires_at)`
+- `POST /music/connect/spotify` (OAuth callback handling)  
+- Spotify scopes requested:
+  - `user-read-playback-state`  
+  - `user-modify-playback-state`  
+  - `user-read-recently-played`  
+- Stored in `Integrations(spotify_token, refresh_token, expires_at)`  
+- Music preferences stored in `MusicPreferences` (e.g., BPM profile)
 
 **Success Outcome:**  
-✅ Playlist creation, BPM analysis, and playback become available.
+✅ Personalized playlist generation, BPM analysis, and in-app playback become available for workouts.
 
 **Failure / Fallback:**  
-❌ User cancels → music features remain inactive.  
-❌ Token expires → app attempts refresh or prompts reconnection.
+❌ User cancels → music features remain disabled.  
+❌ Token expires → app automatically refreshes or prompts user to reconnect.  
+❌ No active playback device → user is prompted to open Spotify on a device.  
+
 
 ---
 
-### ✅ Flow 4 – Connect Strava / Google Fit (Optional Wearable Sync)
+### ✅ Flow 4 – Connect Health Apps & Wearables (Optional Sync)
 
 **Trigger:**  
-User clicks “Connect Wearable” during onboarding or in Settings.
+User taps **“Connect Health/Wearables”** during onboarding or in **Settings**.
+
+**Options shown (cards/toggles):**  
+- **Apple Health (iOS / Apple Watch)**  
+- **Samsung Health (via Health Connect on Android)**  
+- **Google Fit (Android)**  
+- **Fitbit**  
+- **Garmin Connect**  
+- **Polar Flow**  
+- **Live Heart Rate (BLE broadcast)** — optional, for real-time coaching
 
 **Steps:**  
-1. User selects Strava or Google Fit as sync source.  
-2. OAuth flow opens respective platform login.  
-3. User approves read access to workouts and heart rate (if available).  
-4. Backend receives tokens and stores them in `Integrations`.  
-5. First-time sync triggered via `POST /wearables/sync`.  
-6. Synced workouts appear in dashboard (e.g., as history).
+1) User selects one or more sources to connect.  
+2) Platform flow starts:  
+   - **Apple Health (iOS):** Opens companion app → requests HealthKit permissions (Workouts, Heart Rate, HRV, Sleep).  
+   - **Samsung Health (Android):** Connect via **Health Connect** permissions.  
+   - **Google Fit:** OAuth consent.  
+   - **Fitbit / Garmin / Polar:** OAuth consent on provider site.  
+3) Backend receives and securely stores tokens/anchors in `Integrations` (and `AppleHealthSyncAnchors` for Apple).  
+4) User chooses **Data Types** (Workouts / HR / HRV / Sleep) and **Backfill Range** (7/30/90 days).  
+5) Initial sync kicks off:  
+   - Cloud sources (Fitbit/Garmin/Polar/Google Fit): `POST /wearables/sync` (with backfill window).  
+   - Apple Health (iOS): companion app runs anchored queries → `POST /apple-health/sync/start` → `.../upload` (batched samples) → `.../finish`.  
+6) Synced sessions and metrics appear in **Dashboard** and inform AI planning.
 
 **APIs & Data:**  
-- `POST /wearables/sync` (initial sync)  
-- `Integrations(strava_token / google_fit_token)`  
-- Data merges into `WorkoutSync` or `WorkoutLogs`
+- `POST /wearables/sync` (Fitbit/Garmin/Polar/Google Fit/Health Connect)  
+- `POST /apple-health/sync/start` → `/upload` → `/finish` (HealthKit anchored sync)  
+- `GET /wearables/workouts` (aggregated view)  
+- Tables:  
+  - `Integrations` (fitbit_token, garmin_token, polar_token, google_fit_token, health_connect_grants, apple_companion_session, expires_at)  
+  - `WorkoutSync` (normalized workouts)  
+  - `AppleHealthSyncAnchors` (per-type anchors)  
+  - `AppleHealthSamples` (typed samples: HR, HRV, Sleep, Workouts)
+
+**Live HR (BLE):**  
+- User can toggle **Live Heart Rate (BLE)** during a workout: scans for heart_rate service → live BPM at ≥1 Hz.  
+- Optional: AI real-time cues when thresholds are exceeded (e.g., “Reduce pace by 10% for 60s”).  
+- Data can be buffered and linked to the active `WorkoutLogs` entry.
+
+**Settings (per source):**  
+- **Sync Mode:** Background (recommended) / Manual pull  
+- **Data Types:** Workouts / Heart Rate / HRV / Sleep  
+- **Backfill Range:** 7 / 30 / 90 days  
+- **Data Sync Frequency:** Realtime / Daily / Manual  
+- **Apple Health Sync:** On/Off (per-type toggles)  
+- **Live HR (BLE):** On/Off, **HR Source Preference:** Auto (Wearable) / BLE
 
 **Success Outcome:**  
-✅ Past workouts and health metrics begin syncing into the system.
+✅ Past workouts and health metrics are synced; AI uses HR/HRV/Sleep to bias daily plans.
 
 **Failure / Fallback:**  
-❌ User skips → app relies on AI-only plans.  
-❌ Sync error / rate limit → retry queue engaged.
+❌ User skips → app relies on AI-only plans (manual logs).  
+❌ OAuth/permission error or rate limit → queued retries, user prompt to reconnect.  
+❌ iOS background delivery delay → manual “Sync now” available.  
+❌ BLE not supported/unavailable → continue without live HR.
+
+**Privacy & Security:**  
+- Explicit consent screens per source and data type.  
+- Token encryption at rest; revocation via **Revoke Integrations** in Settings.  
+- GDPR-compliant export/delete (affects synced health data as well).
 
 ---
 
-### ✅ Flow 5 – Connect Apple Health (via iOS HealthKit)
+### ✅ Flow 5 – Connect Apple Health (iOS via HealthKit & Apple Watch)
 
 **Trigger:**  
-User installs the iOS companion app and enables “Sync Apple Health” in Settings or during onboarding.
+User enables **“Apple Health Sync”** during onboarding or under **Settings → Health & Wearables → Apple Health (iOS)**.
+
+**Requirements:**  
+- User has iPhone with Health app  
+- (Optional) Apple Watch paired for workout and HR data  
 
 **Steps:**  
-1. User opens the iOS companion app and taps “Enable Apple Health Sync”.  
-2. App requests HealthKit permissions (workouts, heart rate, HRV, sleep).  
-3. User approves read access.  
-4. App calls `POST /apple-health/sync/start` to retrieve sync anchors and session token.  
-5. Anchored queries pull initial data (7–90 days based on settings).  
-6. Data batches are sent to backend via `POST /apple-health/sync/upload`.  
-7. Background delivery triggers automatic syncing when new data is available.
+1. User installs or opens the iOS companion app.  
+2. User taps **“Enable Apple Health Sync”**, triggering the HealthKit permission sheet.  
+3. The app requests read access to selected data types:
+   - Workouts  
+   - Heart Rate  
+   - HRV (Heart Rate Variability)  
+   - Sleep  
+4. User approves permissions.  
+5. App calls `POST /apple-health/sync/start` to retrieve:
+   - A secure session token  
+   - Per-datatype sync anchors (for incremental sync)  
+6. Initial sync is performed using anchored HealthKit queries:
+   - Time range determined by user-selected **Backfill Range** (7 / 30 / 90 days)
+7. Data is uploaded in batches via `POST /apple-health/sync/upload`.  
+8. When completed, app calls `POST /apple-health/sync/finish`.  
+9. HealthKit **Background Delivery** is enabled to automatically sync new data when available.  
+10. Synced workouts and health metrics appear in Dashboard and inform AI plan adjustments.
 
 **APIs & Data:**  
-- `POST /apple-health/sync/start`, `/upload`, `/finish`  
-- Tables: `AppleHealthSyncAnchors`, `AppleHealthSamples`, `WorkoutSync`
+- `POST /apple-health/sync/start`  
+- `POST /apple-health/sync/upload`  
+- `POST /apple-health/sync/finish`  
+- Tables updated:  
+  - `AppleHealthSyncAnchors` (stores per-type anchor tokens)  
+  - `AppleHealthSamples` (raw HR, HRV, sleep, workout details)  
+  - `WorkoutSync` (normalized workouts merged for session history)
 
 **Success Outcome:**  
-✅ Apple Health workouts, HR, HRV, and sleep begin syncing and enriching dashboard + AI model.
+✅ Apple Health workouts, HR, HRV, and sleep data are synced and used to personalize future AI training plans (e.g., lower volume after poor sleep/HRV).
 
 **Failure / Fallback:**  
-❌ User denies permission → Health sync disabled.  
-❌ Sync failure → retries are queued; manual pull option available.
+❌ User denies permissions → Apple Health remains disabled.  
+❌ HealthKit background delivery unavailable → user may trigger manual sync from Settings.  
+❌ Sync failure or network drop → sync is retried or user is notified to retry manually.  
+
 
 ---
 
@@ -396,30 +544,40 @@ User taps “Start Workout” from dashboard or specific plan card.
 
 ---
 
-### ✅ Flow 8 – Optional: Connect Live Heart Rate (BLE)
+### ✅ Flow 8 – Connect Live Heart Rate (BLE Broadcast)
 
 **Trigger:**  
-User taps “Connect Heart Rate” in Workout Player.
+User taps **“Connect Heart Rate”** inside the Workout Player (optional feature).
+
+**Requirements:**  
+- A Bluetooth Low Energy (BLE) heart rate broadcasting device (e.g., Apple Watch in broadcast mode, Garmin / Polar / Fitbit watches with HR broadcast support, dedicated HR straps such as Polar H10 or Garmin HRM-Pro).  
+- Browser or client must support Web Bluetooth (or native BLE on iOS/Android in future native app).
 
 **Steps:**  
-1. App triggers Web Bluetooth scan for “heart_rate” BLE service.  
-2. User selects HR-enabled device (e.g., Garmin watch broadcasting).  
-3. Live BPM stream begins (1+ Hz refresh).  
-4. Heart rate zones are visualized in real time.  
-5. If AI live coaching is enabled → system triggers cues when HR exceeds thresholds for N seconds (e.g., “Reduce pace by 10% for 60s”).  
-6. HR data is optionally buffered and linked to session log.
+1. User taps **“Connect Heart Rate”** in the Workout Player.  
+2. The app initiates a device scan for BLE devices exposing the standard **heart_rate** service.  
+3. User selects their device from the list (e.g., Garmin, Polar, Apple Watch in broadcast mode).  
+4. A live BPM stream begins, typically with a refresh frequency of ≥1 Hz.  
+5. Heart rate is displayed in real time, including visualized zones/intensity markers.  
+6. If **AI Live Coaching** is enabled, the system evaluates HR against thresholds and may trigger real-time cues such as:
+   - *“Heart rate is too high – reduce pace for 60s”*
+   - *“You’re below target zone – increase effort slightly”*
+7. Live HR data may be buffered and stored as part of the active session in `WorkoutLogs` or associated with a specific entry.
 
 **APIs & Data:**  
-- Web Bluetooth (client-side)  
-- Optional: `POST /live/hr` batching for session-based HR logging  
-- Stored in `WorkoutLogs` or `AppleHealthSamples` equivalent
+- Live BLE communication via Web Bluetooth (client-side)  
+- Optional: `POST /live/hr` for batching HR logging linked to a session  
+- Data stored under:
+  - `WorkoutLogs` (session HR trace)
+  - or appended to `AppleHealthSamples` (if unified HR sample storage is used)
 
 **Success Outcome:**  
-✅ Live heart monitoring enhances workout, optionally driving micro AI feedback.
+✅ User receives continuous heart rate feedback during the workout, optionally enhanced by real-time AI coaching for optimal pacing or safety.
 
 **Failure / Fallback:**  
-❌ BLE not supported → user prompted to continue without HR.  
-❌ Connection lost → retry button or auto-reconnect prompt.
+❌ BLE not supported on the device/browser → user is informed and may proceed without HR.  
+❌ Device not detected or not broadcasting → user is prompted to retry or check device settings.  
+❌ Connection drops mid-session → app offers auto-reconnect or “Continue without HR” option.
 
 ---
 
@@ -474,55 +632,77 @@ User taps “Finish Session” in Workout Player.
 
 ---
 
-### ✅ Flow 11 – Create Session Mix (Spotify Playlist)
+
+
+### ✅ Flow 11 – Generate Session Mix (Optional AI-Based Playlist)
 
 **Trigger:**  
-After AI plan confirmation or post-session, user taps “Generate Session Mix”.
+After confirming the AI-generated workout plan or at the end of a session, the user taps **“Generate Session Mix”** (available only if Spotify is connected).
 
 **Steps:**  
-1. User selects playlist mode (warm-up / full session / recovery).  
-2. App matches workout phases with BPM targets from plan.  
-3. System queries Spotify for recommended tracks (based on user history + BPM).  
-4. Playlist is generated and stored to user’s Spotify account.  
-5. User can control playback (Play/Pause/Next) directly from app.
+1. User selects a playlist mode:
+   - **Warm-up only**
+   - **Full session (phased by plan)**
+   - **Recovery / cooldown**
+2. App extracts BPM targets per workout phase from the active plan.
+3. System queries Spotify’s recommendation engine using:
+   - User’s listening history
+   - Preferred genres (if available)
+   - BPM range per phase (e.g., warm-up: 100–120 BPM)
+4. A custom playlist is generated and added to the user’s Spotify account (private or public per user preference).
+5. In-app playback controls are enabled (Play / Pause / Next / Device selection).
+6. Playlist metadata and BPM associations may be stored to refine future AI-generated mixes.
 
 **APIs & Data:**  
-- `GET /music/recently-played`, `GET /music/devices`  
-- `POST /music/play`, `POST /music/pause`, playlist creation endpoints  
-- Stored in `MusicPreferences` or associated playlist log
+- `GET /music/recently-played`  
+- `GET /music/devices`  
+- `POST /music/create-playlist` (or equivalent wrapper for Spotify’s playlist endpoint)  
+- `POST /music/play`, `POST /music/pause`  
+- Stored in `MusicPreferences` + optional session-specific playlist logs
 
 **Success Outcome:**  
-✅ Personalized workout playlist is ready and usable in the session.
+✅ A personalized workout playlist is generated, aligned with intensity phases, and becomes available for immediate playback within the workout session.
 
 **Failure / Fallback:**  
-❌ User lacks Spotify Premium → playback limited; fallback message provided.
+❌ User does not have Spotify Premium → playback is not available; user may still save the playlist.  
+❌ No active playback device found → user is prompted to open Spotify on a device.  
+❌ Insufficient recommendation matches → system falls back to a generic BPM-based curated set.
 
----
-
-### ✅ Flow 12 – Sync Wearable Data (Strava / Google Fit / Apple Health)
+### ✅ Flow 12 – Sync Wearable & Health Data (Strava / Google Fit / Apple Health / Health Connect)
 
 **Trigger:**  
-Happens automatically in background or when “Sync Now” is manually triggered in Settings.
+Occurs automatically in the background at intervals defined in Settings, or manually when the user taps **“Sync Now”** under **Settings → Health & Wearables**.
 
 **Steps:**  
-1. System checks which external integrations are enabled.  
-2. For Strava/Google Fit: fetches new workouts since last sync.  
-3. For Apple Health: HealthKit background delivery triggers new delta sync via iOS app.  
-4. Fetched sessions are normalized and merged into `WorkoutSync` or matched against planned sessions.  
-5. HR/HRV and sleep data are stored separately for AI context.  
-6. AI uses new health metrics to adjust future plan suggestions.
+1. System checks which integrations are currently enabled:
+   - Cloud-based: Strava, Google Fit, Fitbit, Garmin, Polar  
+   - Local device-based (iOS): Apple Health (via HealthKit)  
+   - Local device-based (Android): Samsung Health / Google Fit via Health Connect  
+2. For cloud-based platforms (Strava, Fit, Garmin, etc.):  
+   - System requests new workouts and metrics since the last sync.  
+3. For Apple Health (HealthKit):  
+   - iOS companion app triggers background delivery or scheduled sync using anchored queries.  
+4. Health data (workouts, HR, HRV, sleep, calories) is normalized and mapped to internal schema.  
+5. Workouts are merged into `WorkoutSync` and linked to planned sessions when applicable.  
+6. HR/HRV/Sleep metrics are stored (e.g., in `AppleHealthSamples` or equivalent tables).
+7. AI planning engine incorporates new recovery and training load data (e.g., reduce next day’s volume after poor sleep/HRV).
 
 **APIs & Data:**  
-- `POST /wearables/sync`  
-- `POST /apple-health/sync/upload`  
-- Tables: `WorkoutSync`, `AppleHealthSamples`, `AppleHealthSyncAnchors`
+- `POST /wearables/sync` (Strava / Google Fit / Fitbit / Garmin / Polar / Health Connect)  
+- `POST /apple-health/sync/upload` (HealthKit batched sync)  
+- Database tables updated:
+  - `WorkoutSync` (workout sessions)
+  - `AppleHealthSamples` (raw HR/HRV/sleep)
+  - `AppleHealthSyncAnchors` (HealthKit sync anchor states)
 
 **Success Outcome:**  
-✅ Dashboard and AI planning reflect most recent wearable activity and recovery data.
+✅ Dashboard and AI-planned workouts reflect the latest activity load and recovery status, enhancing personalization.
 
 **Failure / Fallback:**  
-❌ Rate limit or offline status → sync is queued for retry.  
-❌ Inconsistent data → flagged for user review or manual correction (see Flow 13).
+❌ Platform-specific rate limit → sync is rescheduled or queued.  
+❌ Offline or connectivity loss → sync is retried when connection is restored.  
+❌ Workout misalignment or duplicate detection issues → flagged for user review or manual correction (see Flow 13).
+
 
 ---
 
