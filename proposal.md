@@ -138,23 +138,22 @@ A dedicated **Settings page** gives users full control over personal preferences
 ## 🧱 Technology Stack
 
 | Layer | Technology | Notes |
-|-------|-----------|--------|
+|------|------------|-------|
 | **Frontend (Web)** | Next.js (App Router) + TypeScript + Tailwind CSS | Responsive, SSR, RSC-based UI |
-| **Mobile (Companion App)** | Swift (iOS / watchOS) via HealthKit | Reads Apple Health, HR, HRV, Sleep, Workouts |
-| **Mobile (Phase 2)** | React Native / Swift + Kotlin (optional) | Full-featured native workout player + BLE |
+| **Mobile (Companion App)** | Swift (iOS / watchOS) via HealthKit | Apple Health sync (Phase 1) |
+| **Mobile (Full App)** | React Native / Swift + Kotlin | **Phase 2** – native workout player + BLE |
 | **Backend API** | FastAPI (Python) | Async, REST, AI orchestration |
 | **Database** | PostgreSQL (Supabase) | Users, plans, logs, integrations |
 | **Authentication** | Supabase | OAuth (Google, Apple), Email/Password, JWT |
-| **Wearables (Cloud Integrations)** | Google Fit, Fitbit, Garmin, Polar | OAuth sync of workouts + HR/HRV |
-| **Device Health (Local Sync)** | Apple Health (HealthKit), Android Health Connect | Anchored sync via companion apps |
-| **Live HR Streaming** | Web Bluetooth (BLE Heart Rate Service) | Live AI cues during workout |
-| **AI Engine** | OpenAI API (GPT) | Structured JSON workout generation + music scoring |
-| **Music Intelligence** | Spotify Web API | Playlist generation using BPM + listening history |
+| **Wearables (Cloud Integrations)** | Google Fit, Fitbit, Garmin, Polar | **Phase 2** – deep cloud sync |
+| **Device Health (Local Sync)** | Apple Health (HealthKit), Android Health Connect | Phase 1 (Apple/Samsung) |
+| **Live HR Streaming** | Web Bluetooth (BLE Heart Rate Service) | Phase 1 (web); native UX in Phase 2 |
+| **AI Engine** | OpenAI API (GPT) | Structured plan + music scoring |
+| **Music Intelligence** | Spotify Web API | Session Mix (BPM + history) |
 | **Storage** | Supabase Storage / Amazon S3 | Progress photos, logs, exports |
-| **Notifications** | OneSignal / Firebase Cloud Messaging | Push + email reminders |
-| **Hosting** | Vercel (Frontend) + Fly.io / Render (Backend) | CDN + container orchestration |
-| **Analytics (Optional)** | Plausible / PostHog | Anonymous usage insights |
-
+| **Notifications** | OneSignal / Firebase Cloud Messaging | **Phase 2** |
+| **Hosting** | Vercel (Frontend) + Fly.io / Render (Backend) | CDN + containers |
+| **Analytics (Optional)** | Plausible / PostHog | Anonymous usage |
 
 ---
 
@@ -214,15 +213,13 @@ The daily plan prompt is generated from a dynamic context that includes:
 - **WorkoutPlans** – plan_json, model, cache  
 - **WorkoutLogs** – workout data and RPE  
 - **Integrations** – Spotify, Google Fit, Garmin, etc.  
-- **MusicPreferences** – playlists, BPM profile  
+- **MusicPreferences** – playlists, BPM profile, phase_bpm_overrides_json, artist_caps, repeat_window  
+- **MusicHistory** — id, user_id, track_id, played_at, bpm, audio_features_json, phase_tag, skip, play_ms  
+- **SessionPlaylists** — id, user_id, workout_id, playlist_id, mode, tracks_json, created_at  
 - **ContextEntries** – free text and structured JSON  
 - **WorkoutSync** – wearable data  
-- **AppleHealthSyncAnchors** – user_id, type, anchor_token, updated_at
+- **AppleHealthSyncAnchors** – user_id, type, anchor_token, updated_at  
 - **AppleHealthSamples** – id, user_id, type, start_at, end_at, value_json, source_bundle_id, uuid, created_at
-- **MusicHistory** — `id`, `user_id`, `track_id`, `played_at`, `bpm`, `audio_features_json`, `phase_tag` (warmup/main/interval/cooldown/null), `skip` (bool), `play_ms`  
-- **SessionPlaylists** — `id`, `user_id`, `workout_id`, `playlist_id`, `mode` (warmup/full/recovery), `tracks_json`, `created_at`  
-- **MusicPreferences** (extend) — add `phase_bpm_overrides_json`, `artist_caps`, `repeat_window`
-
 
 Sensitive data is encrypted (tokens, HRV, photos).
 
@@ -258,16 +255,16 @@ Sensitive data is encrypted (tokens, HRV, photos).
 | DELETE | /context/{id}           | Delete a context entry            |
 
 ### Music (Spotify)
-| Method | Endpoint                | Purpose                           |
-|-------:|-------------------------|-----------------------------------|
-| POST   | /music/connect/spotify  | Connect via OAuth (PKCE)          |
-| GET    | /music/recently-played  | Listening history for BPM/seed    |
-| GET    | /music/devices          | Available playback devices        |
-| POST   | /music/create-playlist  | Create Session Mix playlist       |
-| POST   | /music/play             | Start/resume playback             |
-| POST   | /music/pause            | Pause playback                    |
-| GET    | /music/status           | Current playback status           |
-| POST   | /music/feedback         |                                   |
+| Method | Endpoint                | Purpose                                        |
+|-------:|-------------------------|------------------------------------------------|
+| POST   | /music/connect/spotify  | Connect via OAuth (PKCE)                       |
+| GET    | /music/recently-played  | Listening history for BPM/seed                 |
+| GET    | /music/devices          | Available playback devices                     |
+| POST   | /music/create-playlist  | Create Session Mix playlist                    |
+| POST   | /music/play             | Start/resume playback                          |
+| POST   | /music/pause            | Pause playback                                 |
+| GET    | /music/status           | Current playback status                        |
+| POST   | /music/feedback         | Capture in-session actions (skip/like/complete) |
 
 ### Wearables & Health (Cloud)
 | Method | Endpoint                | Purpose                           |
@@ -1020,9 +1017,6 @@ T13 – AI adapts based on HRV/sleep signals
 
 ---
 
-## 🚦 Development Phases
-
-To ensure a focused and achievable delivery, the project is divided into two main phases:
 
 ### ✅ Phase 1 — Web-First MVP (with Health & BLE Support)
 **Objective:** Deliver a fully functional web-based AI training assistant with essential integrations and live physiological feedback.
