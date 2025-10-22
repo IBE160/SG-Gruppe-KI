@@ -166,6 +166,11 @@ A dedicated **Settings page** gives users full control over personal preferences
 - **Cache:** 24 hours per user  
 - **Additional Signals (Apple Health):** HR variability (SDNN), sleep duration/stages, resting HR; used to bias daily plan (e.g., −10% volume on poor sleep/HRV)
 - **(Optional)** Live heart rate events can feed real-time AI coaching prompts when enabled.
+  **BPM Ranges (used for playlist generation):**  
+- Warm-up: **100–120 BPM**  
+- Main phase: **130–160 BPM**  
+- Intervals: **160–180 BPM**  
+- Cooldown: **80–100 BPM**
 
 
 
@@ -189,65 +194,79 @@ Sensitive data is encrypted (tokens, HRV, photos).
 
 ---
 
-## 🔌 API (FastAPI) — Endpoints
+## 🔌 API (FastAPI) — Overview
 
 ### Auth
-POST /auth/register                 # email+password sign-up
-POST /auth/login                    # email+password sign-in
-POST /auth/oauth/google             # Google OAuth callback
-POST /auth/oauth/apple              # Apple OAuth callback
-POST /auth/verify                   # verify email (if applicable)
-POST /auth/forgot-password          # start password reset
-POST /auth/reset-password           # complete password reset
-DELETE /auth/user                   # GDPR account deletion
+| Method | Endpoint                | Purpose                           |
+|-------:|-------------------------|-----------------------------------|
+| POST   | /auth/register          | Email + password sign-up          |
+| POST   | /auth/login             | Email + password sign-in          |
+| POST   | /auth/oauth/google      | Google OAuth callback              |
+| POST   | /auth/oauth/apple       | Apple OAuth callback               |
+| POST   | /auth/verify            | Verify email (if applicable)       |
+| POST   | /auth/forgot-password   | Start password reset               |
+| POST   | /auth/reset-password    | Complete password reset            |
+| DELETE | /auth/user              | GDPR account deletion              |
 
 ### Plans & Logs
-POST /plans/generate                # generate AI daily plan
-GET  /plans/{planId}                # fetch a plan by id
-POST /logs                          # append workout set/rep/RPE logs
-PATCH /workouts/{id}                # edit synced/completed workout (versioned)
+| Method | Endpoint                | Purpose                           |
+|-------:|-------------------------|-----------------------------------|
+| POST   | /plans/generate         | Generate AI daily plan            |
+| GET    | /plans/{planId}         | Fetch plan by id                  |
+| POST   | /logs                   | Append set/rep/RPE to active log  |
+| PATCH  | /workouts/{id}          | Edit synced/completed workout     |
 
 ### Context
-POST /context                       # add/update today's context
-GET  /context/current               # get current context snapshot
-DELETE /context/{id}                # delete a context entry
+| Method | Endpoint                | Purpose                           |
+|-------:|-------------------------|-----------------------------------|
+| POST   | /context                | Upsert today’s context            |
+| GET    | /context/current        | Get current context snapshot      |
+| DELETE | /context/{id}           | Delete a context entry            |
 
 ### Music (Spotify)
-POST /music/connect/spotify         # connect via OAuth (PKCE)
-GET  /music/recently-played         # history for BPM/genre profiling
-GET  /music/devices                 # available playback devices
-POST /music/create-playlist         # create Session Mix playlist
-POST /music/play                    # control playback (play)
-POST /music/pause                   # control playback (pause)
-GET  /music/status                  # current playback status
+| Method | Endpoint                | Purpose                           |
+|-------:|-------------------------|-----------------------------------|
+| POST   | /music/connect/spotify  | Connect via OAuth (PKCE)          |
+| GET    | /music/recently-played  | Listening history for BPM/seed    |
+| GET    | /music/devices          | Available playback devices        |
+| POST   | /music/create-playlist  | Create Session Mix playlist       |
+| POST   | /music/play             | Start/resume playback             |
+| POST   | /music/pause            | Pause playback                    |
+| GET    | /music/status           | Current playback status           |
 
-### Wearables & Health (Cloud sources)
-POST /wearables/sync                # Strava/Google Fit/Fitbit/Garmin/Polar sync
-GET  /wearables/workouts            # aggregated workouts for dashboard
+### Wearables & Health (Cloud)
+| Method | Endpoint                | Purpose                           |
+|-------:|-------------------------|-----------------------------------|
+| POST   | /wearables/sync         | Sync Strava/Fit/Garmin/Polar/etc. |
+| GET    | /wearables/workouts     | Aggregated workouts for dashboard |
 
-### Apple Health (iOS via HealthKit)
-POST /apple-health/sync/start       # get per-type anchors + signed session token
-POST /apple-health/sync/upload      # upload batched samples (JSON), update anchors
-POST /apple-health/sync/finish      # finalize a sync window
-GET  /apple-health/export           # (optional) export Apple Health samples
+### Apple Health (iOS)
+| Method | Endpoint                      | Purpose                                   |
+|-------:|--------------------------------|-------------------------------------------|
+| POST   | /apple-health/sync/start       | Get anchors + signed session token        |
+| POST   | /apple-health/sync/upload      | Upload batched samples (JSON)             |
+| POST   | /apple-health/sync/finish      | Finalize sync window                       |
+| GET    | /apple-health/export           | (Optional) export Apple Health samples     |
 
 ### Health Connect (Android)
-POST /health-connect/sync/start     # begin anchored sync window
-POST /health-connect/sync/upload    # upload batched samples
-POST /health-connect/sync/finish    # finish window
+| Method | Endpoint                      | Purpose                                   |
+|-------:|--------------------------------|-------------------------------------------|
+| POST   | /health-connect/sync/start     | Begin anchored sync window                 |
+| POST   | /health-connect/sync/upload    | Upload batched samples                     |
+| POST   | /health-connect/sync/finish    | Finish window                              |
 
 ### Live Heart Rate (BLE)
-POST /live/hr                       # optional batch logging of live HR to session
+| Method | Endpoint  | Purpose                                |
+|-------:|-----------|----------------------------------------|
+| POST   | /live/hr  | Batch log live HR to current session   |
 
-### Settings & Preferences
-PATCH /settings/user/{id}           # persist toggles (units, language, sources, etc.)
+### Settings & Export
+| Method | Endpoint                   | Purpose                                  |
+|-------:|----------------------------|------------------------------------------|
+| PATCH  | /settings/user/{id}        | Persist user preferences/toggles         |
+| GET    | /export                    | Generate signed URL for GDPR data export |
 
-### Data Export
-GET  /export                        # generate signed URL for GDPR data export
 
-
-**BPM Ranges:**  
-Warm-up 100–120 BPM • Main 130–160 BPM • Intervals 160–180 BPM • Cooldown 80–100 BPM
 
 ---
 
