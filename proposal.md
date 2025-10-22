@@ -140,38 +140,72 @@ A dedicated **Settings page** gives users full control over personal preferences
 ## 🧱 Technology Stack
 
 | Layer | Technology | Notes |
-|-------|-------------|-------|
-| **Frontend** | Next.js (App Router) + TypeScript + Tailwind CSS | SEO, SSR, RSC, mobile-friendly |
-| **Backend** | FastAPI (Python) | REST, async, robust |
-| **Database** | PostgreSQL (Supabase) | Users, workouts, integrations |
-| **Auth** | Supabase | OAuth 2.0, JWT |
-| **AI Engine** | OpenAI API | JSON plan + music seed |
-| **Hosting** | Vercel + Fly.io/Render | CDN + autoscaling |
-| **Notifications** | OneSignal / Firebase | Push + email |
-| **Storage** | Supabase / S3 | Media files and progress photos |
-| **Music** | Spotify Web API | Playback, “Recently Played” |
-| **Wearables** | Fit/Health/Garmin APIs | Sync training and HR |
-| **iOS Client**| Swift + HealthKit (iOS/watchOS)| Reads Health data locally; user-consent|
+|-------|-----------|--------|
+| **Frontend (Web)** | Next.js (App Router) + TypeScript + Tailwind CSS | Responsive, SSR, RSC-based UI |
+| **Mobile (Companion App)** | Swift (iOS / watchOS) via HealthKit | Reads Apple Health, HR, HRV, Sleep, Workouts |
+| **Mobile (Phase 2)** | React Native / Swift + Kotlin (optional) | Full-featured native workout player + BLE |
+| **Backend API** | FastAPI (Python) | Async, REST, AI orchestration |
+| **Database** | PostgreSQL (Supabase) | Users, plans, logs, integrations |
+| **Authentication** | Supabase | OAuth (Google, Apple), Email/Password, JWT |
+| **Wearables (Cloud Integrations)** | Google Fit, Fitbit, Garmin, Polar | OAuth sync of workouts + HR/HRV |
+| **Device Health (Local Sync)** | Apple Health (HealthKit), Android Health Connect (Phase 2) | Anchored sync via companion apps |
+| **Live HR Streaming** | Web Bluetooth (BLE Heart Rate Service) | Live AI cues during workout |
+| **AI Engine** | OpenAI API (GPT) | Structured JSON workout generation + music scoring |
+| **Music Intelligence** | Spotify Web API | Playlist generation using BPM + listening history |
+| **Storage** | Supabase Storage / Amazon S3 | Progress photos, logs, exports |
+| **Notifications** | OneSignal / Firebase Cloud Messaging | Push + email reminders |
+| **Hosting** | Vercel (Frontend) + Fly.io / Render (Backend) | CDN + container orchestration |
+| **Analytics (Optional)** | Plausible / PostHog | Anonymous usage insights |
+
 
 ---
 
 ## 🧠 AI Implementation
 
-- **Prompt Template:** user profile + last 3 sessions  
-- **Output:** structured JSON with phases  
-- **Adaptive Logic:** adjusts volume ±10% based on RPE  
-- **Music Matching:** BPM per phase → AI playlist  
-- **Context Fusion:** `profile ⊕ logs ⊕ wearables ⊕ context`  
-- **Fallback:** cached plan if AI fails  
-- **Cache:** 24 hours per user  
-- **Additional Signals (Apple Health):** HR variability (SDNN), sleep duration/stages, resting HR; used to bias daily plan (e.g., −10% volume on poor sleep/HRV)
-- **(Optional)** Live heart rate events can feed real-time AI coaching prompts when enabled.
-  **BPM Ranges (used for playlist generation):**  
-- Warm-up: **100–120 BPM**  
-- Main phase: **130–160 BPM**  
-- Intervals: **160–180 BPM**  
-- Cooldown: **80–100 BPM**
+The AI engine continuously adapts workout and music generation based on user history, physiological signals, and session context.
 
+### 🗂 Input Fusion
+The daily plan prompt is generated from a dynamic context that includes:
+- **User profile** (goals, experience level, equipment, preferences)
+- **Recent session performance** (last 3 workouts, RPE trends, fatigue scores)
+- **Wearable insights** (HR/HRV, sleep duration/stages, recovery estimates)
+- **Manual context inputs** (mood, energy level, focus tags)
+- **Music preference history** (tracks previously used/enjoyed during workouts)
+
+### 📤 AI Output
+- Structured JSON training plan split into phases (e.g., Warm-up → Main Sets → Intervals → Cooldown)
+- Estimated RPE per set + adaptive intensity guidance
+- Suggested duration and pacing cues
+- Optional recommended BPM profile for music phases
+
+### 📈 Adaptive Logic
+- Adjusts training volume ±10% based on previous RPE and session strain
+- Reduces intensity for low HRV or insufficient sleep
+- Elevates load when progress is consistent and recovery is high
+
+### 🎵 AI-Driven Music Matching
+- Pulls candidate tracks from *Recently Played*, prioritizing songs used in past workouts
+- Scores tracks based on BPM fit, energy level, phase relevance, historical skips/completions
+- Uses Spotify audio features (BPM, energy, danceability) and genres
+- Backfills using recommendations when insufficient phase-fitting tracks exist
+
+**BPM intensity mapping (default):**
+| Phase      | Target BPM |
+|-----------|------------|
+| Warm-up    | 100–120 BPM |
+| Main phase | 130–160 BPM |
+| Intervals  | 160–180 BPM |
+| Cooldown   | 80–100 BPM  |
+
+### 📡 Real-Time Adaptation (Optional)
+- If live heart rate (BLE) is enabled, the AI may trigger micro-coaching prompts:
+  - *“You're over target HR — reduce pace 10% for 60s”*
+  - *“You're under target — increase intensity slightly”*
+
+### 🛡️ Resilience & Fallback
+- If AI fails, system loads cached plan (valid for 24 hours)
+- Simple rule-based templates available as a backup
+- AI adjustments logged over time for progressive refinement
 
 
 ---
@@ -188,6 +222,9 @@ A dedicated **Settings page** gives users full control over personal preferences
 - **WorkoutSync** – wearable data  
 - **AppleHealthSyncAnchors** – user_id, type, anchor_token, updated_at
 - **AppleHealthSamples** – id, user_id, type, start_at, end_at, value_json, source_bundle_id, uuid, created_at
+- **MusicHistory** — `id`, `user_id`, `track_id`, `played_at`, `bpm`, `audio_features_json`, `phase_tag` (warmup/main/interval/cooldown/null), `skip` (bool), `play_ms`  
+- **SessionPlaylists** — `id`, `user_id`, `workout_id`, `playlist_id`, `mode` (warmup/full/recovery), `tracks_json`, `created_at`  
+- **MusicPreferences** (extend) — add `phase_bpm_overrides_json`, `artist_caps`, `repeat_window`
 
 
 Sensitive data is encrypted (tokens, HRV, photos).
@@ -233,6 +270,7 @@ Sensitive data is encrypted (tokens, HRV, photos).
 | POST   | /music/play             | Start/resume playback             |
 | POST   | /music/pause            | Pause playback                    |
 | GET    | /music/status           | Current playback status           |
+| POST   | /music/feedback         |                                   |
 
 ### Wearables & Health (Cloud)
 | Method | Endpoint                | Purpose                           |
@@ -652,7 +690,6 @@ User taps “Finish Session” in Workout Player.
 ---
 
 
-
 ### ✅ Flow 11 – Generate Session Mix (Optional AI-Based Playlist)
 
 **Trigger:**  
@@ -663,29 +700,36 @@ After confirming the AI-generated workout plan or at the end of a session, the u
    - **Warm-up only**
    - **Full session (phased by plan)**
    - **Recovery / cooldown**
-2. App extracts BPM targets per workout phase from the active plan.
-3. System queries Spotify’s recommendation engine using:
-   - User’s listening history
-   - Preferred genres (if available)
-   - BPM range per phase (e.g., warm-up: 100–120 BPM)
-4. A custom playlist is generated and added to the user’s Spotify account (private or public per user preference).
-5. In-app playback controls are enabled (Play / Pause / Next / Device selection).
-6. Playlist metadata and BPM associations may be stored to refine future AI-generated mixes.
+2. App extracts target BPM ranges per workout phase (e.g., Warm-up: 100–120 BPM, Main: 130–160 BPM, Intervals: 160–180 BPM, Cooldown: 80–100 BPM).
+3. System retrieves the user’s **recent listening history**, prioritizing tracks previously played during workouts (if such data exists).
+4. AI ranks tracks based on:
+   - BPM proximity to phase intensity
+   - Energy/danceability scores (from Spotify audio features)
+   - Whether the track has previously been played during similar phases
+   - User engagement signals (e.g., skipped vs listened fully)
+   - Recency and variety (avoid excessive repetition)
+5. If track coverage is insufficient for a phase, Spotify recommendations are used as fallback, guided by BPM, top artists, and preferred genres.
+6. A custom playlist is generated, saved to the user’s Spotify account (private or public based on preference), and optionally named using session metadata (e.g., “Leg Day Power Mix”).
+7. In-app playback controls are enabled (Play / Pause / Next / Device selection).
+8. User interactions (skip/complete/like) may be logged to refine future AI scoring.
 
 **APIs & Data:**  
-- `GET /music/recently-played`  
+- `GET /music/recently-played` (fetches history for candidate songs)  
+- `GET /music/audio-features?ids=...` (to evaluate BPM/energy)  
 - `GET /music/devices`  
-- `POST /music/create-playlist` (or equivalent wrapper for Spotify’s playlist endpoint)  
+- `POST /music/create-playlist`  
 - `POST /music/play`, `POST /music/pause`  
-- Stored in `MusicPreferences` + optional session-specific playlist logs
+- `POST /music/feedback` (store skip/like/complete for ranking model)  
+- Internal logs stored in `MusicPreferences` and/or `SessionPlaylists`
 
 **Success Outcome:**  
-✅ A personalized workout playlist is generated, aligned with intensity phases, and becomes available for immediate playback within the workout session.
+✅ A personalized playlist is generated that feels familiar, energizing, and phase-aligned with the specific workout intensity, improving user motivation and flow.
 
 **Failure / Fallback:**  
-❌ User does not have Spotify Premium → playback is not available; user may still save the playlist.  
-❌ No active playback device found → user is prompted to open Spotify on a device.  
-❌ Insufficient recommendation matches → system falls back to a generic BPM-based curated set.
+❌ User does not have Spotify Premium → playback unavailable; playlist may still be saved to their library.  
+❌ No matching tracks found → fallback curated BPM-based pool is used.  
+❌ No available playback device → user is prompted to open Spotify on a device.
+
 
 ### ✅ Flow 12 – Sync Wearable & Health Data (Strava / Google Fit / Apple Health / Health Connect)
 
@@ -941,6 +985,13 @@ T13 – AI adapts based on HRV/sleep signals
 | Connectivity | Local cache, optimistic UI |
 | iOS background delivery limitations | Use anchored queries + fallback manual sync |
 | BLE compatibility | Fallback to plan without live HR coaching |
+
+---
+
+### 🔒 Privacy Notes (Music)
+- Only store minimal per-track metadata needed for personalization (track_id, timestamps, audio features, in-session feedback).  
+- Allow users to **clear music history** in Settings → Music & Playback.  
+- Respect Spotify scopes and token revocation; stop collecting history when disconnected.
 
 
 ---
