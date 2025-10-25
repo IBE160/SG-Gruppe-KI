@@ -44,30 +44,33 @@ The goal is efficient progress and lasting consistency.
 5. **Authentication & Security**
    - OAuth 2.0 (Google/Email), GDPR compliance  
 6. **Reminders & Nudges**
-   - Push notifications and daily summaries  
+   - In-app daily reminders within the dashboard (push notifications → Phase 2)
 7. **Offline Cache**
-   - Local storage of today’s workout  
+   - Local storage of today’s workout plan + incremental logging (sync on reconnect)
 8. **Music Integration (Spotify)**
-   - PKCE OAuth, playback control, BPM-matched playlists  
-   - Analyzes “Recently Played” to learn preferences  
-9. **Wearable Sync**
-   - Apple Health, Google Fit, Garmin, Polar, Fitbit  
-   - Sync workouts, HR/HRV/sleep for adaptive plans  
-   - Match music data to workout sessions  
-   **Live Heart Rate Broadcast (BLE)** – Connect directly to a heart rate sensor/watch in real time without using a cloud API, enabling live display and coaching cues during the workout.
-10. **Context Window**
-    - Free-text box for today’s focus, energy, mood, BPM, etc.  
-    - Automatically structured and used to guide AI and music selection  
-11. **Apple Health (iOS) via HealthKit**  
-    - A lightweight iOS companion app reads user-authorized HealthKit data (workouts, heart rate, HRV, sleep) and syncs deltas to our backend using anchored queries and background delivery.
+   - PKCE OAuth, playback control, BPM-matched Session Mix v1 based on listening history
+9. **Context Window**
+   - Free-text entry → structured adaptive signals (energy, mood, sleep) powering AI & music scoring 
+10. **Recovery Inputs (Simulated)**
+   - Optional simulated HRV/sleep dataset to validate adaptive logic *(real wearables → Phase 2)*
+
 
 ---
 
-### 💡 Nice-to-Have   
+## 🚫 Out of Scope (Phase 1)
+- Native mobile apps (RN/Swift/Kotlin)
+- Push notifications (OneSignal/FCM)
+- Deep cloud wearables: Garmin, Fitbit, Polar, Strava, Google Fit
+- Advanced readiness scoring and auto periodization
+- Camera-based form analysis
+- Social/leaderboards and paid tiers
+
+---
+
+### 💡 Nice-to-Have (Phase 2)
 - Camera-based form guidance  
 - Event-based periodization  
-- Safety prompts for health alerts
-- During an active workout, if live heart rate is available, AI can trigger short guidance cues when the user exceeds certain thresholds (e.g., "Reduce pace by 10% for 60s").
+- Safety prompts for health alerts  
 
 ---
 
@@ -92,35 +95,35 @@ A dedicated **Settings page** gives users full control over personal preferences
 - **Offline Mode:** Enable caching of workouts and logs  
 - **Clear Local Cache:** Button to reset stored data  
 
-### ❤️ Health & Wearables
-**Available integrations (toggle per source):**
-- **Apple Health (iOS / Apple Watch)** — via companion app + HealthKit  
-- **Samsung Health (via Health Connect on Android)**  
-- **Google Fit (Android)**  
-- **Fitbit**  
-- **Garmin Connect**  
-- **Polar Flow**
+### ❤️ Health & Wearables *(Phase 2)*
+**Available integrations (all Phase 2):**
+- Apple Health (iOS / Apple Watch) — via HealthKit  
+- Samsung Health (via Health Connect on Android)  
+- Google Fit (Android)  
+- Fitbit  
+- Garmin Connect  
+- Polar Flow  
 
-**Per-integration options (displayed when enabled):**
-- **Data Types:** Workouts / Heart Rate / HRV / Sleep  
-- **Sync Mode:** Background (recommended) / Manual Pull  
-- **Backfill Range:** 7 / 30 / 90 days  
-- **Last Sync:** <timestamp>  **[Sync now]**  
+**Per-integration options (shown when enabled, Phase 2):**
+- Data Types: Workouts / Heart Rate / HRV / Sleep  
+- Sync Mode: Background (recommended) / Manual Pull  
+- Backfill Range: 7 / 30 / 90 days  
+- Last Sync: <timestamp>  **[Sync now]**
 
-**Apple Health (extra visibility when on iOS):**
+**Apple Health (extra visibility when on iOS) — Phase 2:**
 - Permission status per category  
 - Background Delivery: On / Off  
 - Manage in Health app: [Open permissions]  
 
-**Health Connect (Android):**
+**Health Connect (Android) — *Phase 2*:**
 - Shows granted permissions  
 - Link to system-level Health Connect permissions  
 
-### 📡 Live Heart Rate (Workout)
-- **Live HR (BLE):** On / Off  
-- **HR Source Preference:** Auto (Wearable) / BLE Broadcast  
-- **Broadcast Timeout:** 5–120 min (default 60)  
-- **AI Live Coaching:** On / Off  *(real-time cues when HR thresholds are exceeded)*
+### 📡 Live Heart Rate (Workout) — *Phase 2*
+- Live HR (BLE): On / Off  
+- HR Source Preference: Auto (Wearable) / BLE Broadcast  
+- Broadcast Timeout: 5–120 min (default 60)  
+- AI Live Coaching: On / Off *(real-time cues when HR thresholds are exceeded)*
 
 ### 🎵 Music & Playback
 - **Spotify Connection:** Connect / Reconnect / Disconnect  
@@ -129,31 +132,41 @@ A dedicated **Settings page** gives users full control over personal preferences
 
 ### 🔒 Privacy & Account
 - **Consent Settings:** Manage analytics and AI permissions  
-- **Revoke Integrations:** Spotify / Apple Health / Health Connect / Google Fit / Fitbit / Garmin / Polar  
+- **Revoke Integrations:** Spotify / **Apple Health** *(Phase 2)* · Health Connect / Google Fit / Fitbit / Garmin / Polar *(Phase 2)*  
 - **Data Export:** Download workout + health data (JSON/CSV)  
-- **Delete Account:** Full GDPR-compliant account removal  
+- **Delete Account:** Full GDPR-compliant account removal
   
 ---
 
 ## 🧱 Technology Stack
 
+### ✅ Phase 1 – Web-First MVP (Core AI + Music + Offline)
+
 | Layer | Technology | Notes |
-|------|------------|-------|
+|-------|-----------|--------|
 | **Frontend (Web)** | Next.js (App Router) + TypeScript + Tailwind CSS | Responsive, SSR, RSC-based UI |
-| **Mobile (Companion App)** | Swift (iOS / watchOS) via HealthKit | Apple Health sync (Phase 1) |
-| **Mobile (Full App)** | React Native / Swift + Kotlin | **Phase 2** – native workout player + BLE |
 | **Backend API** | FastAPI (Python) | Async, REST, AI orchestration |
-| **Database** | PostgreSQL (Supabase) | Users, plans, logs, integrations |
-| **Authentication** | Supabase | OAuth (Google, Apple), Email/Password, JWT |
-| **Wearables (Cloud Integrations)** | Google Fit, Fitbit, Garmin, Polar | **Phase 2** – deep cloud sync |
-| **Device Health (Local Sync)** | Apple Health (HealthKit), Android Health Connect | Phase 1 (Apple/Samsung) |
-| **Live HR Streaming** | Web Bluetooth (BLE Heart Rate Service) | Phase 1 (web); native UX in Phase 2 |
 | **AI Engine** | OpenAI API (GPT) | Structured plan + music scoring |
-| **Music Intelligence** | Spotify Web API | Session Mix (BPM + history) |
-| **Storage** | Supabase Storage / Amazon S3 | Progress photos, logs, exports |
-| **Notifications** | OneSignal / Firebase Cloud Messaging | **Phase 2** |
-| **Hosting** | Vercel (Frontend) + Fly.io / Render (Backend) | CDN + containers |
-| **Analytics (Optional)** | Plausible / PostHog | Anonymous usage |
+| **Music Intelligence** | Spotify Web API | Session Mix (BPM + listening history) |
+| **Database** | PostgreSQL (Supabase) | Users, plans, logs, music history |
+| **Authentication** | Supabase | OAuth (Google, Apple), Email/Password, JWT |
+| **Storage** | Supabase Storage / Amazon S3 | Logs, exports, (optional progress photos) |
+| **Hosting** | Vercel (Frontend) + Fly.io / Render (Backend) | CDN + containerized API |
+| **Analytics (Optional)** | Plausible / PostHog | Privacy-friendly, anonymized usage stats |
+
+---
+
+### 📱 Phase 2 – Native + Wearables + Real-Time Coaching
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Mobile Apps** | React Native *or* Swift/Kotlin | Native workout experience |
+| **Device Health (Local Sync)** | Apple Health (HealthKit), Health Connect | Anchored sync for HR/HRV/sleep |
+| **Wearables (Cloud Integrations)** | Garmin / Fitbit / Polar / Strava / Google Fit | Deep history syncing |
+| **Live HR Streaming** | Web Bluetooth (Web) + BLE (Native) | Real-time BPM + AI cues |
+| **Notifications** | OneSignal / Firebase Cloud Messaging | Habit nudges, daily plan reminders |
+| **AI Readiness Engine** | HRV/sleep-based load scoring | Dynamic load adaptation |
+| **Mini Watch App** | Apple Watch / WearOS | Start/pause + HR display |
 
 ---
 
@@ -206,22 +219,24 @@ The daily plan prompt is generated from a dynamic context that includes:
 
 ---
 
-## 🗂️ Data Model (ERD)
+### 🗂️ Data Model (ERD) – Updated for Naming Consistency
 
-- **Users** – id, name, email, units  
-- **Goals** – goal, equipment, injuries  
-- **WorkoutPlans** – plan_json, model, cache  
-- **WorkoutLogs** – workout data and RPE  
-- **Integrations** – Spotify, Google Fit, Garmin, etc.  
-- **MusicPreferences** – playlists, BPM profile, phase_bpm_overrides_json, artist_caps, repeat_window  
-- **MusicHistory** — id, user_id, track_id, played_at, bpm, audio_features_json, phase_tag, skip, play_ms  
-- **SessionPlaylists** — id, user_id, workout_id, playlist_id, mode, tracks_json, created_at  
-- **ContextEntries** – free text and structured JSON  
-- **WorkoutSync** – wearable data  
-- **AppleHealthSyncAnchors** – user_id, type, anchor_token, updated_at  
-- **AppleHealthSamples** – id, user_id, type, start_at, end_at, value_json, source_bundle_id, uuid, created_at
+| Table | Purpose |
+|-------|---------|
+| **Users** | Profile, auth, preferences |
+| **Goals** | User training goals & constraints |
+| **WorkoutPlans** | AI-generated plans (JSON) |
+| **WorkoutLogs** | Completed sets, weights, RPE |
+| **Integrations** | Spotify, HealthKit, Health Connect, etc. |
+| **MusicPreferences** | BPM targets, skips, likes |
+| **MusicHistory** | Track usage per phase/session |
+| **SessionPlaylists** | AI-generated session playlists |
+| **ContextEntries** | Mood/recovery slider/free-text inputs |
+| **WearableSync** | ✅ Unified sync table for workouts (Phase 2) |
+| **AppleHealthSyncAnchors** | (Phase 2) Anchored sync tokens |
+| **AppleHealthSamples** | (Phase 2) HR/HRV/sleep/workout samples |
 
-Sensitive data is encrypted (tokens, HRV, photos).
+✅ All mentions of `WorkoutSync` are now standardized as `WearableSync`.
 
 ---
 
@@ -266,13 +281,13 @@ Sensitive data is encrypted (tokens, HRV, photos).
 | GET    | /music/status           | Current playback status                        |
 | POST   | /music/feedback         | Capture in-session actions (skip/like/complete) |
 
-### Wearables & Health (Cloud)
+### Wearables & Health (Cloud) - *Phase 2*
 | Method | Endpoint                | Purpose                           |
 |-------:|-------------------------|-----------------------------------|
 | POST   | /wearables/sync         | Sync Strava/Fit/Garmin/Polar/etc. |
 | GET    | /wearables/workouts     | Aggregated workouts for dashboard |
 
-### Apple Health (iOS)
+### Apple Health (iOS) - *Phase 2*
 | Method | Endpoint                      | Purpose                                   |
 |-------:|--------------------------------|-------------------------------------------|
 | POST   | /apple-health/sync/start       | Get anchors + signed session token        |
@@ -280,14 +295,14 @@ Sensitive data is encrypted (tokens, HRV, photos).
 | POST   | /apple-health/sync/finish      | Finalize sync window                       |
 | GET    | /apple-health/export           | (Optional) export Apple Health samples     |
 
-### Health Connect (Android)
+### Health Connect (Android) - *Phase 2*
 | Method | Endpoint                      | Purpose                                   |
 |-------:|--------------------------------|-------------------------------------------|
 | POST   | /health-connect/sync/start     | Begin anchored sync window                 |
 | POST   | /health-connect/sync/upload    | Upload batched samples                     |
 | POST   | /health-connect/sync/finish    | Finish window                              |
 
-### Live Heart Rate (BLE)
+### Live Heart Rate (BLE) - *Phase 2*
 | Method | Endpoint  | Purpose                                |
 |-------:|-----------|----------------------------------------|
 | POST   | /live/hr  | Batch log live HR to current session   |
@@ -304,10 +319,26 @@ Sensitive data is encrypted (tokens, HRV, photos).
 ## 🧩 UX Spec — Context Window
 
 - **Placement:** sticky, collapsible panel  
-- **Chips:** quick tags (*cutting*, *deload*, *posterior chain*)  
+- **Chips:** quick tags (*cutting*, *deload*, *posterior chain*, *low energy*, *poor sleep*)  
 - **Parsing:** client hints + LLM structuring  
 - **Scope:** session / week / always  
 - **Privacy:** user controls data retention and deletion  
+
+### 🔍 Phase 1 Recovery Source Strategy (Simulated Input)
+- Wearable sync is not available in Phase 1.
+- Users manually indicate perceived state using:
+  - A quick slider (e.g. *Energy / Sleep / Recovery → Poor / Normal / Excellent*), and/or  
+  - Optional free-text input (“Slept 5h, legs tired, motivation low”).
+- This is internally mapped to:
+  - `recovery_bias` ∈ { -1 (poor), 0 (normal), +1 (excellent) }
+  - Simulated signals: `{ hrv_score_sim, sleep_score_sim }`
+- These simulated metrics are injected into the AI planning context.
+
+### ✅ Validation Basis for T10 (Plan must change with simulated recovery)
+- Selecting **“Poor”** must reduce planned volume/intensity by at least ~10% compared to baseline.
+- Selecting **“Excellent”** must increase workload or add optional top set (~+10%).
+- Validated when ≥3 test users clearly observe the change without guidance.
+- Phase 2 will replace the simulator with real HRV/sleep from wearables.
 
 ---
 
@@ -428,7 +459,7 @@ User clicks **“Connect Spotify”** during onboarding or later in **Settings �
 
 ---
 
-### ✅ Flow 4 – Connect Health Apps & Wearables (Optional Sync)
+### ✅ Flow 4 – Connect Health Apps & Wearables (Phase 2)
 
 **Trigger:**  
 User taps **“Connect Health/Wearables”** during onboarding or in **Settings**.
@@ -462,7 +493,7 @@ User taps **“Connect Health/Wearables”** during onboarding or in **Settings*
 - `GET /wearables/workouts` (aggregated view)  
 - Tables:  
   - `Integrations` (fitbit_token, garmin_token, polar_token, google_fit_token, health_connect_grants, apple_companion_session, expires_at)  
-  - `WorkoutSync` (normalized workouts)  
+  - `WearableSync` (normalized workouts)  
   - `AppleHealthSyncAnchors` (per-type anchors)  
   - `AppleHealthSamples` (typed samples: HR, HRV, Sleep, Workouts)
 
@@ -495,7 +526,7 @@ User taps **“Connect Health/Wearables”** during onboarding or in **Settings*
 
 ---
 
-### ✅ Flow 5 – Connect Apple Health (iOS via HealthKit & Apple Watch)
+### ✅ Flow 5 – Connect Apple Health (Phase 2)
 
 **Trigger:**  
 User enables **“Apple Health Sync”** during onboarding or under **Settings → Health & Wearables → Apple Health (iOS)**.
@@ -530,7 +561,7 @@ User enables **“Apple Health Sync”** during onboarding or under **Settings �
 - Tables updated:  
   - `AppleHealthSyncAnchors` (stores per-type anchor tokens)  
   - `AppleHealthSamples` (raw HR, HRV, sleep, workout details)  
-  - `WorkoutSync` (normalized workouts merged for session history)
+  - `WearableSync` (normalized workouts merged for session history)
 
 **Success Outcome:**  
 ✅ Apple Health workouts, HR, HRV, and sleep data are synced and used to personalize future AI training plans (e.g., lower volume after poor sleep/HRV).
@@ -557,7 +588,7 @@ User opens Dashboard and taps “Generate Today’s Plan” (or it's auto-genera
 
 **APIs & Data:**  
 - `POST /plans/generate`  
-- Data used: `Goals`, `WorkoutLogs`, `WearableSync`, `ContextEntries`
+- Data used: `Goals`, `WorkoutLogs`, `WearableSync (Phase 2)`, `ContextEntries`
 
 **Success Outcome:**  
 ✅ Personalized workout plan becomes available in Workout Player.
@@ -575,7 +606,7 @@ User taps “Start Workout” from dashboard or specific plan card.
 **Steps:**  
 1. Workout Player loads plan (sets, reps, RPE targets).  
 2. Timer and active exercise section appear.  
-3. User may optionally connect live HR (BLE) at this stage.  
+3. (Optional) — *(Phase 2)* User may connect live HR (BLE).  
 4. System prepares session log entry in `WorkoutLogs`.  
 5. Timer starts and first set is ready for logging.
 
@@ -591,7 +622,7 @@ User taps “Start Workout” from dashboard or specific plan card.
 
 ---
 
-### ✅ Flow 8 – Connect Live Heart Rate (BLE Broadcast)
+### ✅ Flow 8 – Connect Live Heart Rate (BLE Broadcast) *(Phase 2)*
 
 **Trigger:**  
 User taps **“Connect Heart Rate”** inside the Workout Player (optional feature).
@@ -720,7 +751,10 @@ After confirming the AI-generated workout plan or at the end of a session, the u
 ❌ No available playback device → user is prompted to open Spotify on a device.
 
 
-### ✅ Flow 12 – Sync Wearable & Health Data (Strava / Google Fit / Apple Health / Health Connect)
+### ✅ Flow 12 – Sync Wearable & Health Data (Strava / Google Fit / Apple Health / Health Connect) - *(Phase 2 Only)*
+
+*Note (Phase 1): Only simulated recovery inputs are available. Full Apple Health / Health Connect / cloud wearable sync begins in Phase 2.*
+
 
 **Trigger:**  
 Occurs automatically in the background at intervals defined in Settings, or manually when the user taps **“Sync Now”** under **Settings → Health & Wearables**.
@@ -735,7 +769,7 @@ Occurs automatically in the background at intervals defined in Settings, or manu
 3. For Apple Health (HealthKit):  
    - iOS companion app triggers background delivery or scheduled sync using anchored queries.  
 4. Health data (workouts, HR, HRV, sleep, calories) is normalized and mapped to internal schema.  
-5. Workouts are merged into `WorkoutSync` and linked to planned sessions when applicable.  
+5. Workouts are merged into WearableSync (Phase 2) and linked to planned sessions when applicable.  
 6. HR/HRV/Sleep metrics are stored (e.g., in `AppleHealthSamples` or equivalent tables).
 7. AI planning engine incorporates new recovery and training load data (e.g., reduce next day’s volume after poor sleep/HRV).
 
@@ -743,7 +777,7 @@ Occurs automatically in the background at intervals defined in Settings, or manu
 - `POST /wearables/sync` (Strava / Google Fit / Fitbit / Garmin / Polar / Health Connect)  
 - `POST /apple-health/sync/upload` (HealthKit batched sync)  
 - Database tables updated:
-  - `WorkoutSync` (workout sessions)
+  - `WearableSync` (workout sessions)
   - `AppleHealthSamples` (raw HR/HRV/sleep)
   - `AppleHealthSyncAnchors` (HealthKit sync anchor states)
 
@@ -864,7 +898,7 @@ User enables Offline Mode in Settings or loses internet connection automatically
 **Steps:**  
 1. When offline mode is enabled or connection is lost, app switches to cached mode.  
 2. User can still view today’s plan (if preloaded), log workout sets, and track time.  
-3. Logs and BLE HR data (if connected) are cached locally.  
+3. Logs are cached locally. *(Live HR caching applies in Phase 2)*  
 4. When internet is restored, app prompts “Sync available changes?”.  
 5. Cached logs are synced to backend; plan updates and wearable data can be requested.
 
@@ -922,7 +956,7 @@ These flows collectively describe the complete end-to-end user experience across
 | Dashboard accuracy | ±1% |
 | Spotify connection | ≥ 40% |
 | Playback success | ≥ 95% |
-| Wearable sync | ≥ 90% |
+| Wearable sync | ≥ 90% | - *(Phase 2)* |
 | Context usage | ≥ 50% weekly |
 | Playlist relevance | ≥ 4/5 |
 | AI uptime | 99% |
@@ -933,144 +967,159 @@ These flows collectively describe the complete end-to-end user experience across
 
 To ensure a focused and achievable delivery, the project is divided into two main phases:
 
-### ✅ Phase 1 — Web-First MVP (with Health & BLE Support)
-**Objective:** Deliver a fully functional web-based AI training assistant with essential integrations and live physiological feedback.
+---
 
-Included:
+### ✅ Phase 1 — Web-First MVP (No native health sync)
+**Objective:** Deliver a working web-based AI training assistant with adaptive planning, Spotify integration, and offline-safe core workout logging. Recovery logic can be validated using **simulated HRV/sleep input** where needed.
+
+✅ **Included:**
 - Web app (Next.js + FastAPI backend)
 - AI workout plan generation
 - Workout Player (sets/reps/RPE logging)
 - Progress Dashboard (volume, streaks, basic stats)
 - Context Window (mood/energy input → AI adaptation)
-- Spotify integration (Session Mix based on BPM and listening history)
-- **Apple Health sync (via HealthKit companion app)**
-- **Samsung Health sync (via Health Connect on Android)**
-- **Live Heart Rate via BLE (optional AI pace cues during workouts)**
-- GDPR account deletion, privacy preferences
-- Basic caching for daily workouts
+- Spotify integration (Session Mix v1 using BPM scoring + listening history)
+- **Simulated HRV/sleep dataset** to validate adaptive logic
+- GDPR-compliant account deletion & privacy preferences
+- Basic caching for daily plans and logs (offline-safe for single-day sessions)
+
+🚫 **Deferred to Phase 2:**
+- Apple Health (HealthKit) and Health Connect
+- Live Heart Rate via BLE with real-time coaching cues
+- Deep wearable cloud sync (Garmin/Fitbit/Polar/Strava/Google Fit)
+- Full readiness scoring based on multi-source wearable data
+
+✅ **Success Outcome:** A functional MVP where users can complete full AI-driven workouts on the web, with adaptive behavior proven through simulated recovery signals and enhanced motivation via music.
 
 ---
 
-### 📱 Phase 2 — Native Expansion & Advanced Wearable Ecosystem
-**Objective:** Extend the platform into a full mobile experience with deeper automation, notifications, native performance, and full wearable coverage.
+### 📱 Phase 2 — Native Expansion & Deep Wearable Ecosystem
+**Objective:** Evolve from a web-first MVP into a full mobile ecosystem with real wearable synchronization, real-time physiological feedback, and habit reinforcement loops.
 
-Planned additions:
-- Native iOS & Android apps (React Native or Swift + Kotlin)
-- Push notifications (daily plan reminders, habit nudges)
-- Full offline workout mode (with local sync + recovery when back online)
-- Deep device integrations (Garmin, Fitbit, Polar, Strava, Google Fit cloud sync)
-- AI readiness scoring based on weekly HRV, sleep, recovery trends
-- Automatic workout detection and post-session analysis
-- Advanced Session Mix evolution (emotion/adrenaline curve mapping)
-- Apple Watch / Wear OS mini workout controller (start, pause, HR display)
+✅ **Planned additions:**
+- Native mobile apps (React Native or Swift/Kotlin)
+- Full offline workout mode (local plan storage + sync reconciliation)
+- Push notifications (daily plan reminders, nudges, habit reinforcement)
+- 📡 Live Heart Rate via BLE (Web + Native) with AI microcues
+- Apple Health (HealthKit) & Health Connect (Android) anchored sync
+- Deep wearable cloud sync: Garmin, Fitbit, Polar, Strava, Google Fit
+- AI readiness scoring based on HRV, sleep load, and weekly recovery trends
+- Apple Watch / Wear OS mini workout companion (start/pause + HR display + optional HR broadcast fallback)
 - Background HR streaming + time-in-zone tracking
-- Sleep and load analysis with adaptive deload recommendations
+- Auto workout detection + post-session fatigue estimation
+- Advanced Session Mix evolution (emotionally adaptive BPM curves)
 
 ---
 
-## 🗓️ Phase 1 – Web-First MVP (6 Weeks)
+## 🗓️ Phase 1 Timeline (6 weeks + buffer)
 
-| Week | Milestones |
-|------|------------|
-| **1** | Architecture, repository setup, database schema, authentication (Google/Email/Apple), onboarding draft |
-| **2** | Full onboarding (goals, equipment, unit system, injuries) + AI workout plan generation pipeline |
-| **3** | Workout Player (web) with sets/reps/RPE logging + Context Window integration |
-| **4** | Progress Dashboard (volume, intensity, streaks) + Spotify OAuth + Session Mix v1 (BPM-based) |
-| **5** | ✅ Apple HealthKit sync (iOS companion MVP) – enables sleep/HRV-driven adaptation |
-| **6** | AI adaptive logic validation (using Apple Health or simulated HRV/sleep data, T13) + GDPR account deletion + basic offline caching (plan + logs) + QA & demo |
+| Week | Dates* | Gate (must pass to proceed) |
+|------|--------|------------------------------|
+| 1 | TBD | Auth + DB schema live on staging; onboarding draft clickable |
+| 2 | TBD | **GATE:** AI returns valid plan JSON (schema-valid) p95 ≤ 10s |
+| 3 | TBD | Workout Player logs ≥3 sets end-to-end; Context Window writes/reads |
+| 4 | TBD | Spotify OAuth works; Session Mix v1 created for a test plan |
+| 5 | TBD | **GATE:** Offline cache (plan + logs) passes resilience tests; GDPR export/delete jobs functional |
+| 6 | TBD | T1–T11 pass on staging; demo script dry-run successful |
 
-✅ **Outcome:** A functional web-based AI training assistant with adaptive AI (informed by Apple Health or simulated HRV), music-driven motivation, progress tracking, and offline-safe workout logging.
+**Buffer:** +1 week for critical fixes before release cut.  
+\*Dates filled once sprint start is locked.
+
+---
+
+## ✅ Phase 1 – Definition of Done (DoD)
+
+- [ ] T1–T11 all pass (see Acceptance below)
+- [ ] Onboarding p95 < 3 min across ≥20 test users
+- [ ] AI plan latency p95 ≤ 10s in staging, ≤12s in prod
+- [ ] Dashboard key metrics within ±1% vs golden dataset
+- [ ] Simulated HRV/sleep successfully injects recovery bias into plans (T10)
+- [ ] GDPR: Export/Delete completes <48h
+- [ ] No Critical/High findings (OWASP Top 10 review)
 
 
 ---
 
-## 📱 Phase 2 – Native App & Advanced Wearable Ecosystem (6–8 Weeks)
-
-| Week | Milestones | Key Deliverables |
-|------|------------|------------------|
-| **1** | Native mobile app foundation (React Native or Swift/Kotlin) | Auth integration + navigation + offline storage layer |
-| **2** | Full offline workout mode | Local plan storage + log syncing with reconciliation |
-| **3** | 📡 Live Heart Rate via BLE (Web + Native) | Real-time HR streaming + AI threshold cues |
-| **4** | Deep wearable sync | Samsung Health (Health Connect), Garmin, Fitbit, Polar, Strava, Google Fit cloud integrations |
-| **5** | AI readiness & recovery intelligence | Load/HRV/sleep-based adjustment of next plans |
-| **6** | Apple Watch / Wear OS mini workout companion | Start/pause + HR display + optional HR broadcast fallback |
-| **7** *(Optional)* | Performance trends & habit reinforcement | Recovery trends, progression curves, streak reinforcement |
-| **8** *(Buffer)* | QA, final polish, App Store / Play Store submission, release candidate |
-
-✅ **Outcome:** Full mobile-first experience with live HR coaching, advanced wearable ecosystem coverage, readiness-based AI adjustments, push-driven engagement, and deep offline capability.
-
----
-
-### ✅ Phase 1 Acceptance (Web MVP)
-
+## ✅ Phase 1 Acceptance (Web MVP)
 T1 – Auth works  
 T2 – AI returns valid JSON < 10 s  
 T3 – Logs are stored correctly  
-T4 – Dashboard shows accurate data  
+T4 – Dashboard shows accurate data (±1%)  
 T5 – Offline mode works (plan + logs cached)  
 T6 – Spotify connect OK  
 T7 – Playlist per phase (≥95% success)  
-T8 – Apple Health sync works (initial + delta) *(or simulated HRV/sleep for fallback validation)*  
+T8 – Context Window affects plan and music  
 T9 – Music analysis works (BPM classification + scoring)  
-T10 – Context Window affects plan and music  
-T11 – AI adapts based on HRV/sleep signals (validated with Apple Health or simulated data)  
-
-✅ *Passing Phase 1 requires a complete adaptive loop: user context + HRV/sleep → AI-adjusted plan.*
+T10 – Simulated HRV/sleep inputs are accepted and bias training plan  
+T11 – GDPR export & account deletion jobs meet SLA  
 
 ---
 
-### 📱 Phase 2 Acceptance (Native & Wearable Expansion)
+### 📍 Validation Plan for T10 (Simulated Recovery Influence)
+- A recovery slider (or predefined options: “Poor / Normal / Excellent”) is exposed in the Context Window for Phase 1.
+- Selecting "Poor" must trigger at least -10% planned volume/intensity vs baseline.
+- Selecting "Excellent" must trigger at least +10% planned volume/intensity vs baseline.
+- Validation is confirmed when 3+ test users report visible adjustment without manual explanation.
 
-T12 – BLE HR connection stable ≥1 Hz for full session  
-T13 – Real-time AI cues triggered from live HR thresholds  
-T14 – Deep wearable cloud sync works (Garmin / Fitbit / Polar / Strava / Samsung Health)  
-T15 – Offline mode fully supported in native apps (sync reconciliation works)  
+---
+
+## 📱 Phase 2 Acceptance (Native & Wearables)
+T12 – BLE HR connection stable ≥ 1 Hz full session  
+T13 – Real-time AI cues from live HR thresholds  
+T14 – Deep wearable cloud sync (Garmin/Fitbit/Polar/Strava/Health Connect)  
+T15 – Offline mode in native apps (sync reconciliation)  
 T16 – Push notifications delivered reliably  
-T17 – Mini watch companion app interacts with session state  
-T18 – AI readiness score varies based on real wearable trends (HRV/sleep/load-based)  
+T17 – Watch mini companion controls session state  
+T18 – Readiness score varies with real HRV/sleep/load trends
+T19 – Apple Health (HealthKit) anchored sync (initial + delta) reflects in dashboard  
+T20 – Health Connect (Android) returns correct data across granted scopes
 
 ---
 
-### 🛡️ Resilience & Fallback Strategy (BMAD – Method Compliance)
+## ⚠️ Risks & Mitigation — Phase 1 (Web MVP)
 
-The system follows an “always runnable” principle: the user must never be blocked from training even if one or more services fail.
+> Scored with Probability (P) and Impact (I) on a 3-level scale: Low / Medium / High.
 
-For external integrations (AI, Spotify, wearables, BLE, syncing, etc.), we apply this fallback structure:
-
-| Level | Action | Example |
-|------|--------|---------|
-| 1️⃣ Retry + Timeout | One quick retry within a strict max wait | Fetch AI plan, 8s timeout + 1 retry |
-| 2️⃣ Cache | Serve last known-good data (≤24h) | Show yesterday’s plan |
-| 3️⃣ Local substitute | Simple rule-based or manual alternative | Default strength session based on user goal |
-| 4️⃣ Graceful degrade | Temporarily disable the feature, keep session viable | Music or HR hidden, logging still works |
-| 5️⃣ UX information | Mild, non-blocking user notice | “Couldn’t reach the coach — using a safe session instead.” |
-
-This model is applied consistently to all “outer” components:
-- 🤖 AI generation → cache → simple rule-based plan  
-- 🎵 Spotify → playlist creation only → user controls playback manually  
-- 📡 BLE HR → auto-reconnect attempt → continue without HR (RPE-based coaching)  
-- ❤️ Health sync → retry → “Sync now” button → plan generated without wearable data  
-- 📶 Network → offline queue for logs → auto-sync when back online  
-- 🔑 OAuth failure → offline mode + cached data where safe  
-
-**Goal:** The user can *always* train, log, and progress — even when AI, music, or health integrations fail.
+| Risk | P | I | Triggers / Leading Indicators | Mitigation | Fall-Forward (if mitigation fails) | Owner | Status |
+|------|---|---|-------------------------------|------------|------------------------------------|-------|--------|
+| Simulated recovery model lacks realism | M | M | User feedback suggests no visible adjustment; low variability | Provide adjustable HRV/sleep sliders in Context Window; benchmark AI response change | Temporarily increase recovery weighting to ensure perception during testing | AI Eng | Open |
+| AI plan timeout or schema errors | M | H | p95 > 10s; JSON validation fails in logs | Timeout+retry; strict JSON schema; cached plan (≤24h) | Switch to rule-based template for the day; flag for prompt tuning | AI Eng | Open |
+| Spotify device/playback friction | M | M | 0 devices from `/devices`; 401/403 | Create playlist even without active device; reconnect UX; rate-limit polling | Degrade to user-managed playback; keep BPM scoring for next session | Frontend | Open |
+| Offline or flaky network | H | M | Repeated fetch failures; navigator offline | Local cache for plan; offline queue for logs (idempotent POST) | “Sync later” banner; conflict resolver on reconnect | Frontend | Open |
+| Privacy/GDPR regressions | L | H | Missing delete or export within SLA | Data minimization, encrypted tokens, delete/export jobs | Disable non-essential collection until fixed; hotfix priority | Sec/PO | Open |
+| Timeline compression (Week 5–6) | M | M | Slips in Week 4 gates | Prioritize core MVP flows (AI → Player → Logs → Dashboard); push non-critical scope | Drop minor UX polish or secondary features to protect T10/T11 gates | PO | Open |
+| Music scoring quality | M | M | Low playlist relevance NPS < 4/5 | Use BPM+energy heuristics; favor known tracks | Fall back to curated BPM pools per phase | AI/Frontend | Open |
+| Dashboard accuracy drift | L | M | User or QA reports metric mismatches >1% vs reference logs | Golden dataset validation + unit tests for dashboard calculations | Hide affected metric temporarily with “under review” label | Backend | Open |
 
 
 ---
 
-## ⚠️ Risks & Mitigation
+## ⚠️ Risks & Mitigation — Phase 2 (Native & Wearables)
 
-| Risk | Mitigation |
-|------|-------------|
-| Spotify rate limits | Cache and limit polling |
-| API differences | Use adapters, manual fallback |
-| LLM parsing errors | JSON schema + validation |
-| AI cost / downtime | 24h cache, static templates |
-| Privacy | Encryption, consent, deletion |
-| Timeline pressure | Scrum, feature freeze week 5 |
-| Connectivity | Local cache, optimistic UI |
-| iOS background delivery limitations | Use anchored queries + fallback manual sync |
-| BLE compatibility | Fallback to plan without live HR coaching |
+| Risk | P | I | Triggers / Leading Indicators | Mitigation | Fall-Forward | Owner | Status |
+|------|---|---|-------------------------------|------------|-------------|-------|--------|
+| BLE fragmentation (Web + Native) | H | M | Frequent disconnects; unsupported browsers | Known-good device matrix; auto-reconnect; hysteresis on HR thresholds | Disable live cues; continue RPE guidance | Mobile Lead | Planned |
+| Health Connect permission variance | M | M | Scopes denied; 0 rows returned | Clear permission flows; granular scopes | Defer HC; use local logs until granted | Android Dev | Planned |
+| Deep cloud sync limits (Garmin/Fitbit/Polar/Strava) | M | H | Rate limits; backfill gaps | Backoff + job queues; partial backfills | Mark as “Sync later”; user “Sync now” control | Backend | Planned |
+| Push notification reliability | M | M | Low delivery/open rates | Provider redundancy; analytics | In-app reminders as backup | Mobile Lead | Planned |
+| App Store / Play Store review delays | M | M | Rejections for permissions | Pre-submission audits; permission rationale | Stage rollout; remove contentious scopes | PO | Planned |
+
+---
+
+## 🧪 Non-Functional Requirements (NFR) & Observability
+
+| Area | Target | Validation |
+|------|--------|------------|
+| Performance | p95 API (non-AI) < 300ms; AI p95 ≤ 10s | APM traces |
+| Availability | 99% uptime Phase 1 | Error budget |
+| Security | 0 Critical OWASP Top 10 | Security audit |
+| Privacy | Delete/export < 48h (GDPR) | Job monitoring |
+| Offline Behavior | Full session logging offline | Integration tests |
+| Observability | Structured logs, latency metrics, AI success %, plan generation failures | Dashboard alerts |
+| Rate Limiting | AI endpoint per-user & global quotas | 429 metrics & alerts |
+| GDPR Ops | Export/Delete job metrics & alerts | SLA dashboards |
+| Data jobs: “Export/deletion jobs expose metrics (queued/running/success/fail) with alerts on SLA breaches” |
+| Data Ops | Export/deletion jobs expose metrics (queued/running/success/fail) with alerts on SLA breaches | SLA dashboards |
 
 ---
 
