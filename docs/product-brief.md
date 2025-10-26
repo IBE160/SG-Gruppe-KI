@@ -17,16 +17,13 @@ To develop an AI-assisted training companion that provides adaptive daily workou
 
 ## 4. Core Functionality (Phase 1 MVP)
 
-The MVP will be a web-first application with the following key features:
+The MVP will be a web-first application focused on delivering a highly interactive and personalized training experience.
 
-*   **Conversational Onboarding:** An interactive setup process to gather user goals, equipment, and preferences.
-*   **AI Daily Plan Generator:** Generates personalized, adaptive workout plans based on user input.
-*   **Context Window:** A core feature allowing users to provide daily context (mood, energy, sleep) via free-text and emoticons. The AI provides transparent feedback and learns from user choices.
-*   **Workout Player:** Guides the user through their daily workout with timers and logging for sets, reps, and RPE.
-*   **"Smart Radio" Music Integration:** An adaptive music experience that learns implicitly from user skips to create personalized Spotify playlists that match the workout's intensity.
-*   **Progress Dashboard:** Tracks key metrics like volume, intensity, and streaks.
-*   **Offline Caching:** Ensures the daily workout and logging are available without an internet connection.
-*   **AI Personalization Settings:** A dedicated settings page where users can view and manage the AI's learned preferences.
+*   **Conversational Onboarding:** A chatbot-like setup process that gathers user goals, equipment, and preferences through an engaging dialogue.
+*   **Adaptive Dialogue & Context Window:** The core feature where users provide daily context (mood, energy). The AI proposes workout changes with clear reasoning, and users can accept, decline, or provide further feedback, creating a collaborative planning experience.
+*   **"Smart Radio" Music Integration:** An adaptive music experience for Spotify that learns implicitly from user skips during different workout phases to constantly improve playlist personalization.
+*   **AI Personalization Settings:** A dedicated settings page where users can view and manage the AI's learned preferences and constraints, ensuring transparency and control.
+*   **Core Workout Tools:** Includes a workout player with timers and logging (sets, reps, RPE), a progress dashboard, and offline caching for the daily plan and logs.
 
 ## 5. Technology Stack (Phase 1)
 
