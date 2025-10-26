@@ -129,6 +129,15 @@ A dedicated **Settings page** gives users full control over personal preferences
 - **Use Session Mix:** On / Off  
 - **BPM Matching by Workout Phase:** On / Off  
 
+### 🧠 AI & Personalization
+This section gives users transparent control over the AI's learned preferences and constraints.
+
+- **Learned Preferences:** A list of rules the AI has learned from user feedback.
+  - *Example: "When knee is sore, prefer Leg Press over Goblet Squats."* `[Edit]` `[Delete]`
+- **Learned Constraints:** A list of constraints the AI has learned.
+  - *Example: "Limited dumbbell weight."* `[Edit]` `[Delete]`
+- **Clear AI Memory:** A button to reset all learned preferences and constraints, allowing the user to start fresh with the AI.
+
 ### 🔒 Privacy & Account
 - **Consent Settings:** Manage analytics and AI permissions  
 - **Revoke Integrations:** Spotify / **Apple Health** *(Phase 2)* · Health Connect / Google Fit / Fitbit / Garmin / Polar *(Phase 2)*  
@@ -192,11 +201,19 @@ The daily plan prompt is generated from a dynamic context that includes:
 - Reduces intensity for low HRV or insufficient sleep
 - Elevates load when progress is consistent and recovery is high
 
-### 🎵 AI-Driven Music Matching
-- Pulls candidate tracks from *Recently Played*, prioritizing songs used in past workouts
-- Scores tracks based on BPM fit, energy level, phase relevance, historical skips/completions
-- Uses Spotify audio features (BPM, energy, danceability) and genres
-- Backfills using recommendations when insufficient phase-fitting tracks exist
+### 🎵 AI-Driven Music Matching ("Smart Radio")
+
+The music integration is designed to feel like a "Smart Radio" that learns from user feedback to create the perfect workout soundtrack.
+
+#### Phased Learning Approach
+*   **Phase 1 (Implicit Learning):** The AI learns from user behavior. The primary learning signal is the **skip rate**. The AI analyzes which songs are skipped and during which workout phase (warm-up, main set, cooldown) to improve future playlists. A high skip rate for a song in a certain phase will reduce its ranking for similar future phases.
+*   **Phase 2 (Explicit Feedback):** The UI will introduce **"❤️ / 👎" buttons**, allowing users to give explicit feedback on tracks. This will provide a much stronger signal to the AI for playlist personalization.
+
+#### Playlist Generation
+- Pulls candidate tracks from *Recently Played*, prioritizing songs used in past workouts.
+- Scores tracks based on BPM fit, energy level, phase relevance, and historical user feedback (skips in Phase 1, likes/dislikes in Phase 2).
+- Uses Spotify audio features (BPM, energy, danceability) and genres.
+- Backfills using recommendations when insufficient phase-fitting tracks exist.
 
 **BPM intensity mapping (default):**
 | Phase      | Target BPM |
@@ -315,27 +332,35 @@ The daily plan prompt is generated from a dynamic context that includes:
 
 ---
 
-## 🧩 UX Spec — Context Window
+## 🧩 UX Spec — Context Window & Adaptive Dialogue
 
-- **Placement:** sticky, collapsible panel  
-- **Chips:** quick tags (*cutting*, *deload*, *posterior chain*, *low energy*, *poor sleep*)  
-- **Parsing:** client hints + LLM structuring  
-- **Scope:** session / week / always  
-- **Privacy:** user controls data retention and deletion  
+The Context Window is the core of the AI companion experience, enabling a daily dialogue that makes the user feel heard and understood.
+
+### Interaction Flow
+1.  **User Input:** The user provides daily context via a combination of:
+    *   **Emoticons:** Quick mood indicators (e.g., 😊, 😐, 😫).
+    *   **Free-text entry:** Rich, qualitative feedback (e.g., "Slept terribly, my shoulder is a bit sore," or "Feeling amazing, ready to crush it!").
+2.  **AI Adaptation & Proposal:** The AI processes the input and proposes adaptations to the day's workout plan. Crucially, it communicates these changes transparently.
+    *   **Example Message:** "Heard. Let's take it easier today. I've adjusted your leg exercises to be lower impact and reduced the total volume to help you recover. I've also picked a more chill playlist for your warmup."
+3.  **User Confirmation:** The user is empowered with control over the final plan.
+    *   **Example Prompt:** "I suggest we swap **Squats** for **Goblet Squats** to reduce knee strain. Sound good?"
+    *   **Options:** `[Accept]` `[Decline]`
+4.  **Handling Declines (Learning Loop):** If the user declines a suggestion, the AI seeks to learn why, reinforcing the conversational nature of the app.
+    *   **AI Follow-up:** "Understood. Could you tell me why? Is there a different exercise you'd prefer?"
+    *   **User Response:** "I don't have a heavy enough dumbbell for goblet squats. Let's do leg press instead."
+5.  **Long-Term Memory:** The AI remembers these interactions to make better initial suggestions in the future. It learns both user preferences ("prefers Leg Press when knee is sore") and constraints ("limited dumbbell weight").
 
 ### 🔍 Phase 1 Recovery Source Strategy (Simulated Input)
 - Wearable sync is not available in Phase 1.
-- Users manually indicate perceived state using:
-  - A quick slider (e.g. *Energy / Sleep / Recovery → Poor / Normal / Excellent*), and/or  
-  - Optional free-text input (“Slept 5h, legs tired, motivation low”).
+- Users manually indicate perceived state using the Context Window (emoticons, free text).
 - This is internally mapped to:
   - `recovery_bias` ∈ { -1 (poor), 0 (normal), +1 (excellent) }
   - Simulated signals: `{ hrv_score_sim, sleep_score_sim }`
 - These simulated metrics are injected into the AI planning context.
 
 ### ✅ Validation Basis for T10 (Plan must change with simulated recovery)
-- Selecting **“Poor”** must reduce planned volume/intensity by at least ~10% compared to baseline.
-- Selecting **“Excellent”** must increase workload or add optional top set (~+10%).
+- Selecting **“Poor”** in the Context Window must reduce planned volume/intensity by at least ~10% compared to baseline.
+- Selecting **“Excellent”** must increase workload or add an optional top set (~+10%).
 - Validated when ≥3 test users clearly observe the change without guidance.
 - Phase 2 will replace the simulator with real HRV/sleep from wearables.
 
@@ -393,29 +418,44 @@ User opens the app for the first time or returns after logging out.
 
 ---
 
-### ✅ Flow 2 – Goal & Preference Setup (Onboarding Continuation)
+### ✅ Flow 2 – Goal & Preference Setup (Conversational Onboarding)
 
 **Trigger:**  
-Immediately after first authentication or when user re-enters onboarding.
+Immediately after first authentication (for new users).
 
-**Steps:**  
-1. User selects training goal (e.g., Strength / Fat Loss / Endurance).  
-2. User chooses available training time per week and session length.  
-3. User selects available equipment (e.g., bodyweight, dumbbells, full gym).  
-4. User indicates any injuries or limitations.  
-5. User sets unit system (kg/lbs, metric/imperial).  
-6. User confirms setup and proceeds to optional integrations.
+**Strategy:** A "Progressive Onboarding" approach starting with a conversational setup to gather the essential information for the first workout.
 
-**APIs & Data:**  
-- Stores data in `Goals`: `goal`, `equipment`, `injuries`, `frequency`  
-- Updates `Users` with units & measurement system
+**Style:** The onboarding will feel like a chat with the AI companion, using a mix of interactive UI elements to make it fast and engaging.
 
-**Success Outcome:**  
-✅ AI has contextual info to generate personalized plans.
+**Steps (Day 1):**
+1.  **Welcome & Goal:**
+    *   **AI:** "Welcome! I'm your personal training advisor. To get started, what's your main goal?"
+    *   **UI:** The user selects from large, clear buttons (e.g., `Build Muscle`, `Lose Fat`, `General Fitness`).
+2.  **Time & Frequency:**
+    *   **AI:** "Great. How many days a week do you want to train, and for how long?"
+    *   **UI:** The user adjusts sliders for "Days per week" and "Minutes per session".
+3.  **Equipment:**
+    *   **AI:** "Got it. What kind of equipment are you working with?"
+    *   **UI:** The user taps icons in a multi-select list (e.g., dumbbell, barbell, kettlebell, bands).
+4.  **Injuries & Limitations:**
+    *   **AI:** "Thanks. To keep you safe, do you have any injuries or limitations I should be aware of?"
+    *   **UI:** The user selects from a list of common areas (e.g., `Knees`, `Shoulders`, `Back`) or types in a free-text field.
+5.  **Units:**
+    *   **AI:** "Last question. Do you prefer to work with kilograms or pounds?"
+    *   **UI:** The user selects from a simple toggle (`kg` / `lbs`).
+6.  **Confirmation & First Plan:**
+    *   **AI:** "Perfect! I have everything I need to create your first workout plan."
+    *   The user is then navigated to the dashboard where their first AI-generated plan is waiting.
 
-**Failure / Fallback:**  
-❌ Missing required fields → user prompted to complete.  
-❌ User skips setup → defaults applied (may reduce accuracy).
+**APIs & Data:**
+-   Stores data in `Goals`: `goal`, `equipment`, `injuries`, `frequency`.
+-   Updates `Users` with `unit_system`.
+
+**Success Outcome:**
+✅ The user provides the essential information in an engaging way, and the AI has enough context to generate a high-quality first workout plan.
+
+**Failure / Fallback:**
+❌ User drops off mid-onboarding → Their progress is saved, and they are prompted to complete it upon their next login.
 
 ---
 
