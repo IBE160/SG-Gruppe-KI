@@ -21,8 +21,10 @@ The MVP will be a web-first application focused on delivering a highly interacti
 
 *   **Conversational Onboarding:** A chatbot-like setup process that gathers user goals, equipment, and preferences through an engaging dialogue.
 *   **Adaptive Dialogue & Context Window:** The core feature where users provide daily context (mood, energy). The AI proposes workout changes with clear reasoning, and users can accept, decline, or provide further feedback, creating a collaborative planning experience.
-*   **"Smart Radio" Music Integration:** An adaptive music experience for Spotify that learns implicitly from user skips during different workout phases to constantly improve playlist personalization.
+*   **"Smart Radio" Music Integration:** An adaptive music experience for Spotify that learns implicitly from user skips during different workout phases to constantly improve playlist personalization. For non-premium users, the app will use track skips as an implicit feedback mechanism for the AI and provide symbols for users to give explicit feedback on whether a track matches the workout intensity.
 *   **AI Personalization Settings:** A dedicated settings page where users can view and manage the AI's learned preferences and constraints, ensuring transparency and control.
+*   **Data Privacy and User Control:** Wearable data sharing will be optional, with transparency in the settings page about what data the AI is using. Data will be anonymized where possible.
+*   **Resilient AI:** If the AI is unavailable, the app will fall back to a cached workout from the user's history (e.g., last push/pull workout) and allow manual edits.
 *   **Core Workout Tools:** Includes a workout player with timers and logging (sets, reps, RPE), a progress dashboard, and offline caching for the daily plan and logs.
 
 ## 5. Technology Stack (Phase 1)

@@ -206,7 +206,7 @@ The daily plan prompt is generated from a dynamic context that includes:
 The music integration is designed to feel like a "Smart Radio" that learns from user feedback to create the perfect workout soundtrack.
 
 #### Phased Learning Approach
-*   **Phase 1 (Implicit Learning):** The AI learns from user behavior. The primary learning signal is the **skip rate**. The AI analyzes which songs are skipped and during which workout phase (warm-up, main set, cooldown) to improve future playlists. A high skip rate for a song in a certain phase will reduce its ranking for similar future phases.
+*   **Phase 1 (Implicit Learning):** The AI learns from user behavior. The primary learning signal is the **skip rate**. The AI analyzes which songs are skipped and during which workout phase (warm-up, main set, cooldown) to improve future playlists. A high skip rate for a song in a certain phase will reduce its ranking for similar future phases. For non-premium users, symbols can be used to indicate if a track matches the intensity.
 *   **Phase 2 (Explicit Feedback):** The UI will introduce **"❤️ / 👎" buttons**, allowing users to give explicit feedback on tracks. This will provide a much stronger signal to the AI for playlist personalization.
 
 #### Playlist Generation
@@ -229,9 +229,9 @@ The music integration is designed to feel like a "Smart Radio" that learns from 
   - *“You're under target — increase intensity slightly”*
 
 ### 🛡️ Resilience & Fallback
-- If AI fails, system loads cached plan (valid for 24 hours)
-- Simple rule-based templates available as a backup
-- AI adjustments logged over time for progressive refinement
+- If AI fails, system loads a cached workout from the user's history (e.g., last push/pull workout) with the ability for manual edits.
+- Simple rule-based templates available as a backup.
+- AI adjustments logged over time for progressive refinement.
 
 ---
 
@@ -1121,6 +1121,7 @@ T20 – Health Connect (Android) returns correct data across granted scopes
 
 | Risk | P | I | Triggers / Leading Indicators | Mitigation | Fall-Forward (if mitigation fails) | Owner | Status |
 |------|---|---|-------------------------------|------------|------------------------------------|-------|--------|
+| User trust and data privacy concerns | M | H | Low adoption of wearable integration; user complaints | Make wearable data sharing optional; provide transparency in settings about what data the AI is using; anonymize data where possible. | Rely on manual user input for workout personalization. | PO | Open |
 | Simulated recovery model lacks realism | M | M | User feedback suggests no visible adjustment; low variability | Provide adjustable HRV/sleep sliders in Context Window; benchmark AI response change | Temporarily increase recovery weighting to ensure perception during testing | AI Eng | Open |
 | AI plan timeout or schema errors | M | H | p95 > 10s; JSON validation fails in logs | Timeout+retry; strict JSON schema; cached plan (≤24h) | Switch to rule-based template for the day; flag for prompt tuning | AI Eng | Open |
 | Spotify device/playback friction | M | M | 0 devices from `/devices`; 401/403 | Create playlist even without active device; reconnect UX; rate-limit polling | Degrade to user-managed playback; keep BPM scoring for next session | Frontend | Open |
