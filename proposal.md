@@ -54,7 +54,6 @@ The goal is efficient progress and lasting consistency.
 10. **Recovery Inputs (Simulated)**
    - Optional simulated HRV/sleep dataset to validate adaptive logic *(real wearables → Phase 2)*
 
-
 ---
 
 ## 🚫 Out of Scope (Phase 1)
