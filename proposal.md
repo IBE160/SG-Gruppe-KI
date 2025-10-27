@@ -53,6 +53,8 @@ The goal is efficient progress and lasting consistency.
    - Free-text entry → structured adaptive signals (energy, mood, sleep) powering AI & music scoring 
 10. **Recovery Inputs (Simulated)**
    - Optional simulated HRV/sleep dataset to validate adaptive logic *(real wearables → Phase 2)*
+11. **Weekly Review Ritual**
+   - Automated weekly summary of progress, celebrating wins and offering AI-driven suggestions for the next week to create a powerful habit loop.
 
 ---
 
@@ -67,6 +69,10 @@ The goal is efficient progress and lasting consistency.
 ---
 
 ### 💡 Nice-to-Have (Phase 2)
+- Lightweight Social Sharing
+  - Generate a shareable summary card after a workout is completed.
+- Gamification & Achievements
+  - Badges or achievements for milestones (e.g., total weight lifted, streaks, PRs).
 - Camera-based form guidance  
 - Event-based periodization  
 - Safety prompts for health alerts  
@@ -203,17 +209,32 @@ The daily plan prompt is generated from a dynamic context that includes:
 
 ### 🎵 AI-Driven Music Matching ("Smart Radio")
 
-The music integration is designed to feel like a "Smart Radio" that learns from user feedback to create the perfect workout soundtrack.
+The music integration is designed to feel like a "Smart Radio" that learns from user feedback to create the perfect workout soundtrack. It is based on a two-tier playlist system: large, phase-specific **Master Lists** and a dynamic **Session Playlist**.
 
-#### Phased Learning Approach
-*   **Phase 1 (Implicit Learning):** The AI learns from user behavior. The primary learning signal is the **skip rate**. The AI analyzes which songs are skipped and during which workout phase (warm-up, main set, cooldown) to improve future playlists. A high skip rate for a song in a certain phase will reduce its ranking for similar future phases. For non-premium users, symbols can be used to indicate if a track matches the intensity.
-*   **Phase 2 (Explicit Feedback):** The UI will introduce **"❤️ / 👎" buttons**, allowing users to give explicit feedback on tracks. This will provide a much stronger signal to the AI for playlist personalization.
+#### 1. Seeding the Master Lists
+The AI populates and maintains large "Master Lists" of candidate tracks for each workout phase (e.g., Warm-up, Main, Cooldown), with each list holding up to 100 songs. These lists are seeded from multiple sources:
+-   **Spotify History:** The user's `recently-played` tracks from Spotify.
+-   **Linked Playlists:** Favorite playlists the user explicitly links as a source.
+-   **User Preferences:** Favorite genres and artists specified by the user in settings.
+-   **Past Workouts:** Tracks that have been used and not disliked in previous sessions.
 
-#### Playlist Generation
-- Pulls candidate tracks from *Recently Played*, prioritizing songs used in past workouts.
-- Scores tracks based on BPM fit, energy level, phase relevance, and historical user feedback (skips in Phase 1, likes/dislikes in Phase 2).
-- Uses Spotify audio features (BPM, energy, danceability) and genres.
-- Backfills using recommendations when insufficient phase-fitting tracks exist.
+#### 2. Playlist Generation & Pre-Workout Review
+-   Before a workout, the AI generates a **"Session Playlist"** by selecting the highest-scoring tracks from the relevant Master Lists.
+-   The user is presented with this Session Playlist on a **pre-workout preview screen**, where they can review the selections.
+
+#### 3. Learning from User Feedback
+The AI learns through a clear system of implicit and explicit user actions during the workout or on the preview screen:
+
+*   **Soft Delete (Skip):** If a user skips a song **within the first 30 seconds**, it is removed from the current *Session Playlist* and replaced with another track from the Master List. This is a weak negative signal, and the song remains in the Master List for possible future inclusion.
+*   **Hard Delete (Manual Removal):** From the preview screen or a track's context menu, the user can choose to **"Remove from library."** This is a strong, permanent negative signal that removes the song from the Master List entirely.
+*   **Positive Signals:** The AI also learns from positive signals, such as a song being allowed to finish, or future features like replaying a track (a very strong positive signal).
+
+#### Scoring & Ranking
+-   Tracks in the Master Lists are continuously scored based on:
+    -   BPM and audio features (energy, danceability) matching the workout phase.
+    -   Positive/negative feedback signals (skips, deletes, completions).
+    -   Recency and variety to avoid repetition.
+-   If a Master List has insufficient tracks, the AI backfills it using Spotify recommendations based on the user's seed preferences.
 
 **BPM intensity mapping (default):**
 | Phase      | Target BPM |
@@ -1017,6 +1038,7 @@ To ensure a focused and achievable delivery, the project is divided into two mai
 - Workout Player (sets/reps/RPE logging)
 - Progress Dashboard (volume, streaks, basic stats)
 - Context Window (mood/energy input → AI adaptation)
+- Weekly Review Ritual (automated summary and forward-looking AI suggestions)
 - Spotify integration (Session Mix v1 using BPM scoring + listening history)
 - **Simulated HRV/sleep dataset** to validate adaptive logic
 - GDPR-compliant account deletion & privacy preferences
@@ -1039,6 +1061,8 @@ To ensure a focused and achievable delivery, the project is divided into two mai
 - Native mobile apps (React Native or Swift/Kotlin)
 - Full offline workout mode (local plan storage + sync reconciliation)
 - Push notifications (daily plan reminders, nudges, habit reinforcement)
+- Lightweight Social Sharing (workout summary cards)
+- Gamification & Achievements (badges, milestones)
 - 📡 Live Heart Rate via BLE (Web + Native) with AI microcues
 - Apple Health (HealthKit) & Health Connect (Android) anchored sync
 - Deep wearable cloud sync: Garmin, Fitbit, Polar, Strava, Google Fit
