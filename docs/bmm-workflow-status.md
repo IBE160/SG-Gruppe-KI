@@ -12,7 +12,7 @@ WORKFLOW_PATH: greenfield-level-3.yaml
 ## Current State
 
 CURRENT_PHASE: 2
-CURRENT_WORKFLOW: done
+CURRENT_WORKFLOW: product-brief - Complete
 CURRENT_AGENT: pm
 PHASE_1_COMPLETE: true
 PHASE_2_COMPLETE: false
