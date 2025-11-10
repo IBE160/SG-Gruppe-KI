@@ -46,6 +46,8 @@ So that the application has a solid and scalable foundation.
 
 **Prerequisites:** None
 
+**Note:** This story appears to be significantly larger than others and may require further breakdown during sprint planning to fit within a single sprint or the "2-4 hour focused session" guideline.
+
 **Story 1.2: Email & Password Authentication**
 
 As a new user,
@@ -116,6 +118,8 @@ So that my training is adapted to my goals, preferences, and current state.
 3.  Plan generation latency is p95 ≤ 10 seconds.
 
 **Prerequisites:** Story 1.5
+
+**Note:** This story appears to be significantly larger than others and may require further breakdown during sprint planning to fit within a single sprint or the "2-4 hour focused session" guideline.
 
 **Story 2.2: Create the Workout Player UI**
 
@@ -296,15 +300,17 @@ So that I can ensure the AI responds correctly to different recovery states befo
 
 ### Story Breakdown
 
-**Story 4.1: Design the User Dashboard**
+**Story 4.1: Implement the Main Dashboard Layout**
 
 As a user,
-I want a clear and intuitive dashboard,
-So that I can quickly see my progress, next workout, and key metrics.
+I want a clear and intuitive main dashboard layout,
+So that I can get a quick overview of my current status and easily navigate the app.
 
 **Acceptance Criteria:**
-1.  Dashboard displays current workout plan, progress summary, and motivational elements.
-2.  Easy navigation to other core features like Workout Player and Settings.
+1.  A main dashboard UI is created that serves as the primary landing screen after login.
+2.  The layout includes designated areas/placeholders for the daily workout summary, progress highlights (from Story 2.4), and navigation elements.
+3.  The dashboard provides clear navigation paths to the full Workout Player, Progress Dashboard, and Settings.
+4.  The layout is responsive and functions correctly on target devices.
 
 **Prerequisites:** Story 2.4
 
