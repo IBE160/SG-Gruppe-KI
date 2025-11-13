@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Personal Trainer - Design Direction Showcase</title>
+    <style>
+        :root {
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --primary: #8B5CF6;
+            --primary-foreground: #FFF;
+            --secondary: #E2E8F0;
+            --secondary-foreground: #1E293B;
+            --background: #FFFFFF;
+            --foreground: #111827;
+            --card: #FFFFFF;
+            --card-foreground: #111827;
+            --muted: #F1F5F9;
+            --muted-foreground: #64748B;
+            --border: #E2E8F0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: #F7F7F7;
+            color: var(--foreground);
+            margin: 0;
+        }
+
+        .showcase-header {
+            background-color: var(--background);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .showcase-header h1 {
+            margin: 0 0 0.5rem 0;
+        }
+
+        .showcase-header p {
+            margin: 0;
+            color: var(--muted-foreground);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: #fff;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .controls button {
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .controls button.active {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        .direction-container {
+            background-color: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .direction-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .direction-header h2 {
+            font-size: 1.25rem;
+            margin: 0 0 0.25rem 0;
+        }
+        
+        .direction-header p {
+            font-size: 0.9rem;
+            color: var(--muted-foreground);
+            margin: 0;
+        }
+        
+        .mockup-frame {
+            padding: 1.5rem;
+            background: linear-gradient(145deg, #F9FAFB, #F1F5F9);
+        }
+        
+        .mockup-content {
+            background-color: var(--background);
+            color: var(--foreground);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 1rem;
+            font-size: 14px;
+        }
+        
+        /* Common Mockup Styles */
+        .mockup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .mockup-header .logo { font-weight: 600; }
+        .mockup-header .avatar { width: 32px; height: 32px; background-color: var(--muted); border-radius: 50%; }
+        
+        .mockup-body { padding: 1rem; }
+        
+        .card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+        
+        .btn {
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-primary { background-color: var(--primary); color: var(--primary-foreground); }
+        
+        /* Direction-specific styles */
+        
+        /* 1. Spacious & Calm */
+        .direction-1 .mockup-body {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .direction-1 .card h3 { margin: 0 0 0.5rem 0; font-size: 1.5rem; }
+        .direction-1 .card p { margin: 0 0 1.5rem 0; color: var(--muted-foreground); }
+        .direction-1 .btn { width: 100%; }
+
+        /* 2. Data-Driven Dashboard */
+        .direction-2 .mockup-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .direction-2 .card { padding: 1rem; }
+        .direction-2 .card h3 { font-size: 1rem; margin: 0 0 0.5rem 0; }
+        .direction-2 .stat { font-size: 1.75rem; font-weight: 600; }
+        .direction-2 .main-card { grid-column: 1 / -1; text-align: center; }
+        .direction-2 .btn { font-size: 0.9rem; padding: 0.6rem 1.2rem; }
+
+        /* 3. Minimalist & Focused */
+        .direction-3 .mockup-body { text-align: center; }
+        .direction-3 h3 { font-size: 2rem; font-weight: 700; margin: 2rem 0 0.5rem 0; }
+        .direction-3 p { color: var(--muted-foreground); margin: 0 0 2rem 0; }
+        .direction-3 .btn { display: inline-block; width: auto; }
+        
+        /* 4. Card-Based Feed */
+        .direction-4 .mockup-body { display: flex; flex-direction: column; gap: 1rem; }
+        .direction-4 .card { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; }
+        .direction-4 .card-content h3 { margin: 0 0 0.25rem 0; }
+        .direction-4 .card-content p { margin: 0; color: var(--muted-foreground); font-size: 0.85rem; }
+        .direction-4 .btn { font-size: 0.9rem; padding: 0.6rem 1.2rem; }
+        
+        /* 5. Immersive & Bold */
+        .direction-5 .mockup-content { background-color: #111; color: #fff; --border: #333; }
+        .direction-5 .card { background-color: #222; border-color: #444; text-align: center; }
+        .direction-5 .card h3 { font-size: 2rem; color: var(--primary); }
+        .direction-5 .card p { color: #aaa; }
+        
+        /* 6. Playful & Engaging */
+        .direction-6 .card { border: 2px solid var(--border); box-shadow: 4px 4px 0px var(--primary); }
+        .direction-6 .btn { box-shadow: 2px 2px 0px var(--secondary-foreground); }
+        .direction-6 h3 { font-family: 'Comic Sans MS', cursive, sans-serif; /* Just for effect! */ }
+        
+        /* Hide all by default */
+        .direction-container { display: none; }
+        .direction-container.active { display: block; }
+
+    </style>
+</head>
+<body>
+
+    <div class="showcase-header">
+        <h1>🎨 Design Direction Showcase</h1>
+        <p>
+            Users make better decisions when they can see and interact with options. Below are several design directions for the app's key screens.
+            Each mockup shows a different vision for the app's look and feel. Explore them to see which layout, hierarchy, and style feels most intuitive for your users.
+        </p>
+    </div>
+    
+    <div class="controls">
+        <button class="active" data-direction="all">All</button>
+        <button data-direction="1">1. Spacious</button>
+        <button data-direction="2">2. Data-Driven</button>
+        <button data-direction="3">3. Minimalist</button>
+        <button data-direction="4">4. Card Feed</button>
+        <button data-direction="5">5. Immersive</button>
+        <button data-direction="6">6. Playful</button>
+    </div>
+
+    <div class="showcase-grid">
+        <!-- Direction 1: Spacious & Calm -->
+        <div class="direction-container direction-1 active">
+            <div class="direction-header">
+                <h2>1. Spacious & Calm</h2>
+                <p>Lots of white space, clear focus on the primary action. Feels calm and approachable, inspired by Headspace.</p>
+            </div>
+            <div class="mockup-frame">
+                <div class="mockup-content">
+                    <div class="mockup-header">
+                        <div class="logo">FlowFit AI</div>
+                        <div class="avatar"></div>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="card">
+                            <h3>Ready for Today?</h3>
+                            <p>Start your adaptive session to get a plan that fits how you feel right now.</p>
+                            <button class="btn btn-primary">⭐ Start Adaptive Session</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 2: Data-Driven Dashboard -->
+        <div class="direction-container direction-2 active">
+            <div class="direction-header">
+                <h2>2. Data-Driven Dashboard</h2>
+                <p>Puts key stats front and center. For users who are motivated by numbers and progress, inspired by Strava.</p>
+            </div>
+            <div class="mockup-frame">
+                <div class="mockup-content">
+                    <div class="mockup-header">
+                        <div class="logo">FlowFit AI</div>
+                        <div class="avatar"></div>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="card main-card">
+                            <h3>Ready for Today?</h3>
+                            <button class="btn btn-primary">⭐ Start Adaptive Session</button>
+                        </div>
+                        <div class="card">
+                            <h3>Weekly Volume</h3>
+                            <p class="stat">12,345 kg</p>
+                        </div>
+                        <div class="card">
+                            <h3>Current Streak</h3>
+                            <p class="stat">🔥 14 days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 3: Minimalist & Focused -->
+        <div class="direction-container direction-3 active">
+            <div class="direction-header">
+                <h2>3. Minimalist & Focused</h2>
+                <p>Strips away all distractions. The entire focus is on the single most important action: starting the session.</p>
+            </div>
+            <div class="mockup-frame">
+                <div class="mockup-content">
+                    <div class="mockup-header">
+                        <div class="logo">FlowFit AI</div>
+                        <div class="avatar"></div>
+                    </div>
+                    <div class="mockup-body">
+                        <h3>Today's Adaptive Session</h3>
+                        <p>A plan that fits how you feel right now.</p>
+                        <button class="btn btn-primary">⭐ Start</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Direction 4: Card-Based Feed -->
+        <div class="direction-container direction-4 active">
+            <div class="direction-header">
+                <h2>4. Card-Based Feed</h2>
+                <p>Treats the session as the top item in a feed of activities. Feels dynamic and familiar to social media users.</p>
+            </div>
+            <div class="mockup-frame">
+                <div class="mockup-content">
+                    <div class="mockup-header">
+                        <div class="logo">FlowFit AI</div>
+                        <div class="avatar"></div>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="card">
+                            <div class="card-content">
+                                <h3>Ready for Today?</h3>
+                                <p>Start your adaptive session.</p>
+                            </div>
+                            <button class="btn btn-primary">⭐ Start</button>
+                        </div>
+                        <div class="card">
+                            <div class="card-content">
+                                <h3>Yesterday's Session</h3>
+                                <p>Upper Body Push - 45 min</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Direction 5: Immersive & Bold (Dark Mode) -->
+        <div class="direction-container direction-5 active">
+            <div class="direction-header">
+                <h2>5. Immersive & Bold (Dark)</h2>
+                <p>A dark, high-contrast theme that feels immersive and performance-focused. Inspired by Spotify.</p>
+            </div>
+            <div class="mockup-frame">
+                <div class="mockup-content">
+                    <div class="mockup-header">
+                        <div class="logo">FlowFit AI</div>
+                        <div class="avatar"></div>
+                    </div>
+                    <div class="mockup-body">
+                         <div class="card">
+                            <h3>Ready for Today?</h3>
+                            <p>Start your adaptive session to get a plan that fits how you feel right now.</p>
+                            <button class="btn btn-primary">⭐ Start Adaptive Session</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Direction 6: Playful & Engaging -->
+        <div class="direction-container direction-6 active">
+            <div class="direction-header">
+                <h2>6. Playful & Engaging</h2>
+                <p>Uses bolder visuals, shadows, and a touch of fun to feel more like a game. Aims to be highly motivating.</p>
+            </div>
+            <div class="mockup-frame">
+                <div class="mockup-content">
+                    <div class="mockup-header">
+                        <div class="logo">FlowFit AI</div>
+                        <div class="avatar"></div>
+                    </div>
+                    <div class="mockup-body">
+                         <div class="card">
+                            <h3>Ready for Today?</h3>
+                            <p>Start your adaptive session!</p>
+                            <button class="btn btn-primary">⭐ Let's Go!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.controls button');
+            const directions = document.querySelectorAll('.direction-container');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const directionToShow = button.dataset.direction;
+
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    directions.forEach(dir => {
+                        if (directionToShow === 'all') {
+                            dir.style.display = 'block';
+                        } else {
+                            if (dir.classList.contains('direction-' + directionToShow)) {
+                                dir.style.display = 'block';
+                            } else {
+                                dir.style.display = 'none';
+                            }
+                        }
+                    });
+                    
+                    // Adjust grid for single view
+                    const grid = document.querySelector('.showcase-grid');
+                    if (directionToShow === 'all') {
+                         grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(450px, 1fr))';
+                    } else {
+                        grid.style.gridTemplateColumns = '1fr';
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
