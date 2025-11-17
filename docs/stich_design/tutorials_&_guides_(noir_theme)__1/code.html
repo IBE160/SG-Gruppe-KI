@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Report a Bug</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8655f6",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #3e3355;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked+.slider {
+            background-color: #8655f6;
+        }
+        input:checked+.slider:before {
+            transform: translateX(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative mx-auto flex h-auto min-h-screen w-full max-w-md flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="text-[#E0E0E0] flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h1 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Report a Bug</h1>
+<div class="flex size-12 shrink-0 items-center"></div>
+</div>
+<div class="flex flex-col flex-1 px-4 py-3 space-y-6">
+<div>
+<label class="block text-white text-base font-medium mb-2" for="bug-description">Describe the issue</label>
+<textarea class="form-textarea w-full h-40 resize-none rounded-xl text-white bg-[#1E1E1E] border-none placeholder:text-[#a59cba] p-4 text-base font-normal leading-normal focus:ring-2 focus:ring-primary focus:outline-none" id="bug-description" placeholder="Please provide as much detail as possible about the bug you encountered."></textarea>
+</div>
+<div>
+<label class="block text-white text-base font-medium mb-2">Attachments</label>
+<button class="flex items-center justify-center w-full h-14 rounded-xl border-2 border-dashed border-[#3e3355] text-[#a59cba] hover:bg-[#1E1E1E] transition-colors">
+<span class="material-symbols-outlined mr-2">add_photo_alternate</span>
+<span>Attach Screenshot / Video</span>
+</button>
+</div>
+<div class="space-y-4 pt-2">
+<div class="flex justify-between items-center">
+<div>
+<p class="text-white text-base font-normal">Include system logs</p>
+<p class="text-[#a59cba] text-sm">Helps us debug technical issues faster.</p>
+</div>
+<label class="switch">
+<input checked="" type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+<div class="flex justify-between items-center">
+<div>
+<p class="text-white text-base font-normal">Send diagnostics</p>
+<p class="text-[#a59cba] text-sm">Includes app usage and crash data.</p>
+</div>
+<label class="switch">
+<input type="checkbox"/>
+<span class="slider"></span>
+</label>
+</div>
+</div>
+<div class="flex-grow"></div>
+</div>
+<div class="sticky bottom-0 z-10 p-4 w-full bg-background-dark">
+<button class="w-full bg-primary text-white font-bold py-4 rounded-xl text-lg hover:bg-opacity-90 transition-colors">Submit Report</button>
+</div>
+</div>
+
+</body></html>

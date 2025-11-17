@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Privacy &amp; Account Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8655f6",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#151022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="flex size-12 shrink-0 items-center justify-start text-zinc-900 dark:text-white">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h2 class="text-zinc-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Privacy &amp; Account</h2>
+<div class="size-12 shrink-0"></div> <!-- Spacer to balance the back button -->
+</div>
+<!-- Main Content -->
+<div class="flex flex-col flex-1 px-4 py-2 space-y-4">
+<!-- List Items -->
+<div class="flex flex-col space-y-2">
+<!-- Manage Data -->
+<div class="flex items-center gap-4 bg-zinc-200/50 dark:bg-zinc-800/50 px-4 min-h-14 justify-between rounded-xl">
+<div class="flex items-center gap-4">
+<div class="text-white flex items-center justify-center rounded-lg bg-primary/20 shrink-0 size-10">
+<span class="material-symbols-outlined text-primary">database</span>
+</div>
+<p class="text-zinc-900 dark:text-white text-base font-normal leading-normal flex-1 truncate">Manage Data</p>
+</div>
+<div class="shrink-0">
+<div class="text-zinc-500 dark:text-zinc-400 flex size-7 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Connected Accounts -->
+<div class="flex items-center gap-4 bg-zinc-200/50 dark:bg-zinc-800/50 px-4 min-h-14 justify-between rounded-xl">
+<div class="flex items-center gap-4">
+<div class="text-white flex items-center justify-center rounded-lg bg-primary/20 shrink-0 size-10">
+<span class="material-symbols-outlined text-primary">link</span>
+</div>
+<p class="text-zinc-900 dark:text-white text-base font-normal leading-normal flex-1 truncate">Connected Accounts</p>
+</div>
+<div class="shrink-0">
+<div class="text-zinc-500 dark:text-zinc-400 flex size-7 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Notification Preferences -->
+<div class="flex items-center gap-4 bg-zinc-200/50 dark:bg-zinc-800/50 px-4 min-h-14 justify-between rounded-xl">
+<div class="flex items-center gap-4">
+<div class="text-white flex items-center justify-center rounded-lg bg-primary/20 shrink-0 size-10">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</div>
+<p class="text-zinc-900 dark:text-white text-base font-normal leading-normal flex-1 truncate">Notification Preferences</p>
+</div>
+<div class="shrink-0">
+<div class="text-zinc-500 dark:text-zinc-400 flex size-7 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Spacer -->
+<div class="flex-grow"></div>
+<!-- Delete Account Button -->
+<div class="py-3">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 flex-1 w-full bg-red-600/20 text-red-500 text-base font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Delete Account</span>
+</button>
+</div>
+</div>
+<!-- Confirmation Modal -->
+<!-- The modal itself. It would typically be hidden and shown with JS. Here it's displayed for design purposes. -->
+<div class="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-20">
+<div class="bg-background-light dark:bg-zinc-900/95 rounded-xl p-6 m-6 flex flex-col items-center text-center max-w-sm w-full shadow-2xl">
+<div class="flex items-center justify-center size-14 rounded-full bg-red-600/20 mb-4">
+<span class="material-symbols-outlined text-red-500 text-3xl">warning</span>
+</div>
+<h3 class="text-lg font-bold text-zinc-900 dark:text-white mb-2">Delete Account?</h3>
+<p class="text-sm text-zinc-600 dark:text-zinc-400 mb-6">This action is permanent and cannot be undone. All your data, including workout history and preferences, will be permanently erased.</p>
+<div class="w-full flex flex-col space-y-2">
+<button class="flex items-center justify-center rounded-lg h-12 px-5 w-full bg-red-600 text-white text-base font-bold">
+                        Confirm Deletion
+                    </button>
+<button class="flex items-center justify-center rounded-lg h-12 px-5 w-full bg-transparent text-zinc-900 dark:text-white text-base font-medium">
+                        Cancel
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

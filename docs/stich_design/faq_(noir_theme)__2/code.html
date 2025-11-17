@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FAQ - AI Personal Training Advisor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#8655f6",
+              "background-light": "#f6f5f8",
+              "background-dark": "#151022",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top App Bar -->
+<header class="flex items-center p-4 pb-2">
+<button class="text-white flex size-12 shrink-0 items-center justify-center">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">FAQ</h1>
+</header>
+<!-- Search Bar -->
+<div class="px-4 py-3">
+<label class="flex flex-col min-w-40 h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-[#a59cba] flex border-none bg-[#2d2839] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-[#2d2839] focus:border-none h-full placeholder:text-[#a59cba] px-4 pl-2 text-base font-normal leading-normal" placeholder="Search questions..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-col space-y-4 px-4">
+<!-- Section: AI & Workouts -->
+<div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-4">AI &amp; Workouts</h2>
+<div class="flex flex-col">
+<details class="flex flex-col border-b border-b-[#423b54] py-2 group">
+<summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+<p class="text-white text-sm font-medium leading-normal group-open:text-primary">How does the AI personalize my workouts?</p>
+<span class="material-symbols-outlined text-white group-open:text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="text-[#a59cba] text-sm font-normal leading-normal pb-2 pt-2">Our advanced AI analyzes your performance, feedback, and goals to adjust your training plan daily. It considers factors like your energy levels, muscle recovery, and progress to ensure every workout is challenging yet achievable.</p>
+</details>
+<details class="flex flex-col border-b border-b-[#423b54] py-2 group">
+<summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+<p class="text-white text-sm font-medium leading-normal group-open:text-primary">Can I track my progress over time?</p>
+<span class="material-symbols-outlined text-white group-open:text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="text-[#a59cba] text-sm font-normal leading-normal pb-2 pt-2">Yes! The app features a comprehensive progress tracking dashboard. You can view your history, personal records, and see visual charts of your strength and endurance gains over weeks, months, and years.</p>
+</details>
+<details class="flex flex-col border-b border-b-[#423b54] py-2 group">
+<summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+<p class="text-white text-sm font-medium leading-normal group-open:text-primary">What if I miss a workout?</p>
+<span class="material-symbols-outlined text-white group-open:text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="text-[#a59cba] text-sm font-normal leading-normal pb-2 pt-2">No problem. The AI is designed to be flexible. It will automatically adjust your upcoming schedule and the intensity of your next workout to ensure you stay on track with your goals without overtraining.</p>
+</details>
+</div>
+</div>
+<!-- Section: Music Integration -->
+<div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-4">Music Integration</h2>
+<div class="flex flex-col">
+<details class="flex flex-col border-b border-b-[#423b54] py-2 group">
+<summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+<p class="text-white text-sm font-medium leading-normal group-open:text-primary">Which music services can I connect?</p>
+<span class="material-symbols-outlined text-white group-open:text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="text-[#a59cba] text-sm font-normal leading-normal pb-2 pt-2">We currently support seamless integration with Spotify and Apple Music. You can connect your account in the settings menu to access your playlists and favorite tracks directly within the app.</p>
+</details>
+<details class="flex flex-col border-b border-b-[#423b54] py-2 group">
+<summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+<p class="text-white text-sm font-medium leading-normal group-open:text-primary">Can the app sync music to my workout pace?</p>
+<span class="material-symbols-outlined text-white group-open:text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="text-[#a59cba] text-sm font-normal leading-normal pb-2 pt-2">While we don't currently match beats per minute (BPM) to your exercise pace, you can easily create and select high-energy playlists to keep you motivated throughout your session. Full playback controls are available on the workout screen.</p>
+</details>
+</div>
+</div>
+<!-- Section: Account & Subscription -->
+<div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-4">Account &amp; Subscription</h2>
+<div class="flex flex-col">
+<details class="flex flex-col border-b border-b-[#423b54] py-2 group">
+<summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+<p class="text-white text-sm font-medium leading-normal group-open:text-primary">How do I manage my subscription?</p>
+<span class="material-symbols-outlined text-white group-open:text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="text-[#a59cba] text-sm font-normal leading-normal pb-2 pt-2">You can manage your subscription directly through the Apple App Store or Google Play Store. Go to your device's account settings, find 'Subscriptions', and you will be able to view, change, or cancel your plan.</p>
+</details>
+<details class="flex flex-col border-b border-b-[#423b54] py-2 group">
+<summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+<p class="text-white text-sm font-medium leading-normal group-open:text-primary">What is your cancellation policy?</p>
+<span class="material-symbols-outlined text-white group-open:text-primary group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<p class="text-[#a59cba] text-sm font-normal leading-normal pb-2 pt-2">You can cancel your subscription at any time. You will retain access to premium features until the end of your current billing period. We do not offer refunds for partial subscription periods.</p>
+</details>
+</div>
+</div>
+</div>
+<div class="h-10"></div>
+</div>
+</body></html>
