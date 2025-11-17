@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Personal Trainer - Color Theme Visualizer</title>
+    <style>
+        :root {
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: #F7F7F7;
+            color: #111;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            color: #555;
+        }
+
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+
+        .theme-container {
+            border: 1px solid #DDD;
+            border-radius: 12px;
+            padding: 1.5rem;
+            background-color: #FFF;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .theme-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .theme-header {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #EEE;
+            padding-bottom: 1rem;
+        }
+
+        .theme-header h2 {
+            margin: 0 0 0.25rem 0;
+        }
+
+        .theme-header p {
+            margin: 0;
+            color: #777;
+        }
+
+        .palette {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .swatch {
+            height: 50px;
+            border-radius: 6px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 4px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: rgba(0,0,0,0.4);
+        }
+        
+        .swatch.light-text {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .components-preview {
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .components-preview h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .component-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            transition: transform 0.1s ease, opacity 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+        }
+        
+        .btn-destructive {
+            background-color: var(--destructive);
+            color: var(--destructive-foreground);
+        }
+        
+        .btn-disabled {
+            background-color: var(--muted);
+            color: var(--muted-foreground);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            border: 1px solid transparent;
+        }
+
+        .alert-success {
+            background-color: var(--success-bg);
+            color: var(--success-fg);
+            border-color: var(--success);
+        }
+        
+        .alert-warning {
+            background-color: var(--warning-bg);
+            color: var(--warning-fg);
+            border-color: var(--warning);
+        }
+
+        /* Theme-specific variables */
+        .theme-focus .components-preview {
+            --primary: #2563EB; --primary-foreground: #FFF;
+            --secondary: #E2E8F0; --secondary-foreground: #1E293B;
+            --destructive: #DC2626; --destructive-foreground: #FFF;
+            --success: #16A34A; --success-fg: #052e16; --success-bg: #dcfce7;
+            --warning: #FBBF24; --warning-fg: #713f12; --warning-bg: #fefce8;
+            --background: #FFF; --foreground: #020817;
+            --muted: #F1F5F9; --muted-foreground: #64748B;
+            --card: #FFF; --card-foreground: #020817;
+            --border: #E2E8F0;
+            --text-primary: #111;
+            background-color: var(--background);
+        }
+        
+        .theme-momentum .components-preview {
+            --primary: #F59E0B; --primary-foreground: #111;
+            --secondary: #374151; --secondary-foreground: #F9FAFB;
+            --destructive: #EF4444; --destructive-foreground: #FFF;
+            --success: #22C55E; --success-fg: #dcfce7; --success-bg: #14532d;
+            --warning: #FBBF24; --warning-fg: #fefce8; --warning-bg: #713f12;
+            --background: #111827; --foreground: #F9FAFB;
+            --muted: #1F2937; --muted-foreground: #9CA3AF;
+            --card: #1F2937; --card-foreground: #F9FAFB;
+            --border: #374151;
+            --text-primary: #FFF;
+            background-color: var(--background);
+        }
+        
+        .theme-flow .components-preview {
+            --primary: #8B5CF6; --primary-foreground: #FFF;
+            --secondary: #E2E8F0; --secondary-foreground: #1E293B;
+            --destructive: #DC2626; --destructive-foreground: #FFF;
+            --success: #16A34A; --success-fg: #052e16; --success-bg: #dcfce7;
+            --warning: #FBBF24; --warning-fg: #713f12; --warning-bg: #fefce8;
+            --background: #FFF; --foreground: #020817;
+            --muted: #F1F5F9; --muted-foreground: #64748B;
+            --card: #FFF; --card-foreground: #020817;
+            --border: #E2E8F0;
+            --text-primary: #111;
+            background-color: var(--background);
+        }
+        
+        .theme-balance .components-preview {
+            --primary: #10B981; --primary-foreground: #FFF;
+            --secondary: #FDE68A; --secondary-foreground: #78350F;
+            --destructive: #DC2626; --destructive-foreground: #FFF;
+            --success: #16A34A; --success-fg: #052e16; --success-bg: #dcfce7;
+            --warning: #FBBF24; --warning-fg: #713f12; --warning-bg: #fefce8;
+            --background: #F9FAFB; --foreground: #111827;
+            --muted: #F3F4F6; --muted-foreground: #6B7280;
+            --card: #FFF; --card-foreground: #111827;
+            --border: #E5E7EB;
+            --text-primary: #111;
+            background-color: var(--background);
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>🎨 Color Theme Visualizer</h1>
+    <p class="intro">
+        Visual design communicates brand and guides attention. Below are four distinct theme directions for the AI-Powered Personal Training Advisor.
+        Each theme is based on the personality and goals we've discussed. Explore the palettes and component examples to see which one feels right for your vision.
+    </p>
+
+    <div class="theme-grid">
+        <!-- Theme 1: Focus -->
+        <div class="theme-container theme-focus">
+            <div class="theme-header">
+                <h2>1. Focus (Calm & Productive)</h2>
+                <p>Inspired by Headspace, this theme promotes calm focus, making the app feel like a supportive and non-intimidating partner.</p>
+            </div>
+            <div class="palette">
+                <div class="swatch light-text" style="background-color: #2563EB;" title="#2563EB">Primary</div>
+                <div class="swatch" style="background-color: #E2E8F0;" title="#E2E8F0">Secondary</div>
+                <div class="swatch light-text" style="background-color: #16A34A;" title="#16A34A">Success</div>
+                <div class="swatch" style="background-color: #FBBF24;" title="#FBBF24">Warning</div>
+                <div class="swatch light-text" style="background-color: #DC2626;" title="#DC2626">Destructive</div>
+            </div>
+            <div class="components-preview">
+                <h3>Component Preview</h3>
+                <div class="component-group">
+                    <button class="btn btn-primary">Primary Action</button>
+                    <button class="btn btn-secondary">Secondary</button>
+                    <button class="btn btn-destructive">Delete</button>
+                    <button class="btn btn-disabled" disabled>Disabled</button>
+                </div>
+                <div class="component-group">
+                    <div class="alert alert-success">Your plan was successfully updated!</div>
+                    <div class="alert alert-warning">Please check your connection.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 2: Momentum -->
+        <div class="theme-container theme-momentum">
+            <div class="theme-header">
+                <h2>2. Momentum (Energetic & Data-Driven)</h2>
+                <p>A dark, focused theme inspired by Strava. A vibrant primary color makes data and progress pop, fostering motivation.</p>
+            </div>
+            <div class="palette">
+                <div class="swatch" style="background-color: #F59E0B;" title="#F59E0B">Primary</div>
+                <div class="swatch light-text" style="background-color: #374151;" title="#374151">Secondary</div>
+                <div class="swatch" style="background-color: #22C55E;" title="#22C55E">Success</div>
+                <div class="swatch" style="background-color: #FBBF24;" title="#FBBF24">Warning</div>
+                <div class="swatch light-text" style="background-color: #EF4444;" title="#EF4444">Destructive</div>
+            </div>
+            <div class="components-preview">
+                <h3>Component Preview</h3>
+                <div class="component-group">
+                    <button class="btn btn-primary">Primary Action</button>
+                    <button class="btn btn-secondary">Secondary</button>
+                    <button class="btn btn-destructive">Delete</button>
+                    <button class="btn btn-disabled" disabled>Disabled</button>
+                </div>
+                <div class="component-group">
+                    <div class="alert alert-success">Your plan was successfully updated!</div>
+                    <div class="alert alert-warning">Please check your connection.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 3: Flow -->
+        <div class="theme-container theme-flow">
+            <div class="theme-header">
+                <h2>3. Flow (Dynamic & Personal)</h2>
+                <p>Inspired by Spotify's personalization. A versatile base with a dynamic primary color that could adapt to user mood or workout intensity.</p>
+            </div>
+            <div class="palette">
+                <div class="swatch light-text" style="background-color: #8B5CF6;" title="#8B5CF6">Primary</div>
+                <div class="swatch" style="background-color: #E2E8F0;" title="#E2E8F0">Secondary</div>
+                <div class="swatch light-text" style="background-color: #16A34A;" title="#16A34A">Success</div>
+                <div class="swatch" style="background-color: #FBBF24;" title="#FBBF24">Warning</div>
+                <div class="swatch light-text" style="background-color: #DC2626;" title="#DC2626">Destructive</div>
+            </div>
+            <div class="components-preview">
+                <h3>Component Preview</h3>
+                <div class="component-group">
+                    <button class="btn btn-primary">Primary Action</button>
+                    <button class="btn btn-secondary">Secondary</button>
+                    <button class="btn btn-destructive">Delete</button>
+                    <button class="btn btn-disabled" disabled>Disabled</button>
+                </div>
+                <div class="component-group">
+                    <div class="alert alert-success">Your plan was successfully updated!</div>
+                    <div class="alert alert-warning">Please check your connection.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 4: Balance -->
+        <div class="theme-container theme-balance">
+            <div class="theme-header">
+                <h2>4. Balance (Holistic & Approachable)</h2>
+                <p>A clean, light theme that blends calm and energy. This communicates holistic wellness, balancing effort with recovery.</p>
+            </div>
+            <div class="palette">
+                <div class="swatch light-text" style="background-color: #10B981;" title="#10B981">Primary</div>
+                <div class="swatch" style="background-color: #FDE68A;" title="#FDE68A">Secondary</div>
+                <div class="swatch light-text" style="background-color: #16A34A;" title="#16A34A">Success</div>
+                <div class="swatch" style="background-color: #FBBF24;" title="#FBBF24">Warning</div>
+                <div class="swatch light-text" style="background-color: #DC2626;" title="#DC2626">Destructive</div>
+            </div>
+            <div class="components-preview">
+                <h3>Component Preview</h3>
+                <div class="component-group">
+                    <button class="btn btn-primary">Primary Action</button>
+                    <button class="btn btn-secondary">Secondary</button>
+                    <button class="btn btn-destructive">Delete</button>
+                    <button class="btn btn-disabled" disabled>Disabled</button>
+                </div>
+                <div class="component-group">
+                    <div class="alert alert-success">Your plan was successfully updated!</div>
+                    <div class="alert alert-warning">Please check your connection.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
