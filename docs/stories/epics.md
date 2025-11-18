@@ -213,6 +213,23 @@ So that I can still complete a workout without interruption.
 
 ## Epic 3: Enhanced Experience & Personalization
 
+**Story 2.9: Implement Weekly Review Ritual**
+
+As a user,
+I want to receive an automated summary of my weekly progress,
+So that I can stay informed about my achievements and adjust my goals effectively.
+
+**Acceptance Criteria:**
+1.  System generates a weekly summary of key progress metrics (e.g., total volume, PRs, consistency).
+2.  Summary is easily accessible within the application (e.g., via a dedicated section on the dashboard or a notification).
+3.  Users can review their weekly summary and provide feedback.
+
+**Prerequisites:** Story 2.4
+
+---
+
+## Epic 3: Enhanced Experience & Personalization
+
 **Expanded Goal:** This epic focuses on enriching the user's training experience through seamless music integration and advanced AI personalization. It includes connecting with Spotify to provide BPM-matched session mixes, implementing a "Context Window" for real-time user feedback to adapt AI plans, and integrating simulated recovery inputs to validate the AI's adaptive logic.
 
 ### Story Breakdown
@@ -376,6 +393,20 @@ So that I have full control over my personal information in compliance with GDPR
 4.  Secure and GDPR-compliant account deletion process is implemented.
 
 **Prerequisites:** Story 4.2, Story 1.1
+
+**Story 4.7: Implement User Profile Management**
+
+As a user,
+I want to view and edit my profile information, goals, and equipment,
+So that I can keep my personal details up-to-date and ensure accurate personalization.
+
+**Acceptance Criteria:**
+1.  Users can access a dedicated profile management section within settings.
+2.  Users can view and edit their name, email, password, and other relevant profile details.
+3.  Users can update their fitness goals and equipment list.
+4.  Changes are validated and persisted to the database.
+
+**Prerequisites:** Story 4.2
 
 ---
 

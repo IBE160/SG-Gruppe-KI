@@ -16,7 +16,6 @@ Pass Rate: 2/4 (50%)
 - [✓] PRD.md created in output folder
   Evidence: User provided path `c:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\docs\stories\bmm-PRD.md`
 - [⚠] epics.md created in output folder (separate file)
-  Evidence: `bmm-epics.md` found in `docs/stories/`. PRD references `epics.md`. The file exists but has a `bmm-` prefix.
 - [➖] bmm-workflow-status.md updated
   Evidence: Cannot verify update status with current tools.
 - [✓] No unfilled {{template_variables}}

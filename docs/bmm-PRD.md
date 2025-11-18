@@ -135,7 +135,7 @@ Many individuals struggle with workout consistency due to fragmented tools, gene
 *   **Target Platforms:** Deliver a responsive web application (Phase 1) with a clear roadmap for native iOS and Android applications (Phase 2).
 *   **Core Screens:** Design intuitive and engaging interfaces for the Dashboard, Workout Player, Context Window, Settings, and Onboarding flows.
 *   **Interaction Patterns:** Implement conversational UI for initial setup and daily context input, interactive elements for selections, and seamless in-app controls for media playback.
-*   **Visual Consistency:** Adhere to a modern, clean aesthetic using Next.js, TypeScript, and Tailwind CSS, ensuring a consistent user experience across all platforms.
+*   **Visual Consistency:** Adhere to a modern, clean aesthetic, ensuring a consistent user experience across all platforms.
 *   **Accessibility:** Ensure the UI is accessible to a broad range of users, adhering to WCAG 2.1 AA standards.
 
 ---
