@@ -38,11 +38,12 @@ workflow_status:
   prd: required
   validate-prd: optional
   create-design: conditional
+  test-design-epic-1: docs/test-design-epic-1.md
 
   # Phase 2: Solutioning
   create-architecture: required
   validate-architecture: optional
-  solutioning-gate-check: docs/bmm-readiness-assessment-2025-11-18.md
+  solutioning-gate-check: docs/implementation-readiness-report-2025-11-18.md
 
   # Phase 3: Implementation
   sprint-planning: required

@@ -7,7 +7,7 @@
     <style>
         :root {
             --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            --primary: #8B5CF6;
+            --primary: #7C3AED;
             --primary-foreground: #FFF;
             --secondary: #E2E8F0;
             --secondary-foreground: #1E293B;
@@ -118,6 +118,17 @@
             padding: 1rem;
             font-size: 14px;
         }
+
+        /* Mobile view simulation */
+        body.mobile-view .showcase-grid {
+            max-width: 375px; /* Common mobile width */
+            margin: 0 auto;
+            grid-template-columns: 1fr;
+        }
+
+        body.mobile-view .direction-container {
+            width: 100%;
+        }
         
         /* Common Mockup Styles */
         .mockup-header {
@@ -218,6 +229,7 @@
         <button data-direction="4">4. Card Feed</button>
         <button data-direction="5">5. Immersive</button>
         <button data-direction="6">6. Playful</button>
+        <button id="mobile-view-toggle">Toggle Mobile View</button>
     </div>
 
     <div class="showcase-grid">
@@ -378,6 +390,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             const buttons = document.querySelectorAll('.controls button');
             const directions = document.querySelectorAll('.direction-container');
+            const mobileViewToggle = document.getElementById('mobile-view-toggle');
+            const body = document.body;
+            const showcaseGrid = document.querySelector('.showcase-grid');
 
             buttons.forEach(button => {
                 button.addEventListener('click', () => {
@@ -398,14 +413,53 @@
                         }
                     });
                     
-                    // Adjust grid for single view
-                    const grid = document.querySelector('.showcase-grid');
-                    if (directionToShow === 'all') {
-                         grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(450px, 1fr))';
+                    // Adjust grid for single view when not in mobile view
+                    if (!body.classList.contains('mobile-view')) {
+                        if (directionToShow === 'all') {
+                             showcaseGrid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(450px, 1fr))';
+                        } else {
+                            showcaseGrid.style.gridTemplateColumns = '1fr';
+                        }
+                    } else if (directionToShow !== 'all') {
+                        // In mobile view, always show one column if a specific direction is selected
+                        showcaseGrid.style.gridTemplateColumns = '1fr';
                     } else {
-                        grid.style.gridTemplateColumns = '1fr';
+                        // In mobile view, if 'All' is selected, reset to default mobile grid for 'all'
+                        showcaseGrid.style.gridTemplateColumns = '1fr'; // Still single column for mobile all
                     }
                 });
+            });
+
+            mobileViewToggle.addEventListener('click', () => {
+                body.classList.toggle('mobile-view');
+                mobileViewToggle.classList.toggle('active', body.classList.contains('mobile-view'));
+
+                // Adjust grid layout based on mobile view state
+                if (body.classList.contains('mobile-view')) {
+                    showcaseGrid.style.gridTemplateColumns = '1fr'; // Always single column in mobile view
+                    // Deactivate "All" button if in mobile view and currently showing all
+                    const allButton = document.querySelector('.controls button[data-direction="all"]');
+                    if (allButton && allButton.classList.contains('active')) {
+                        // Ensure only one direction is visible for a focused mobile preview if 'all' was active
+                        // Or simply show the first direction if 'all' was active
+                        const firstDirection = document.querySelector('.direction-container');
+                        if (firstDirection) {
+                            directions.forEach(dir => dir.style.display = 'none');
+                            firstDirection.style.display = 'block';
+                            buttons.forEach(btn => btn.classList.remove('active'));
+                            document.querySelector('.controls button[data-direction="1"]').classList.add('active');
+                        }
+                    }
+                } else {
+                    // Reset to default grid behavior for desktop
+                    const activeButton = document.querySelector('.controls button.active');
+                    const directionToShow = activeButton ? activeButton.dataset.direction : 'all';
+                    if (directionToShow === 'all') {
+                        showcaseGrid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(450px, 1fr))';
+                    } else {
+                        showcaseGrid.style.gridTemplateColumns = '1fr';
+                    }
+                }
             });
         });
     </script>

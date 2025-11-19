@@ -17,10 +17,13 @@
 - [x] Planning
   - [x] /run-agent-task pm *prd
     - [x] File : bmm-PRD.md
+    - [x] File : epics.md
   - [x] /run-agent-task pm *validate-prd
       - [x] File : validation-report-2025-11-16.md
   - [x] /run-agent-task ux-designer *create-ux-design {prompt / user-input-file}
     - [x] File : ux-design-specification.md
+    - [x] File : ux-color-themes.html
+    - [x] File : ux-design-directions.html
   - [x] /run-agent-task ux-designer *validate-ux-design {prompt / user-input-file}
     - [x] File : validation-report-2025-11-16.md
   - [x] /run-agent-task tea *framework {prompt / user-input-file}
@@ -32,6 +35,7 @@
 - [x] Solutioning
   - [x] /run-agent-task architect *architecture {prompt / user-input-file}
   - [x] /run-agent-task architect *validate-architecture {prompt / user-input-file}
+    - [x] File : validation-report-20251118-123456.md
 
 ## Fase 3
 

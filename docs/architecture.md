@@ -52,27 +52,50 @@ Project initialization using these commands should be the first implementation s
 
 ## Decision Summary
 
+
+
 | Category | Decision | Version | Affects Epics | Rationale |
+
 | -------- | -------- | ------- | ------------- | --------- |
-| Frontend Framework | Next.js | Latest | All | Provided by starter template |
-| Frontend Language | TypeScript | Latest | All | Provided by starter template |
-| Frontend Styling | Tailwind CSS | Latest | All | Provided by starter template |
-| Frontend Linting | ESLint | Latest | All | Provided by starter template |
-| Backend Framework | FastAPI | Latest | All | Provided by starter template |
-| Backend Language | Python | Latest | All | Provided by starter template |
-| Database | Supabase (PostgreSQL) | Latest | All | Provided by starter template |
-| Authentication | Supabase Auth | Latest | All | Provided by starter template |
+
+| Frontend Framework | Next.js | 16.0.3 | All | Provided by starter template |
+
+| Frontend Language | TypeScript | 5.9.3 | All | Provided by starter template |
+
+| Frontend Styling | Tailwind CSS | 4.1.17 | All | Provided by starter template |
+
+| Frontend Linting | ESLint | v9.39.1 | All | Provided by starter template |
+
+| Backend Framework | FastAPI | 0.121.2 | All | Provided by starter template |
+
+| Backend Language | Python | 3.14.0 | All | Provided by starter template |
+
+| Database | Supabase (PostgreSQL) | postgrest-py 2.24.0 | All | Provided by starter template |
+
+| Authentication | Supabase Auth | postgrest-py 2.24.0 | All | Provided by starter template |
+
 | Project Structure | Monorepo (Next.js/FastAPI) | N/A | All | Provided by starter template |
-| AI Model Serving | OpenAI API (Cloud) | Latest | Epic 2, 3 | Simplicity, scalability, focus on core app features |
+
+| AI Model Serving | OpenAI API (Cloud) | openai 2.8.1 | Epic 2, 3 | Simplicity, scalability, focus on core app features |
+
 | Data Architecture | PostgreSQL Schema | N/A | All | Foundational data storage for all application features |
+
 | API Design | RESTful API with JSON | N/A | All | Standardized communication between frontend and backend |
+
 | Authentication & Authorization | Supabase Auth + RLS | N/A | All | Secure user access and data privacy |
+
 | Deployment Strategy | Vercel (Frontend), PaaS (Backend) | N/A | All | Optimized deployment for Next.js, simplified backend management |
+
 | Observability Stack | Vercel/PaaS Built-in + APM | N/A | All | Comprehensive logging, monitoring, and alerting |
-| Background Job Processing | Celery with Redis | N/A | Epic 2, 4 | Reliable execution of scheduled and long-running tasks |
+
+| Background Job Processing | Celery with Redis | Celery 5.5.3, Redis 7.0.1 | Epic 2, 4 | Reliable execution of scheduled and long-running tasks |
+
 | Offline Data Sync | IndexedDB + Outbox Pattern | N/A | Epic 2 | Enable offline workout logging and plan access |
+
 | Spotify Integration | PKCE OAuth, Web Playback SDK, Web API | N/A | Epic 3 | Seamless music integration with BPM matching |
-| Client-side State Management | React Query + Context/Hooks | N/A | All | Efficient data fetching, caching, and UI state management |
+
+| Client-side State Management | React Query + Context/Hooks | 5.90.10 | All | Efficient data fetching, caching, and UI state management |
+
 | Performance Considerations | Caching, DB Optimization, AI Fallback | N/A | All | Meet NFRs for latency and responsiveness |
 
 ## Project Structure
