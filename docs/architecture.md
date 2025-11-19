@@ -52,50 +52,27 @@ Project initialization using these commands should be the first implementation s
 
 ## Decision Summary
 
-
-
 | Category | Decision | Version | Affects Epics | Rationale |
-
 | -------- | -------- | ------- | ------------- | --------- |
-
-| Frontend Framework | Next.js | 16.0.3 | All | Provided by starter template |
-
-| Frontend Language | TypeScript | 5.9.3 | All | Provided by starter template |
-
-| Frontend Styling | Tailwind CSS | 4.1.17 | All | Provided by starter template |
-
-| Frontend Linting | ESLint | v9.39.1 | All | Provided by starter template |
-
-| Backend Framework | FastAPI | 0.121.2 | All | Provided by starter template |
-
-| Backend Language | Python | 3.14.0 | All | Provided by starter template |
-
-| Database | Supabase (PostgreSQL) | postgrest-py 2.24.0 | All | Provided by starter template |
-
-| Authentication | Supabase Auth | postgrest-py 2.24.0 | All | Provided by starter template |
-
+| Frontend Framework | Next.js | Latest | All | Provided by starter template |
+| Frontend Language | TypeScript | Latest | All | Provided by starter template |
+| Frontend Styling | Tailwind CSS | Latest | All | Provided by starter template |
+| Frontend Linting | ESLint | Latest | All | Provided by starter template |
+| Backend Framework | FastAPI | Latest | All | Provided by starter template |
+| Backend Language | Python | Latest | All | Provided by starter template |
+| Database | Supabase (PostgreSQL) | Latest | All | Provided by starter template |
+| Authentication | Supabase Auth | Latest | All | Provided by starter template |
 | Project Structure | Monorepo (Next.js/FastAPI) | N/A | All | Provided by starter template |
-
-| AI Model Serving | OpenAI API (Cloud) | openai 2.8.1 | Epic 2, 3 | Simplicity, scalability, focus on core app features |
-
+| AI Model Serving | OpenAI API (Cloud) | Latest | Epic 2, 3 | Simplicity, scalability, focus on core app features |
 | Data Architecture | PostgreSQL Schema | N/A | All | Foundational data storage for all application features |
-
 | API Design | RESTful API with JSON | N/A | All | Standardized communication between frontend and backend |
-
 | Authentication & Authorization | Supabase Auth + RLS | N/A | All | Secure user access and data privacy |
-
 | Deployment Strategy | Vercel (Frontend), PaaS (Backend) | N/A | All | Optimized deployment for Next.js, simplified backend management |
-
 | Observability Stack | Vercel/PaaS Built-in + APM | N/A | All | Comprehensive logging, monitoring, and alerting |
-
-| Background Job Processing | Celery with Redis | Celery 5.5.3, Redis 7.0.1 | Epic 2, 4 | Reliable execution of scheduled and long-running tasks |
-
+| Background Job Processing | Celery with Redis | N/A | Epic 2, 4 | Reliable execution of scheduled and long-running tasks |
 | Offline Data Sync | IndexedDB + Outbox Pattern | N/A | Epic 2 | Enable offline workout logging and plan access |
-
 | Spotify Integration | PKCE OAuth, Web Playback SDK, Web API | N/A | Epic 3 | Seamless music integration with BPM matching |
-
-| Client-side State Management | React Query + Context/Hooks | 5.90.10 | All | Efficient data fetching, caching, and UI state management |
-
+| Client-side State Management | React Query + Context/Hooks | N/A | All | Efficient data fetching, caching, and UI state management |
 | Performance Considerations | Caching, DB Optimization, AI Fallback | N/A | All | Meet NFRs for latency and responsiveness |
 
 ## Project Structure
@@ -156,6 +133,86 @@ The application will integrate with several external services and internal compo
 - **Observability Tools (e.g., Datadog/Sentry):**
     - **Logging, Monitoring, Alerting:** Integration for application health and performance insights.
 
+## Spotify Integration (BMAD)
+
+This section provides a detailed breakdown of the Spotify integration using the Business, Model, Architecture, and Design (BMAD) framework.
+
+### Business / Behaviour (B)
+
+The Spotify integration is a key feature of Epic 3, "Enhanced User Experience." It enables users to seamlessly connect their music listening habits with their fitness journey.
+
+- **User Capabilities:**
+    - **Connect/Disconnect Spotify:** Users can securely link their Spotify account to their profile using an OAuth2 flow. They can also disconnect their account at any time, which revokes the application's access.
+    - **Music During Workouts:** Users can control Spotify playback (play, pause, skip) directly within the workout interface using the Spotify Web Playback SDK.
+    - **BPM-Matched Sessions:** The system can analyze playlists or create sessions where the music's Beats Per Minute (BPM) aligns with the intensity of the workout phase (e.g., warm-up, high-intensity, cool-down).
+    - **Store or Reference Playlists:** Users can associate their favorite Spotify playlists with specific workout types or moods, which can be referenced for future sessions.
+
+- **GDPR & Privacy:**
+    - **Revoke Access:** The user must be able to revoke the application's access to their Spotify data with a single action. This will trigger a process to scrub their tokens and related data.
+    - **Data Deletion:** Upon a user's request for data deletion (Right to be Forgotten), all associated Spotify data, including integration tokens and session history, must be permanently removed from our systems. The backend must also make a call to Spotify's API to de-authorize the application on the user's behalf.
+
+### Model (M)
+
+To support the Spotify integration, the following data entities are defined. These will be implemented as tables in the Supabase PostgreSQL database.
+
+- **`spotify_integrations`:**
+    - **Description:** A core table that stores the authorization details for each user who connects their Spotify account.
+    - **Relationships:** A one-to-one (1-1) relationship with the `users` table. Each user can have at most one Spotify integration.
+    - **Attributes:** `id`, `user_id`, `spotify_user_id`, `access_token`, `refresh_token`, `expires_at`, `created_at`, `updated_at`.
+
+- **`workout_music_sessions`:**
+    - **Description:** This table links a specific workout plan to a musical context. It stores the desired BPM range, mood, and a reference to a Spotify playlist or collection of tracks.
+    - **Relationships:** A one-to-one (1-1) relationship with the `workout_plans` table. A workout plan can have an optional associated music session.
+    - **Attributes:** `id`, `workout_plan_id`, `spotify_playlist_uri`, `target_bpm_min`, `target_bpm_max`, `mood_tags`, `track_analysis_cache` (JSONB).
+
+- **`spotify_playlists` (Future consideration):**
+    - **Description:** Could be used to persist user-selected playlists within our system if we need to store metadata or perform analysis on them independently of a workout session. For the initial implementation, we will fetch playlist data on-demand.
+
+### Architecture (A)
+
+The Spotify integration touches every major component of the system, requiring a coordinated effort.
+
+- **Supabase (Database & Auth):**
+    - **Tables:** Hosts the `spotify_integrations` and `workout_music_sessions` tables.
+    - **Security:** RLS policies on these tables ensure a user can only access their own Spotify data. The `access_token` and `refresh_token` will be stored encrypted in the database.
+    - **Auth:** While Supabase Auth manages our user identities, Spotify's OAuth flow manages authorization to their service. The link is the `user_id` in the `spotify_integrations` table.
+
+- **FastAPI (Backend):**
+    - **OAuth Callback:** An endpoint (`/api/v1/spotify/callback`) will handle the redirect from Spotify after the user grants consent. It will exchange the authorization code for access and refresh tokens.
+    - **Token Management:** Implements the logic to securely store tokens in Supabase and use the refresh token to obtain new access tokens when they expire.
+    - **Audio Analysis:** Provides an endpoint that, given a playlist or track URI, calls the Spotify Web API's audio analysis endpoints to retrieve BPM, energy, and other track features. This data is then cached in `workout_music_sessions` and used by the AI engine.
+
+- **Next.js (Frontend):**
+    - **PKCE Flow Initiation:** The user journey to connect Spotify starts here. The frontend generates a `code_verifier` and `code_challenge` for the Proof Key for Code Exchange (PKCE) OAuth flow, redirecting the user to Spotify's authorization page.
+    - **Web Playback SDK:** Once authorized, the frontend integrates the Web Playback SDK. This allows the application to act as a Spotify Connect device, enabling full playback control (play, pause, skip, volume) directly within the user's browser during a workout.
+
+- **AI Engine (via FastAPI):**
+    - **Enriched Workout Plans:** The AI model can now receive additional context, such as `target_bpm_max` or `mood_tags` from `workout_music_sessions`. It can use this information to recommend specific playlists or even structure the workout's intensity profile to match a pre-selected musical journey.
+
+### Design (D)
+
+Key design decisions focus on balancing performance, data privacy, and user experience.
+
+- **Data Persistence vs. On-Demand Fetching:**
+    - **Decision:** Persist only essential, long-lived data. Authorization tokens (`spotify_integrations`) and the high-level musical context for a workout (`workout_music_sessions`) are persisted.
+    - **Rationale:** Most Spotify data, like track names, artist details, and album art, is volatile and can be fetched on-demand from the Spotify API using the stored access token. This avoids data duplication and ensures the user always sees the most up-to-date information.
+
+- **Caching Strategy:**
+    - **Decision:** Cache expensive API call results, specifically audio analysis data (BPM, energy, valence). This data will be stored in the `track_analysis_cache` JSONB column in the `workout_music_sessions` table.
+    - **Rationale:** Calling Spotify's audio analysis endpoint for every track in a playlist can be slow and subject to rate limits. Caching this data after the first fetch significantly improves performance for recurring or similar workout sessions.
+
+- **Data Retention and Deletion Flow:**
+    - **Decision:** Implement a strict, automated data deletion workflow for Spotify data.
+    - **Flow:** When a user disconnects their Spotify account or requests GDPR data deletion:
+        1. The FastAPI backend is notified.
+        2. A call is made to Spotify's API to de-authorize the app.
+        3. The user's record in the `spotify_integrations` table is deleted.
+        4. All related records in `workout_music_sessions` are cascaded and deleted.
+        5. This process will be handled by a background job to ensure completion.
+
+- **Constraints and Important Considerations:**
+    - **API Rate Limits:** All interactions with the Spotify Web API are subject to rate limiting. The backend implementation must include error handling and retry logic (e.g., exponential backoff) for rate limit-related errors.
+    - **Privacy:** Only the necessary Spotify scopes (permissions) will be requested during the OAuth flow. We will request scopes for playback control, viewing private playlists, and user library access, but nothing more.
 
 ## Novel Pattern Designs
 
@@ -310,76 +367,100 @@ A comprehensive and structured logging strategy will be implemented across both 
     - Log level
     - Message
     - Any relevant data or metadata
-- **Centralized Logging:** Logs from both the frontend and backend will be aggregated and sent to a centralized logging platform (e.g., Datadog, Sentry, or a custom ELK stack) for real-time monitoring, alerting, and historical analysis.
 - **Sensitive Data Handling:** Strict measures will be in place to prevent the logging of sensitive user data (e.g., passwords, personal identifiable information, API keys). This will involve redaction or masking of such data before it is written to logs.
 - **Frontend Logging:** Client-side errors and significant user interactions will be logged to the centralized system, providing insights into user experience and client-side issues.
 
 ## Data Architecture
 
-The application will utilize PostgreSQL, managed via Supabase, for its primary data persistence. The core schema design will include the following tables to support the application's functional requirements:
+The application will utilize PostgreSQL, managed via Supabase, for its primary data persistence. The core schema design will include the following tables to support the application's functional requirements. SQL migrations will be created separately to implement this schema.
 
-### `users` table
-- `id` (UUID, Primary Key, from Supabase Auth)
-- `email` (TEXT, UNIQUE, from Supabase Auth)
-- `name` (TEXT)
-- `goals` (JSONB)
-- `preferences` (JSONB)
-- `equipment` (TEXT[])
-- `injuries` (TEXT)
-- `units` (TEXT)
-- `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
-- `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
+### Core Data Tables
 
-### `workout_plans` table
-- `id` (UUID, Primary Key)
-- `user_id` (UUID, Foreign Key to `users.id`)
-- `plan_date` (DATE, UNIQUE for user_id and date)
-- `plan_json` (JSONB, stores full AI-generated plan structure)
-- `status` (TEXT, e.g., 'generated', 'completed', 'skipped')
-- `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
-- `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
+- **`users` table**
+    - `id` (UUID, Primary Key, from Supabase Auth): Unique identifier for the user.
+    - `email` (TEXT, UNIQUE, from Supabase Auth): User's email address.
+    - `name` (TEXT): User's display name.
+    - `goals` (JSONB): User's fitness goals (e.g., strength, endurance).
+    - `preferences` (JSONB): User's workout preferences (e.g., preferred time, duration).
+    - `equipment` (TEXT[]): List of available workout equipment.
+    - `injuries` (TEXT): Description of any injuries or physical limitations.
+    - `units` (TEXT): Preferred units of measurement (metric or imperial).
+    - `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of user creation.
+    - `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of last user profile update.
 
-### `workout_logs` table
-- `id` (UUID, Primary Key)
-- `user_id` (UUID, Foreign Key to `users.id`)
-- `workout_plan_id` (UUID, Foreign Key to `workout_plans.id`, NULLABLE)
-- `exercise_name` (TEXT)
-- `set_number` (INTEGER)
-- `reps_completed` (INTEGER)
-- `weight_used` (NUMERIC)
-- `rpe_logged` (INTEGER)
-- `log_time` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
-- `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
+- **`workout_plans` table**
+    - `id` (UUID, Primary Key): Unique identifier for the workout plan.
+    - `user_id` (UUID, Foreign Key to `users.id`): Links the plan to a user.
+    - `plan_date` (DATE, UNIQUE for user_id and date): The date for which this plan is scheduled.
+    - `plan_json` (JSONB): Stores the complete AI-generated workout plan structure.
+    - `status` (TEXT): The current status of the plan (e.g., 'generated', 'completed', 'skipped').
+    - `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of plan creation.
+    - `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of last plan update.
 
-### `daily_contexts` table
-- `id` (UUID, Primary Key)
-- `user_id` (UUID, Foreign Key to `users.id`)
-- `context_date` (DATE, UNIQUE for user_id and date)
-- `mood` (TEXT)
-- `energy` (TEXT)
-- `soreness` (TEXT)
-- `notes` (TEXT)
-- `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
-- `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
+- **`workout_logs` table**
+    - `id` (UUID, Primary Key): Unique identifier for the log entry.
+    - `user_id` (UUID, Foreign Key to `users.id`): Links the log to a user.
+    - `workout_plan_id` (UUID, Foreign Key to `workout_plans.id`, NULLABLE): Links the log to a specific plan.
+    - `exercise_name` (TEXT): Name of the exercise performed.
+    - `set_number` (INTEGER): The set number for this exercise.
+    - `reps_completed` (INTEGER): Number of repetitions completed.
+    - `weight_used` (NUMERIC): Weight used for the set.
+    - `rpe_logged` (INTEGER): User's logged Rate of Perceived Exertion.
+    - `log_time` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of when the set was logged.
+    - `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of log creation.
 
-### `spotify_integrations` table
-- `id` (UUID, Primary Key)
-- `user_id` (UUID, Foreign Key to `users.id`, UNIQUE)
-- `spotify_user_id` (TEXT, UNIQUE)
-- `access_token` (TEXT, ENCRYPTED)
-- `refresh_token` (TEXT, ENCRYPTED)
-- `expires_at` (TIMESTAMP WITH TIME ZONE)
-- `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
-- `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
+- **`daily_contexts` table**
+    - `id` (UUID, Primary Key): Unique identifier for the daily context entry.
+    - `user_id` (UUID, Foreign Key to `users.id`): Links the context to a user.
+    - `context_date` (DATE, UNIQUE for user_id and date): The date this context applies to.
+    - `mood` (TEXT): User's self-reported mood.
+    - `energy` (TEXT): User's self-reported energy level.
+    - `soreness` (TEXT): User's self-reported muscle soreness.
+    - `notes` (TEXT): Any additional notes from the user for the day.
+    - `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of context creation.
+    - `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of last context update.
 
-### `user_settings` table
-- `id` (UUID, Primary Key)
-- `user_id` (UUID, Foreign Key to `users.id`)
-- `setting_key` (TEXT)
-- `setting_value` (TEXT)
-- `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
-- `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW())
-- (Composite UNIQUE constraint on `user_id` and `setting_key` will be applied)
+- **`user_settings` table**
+    - `id` (UUID, Primary Key): Unique identifier for the setting.
+    - `user_id` (UUID, Foreign Key to `users.id`): Links the setting to a user.
+    - `setting_key` (TEXT): The key for the setting (e.g., 'theme', 'notifications_enabled').
+    - `setting_value` (TEXT): The value for the setting.
+    - `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of setting creation.
+    - `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of last setting update.
+    - A composite UNIQUE constraint will be applied on `user_id` and `setting_key`.
+
+### Spotify Integration Tables
+
+These tables are specifically designed to support the Spotify integration and its associated use cases.
+
+- **`spotify_integrations` table**
+    - **Purpose:** Securely stores the authorization tokens required to interact with the Spotify API on behalf of a user. This table is the foundation for the entire integration.
+    - **Columns:**
+        - `id` (UUID, Primary Key): Unique identifier for the integration record.
+        - `user_id` (UUID, Foreign Key to `users.id`, UNIQUE): Establishes a 1-to-1 link to a user, ensuring a user can only have one Spotify integration.
+        - `spotify_user_id` (TEXT, UNIQUE): The user's unique ID from Spotify. Useful for cross-referencing.
+        - `access_token` (TEXT, ENCRYPTED): The OAuth access token for making API requests. Encrypted for security.
+        - `refresh_token` (TEXT, ENCRYPTED): The OAuth refresh token for obtaining new access tokens. Encrypted for security.
+        - `expires_at` (TIMESTAMP WITH TIME ZONE): The timestamp when the current `access_token` expires.
+        - `created_at`, `updated_at` (TIMESTAMP WITH TIME ZONE): Standard tracking timestamps.
+    - **Use Case Support:**
+        - **Connect/Disconnect:** Creating a record in this table signifies a connected account. Deleting the record (and revoking the token via API) handles disconnection and GDPR data deletion.
+        - **Data Access:** Provides the necessary tokens for all API calls to fetch playlists or control playback.
+
+- **`workout_music_sessions` table**
+    - **Purpose:** Links a workout plan to a specific musical context, enabling BPM-matched sessions and preserving the user's music choices for a workout.
+    - **Columns:**
+        - `id` (UUID, Primary Key): Unique identifier for the music session record.
+        - `workout_plan_id` (UUID, Foreign Key to `workout_plans.id`, UNIQUE): Establishes a 1-to-1 link with a workout plan.
+        - `spotify_playlist_uri` (TEXT): The URI of the Spotify playlist chosen for the session.
+        - `target_bpm_min` (INTEGER, NULLABLE): The minimum target BPM for the workout phase, used by the AI.
+        - `target_bpm_max` (INTEGER, NULLABLE): The maximum target BPM for the workout phase, used by the AI.
+        - `mood_tags` (TEXT[], NULLABLE): User or AI-defined tags for the session's musical mood (e.g., 'energetic', 'calm').
+        - `track_analysis_cache` (JSONB, NULLABLE): Caches results from Spotify's audio analysis API (BPM, energy, etc.) to reduce API calls and improve performance.
+        - `created_at`, `updated_at` (TIMESTAMP WITH TIME ZONE): Standard tracking timestamps.
+    - **Use Case Support:**
+        - **BPM-Matched Workouts:** Stores the BPM range and playlist context that the AI engine uses to align music with workout intensity. The `track_analysis_cache` makes this process efficient.
+        - **GDPR Deletion:** As this table is linked to `workout_plans`, user data deletion can cascade to remove their music session history.
 
 ## API Contracts
 
