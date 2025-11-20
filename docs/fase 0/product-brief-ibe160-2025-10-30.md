@@ -89,7 +89,7 @@ The project supports the following key strategic initiatives:
 2.  **AI Daily-Plan Generator** (adapts to user context)
 3.  **Workout Player** with logging (reps, weight, RPE)
 4.  **Progress Dashboard** (volume, streaks, basic stats)
-5.  **Authentication** (OAuth for Google/Apple, Email)
+5.  **Authentication** (OAuth for Google, Email)
 6.  **In-app Reminders & Nudges**
 7.  **Offline Cache** for the daily workout plan and logs
 8.  **Spotify Integration** (PKCE OAuth, playback control, BPM-matched Session Mix v1)
@@ -151,7 +151,7 @@ The long-term vision is to evolve the product into a holistic wellness advisor t
 *   **Backend:** FastAPI (Python) for its asynchronous capabilities and ease of AI integration.
 *   **Database:** PostgreSQL (via Supabase) for user data, workout logs, and plans.
 *   **AI Engine:** OpenAI API (GPT models).
-*   **Authentication:** Supabase (OAuth 2.0 for Google/Apple, email/password).
+*   **Authentication:** Supabase (OAuth 2.0 for Google, email/password).
 *   **Music Integration:** Spotify Web API (for OAuth and music intelligence).
 *   **Hosting:** Vercel for the frontend and Fly.io/Render for the backend API.
 

@@ -18,10 +18,10 @@
 
 **Coverage Summary:**
 
-- P0 scenarios: 17 (34.0 hours)
-- P1 scenarios: 12 (12.0 hours)
+- P0 scenarios: 16 (32.0 hours)
+- P1 scenarios: 11 (11.0 hours)
 - P2/P3 scenarios: 3 (1.5 hours)
-- **Total effort**: 47.5 hours (~5.9 days)
+- **Total effort**: 44.5 hours (~5.6 days)
 
 ---
 
@@ -35,7 +35,7 @@
 | R-008   | SEC      | Weak password hashing or insecure token management.  | 2           | 3      | 6     | Leverage Supabase Auth's built-in secure hashing and token management. | Dev Lead    | TBD      |
 | R-009   | BUS      | Authentication flow failure blocking user access.    | 2           | 3      | 6     | Robust E2E tests for all auth flows; fallback to error pages. | QA Lead     | TBD      |
 | R-011   | SEC      | Improper configuration of Google OAuth leading to security vulnerabilities. | 2           | 3      | 6     | Strict adherence to Google OAuth best practices, regular security audits. | Dev Lead    | TBD      |
-| R-013   | SEC      | Improper configuration of Apple OAuth leading to security vulnerabilities. | 2           | 3      | 6     | Strict adherence to Apple OAuth best practices, regular security audits. | Dev Lead    | TBD      |
+| R-013   | SEC      | Improper configuration of Apple OAuth leading to security vulnerabilities. (Phase 2) | 2           | 3      | 6     | Strict adherence to Apple OAuth best practices, regular security audits. | Dev Lead    | TBD      |
 | R-015   | BUS      | Onboarding UI/logic errors preventing new users from completing setup. | 3           | 3      | 9     | Comprehensive E2E testing of all onboarding paths, including edge cases. | QA Lead     | TBD      |
 | R-019   | BUS      | Failure to meet WCAG 2.1 AA compliance, leading to legal/reputational issues. | 2           | 3      | 6     | Automated accessibility checks in CI, manual screen reader testing. | UX/QA Lead  | TBD      |
 
@@ -47,7 +47,7 @@
 | R-004   | DATA     | Schema definition errors (e.g., incorrect data types, missing constraints) leading to data corruption or loss. | 2           | 2      | 4     | Database migrations and schema validation checks. | Dev Lead |
 | R-006   | OPS      | Flaky CI pipeline leading to false positives/negatives, wasting developer time. | 2           | 2      | 4     | Implement burn-in tests and retry mechanisms in CI. | QA Lead |
 | R-012   | BUS      | User data mapping errors between Google profile and app profile. | 2           | 2      | 4     | Thorough integration tests for data mapping. | Dev/QA  |
-| R-014   | BUS      | User data mapping errors between Apple profile and app profile. | 2           | 2      | 4     | Thorough integration tests for data mapping. | Dev/QA  |
+| R-014   | BUS      | User data mapping errors between Apple profile and app profile. (Phase 2) | 2           | 2      | 4     | Thorough integration tests for data mapping. | Dev/QA  |
 | R-016   | UX       | Inconsistent real-time feedback or UI behavior during onboarding, leading to user confusion/abandonment. | 2           | 2      | 4     | Follow UX specifications rigorously; comprehensive UI tests. | UX/QA   |
 | R-017   | BUS      | Plan reveal UI errors or incorrect plan summary display, leading to user distrust. | 2           | 2      | 4     | Visual regression testing and data validation. | QA Lead |
 | R-018   | PERF     | Slow loading of "First Plan Reveal" due to AI processing latency. | 2           | 2      | 4     | Implement AI response caching; monitor NFR. | Dev Lead |
@@ -88,7 +88,6 @@
 | Existing user can successfully log in with valid email/password. | E2E               | R-009     | AUTH-E2E-002 | QA Lead | Core user journey.                       |
 | Verify password hashing algorithm and token generation logic. | Unit (Backend)    | R-008     | AUTH-UNIT-001| Dev Lead | Critical security.                       |
 | User can successfully register and log in using Google OAuth. | E2E               | R-011     | OAUTH-E2E-001| QA Lead | Authentication path.                     |
-| User can successfully register and log in using Apple OAuth. | E2E               | R-013     | OAUTH-E2E-003| QA Lead | Authentication path.                     |
 | User completes conversational onboarding with happy path. | E2E               | R-015     | ONBOARD-E2E-001| QA Lead | Blocks new user acquisition.             |
 | User inputs are stored correctly in the database after onboarding. | Integration (Backend) | R-015     | ONBOARD-API-001| Dev Lead | Data integrity post-onboarding.          |
 | "Plan Reveal" screen displays correctly with generated plan summary. | E2E               | R-017     | PLAN-E2E-001 | QA Lead | Core value proposition.                  |
@@ -98,7 +97,13 @@
 | Verify color contrast ratios meet WCAG 2.1 AA standards. | Manual/Automated CSS Audit | R-019     | A11Y-MANUAL-001| UX/QA   | Critical for compliance.                 |
 | Conduct screen reader testing for main onboarding and dashboard flows. | Manual            | R-019     | A11Y-MANUAL-003| UX/QA   | Critical for compliance.                 |
 
-**Total P0**: 17 tests, 34 hours
+**Total P0**: 16 tests, 32 hours
+
+### P0 (Critical) - Phase 2
+
+| Requirement                                          | Test Level        | Risk Link | Test ID      | Owner   | Notes                                    |
+| ---------------------------------------------------- | ----------------- | --------- | ------------ | ------- | ---------------------------------------- |
+| User can successfully register and log in using Apple OAuth. | E2E               | R-013     | OAUTH-E2E-003| QA Lead | Authentication path.                     |
 
 ### P1 (High) - Run on PR to main
 
@@ -112,14 +117,19 @@
 | User receives appropriate error message for invalid login credentials. | E2E               | R-009     | AUTH-E2E-003 | QA Lead | User experience on auth failure.         |
 | User sees error on registration with existing email. | E2E               | R-009     | AUTH-E2E-004 | QA Lead | User experience on auth failure.         |
 | User data from Google is correctly mapped to app profile. | E2E               | R-012     | OAUTH-E2E-002| QA Lead | Data integrity.                          |
-| User data from Apple is correctly mapped to app profile. | E2E               | R-014     | OAUTH-E2E-004| QA Lead | Data integrity.                          |
 | Real-time feedback updates correctly based on user input during check-in. | Component/E2E     | R-016     | ONBOARD-E2E-003| UX/QA   | UX consistency.                          |
 | User exits onboarding mid-flow and can resume from last step. | E2E (Edge Case)   | R-015     | ONBOARD-E2E-005| QA Lead | Edge case for new user journey.          |
 | "Adjust Details" button returns to onboarding for modifications. | E2E               | R-017     | PLAN-E2E-004 | QA Lead | User control over plan adjustments.      |
 | Visible focus indicators are present on all interactive elements. | E2E Visual        | R-019     | A11Y-E2E-002 | UX/QA   | WCAG 2.1 AA Compliance.                  |
 | Verify basic ARIA attributes on key UI components. | Manual/Automated  | R-019     | A11Y-MANUAL-002| UX/QA   | WCAG 2.1 AA Compliance.                  |
 
-**Total P1**: 12 tests, 12 hours
+**Total P1**: 11 tests, 11 hours
+
+### P1 (High) - Phase 2
+
+| Requirement                                          | Test Level        | Risk Link | Test ID      | Owner   | Notes                                    |
+| ---------------------------------------------------- | ----------------- | --------- | ------------ | ------- | ---------------------------------------- |
+| User data from Apple is correctly mapped to app profile. | E2E               | R-014     | OAUTH-E2E-004| QA Lead | Data integrity.                          |
 
 ### P2 (Medium) - Run nightly/weekly
 
@@ -169,7 +179,6 @@
 - [ ] Existing user can successfully log in with valid email/password. (AUTH-E2E-002)
 - [ ] Verify password hashing algorithm and token generation logic. (AUTH-UNIT-001)
 - [ ] User can successfully register and log in using Google OAuth. (OAUTH-E2E-001)
-- [ ] User can successfully register and log in using Apple OAuth. (OAUTH-E2E-003)
 - [ ] User completes conversational onboarding with happy path. (ONBOARD-E2E-001)
 - [ ] User inputs are stored correctly in the database after onboarding. (ONBOARD-API-001)
 - [ ] "Plan Reveal" screen displays correctly with generated plan summary. (PLAN-E2E-001)
@@ -179,7 +188,11 @@
 - [ ] Verify color contrast ratios meet WCAG 2.1 AA standards. (A11Y-MANUAL-001)
 - [ ] Conduct screen reader testing for main onboarding and dashboard flows. (A11Y-MANUAL-003)
 
-**Total**: 17 scenarios
+**Total**: 16 scenarios
+
+### P0 Tests (<10 min) - Phase 2
+
+- [ ] User can successfully register and log in using Apple OAuth. (OAUTH-E2E-003)
 
 ### P1 Tests (<30 min)
 
@@ -191,14 +204,17 @@
 - [ ] User receives appropriate error message for invalid login credentials. (AUTH-E2E-003)
 - [ ] User sees error on registration with existing email. (AUTH-E2E-004)
 - [ ] User data from Google is correctly mapped to app profile. (OAUTH-E2E-002)
-- [ ] User data from Apple is correctly mapped to app profile. (OAUTH-E2E-004)
 - [ ] Real-time feedback updates correctly based on user input during check-in. (ONBOARD-E2E-003)
 - [ ] User exits onboarding mid-flow and can resume from last step. (ONBOARD-E2E-005)
 - [ ] "Adjust Details" button returns to onboarding for modifications. (PLAN-E2E-004)
 - [ ] Visible focus indicators are present on all interactive elements. (A11Y-E2E-002)
 - [ ] Verify basic ARIA attributes on key UI components. (A11Y-MANUAL-002)
 
-**Total**: 12 scenarios
+**Total**: 11 scenarios
+
+### P1 Tests (<30 min) - Phase 2
+
+- [ ] User data from Apple is correctly mapped to app profile. (OAUTH-E2E-004)
 
 ### P2/P3 Tests (<60 min)
 
@@ -307,7 +323,7 @@
 **Status:** Planned
 **Verification:** E2E tests for Google OAuth, security review.
 
-### R-013: Improper configuration of Apple OAuth (Score: 6)
+### R-013: Improper configuration of Apple OAuth (Score: 6) - Phase 2
 
 **Mitigation Strategy:** Strict adherence to Apple OAuth best practices, including secure redirect URIs and client secret management. Regular security audits of OAuth configurations.
 **Owner:** Dev Lead

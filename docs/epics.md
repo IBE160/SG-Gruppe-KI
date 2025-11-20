@@ -96,7 +96,7 @@ So that I can quickly and conveniently access the application.
 
 **Prerequisites:** Story 1.1
 
-**Story 1.4: Apple OAuth Integration**
+**Story 1.4: Apple OAuth Integration (Phase 2)**
 
 As a new user,
 I want to create an account and log in using my Apple account,
@@ -121,7 +121,7 @@ So that the AI can gather my goals, preferences, and limitations with clear feed
 4.  Real-time feedback is provided during check-in as user adjusts inputs, as per UX spec.
 5.  All defined states and variants for onboarding UI components are implemented.
 
-**Prerequisites:** Story 1.1, Story 1.2, Story 1.3, Story 1.4
+**Prerequisites:** Story 1.1, Story 1.2, Story 1.3
 
 **Story 1.5.2: First Plan Reveal UI/Logic**
 
