@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-The AI-Powered Personal Training Advisor delivers personalized fitness guidance using an AI-driven approach with Spotify integration. The architecture is built for scalability and consistency, ensuring adherence to critical non-functional requirements like GDPR and performance.
+The AI-Powered Personal Training Advisor (project ibe160) provides personalized, adaptive fitness guidance through AI-driven workout plans, comprehensive logging, and Spotify integration. Its architecture prioritizes consistency for AI agents, scalability, and adherence to key non-functional requirements including WCAG 2.1 AA, GDPR, performance, and security.
 
 ## Project Initialization
 
@@ -50,27 +50,19 @@ This foundational setup provides the following architectural decisions:
 
 Project initialization using these commands should be the first implementation story.
 
-## Version Verification Process
-
-To ensure a stable and secure application, all technology and dependency versions listed in this document are verified at the time of the decision. The process involves:
--   **Checking Official Sources:** Consulting the official documentation, release notes, and package manager registries (npm, PyPI) for the latest stable or Long-Term Support (LTS) versions.
--   **Assessing Compatibility:** Ensuring that the chosen versions of different technologies (e.g., frontend framework, backend language, database client) are compatible with each other.
--   **Reviewing Breaking Changes:** Identifying any significant breaking changes in recent major versions to understand potential migration challenges and risks.
-The verification date for each decision is noted in the "Decision Summary" table.
-
 ## Decision Summary
 
 | Category | Decision | Version | Affects Epics | Rationale | Verification |
 | -------- | -------- | ------- | ------------- | --------- | ------------ |
-| Frontend Framework | Next.js | 14.x (LTS) | All | Core frontend framework established by `npx create-next-app`. | Verified: 2025-11-21 (Next.js website). LTS version chosen for stability. No breaking changes noted from v13.x. |
-| Frontend Language | TypeScript | 5.9.3 | All | Integrated into the project by the `--typescript` flag in `npx create-next-app`. | Verified: 2025-11-21 (npm registry). Stable version. No major breaking changes expected with Next.js 14.x. |
-| Frontend Styling | Tailwind CSS | 4.1.17 | All | Included and configured via the `--tailwind` flag in `npx create-next-app`. | Verified: 2025-11-21 (npm registry). Stable version. |
-| Frontend Linting | ESLint | 9.39.1 | All | Set up by the `--eslint` flag in `npx create-next-app` to enforce code quality. | Verified: 2025-11-21 (npm registry). Stable version. |
-| Backend Framework | FastAPI | 0.121.3 | All | Chosen as the core framework for the Python backend, installed via `pip`. | Verified: 2025-11-21 (PyPI). Stable version. |
-| Backend Language | Python | 3.11 | All | Foundational language for the FastAPI backend and its ecosystem. | Verified: 2025-11-21 (Python.org). LTS-like support for stability, recommended for FastAPI. |
-| Database | Supabase (PostgreSQL) | Client JS: 2.84.0, Client Python: 2.24.0 | All | Integrated data and auth platform, client libraries installed via `npm` and `pip`. | Verified: 2025-11-21 (npm, PyPI). Supabase is a managed service; PostgreSQL versions are handled by Supabase. |
-| Authentication | Supabase Auth | N/A (Service) | All | Core authentication service provided by the chosen Supabase platform. | Verified: 2025-11-21 (Supabase documentation). Managed service. |
-| Project Structure | Monorepo (Next.js/FastAPI) | N/A | All | Established by the project initialization commands, creating separate `app` and `backend` directories. | Verified: 2025-11-21 (architectural decision). |
+| Frontend Framework | Next.js | 14.x (LTS) | All | Provided by starter template | Verified: 2025-11-21 (Next.js website). LTS version chosen for stability. No breaking changes noted from v13.x. |
+| Frontend Language | TypeScript | 5.9.3 | All | Provided by starter template | Verified: 2025-11-21 (npm registry). Stable version. No major breaking changes expected with Next.js 14.x. |
+| Frontend Styling | Tailwind CSS | 4.1.17 | All | Provided by starter template | Verified: 2025-11-21 (npm registry). Stable version. |
+| Frontend Linting | ESLint | 9.39.1 | All | Provided by starter template | Verified: 2025-11-21 (npm registry). Stable version. |
+| Backend Framework | FastAPI | 0.121.3 | All | Provided by starter template | Verified: 2025-11-21 (PyPI). Stable version. |
+| Backend Language | Python | 3.11 | All | Provided by starter template | Verified: 2025-11-21 (Python.org). LTS-like support for stability, recommended for FastAPI. |
+| Database | Supabase (PostgreSQL) | Client JS: 2.84.0, Client Python: 2.24.0 | All | Provided by starter template | Verified: 2025-11-21 (npm, PyPI). Supabase is a managed service; PostgreSQL versions are handled by Supabase. |
+| Authentication | Supabase Auth | N/A (Service) | All | Provided by starter template | Verified: 2025-11-21 (Supabase documentation). Managed service. |
+| Project Structure | Monorepo (Next.js/FastAPI) | N/A | All | Provided by starter template | Verified: 2025-11-21 (architectural decision). |
 | AI Model Serving | OpenAI API (Cloud) | Client Python: 2.8.1 | Epic 2, 3 | Simplicity, scalability, focus on core app features | Verified: 2025-11-21 (PyPI). Uses OpenAI Python client. |
 | Data Architecture | PostgreSQL Schema | N/A | All | Foundational data storage for all application features | Verified: 2025-11-21 (architectural decision/pattern). |
 | API Design | RESTful API with JSON | N/A | All | Standardized communication between frontend and backend | Verified: 2025-11-21 (architectural decision/pattern). |
@@ -85,7 +77,7 @@ The verification date for each decision is noted in the "Decision Summary" table
 
 ## Project Structure
 
-A detailed overview of the project directory, emphasizing the monorepo structure with distinct frontend and backend applications and illustrating the code organization.
+A high-level overview of the project directory, emphasizing the monorepo structure with distinct frontend and backend applications.
 
 ```
 .
@@ -102,41 +94,24 @@ A detailed overview of the project directory, emphasizing the monorepo structure
 ├── proposal.md                    # Project proposal document
 ├── README.md                      # Project README
 ├── app/                           # Next.js Frontend Application
-│   ├── app/                       # Next.js App Router
-│   │   ├── (dashboard)/           # Route group for authenticated routes
-│   │   │   ├── layout.tsx         # Dashboard layout
-│   │   │   └── page.tsx           # Dashboard main page
-│   │   └── api/                   # API routes (if any, for client-side orchestration)
-│   ├── components/                # Reusable UI components
-│   │   ├── ui/                    # Generic UI elements (Button, Card, etc.)
-│   │   └── workouts/              # Domain-specific components (WorkoutCard.tsx)
-│   ├── lib/                       # Utility functions and API clients
-│   │   └── apiClient.ts           # Typed client for backend API
-│   ├── hooks/                     # Custom React hooks (e.g., useUserData.ts)
-│   ├── styles/                    # Global CSS and Tailwind config
-│   ├── types/                     # TypeScript type definitions (e.g., workout.ts)
+│   ├── app/                       # Next.js App Router (route-specific components, layouts)
+│   ├── components/                # Reusable UI components (e.g., ui/, workouts/)
+│   ├── lib/                       # Utility functions, API clients, external service integrations
+│   ├── hooks/                     # Custom React hooks
+│   ├── styles/                    # Global CSS, Tailwind config
+│   ├── types/                     # TypeScript type definitions
 │   └── public/                    # Static assets
 └── backend/                       # FastAPI Backend Application
     ├── app/                       # Main FastAPI application directory
-    │   ├── api/                   # FastAPI routers
-    │   │   └── v1/                # API version 1
-    │   │       ├── users.py       # User-related endpoints
-    │   │       └── workouts.py    # Workout-related endpoints
-    │   ├── core/                  # Application-wide configurations
-    │   │   └── config.py          # Environment settings
-    │   ├── db/                    # Database session and models
-    │   │   ├── session.py         # Database session management
-    │   │   └── models/            # SQLAlchemy models (e.g., user.py)
-    │   ├── schemas/               # Pydantic models for validation
-    │   │   ├── user.py            # Pydantic schemas for User
-    │   │   └── workout.py         # Pydantic schemas for Workout
-    │   ├── services/              # Business logic
-    │   │   └── workout_service.py # Service for workout-related logic
+    │   ├── api/                   # FastAPI routers (e.g., v1/users.py, v1/workouts.py)
+    │   ├── core/                  # Application-wide configurations, settings, constants
+    │   ├── db/                    # Database connection, session, SQLAlchemy models
+    │   ├── schemas/               # Pydantic models for validation, serialization
+    │   ├── services/              # Business logic, complex operations
     │   ├── crud/                  # CRUD operations for database models
-    │   │   └── crud_workout.py    # CRUD functions for Workout model
     │   └── dependencies/          # FastAPI dependency injection functions
-    ├── tests/                     # Backend unit and integration tests
-    └── alembic/                   # Database migrations
+    ├── tests/                     # Backend unit, integration, and E2E tests
+    └── alembic/                   # Database migrations (if using Alembic)
 ```
 
 ## Epic to Architecture Mapping
@@ -352,130 +327,17 @@ Based on this new information, adjust the original plan to be less demanding. Re
 
 ## Novel Pattern Designs
 
-This section provides detailed implementation guidance for the novel architectural patterns required by the application. Each pattern includes its purpose, components, step-by-step implementation guidance for AI agents, and clear integration points with the rest of the system.
+### Offline Data Synchronization with Outbox Pattern
 
-### 1. Offline Data Synchronization with Outbox Pattern
+To support offline workout logging and plan access (NFR007), the application will implement an **Offline Data Synchronization** pattern utilizing **IndexedDB** on the client-side and an **Outbox Pattern**. When the user is offline, data changes (e.g., logged workouts) will be stored locally in IndexedDB. Upon re-establishing connectivity, these changes will be pushed to the backend in a reliable, ordered manner using an Outbox Pattern, ensuring data consistency and preventing data loss.
 
--   **Purpose:** To enable users to log workout data while offline and ensure that this data is reliably synchronized with the backend once connectivity is restored, preventing data loss.
+### AI Response Caching
 
--   **Components:**
-    -   **Frontend:**
-        -   **IndexedDB:** A browser-based database to store "outbox" tasks locally. A library like `Dexie.js` can simplify its usage.
-        -   **Service Worker:** A background script to detect online/offline status changes and process the outbox queue.
-        -   **State Management (React Query/Context):** To manage the UI's offline state and provide feedback to the user.
-    -   **Backend (FastAPI):**
-        -   A dedicated API endpoint (e.g., `/api/v1/sync/workout-logs`) to receive batches of offline data.
-        -   Standard CRUD endpoints for creating `workout_logs`.
+To meet the stringent performance NFRs for AI response times (NFR008), a dedicated **AI Response Cache** will be implemented using **Redis**. This cache will store the results of AI-generated workout plans for similar or identical requests. Before invoking the OpenAI API, the system will check the Redis cache. If a relevant cached response exists and is still valid, it will be served directly, significantly reducing latency and API costs.
 
--   **Implementation Steps (AI Agent Guide):**
+### BPM-Matched Spotify Integration
 
-    1.  **Detect Network Status:**
-        -   In the Next.js frontend, create a global hook (`useNetworkStatus`) that listens to browser `online` and `offline` events.
-        -   This hook should provide a reactive boolean value (`isOnline`) to the rest of the application.
-
-    2.  **Create IndexedDB "Outbox":**
-        -   Define an IndexedDB schema. It should include a table (e.g., `outbox`) to store pending API requests.
-        -   Each entry in the `outbox` table should contain the API endpoint, HTTP method, payload (e.g., the workout log data), and a unique ID.
-
-    3.  **Intercept Outgoing Requests:**
-        -   In the main API client (`/lib/apiClient.ts`), modify the data submission logic (e.g., for creating a `workout_log`).
-        -   If `isOnline` is `true`, send the request directly to the backend API as usual.
-        -   If `isOnline` is `false`, do not attempt the API call. Instead, add the request details (endpoint, method, payload) to the `outbox` table in IndexedDB.
-        -   Update the UI optimistically to show the user that their data is "saved" for syncing later.
-
-    4.  **Process the Outbox Queue:**
-        -   Implement a Service Worker that listens for the `online` event.
-        -   When the application comes back online, the Service Worker should:
-            a. Read all pending requests from the `outbox` table in IndexedDB.
-            b. For each request, execute the API call to the backend.
-            c. If the API call is successful, remove the corresponding entry from the `outbox` table.
-            d. If the API call fails, implement a retry strategy (e.g., exponential backoff) or mark it as failed for manual intervention.
-
--   **Integration Points:**
-    -   **API Client (`/lib/apiClient.ts`):** This is the primary integration point on the frontend. It must be modified to include the online/offline detection and the logic to divert requests to IndexedDB.
-    -   **Workout Logging UI:** The UI components responsible for logging workouts must use the modified API client and react to the offline status (e.g., by displaying a "Syncing..." or "Offline" indicator).
-    -   **Backend `workout_logs` Endpoint:** The standard `POST /api/v1/workouts` endpoint will be used by the sync process, ensuring that offline data follows the same validation and business logic as online data. The `Idempotent AI Operations` pattern is crucial here to prevent duplicate entries if a sync is retried.
-
-### 2. AI Response Caching
-
--   **Purpose:** To meet performance NFRs for AI response times by caching generated workout plans, reducing latency and unnecessary API calls to OpenAI.
-
--   **Components:**
-    -   **Backend (FastAPI):**
-        -   **Redis:** The caching database.
-        -   **Service Layer (`/services/workout_service.py`):** The logic for checking the cache before calling the AI model.
-    -   **External:**
-        -   **OpenAI API:** The service being cached.
-
--   **Implementation Steps (AI Agent Guide):**
-
-    1.  **Establish Redis Connection:**
-        -   In the FastAPI backend's core configuration (`/core/config.py`), add settings for the Redis connection URL.
-        -   Create a utility in the `/db` directory to manage the Redis connection pool.
-
-    2.  **Define a Cache Key Strategy:**
-        -   Create a function that generates a consistent, deterministic cache key based on the inputs to the AI plan generation.
-        -   The key should be a composite of the user's ID and the critical inputs that affect the plan, such as `user_id`, `plan_date`, `mood`, `energy`, and `soreness`.
-        -   Example key: `ai-plan:user_id:{user_id}:date:{date}:mood:{mood}:energy:{energy}`.
-
-    3.  **Modify the Plan Generation Service:**
-        -   In the service responsible for generating workout plans (e.g., `workout_service.py`), before making a call to the OpenAI API:
-            a. Generate the cache key using the defined strategy.
-            b. Attempt to `GET` this key from Redis.
-            c. **Cache Hit:** If the key exists in Redis and a valid plan is returned, deserialize the cached JSON and return it directly to the API layer. Do NOT call the OpenAI API.
-            d. **Cache Miss:** If the key does not exist, proceed with the normal flow:
-                i. Call the OpenAI API to generate the new plan.
-                ii. After receiving a valid response, serialize the plan to a JSON string.
-                iii. Use the `SET` command in Redis to store the plan with the generated cache key. Set an appropriate expiration time (e.g., 12-24 hours) to ensure freshness.
-                iv. Return the newly generated plan.
-
--   **Integration Points:**
-    -   **Workout Service (`/services/workout_service.py`):** This is the core integration point. The caching logic must wrap the call to the OpenAI API client.
-    -   **Data Architecture:** The `plan_json` stored in the `workout_plans` table in PostgreSQL will be identical whether it comes from a cached response or a fresh AI generation, ensuring consistency.
-
-### 3. BPM-Matched Spotify Integration
-
--   **Purpose:** To create a motivating user experience by analyzing Spotify playlists and matching the music's Beats Per Minute (BPM) to the intensity of the workout.
-
--   **Components:**
-    -   **Frontend (Next.js):**
-        -   **UI Controls:** To select playlists for a workout.
-        -   **Web Playback SDK:** To control music playback.
-    -   **Backend (FastAPI):**
-        -   **Spotify Web API Client:** A client to interact with Spotify's API.
-        -   **Audio Analysis Endpoint:** An endpoint to trigger the BPM analysis of a playlist.
-        -   **Caching Mechanism:** To store the results of the audio analysis.
-    -   **Database (PostgreSQL):**
-        -   `workout_music_sessions` table with a `track_analysis_cache` (JSONB) column.
-
--   **Implementation Steps (AI Agent Guide):**
-
-    1.  **Create Spotify API Client:**
-        -   In the FastAPI backend, create a service or utility in `/lib` or `/services` to handle all interactions with the Spotify Web API, including token refreshing.
-
-    2.  **Implement Audio Analysis Endpoint:**
-        -   Create a new endpoint, e.g., `POST /api/v1/spotify/analyze-playlist`.
-        -   This endpoint accepts a `spotify_playlist_uri` and a `workout_plan_id`.
-        -   It first checks the `workout_music_sessions` table to see if the `track_analysis_cache` for this playlist is already populated. If so, it returns the cached data.
-
-    3.  **Fetch and Analyze Tracks:**
-        -   If no cached data exists, the endpoint uses the Spotify API client to:
-            a. Fetch all tracks for the given playlist URI.
-            b. For each track, call Spotify's "Get Audio Features for Several Tracks" endpoint to retrieve audio features, including `tempo` (BPM).
-            c. Structure the results into a consistent JSON format (e.g., a list of objects with `track_uri`, `name`, `artist`, `bpm`).
-
-    4.  **Cache the Analysis Results:**
-        -   Once the analysis is complete, `UPDATE` the corresponding record in the `workout_music_sessions` table, storing the JSON result in the `track_analysis_cache` column.
-        -   Return the analysis result to the frontend.
-
-    5.  **Integrate with AI Plan Generation:**
-        -   When the AI is asked to generate or adapt a plan, the backend service should check if a `workout_music_sessions` record exists for that plan.
-        -   If it does, and the `track_analysis_cache` is populated, this BPM data can be included in the prompt sent to OpenAI, allowing the AI to structure the workout (e.g., high-intensity intervals) to align with high-BPM songs in the playlist.
-
--   **Integration Points:**
-    -   **Frontend UI:** The workout setup screen, where a user can associate a Spotify playlist with their planned workout. This triggers the call to the `/api/v1/spotify/analyze-playlist` endpoint.
-    -   **AI Prompting Strategy:** The core integration point with the AI system. The prompt templates must be updated to include the BPM data as optional context.
-    -   **`workout_music_sessions` Table:** Acts as the data bridge, connecting a workout plan to its musical context and cached analysis.
+The Spotify integration goes beyond simple playback control by incorporating **BPM-matching** for workout sessions. The FastAPI backend will utilize the Spotify Web API's audio analysis capabilities to retrieve BPM information for tracks. This data will then be used to curate or recommend playlists that align with the intensity of the user's workout, providing a seamless and motivating audio experience. This involves a tight integration between the backend's analytical capabilities and the frontend's playback control via the Web Playback SDK.
 
 ## Implementation Patterns
 
@@ -618,91 +480,6 @@ A comprehensive and structured logging strategy will be implemented across both 
     - Any relevant data or metadata
 - **Sensitive Data Handling:** Strict measures will be in place to prevent the logging of sensitive user data (e.g., passwords, personal identifiable information, API keys). This will involve redaction or masking of such data before it is written to logs.
 - **Frontend Logging:** Client-side errors and significant user interactions will be logged to the centralized system, providing insights into user experience and client-side issues.
-
-### CRUD Patterns
-
-To ensure consistency and predictability for AI agents, all Create, Read, Update, and Delete (CRUD) operations will follow a standardized pattern within the FastAPI backend. This pattern separates concerns into distinct layers: API (Routers), Business Logic (Services), Data Access (CRUD), and Data Shape (Schemas/Models).
-
-**Standard CRUD Flow for a Resource (e.g., "Workout"):**
-
-1.  **API Layer (Router):**
-    -   **File:** `backend/app/api/v1/workouts.py`
-    -   **Purpose:** Defines the HTTP endpoints (`@router.post`, `@router.get`, etc.).
-    -   **Responsibilities:**
-        -   Handles request and response validation using Pydantic schemas.
-        -   Injects dependencies (like the database session and services).
-        -   Calls the appropriate `service` function to handle the business logic.
-        -   Returns the final response to the client.
-
-    ```python
-    # Example: Create a new workout
-    @router.post("/", response_model=schemas.Workout)
-    def create_workout(
-        *,
-        db: Session = Depends(get_db),
-        workout_in: schemas.WorkoutCreate,
-        current_user: models.User = Depends(get_current_user)
-    ) -> Any:
-        """
-        Create new workout for the current user.
-        """
-        workout = workout_service.create_with_owner(db=db, obj_in=workout_in, user=current_user)
-        return workout
-    ```
-
-2.  **Business Logic Layer (Service):**
-    -   **File:** `backend/app/services/workout_service.py`
-    -   **Purpose:** Contains the core business logic for the resource.
-    -   **Responsibilities:**
-        -   Orchestrates operations, which may involve calling multiple CRUD functions or other services.
-        -   Performs business rule validation (e.g., checking permissions beyond simple ownership).
-        -   Is called by the API layer and calls the `crud` layer.
-
-    ```python
-    # Example: Service function for creating a workout
-    from app.crud import crud_workout
-    from app.schemas import WorkoutCreate
-
-    class WorkoutService:
-        def create_with_owner(self, db: Session, *, obj_in: WorkoutCreate, user: models.User) -> models.Workout:
-            """
-            Create a new workout and associate it with the owner.
-            """
-            # Business logic here (e.g., validations, transformations)
-            workout = crud_workout.create(db=db, obj_in=obj_in, user_id=user.id)
-            return workout
-
-    workout_service = WorkoutService()
-    ```
-
-3.  **Data Access Layer (CRUD):**
-    -   **File:** `backend/app/crud/crud_workout.py`
-    -   **Purpose:** Contains functions that directly interact with the database for a specific model.
-    -   **Responsibilities:**
-        -   Provides reusable functions for basic `create`, `get`, `get_multi`, `update`, and `remove` operations.
-        -   Is called by the `service` layer.
-
-    ```python
-    # Example: Generic CRUD 'create' function
-    from app.db.models import Workout
-    from app.schemas import WorkoutCreate
-
-    class CRUDWorkout(CRUDBase[Workout, WorkoutCreate, WorkoutUpdate]):
-        def create_with_owner_id(self, db: Session, *, obj_in: WorkoutCreate, user_id: int) -> Workout:
-            db_obj = self.model(**obj_in.dict(), user_id=user_id)
-            db.add(db_obj)
-            db.commit()
-            db.refresh(db_obj)
-            return db_obj
-
-    crud_workout = CRUDWorkout(Workout)
-    ```
-
-4.  **Data Shape Layer (Schemas & Models):**
-    -   **Schemas (Pydantic):** `backend/app/schemas/workout.py` - Defines the shape of data for API requests and responses.
-    -   **Models (SQLAlchemy):** `backend/app/db/models/workout.py` - Defines the database table structure.
-
-By following this layered approach for every resource, AI agents can reliably predict where to find and how to implement CRUD functionality, ensuring a consistent and maintainable codebase.
 
 ## Data Architecture
 
