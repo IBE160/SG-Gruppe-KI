@@ -11,14 +11,10 @@
 - [x] /run-agent-task analyst *workflow-init
   - [x] File: bmm-workflow-status.yaml
 - [x] Brainstorming
-  - [x] /run-agent-task analyst *brainstorm "Root Cause Analysis and Solution Design for Player Inactivity"
-    - [x] File: brainstorming-session-results-date.md
-  - [x] /run-agent-task analyst *brainstorm "User Flow Deviations & Edge Cases"
-    - [x] File: brainstorming-session-results-date.md
-  - [x] /run-agent-task analyst *brainstorm "Brainstorm what it means to have a paid user"
-    - [x] File: brainstorming-session-results-date.md
+  - [x] /run-agent-task analyst *brainstorm "Feature Ideas"
+    - [x] File: brainstorming.md
 - [ ] Research
-  - [x] /run-agent-task analyst *research "Which AI library should we use for orchestrating LLM interactions?"
+  - [x] /run-agent-task analyst *Monetazion"
     - [x] File: research-technical-date.md
 - [x] Product Brief
   - [x] /run-agent-task analyst *product-brief "Read the two brainstorming sessions the research session and the @proposal.md file, and create a product brief for the project."
@@ -30,22 +26,30 @@
   - [x] /run-agent-task pm *prd
     - [x] File: PRD.md
   - [x] /run-agent-task pm *validate-prd
-    - [x] File: validation-report-date.md
-  - [ ] /run-agent-task ux-designer *create-ux-design {prompt / user-input-file}
-    - [ ] File: ux-design-specification.md
-    - [ ] File: ux-color-themes.html
-    - [ ] File: ux-design-directions.html
-  - [ ] /run-agent-task ux-designer *validate-ux-design {prompt / user-input-file}
+    - [x] File: validation-report-PRD.md
+  - [x] /run-agent-task ux-designer *create-ux-design {prompt / user-input-file}
+    - [x] File: ux-design-specification.md
+    - [x] File: ux-color-themes.html
+    - [x] File: ux-design-directions.html
+  - [x] /run-agent-task ux-designer *validate-ux-design {prompt / user-input-file}     
+    - [x] File: validation-report-ux-design-1.md
+    - [x] File: validation-report-ux-design-2.md
+
 
 ## Fase 2
 
-- [ ] Solutioning
-  - [ ] /run-agent-task architect *create-architecture {prompt / user-input-file}
-    - [ ] File: architecture.md
-  - [ ] /run-agent-task pm *create-epics-and-stories {prompt / user-input-file}
-    - [ ] File: epics.md
-  - [ ] /run-agent-task tea *test-design {prompt / user-input-file}
-  - [ ] /run-agent-task architect *solutioning-gate-check {prompt / user-input-file}
+- [x] Solutioning
+  - [x] /run-agent-task architect *create-architecture {prompt / user-input-file}
+    - [x] File: architecture.md
+  - [x] /run-agent-task pm *create-epics-and-stories {prompt / user-input-file}
+    - [x] File: epics.md
+  - [x] /run-agent-task tea *test-design {prompt / user-input-file}
+    - [x] File : test-design-epic-1
+    - [x] File : test-design-epic-2
+    - [x] File : test-design-epic-3
+    - [x] File : test-design-epic-4
+    - [x] File : test-design-epic-5
+  - [x] /run-agent-task architect *solutioning-gate-check {prompt / user-input-file}
 
 ## Fase 3
 
