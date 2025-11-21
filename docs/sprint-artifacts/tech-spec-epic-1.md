@@ -95,8 +95,8 @@ This epic directly aligns with the foundational architectural decisions outlined
 
 ### Workflows and Sequencing
 
-1.  **Project Initialization (Story 1.1):**
-    *   **Action:** Developer executes `npx create-next-app` for the frontend and sets up the `backend` directory with `venv` and FastAPI/Uvicorn. Configures `.env` files for Supabase access.
+1.  **Story 1.1: As a Developer, I want to initialize the project with core infrastructure, so that I can begin feature development with a functional monorepo.**
+    *   **Action:** Execute `npx create-next-app` for the frontend and set up the `backend` directory with `venv` and FastAPI/Uvicorn. Configures `.env` files for Supabase access.
     *   **Outcome:** A functional monorepo structure with connected Next.js and FastAPI components, ready for feature development.
 2.  **User Signup/Login (Stories 1.2, 1.3):**
     *   **Sequence:**
