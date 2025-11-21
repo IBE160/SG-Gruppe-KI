@@ -44,8 +44,13 @@
 - [x] Implementation
   - [x] /run-agent-task sm *sprint-planning {prompt / user-input-file}
   - foreach epic in sprint planning:
-    - [ ] /run-agent-task sm epic-tech-content {prompt / user-input-file}
-    - [ ] /run-agent-task sm validate-epic-tech-content {prompt / user-input-file}
+    - [x] File : sprint-status.md
+    - [x] /run-agent-task sm epic-tech-content {prompt / user-input-file}
+    - [x] /run-agent-task sm validate-epic-tech-content {prompt / user-input-file}
+    - [x] File : tech-spec-epic-1.md
+    - [x] File : tech-spec-epic-2.md
+    - [x] File : tech-spec-epic-3.md
+
     - foreach story in epic:
       - [ ] /run-agent-task sm *create-story {prompt / user-input-file}
       - [ ] /run-agent-task sm *validate-create-story {prompt / user-input-file}
