@@ -55,6 +55,7 @@ As this is the first story in the epic, there are no previous story learnings or
   - `architecture.md#Decision-Summary`
   - `architecture.md#Project-Structure`
   - `epics.md#Story-1.1:-Project-Initialization-and-Setup`
+  - `tech-spec-epic-1.md#Story-1.1:-Project-Initialization-and-Setup`
 
 ## Dev Agent Record
 
