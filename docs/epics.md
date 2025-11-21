@@ -1,647 +1,479 @@
-# AI-Powered Personal Training Advisor - Epic Breakdown
+# ibe160 - Epic Breakdown
 
 **Author:** BIP
-**Date:** 2025-11-03
-**Project Level:** 3
-**Target Scale:** Complex system (12-40 stories)
+**Date:** 2025-11-21
+**Project Level:** {{project_level}}
+**Target Scale:** {{target_scale}}
 
 ---
 
 ## Overview
 
-This document provides the detailed epic breakdown for AI-Powered Personal Training Advisor, expanding on the high-level epic list in the [PRD](./bmm-PRD.md).
+This document provides the complete epic and story breakdown for ibe160, decomposing the requirements from the [PRD](./PRD.md) into implementable stories.
 
-Each epic includes:
+**Living Document Notice:** This is the initial version. It will be updated after UX Design and Architecture workflows add interaction and technical details to stories.
 
-- Expanded goal and value proposition
-- Complete story breakdown with user stories
-- Acceptance criteria for each story
-- Story sequencing and dependencies
+**Workflow Mode:** CREATE
+**Available Context:**
+- PRD (required)
+- Architecture (will incorporate technical decisions)
 
-**Epic Sequencing Principles:**
+### Proposed Epic Structure
 
-- Epic 1 establishes foundational infrastructure and initial functionality
-- Subsequent epics build progressively, each delivering significant end-to-end value
-- Stories within epics are vertically sliced and sequentially ordered
-- No forward dependencies - each story builds only on previous work
+**Epic 1: Core Platform & User Foundation**
+*   **Goal:** Establish the foundational infrastructure, user authentication, and conversational onboarding to enable basic user interaction and personalization.
+*   **High-level scope:** User registration, login, profile management, and initial goal setting through an AI-guided conversation.
+
+**Epic 2: AI-Powered Training & Logging**
+*   **Goal:** Implement the core AI daily plan generation, workout player, and progress tracking to deliver personalized and adaptive training experiences.
+*   **High-level scope:** AI plan generation based on user context, workout execution with logging capabilities, progress visualization, and integration of recovery signals.
+
+**Epic 3: Enhanced User Experience & Settings**
+*   **Goal:** Integrate Spotify for music, provide in-app reminders and offline capabilities, and offer comprehensive settings for user control.
+*   **High-level scope:** Spotify integration for music playback, notifications, offline data caching, and a full-featured settings page for personalization and privacy.
+
+---
+
+## Functional Requirements Inventory
+
+- FR001: Conversational Onboarding & Goal Setting
+- FR002: AI Daily-Plan Generator (adapts to user context)
+- FR003: Workout Player with logging (reps, weight, RPE)
+- FR004: Progress Dashboard (volume, streaks, basic stats)
+- FR005: Authentication (OAuth for Google, Email)
+- FR006: In-app Reminders & Nudges
+- FR007: Offline Cache for the daily workout plan and logs
+- FR008: Spotify Integration (PKCE OAuth, playback control, BPM-matched Session Mix v1)
+- FR009: Context Window for manual user input (energy, mood, soreness)
+- FR010: Simulated Recovery Inputs to validate adaptive AI logic
+- FR011: Weekly Review Ritual (automated progress summary)
+- FR012: Settings page with General, Appearance, Performance & Data, Music & Playback, AI & Personalization, Privacy & Account settings.
+- FR013: User Profile Management (view/edit profile info, goals, equipment).
+
+---
+
+## FR Coverage Map
+
+**Epic 1: Core Platform & User Foundation**
+*   FR001: Conversational Onboarding & Goal Setting
+*   FR005: Authentication (OAuth for Google, Email)
+*   FR013: User Profile Management (view/edit profile info, goals, equipment).
+
+**Epic 2: AI-Powered Training & Logging**
+*   FR002: AI Daily-Plan Generator (adapts to user context)
+*   FR003: Workout Player with logging (reps, weight, RPE)
+*   FR004: Progress Dashboard (volume, streaks, basic stats)
+*   FR009: Context Window for manual user input (energy, mood, soreness)
+*   FR010: Simulated Recovery Inputs to validate adaptive AI logic
+*   FR011: Weekly Review Ritual (automated progress summary)
+
+**Epic 3: Enhanced User Experience & Settings**
+*   FR006: In-app Reminders & Nudges
+*   FR007: Offline Cache for the daily workout plan and logs
+*   FR008: Spotify Integration (PKCE OAuth, playback control, BPM-matched Session Mix v1)
+*   FR012: Settings page with General, Appearance, Performance & Data, Music & Playback, AI & Personalization, Privacy & Account settings.
 
 ---
 
 ## Epic 1: Core Platform & User Foundation
 
-**Expanded Goal:** This epic aims to establish the fundamental technical and user-facing infrastructure required for the application. It includes setting up the project, implementing secure user authentication, and guiding new users through a conversational onboarding process to gather essential personalization data. This foundation is critical for all subsequent features and ensures a smooth initial user experience.
+**Goal:** Establish the foundational infrastructure, user authentication, and conversational onboarding to enable basic user interaction and personalization.
 
-### Story Breakdown
+### Story 1.1: Project Initialization and Setup
 
-**Story 1.1.1: Initialize Frontend and Backend Project Structure**
-As a developer,
-I want to execute the initial project setup commands for the frontend and backend,
-So that the basic monorepo structure is in place.
-
-**Acceptance Criteria:**
-1.  `npx create-next-app` is run successfully with the specified flags from `architecture.md`.
-2.  A `backend` directory is created with a Python virtual environment.
-3.  `fastapi`, `uvicorn`, and `python-dotenv` are installed in the virtual environment.
-
-**Prerequisites:** None
-
-**Story 1.1.2: Establish Supabase Integration and Basic Schema**
-As a developer,
-I want to connect the project to a Supabase instance and create the initial database schema,
-So that the application has a persistent data layer.
+As a Developer,
+I want to initialize the project with Next.js, FastAPI, and Supabase,
+So that we have a foundational structure for development.
 
 **Acceptance Criteria:**
-1.  A Supabase project is created and environment variables for the connection are added to both frontend and backend `.env` files.
-2.  The `users`, `workout_plans`, `workout_logs`, `daily_contexts`, `spotify_integrations`, and `user_settings` tables are created in the Supabase PostgreSQL database as defined in `architecture.md`.
-3.  Row-Level Security (RLS) is enabled on all tables, with a basic policy ensuring users can only access their own data.
 
-**Prerequisites:** Story 1.1.1
+**Given** the project structure is defined in rchitecture.md
+**When** the initialization commands are run
+**Then** a Next.js frontend, a FastAPI backend, and a Supabase project are created and connected.
+**And** the project is structured as a monorepo.
 
-**Story 1.1.3: Configure Basic CI/CD Pipeline**
-As a developer,
-I want to set up a basic CI/CD pipeline,
-So that code changes are automatically built and tested.
+**Prerequisites:** None.
 
-**Acceptance Criteria:**
-1.  A GitHub Actions (or similar) workflow is created.
-2.  The workflow triggers on every push to the `main` branch.
-3.  The workflow installs dependencies for both frontend and backend.
-4.  The workflow runs linters (ESLint) for the frontend and builds the Next.js project successfully.
-5.  (Optional Stretch) The workflow runs basic placeholder tests for frontend and backend.
+**Technical Notes:** Follow the Project Initialization section in rchitecture.md. Includes setting up .env files and basic configurations.
 
-**Prerequisites:** Story 1.1.1
+### Story 1.2: User Authentication with Email/Password
 
-**Story 1.2: Email & Password Authentication**
-
-As a new user,
-I want to create an account and log in using my email and a password,
-So that I can securely access the application.
+As a User,
+I want to be able to sign up and log in with my email and password,
+So that I can have a secure personal account.
 
 **Acceptance Criteria:**
-1.  User registration with email and password is functional.
-2.  User login with email and password is functional.
-3.  Password hashing and secure token management are implemented.
 
-**Prerequisites:** Story 1.1
+**Given** a user is on the login/signup page
+**When** they enter a valid email and password and click "Sign Up"
+**Then** a new user is created in the Supabase users table.
+**And** they are automatically logged in.
+**Given** a registered user is on the login page
+**When** they enter their correct email and password and click "Log In"
+**Then** they are successfully authenticated.
 
-**Story 1.3: Google OAuth Integration**
+**Prerequisites:** Story 1.1.
 
-As a new user,
-I want to create an account and log in using my Google account,
-So that I can quickly and conveniently access the application.
+**Technical Notes:** Use Supabase Auth for email/password authentication. Implement the UI for signup and login forms.
 
-**Acceptance Criteria:**
-1.  Google OAuth flow is integrated and functional for registration and login.
-2.  User data from Google is correctly mapped to the application's user profile.
+### Story 1.3: User Authentication with Google OAuth
 
-**Prerequisites:** Story 1.1
-
-**Story 1.4: Apple OAuth Integration (Phase 2)**
-
-As a new user,
-I want to create an account and log in using my Apple account,
-So that I can quickly and conveniently access the application.
+As a User,
+I want to be able to sign up and log in with my Google account,
+So that I can have a quick and easy authentication experience.
 
 **Acceptance Criteria:**
-1.  Apple OAuth flow is integrated and functional for registration and login.
-2.  User data from Apple is correctly mapped to the application's user profile.
 
-**Prerequisites:** Story 1.1
+**Given** a user is on the login/signup page
+**When** they click "Continue with Google"
+**Then** they are redirected to Google's OAuth flow.
+**And** upon successful authentication, they are redirected back to the app and are logged in.
 
-**Story 1.5.1: Conversational Onboarding UI/Logic**
+**Prerequisites:** Story 1.1.
 
-As a new user,
-I want to be guided through an engaging conversational onboarding process,
-So that the AI can gather my goals, preferences, and limitations with clear feedback.
+**Technical Notes:** Configure Google as an OAuth provider in Supabase. Implement the "Continue with Google" button and handle the OAuth callback.
 
-**Acceptance Criteria:**
-1.  Onboarding flow (Warm Welcome, Conversational Check-in) is implemented as per UX spec.
-2.  UI allows input for user goals, time/frequency, equipment, injuries, and units via interactive controls (sliders, chips, text input).
-3.  User inputs are stored correctly in the database.
-4.  Real-time feedback is provided during check-in as user adjusts inputs, as per UX spec.
-5.  All defined states and variants for onboarding UI components are implemented.
+### Story 1.4: Conversational Onboarding for Goal Setting
 
-**Prerequisites:** Story 1.1, Story 1.2, Story 1.3
-
-**Story 1.5.2: First Plan Reveal UI/Logic**
-
-As a new user,
-I want to see my first personalized workout plan generated and presented clearly,
-So that I understand what to expect and can confidently start my fitness journey.
+As a new User,
+I want to be guided through a conversational onboarding process,
+So that I can set up my initial fitness goals, preferences, and available equipment.
 
 **Acceptance Criteria:**
-1.  The "Instant AI Feedback" and "First Plan Reveal" screens are implemented as per UX spec.
-2.  AI processing state is clearly communicated with micro-status and visual animations.
-3.  The generated plan summary and overview are displayed accurately.
-4.  Buttons for "[View My Plan]" and "[Adjust Details]" are functional.
-5.  All defined states and variants for plan reveal UI components are implemented.
 
-**Prerequisites:** Story 1.5.1
+**Given** a new user logs in for the first time
+**When** they are redirected to the onboarding flow
+**Then** they are presented with a series of questions about their goals, time availability, equipment, injuries, and preferred units.
+**And** their responses are saved to their user profile in the users table.
 
-**Story 1.6: Implement Core Accessibility Features**
+**Prerequisites:** Story 1.2 or 1.3.
 
-As a developer,
-I want to implement foundational accessibility features across the application,
-So that the app is usable by a wider audience, including individuals with disabilities, and adheres to WCAG 2.1 AA standards.
+**Technical Notes:** Implement a multi-step conversational UI for onboarding. Store the collected data in the users table (goals, preferences, equipment, injuries, units columns).
+
+### Story 1.5: User Profile Management
+
+As a User,
+I want to be able to view and edit my profile information, goals, and equipment,
+So that I can keep my personal details up to date.
 
 **Acceptance Criteria:**
-1.  Keyboard navigation is functional across all core interactive elements (buttons, links, form fields).
-2.  Visible focus indicators are present for all interactive elements.
-3.  All primary color combinations meet WCAG 2.1 AA contrast ratios.
-4.  Basic ARIA attributes (roles, labels) are correctly applied to key UI components.
-5.  Screen reader compatibility for core navigation and content areas is verified.
 
-**Prerequisites:** Story 1.1, Story 1.5
+**Given** an authenticated user
+**When** they navigate to their profile page
+**Then** they can see their current profile information, goals, and equipment.
+**And** they can edit these details and save the changes.
 
+**Prerequisites:** Story 1.4.
 
----
-
+**Technical Notes:** Create a profile page that displays user data from the users table. Implement a form to allow users to update their information.
 ## Epic 2: AI-Powered Training & Logging
 
-**Expanded Goal:** This epic focuses on implementing the core intelligence of the application, enabling the AI to generate personalized daily workout plans based on user input and historical data. It also covers the development of the workout player for logging performance and the progress dashboard for visualizing user achievements and trends.
+**Goal:** Implement the core AI daily plan generation, workout player, and progress tracking to deliver personalized and adaptive training experiences.
 
-### Story Breakdown
+### Story 2.1: Context Window for Daily Input
 
-**Story 2.1.1: Create AI Plan Generation Service**
-As a developer,
-I want to create a service in the FastAPI backend that connects to the OpenAI API,
-So that I have a dedicated module for handling AI plan generation requests.
-
-**Acceptance Criteria:**
-1.  A new service module is created in the FastAPI backend (e.g., `services/plan_service.py`).
-2.  The service can securely connect to the OpenAI API using an API key from environment variables.
-3.  A basic function exists that can send a hardcoded prompt to the OpenAI API and receive a response.
-
-**Prerequisites:** Story 1.1.2
-
-**Story 2.1.2: Develop Prompt Engineering for Plan Generation**
-As a developer,
-I want to design and implement a prompt that incorporates user data to generate a structured workout plan,
-So that the AI's response is personalized and predictable.
+As a User,
+I want to provide daily context on my mood, energy, and soreness,
+So that the AI can adapt my workout plan for the day.
 
 **Acceptance Criteria:**
-1.  The prompt dynamically includes user profile data (goals, equipment), preferences, and recent context.
-2.  The prompt explicitly requests the output in a specific, parsable JSON format that matches the `workout_plans.plan_json` schema.
-3.  The prompt includes role-playing instructions (e.g., "You are an expert personal trainer...").
 
-**Prerequisites:** Story 2.1.1
+**Given** an authenticated user on the dashboard
+**When** they open the "Context Window"
+**Then** they can input their mood, energy level, and any muscle soreness.
+**And** this data is saved to the daily_contexts table for the current date.
 
-**Story 2.1.3: Expose Plan Generation via API Endpoint**
-As a developer,
-I want to create a secure API endpoint that triggers the AI plan generation,
-So that the frontend can request a new workout plan for a user.
+**Prerequisites:** Epic 1.
 
-**Acceptance Criteria:**
-1.  A new `POST /plans` endpoint is created in the FastAPI backend.
-2.  The endpoint is protected and requires user authentication.
-3.  The endpoint retrieves the necessary user data, calls the AI Plan Generation Service, and returns the generated JSON plan.
-4.  The generated plan is saved to the `workout_plans` table in the database.
+**Technical Notes:** Implement a UI for the Context Window. This could be a modal or a dedicated section on the dashboard.
 
-**Prerequisites:** Story 2.1.2
+### Story 2.2: AI Daily Plan Generation
 
-**Story 2.1.4: Implement AI Response Caching**
-As a developer,
-I want to implement a caching layer for AI-generated plans,
-So that the system meets the p95 ≤ 10s latency requirement and reduces API costs.
+As a User,
+I want the AI to generate a personalized daily workout plan based on my goals, profile, and daily context,
+So that I have a clear plan to follow.
 
 **Acceptance Criteria:**
-1.  Redis is integrated into the backend.
-2.  Before calling the OpenAI API, the Plan Generation Service checks Redis for a cached response based on user ID and a hash of the input context.
-3.  If a valid cached response exists, it is served directly.
-4.  If no cached response exists, a new plan is generated and stored in Redis with an appropriate TTL (Time-To-Live).
 
-**Prerequisites:** Story 2.1.3
+**Given** a user has provided their daily context
+**When** they request a new plan for the day
+**Then** the FastAPI backend constructs a prompt with the user's profile, daily context, and recent workout history.
+**And** the AI returns a valid JSON workout plan which is then saved to the workout_plans table.
 
-**Story 2.2.1: Workout Player Core UI**
+**Prerequisites:** Story 2.1.
 
-As a user,
-I want an intuitive interface to view my daily workout,
-So that I can easily follow the plan.
+**Technical Notes:** Implement the FastAPI endpoint for AI plan generation. This involves fetching data from Supabase, interacting with the OpenAI API, and validating the response.
 
-**Acceptance Criteria:**
-1.  Workout Player UI displays exercises, sets, reps, and RPE targets as per UX spec.
-2.  Navigation between exercises and sets is smooth.
-3.  The UI supports responsive adaptation for mobile and desktop views as per UX spec.
-4.  All defined states and variants for workout player UI components are implemented.
+### Story 2.3: Display Daily Workout Plan
 
-**Prerequisites:** Story 2.1
-
-**Story 2.2.2: Workout Player Controls & Timers**
-
-As a user,
-I want integrated controls and timers within the workout player,
-So that I can manage my workout session efficiently and stay focused.
+As a User,
+I want to see my generated daily workout plan on the dashboard,
+So that I can review it and start my workout.
 
 **Acceptance Criteria:**
-1.  Timers and cues are integrated for rest periods and exercise duration, as per UX spec.
-2.  Main controls (Complete, Timer, Skip, Music) are implemented as per UX spec.
-3.  Integration with music playback controls (play, pause, skip) from Spotify (if connected).
-4.  All defined states and variants for player controls are implemented.
 
-**Prerequisites:** Story 2.2.1, Story 3.2 (for music integration)
+**Given** a workout plan has been generated for the day
+**When** the user views their dashboard
+**Then** the workout plan is displayed in a clear and easy-to-understand format.
 
-**Story 2.3: Implement Workout Logging**
+**Prerequisites:** Story 2.2.
 
-As a user,
-I want to log my reps, weight, and RPE for each set during a workout,
-So that my performance is accurately recorded and can be used for progress tracking and AI adaptation.
+**Technical Notes:** The frontend should fetch the daily plan from the backend and render it.
 
-**Acceptance Criteria:**
-1.  Users can input reps, weight, and RPE for each set.
-2.  Logged data is stored persistently and associated with the correct workout session.
-3.  Ability to mark a set as "completed" without detailed input.
+### Story 2.4: Workout Player UI
 
-**Prerequisites:** Story 2.2
-
-**Story 2.4: Implement the Progress Dashboard**
-
-As a user,
-I want to view my training progress and key metrics,
-So that I can stay motivated and understand the impact of my efforts.
+As a User,
+I want a workout player interface that guides me through my workout,
+So that I can focus on my exercises.
 
 **Acceptance Criteria:**
-1.  Dashboard displays total volume, intensity, and streak count.
-2.  Basic statistics and trends are visualized (e.g., charts for volume over time) in an information-dense yet uncluttered layout, consistent with the "Data-Driven Dashboard" design direction.
-3.  Visual styling (e.g., subtle elevation with box-shadows for cards, subtle borders) is applied as per UX spec.
-4.  Dashboard data is accurate within ±1% compared to raw logs.
-5.  The dashboard layout is responsive and adapts correctly to defined breakpoints.
 
-**Prerequisites:** Story 2.3
+**Given** a user starts a workout
+**When** the workout player is launched
+**Then** it displays the current exercise, set number, target reps/weight, and a timer for rest periods.
 
-**Story 2.5: Implement In-app Reminders**
+**Prerequisites:** Story 2.3.
 
-As a user,
-I want to receive in-app reminders and nudges,
-So that I stay consistent with my training and don't miss planned sessions.
+**Technical Notes:** Create the UI for the workout player, which will be a stateful component managing the workout flow.
 
-**Acceptance Criteria:**
-1.  Users can set and receive in-app reminders for planned workouts.
-2.  Nudges are context-aware (e.g., "Time to warm up!").
+### Story 2.5: Workout Logging
 
-**Prerequisites:** Story 2.1
-
-**Story 2.6: Implement Offline Caching for Daily Plan**
-
-As a user,
-I want my daily workout plan to be available offline,
-So that I can access my training even without an internet connection.
+As a User,
+I want to log my completed reps, weight, and RPE for each set,
+So that my progress can be tracked.
 
 **Acceptance Criteria:**
-1.  The AI-generated daily plan is cached locally.
-2.  Users can view their plan when offline.
 
-**Prerequisites:** Story 2.1
+**Given** a user is in the workout player
+**When** they complete a set
+**Then** they can input the reps, weight, and RPE.
+**And** this data is saved to the workout_logs table.
 
-**Story 2.7: Implement Offline Logging and Sync**
+**Prerequisites:** Story 2.4.
 
-As a user,
-I want to log my workouts offline and have them sync when I reconnect,
-So that I don't lose my progress even with intermittent internet access.
+**Technical Notes:** Implement the functionality to save workout log entries to the database via the FastAPI backend.
 
-**Acceptance Criteria:**
-1.  Workout logs are cached locally when offline.
-2.  Cached logs are automatically synced to the backend upon reconnection.
-3.  Conflict resolution mechanism for offline/online data discrepancies.
+### Story 2.6: Basic Progress Dashboard
 
-**Prerequisites:** Story 2.3, Story 2.6
-
-**Story 2.8: Implement AI Fallback Mechanism**
-
-As a user,
-I want a backup plan if the AI plan generation fails,
-So that I can still complete a workout without interruption.
+As a User,
+I want to see a progress dashboard with my workout volume, streaks, and basic stats,
+So that I can track my performance over time.
 
 **Acceptance Criteria:**
-1.  If AI plan generation times out or fails (Case A: AI Plan Fails), a cached or rule-based fallback session is provided, as per UX spec.
-2.  Users are clearly notified that a fallback plan is being used with the message specified in UX spec.
-3.  Users are presented with options to "[Start Fallback Session]" or "[Edit Plan]", as per UX spec.
-4.  Music generation failures (Case B: Music Fails) are handled, with subtle warnings and options to "[Retry Music]" or "[Start Session Without Music]", as per UX spec.
-5.  Offline/No Network scenarios (Case C: Offline / No Network) are handled, providing cached or offline templates with appropriate messaging, as per UX spec.
 
-**Prerequisites:** Story 2.1
+**Given** a user has completed one or more workouts
+**When** they view their progress dashboard
+**Then** they can see visualizations of their total workout volume, workout streak, and other basic metrics.
+
+**Prerequisites:** Story 2.5.
+
+**Technical Notes:** Create a dashboard page that fetches data from workout_logs and displays it in charts and graphs.
+
+### Story 2.7: Simulated Recovery Inputs
+
+As a Developer,
+I want to be able to input simulated recovery data (HRV, sleep),
+So that I can validate the AI's ability to adapt plans based on recovery metrics.
+
+**Acceptance Criteria:**
+
+**Given** the AI plan generation endpoint
+**When** simulated recovery data is included in the prompt
+**Then** the generated workout plan is adjusted accordingly (e.g., lower volume for poor recovery).
+
+**Prerequisites:** Story 2.2.
+
+**Technical Notes:** This is a developer-facing story. The FastAPI backend should be able to accept and use simulated recovery data in its prompts to OpenAI.
+
+### Story 2.8: Weekly Review Ritual
+
+As a User,
+I want to receive an automated weekly summary of my progress,
+So that I can stay motivated and see my achievements.
+
+**Acceptance Criteria:**
+
+**Given** a user has completed workouts during the week
+**When** the week ends
+**Then** an automated summary is generated showing their progress, PRs, and other highlights.
+
+**Prerequisites:** Story 2.6.
+
+**Technical Notes:** This can be implemented as a scheduled background job (e.g., using Celery) that generates the summary and stores it for the user to view.
+## Epic 3: Enhanced User Experience & Settings
+
+**Goal:** Integrate Spotify for music, provide in-app reminders and offline capabilities, and offer comprehensive settings for user control.
+
+### Story 3.1: Spotify Account Connection
+
+As a User,
+I want to securely connect my Spotify account,
+So that the application can access my playback controls and listening history.
+
+**Acceptance Criteria:**
+
+**Given** a user is in the settings or onboarding flow
+**When** they click "Connect Spotify"
+**Then** they are redirected to Spotify's OAuth (PKCE) consent screen.
+**And** upon successful authorization, their access and refresh tokens are securely stored in the spotify_integrations table.
+
+**Prerequisites:** Epic 1.
+
+**Technical Notes:** Implement the PKCE OAuth flow for Spotify. Handle token storage and refresh using the FastAPI backend.
+
+### Story 3.2: Spotify Playback Control in Workout Player
+
+As a User,
+I want to control Spotify music playback (play, pause, skip) directly from the workout player,
+So that I can manage my music without leaving the workout.
+
+**Acceptance Criteria:**
+
+**Given** a connected Spotify account and an active workout
+**When** the user is in the workout player
+**Then** they see controls to play, pause, and skip tracks.
+**And** these controls successfully interact with Spotify playback.
+
+**Prerequisites:** Story 3.1, Epic 2.4 (Workout Player UI).
+
+**Technical Notes:** Integrate the Spotify Web Playback SDK into the frontend. Use the FastAPI backend to relay playback commands to Spotify's API.
+
+### Story 3.3: BPM-Matched Session Mix Generation
+
+As a User,
+I want the AI to generate a Spotify playlist with BPM-matched music for my workout,
+So that my music aligns with the intensity of my training phases.
+
+**Acceptance Criteria:**
+
+**Given** a connected Spotify account and a generated workout plan
+**When** the user requests a "Session Mix"
+**Then** the AI analyzes their listening history and track BPMs.
+**And** a new Spotify playlist is created and populated with BPM-matched tracks according to the workout phases.
+
+**Prerequisites:** Story 3.1, Story 2.2 (AI Daily Plan Generation).
+
+**Technical Notes:** FastAPI backend uses Spotify Web API for audio analysis (BPM) and playlist creation. This data can be cached in workout_music_sessions.
+
+### Story 3.4: In-App Reminders and Nudges
+
+As a User,
+I want to receive timely in-app reminders and nudges,
+So that I stay consistent with my training and goals.
+
+**Acceptance Criteria:**
+
+**Given** a user has enabled reminders
+**When** it's time for a scheduled workout or other event
+**Then** an in-app notification or message appears, reminding them.
+
+**Prerequisites:** Epic 1.
+
+**Technical Notes:** Implement a notification system within the frontend. Use background jobs (e.g., Celery) to trigger reminders.
+
+### Story 3.5: Offline Cache for Daily Plans and Logs
+
+As a User,
+I want to access my daily workout plan and log my progress even when offline,
+So that my training is not interrupted by connectivity issues.
+
+**Acceptance Criteria:**
+
+**Given** a user has loaded their daily plan while online
+**When** they go offline
+**Then** they can still view their daily plan and log sets.
+**And** logged data is stored locally and synced to the backend upon reconnection.
+
+**Prerequisites:** Epic 2.2 (AI Daily Plan Generation), Epic 2.5 (Workout Logging).
+
+**Technical Notes:** Implement IndexedDB for local caching and an Outbox Pattern for syncing data when online.
+
+### Story 3.6: Comprehensive Settings Page
+
+As a User,
+I want a comprehensive settings page to manage my general preferences, appearance, music, AI personalization, privacy, and account,
+So that I have full control over my app experience.
+
+**Acceptance Criteria:**
+
+**Given** an authenticated user
+**When** they navigate to the settings page
+**Then** they can view and modify various categories of settings (General, Appearance, Performance & Data, Music & Playback, AI & Personalization, Privacy & Account).
+**And** changes are persisted in the user_settings table.
+
+**Prerequisites:** Epic 1.
+
+**Technical Notes:** Design a multi-section settings UI. Implement CRUD operations for the user_settings table.
+<!-- End epic repeat -->
+
+## Epic {{N}}: {{epic_title_N}}
+
+{{epic_goal_N}}
+
+<!-- Repeat for each story (M = 1, 2, 3...) within epic N -->
+
+### Story {{N}}.{{M}}: {{story_title_N_M}}
+
+As a {{user_type}},
+I want {{capability}},
+So that {{value_benefit}}.
+
+**Acceptance Criteria:**
+
+**Given** {{precondition}}
+**When** {{action}}
+**Then** **expected_outcome**
+
+**And** {{additional_criteria}}
+
+**Prerequisites:** {{dependencies_on_previous_stories}}
+
+**Technical Notes:** {{implementation_guidance}}
+
+<!-- End story repeat -->
 
 ---
 
-## Epic 3: Enhanced Experience & Personalization
-
-**Story 2.9: Implement Weekly Review Ritual**
-
-As a user,
-I want to receive an automated summary of my weekly progress,
-So that I can stay informed about my achievements and adjust my goals effectively.
-
-**Acceptance Criteria:**
-1.  System generates a weekly summary of key progress metrics (e.g., total volume, PRs, consistency).
-2.  Summary is easily accessible within the application (e.g., via a dedicated section on the dashboard or a notification).
-3.  Users can review their weekly summary and provide feedback.
-
-**Prerequisites:** Story 2.4
+<!-- End epic repeat -->
 
 ---
 
-## Epic 3: Enhanced Experience & Personalization
+## FR Coverage Matrix
 
-**Expanded Goal:** This epic focuses on enriching the user's training experience through seamless music integration and advanced AI personalization. It includes connecting with Spotify to provide BPM-matched session mixes, implementing a "Context Window" for real-time user feedback to adapt AI plans, and integrating simulated recovery inputs to validate the AI's adaptive logic.
-
-### Story Breakdown
-
-**Story 3.1: Implement Spotify Authentication**
-
-As a user,
-I want to securely connect my Spotify account to the application,
-So that I can integrate my music preferences with my workouts.
-
-**Acceptance Criteria:**
-1.  Spotify OAuth (PKCE) flow is successfully integrated.
-2.  User can connect and disconnect their Spotify account.
-3.  Access and refresh tokens are securely stored.
-
-**Prerequisites:** Story 1.1
-
-**Story 3.2: Implement Music Playback Control**
-
-As a user,
-I want to control Spotify music playback directly within the workout player,
-So that I don't have to switch between apps during my session.
-
-**Acceptance Criteria:**
-1.  Play, pause, and skip functionality for Spotify is available in the workout player.
-2.  Users can select available Spotify playback devices.
-
-**Prerequisites:** Story 3.1
-
-**Story 3.3: Implement BPM-matched Session Mixes**
-
-As a user,
-I want the AI to generate music playlists that match the intensity of my workout phases,
-So that my music motivates me and aligns with my training.
-
-**Acceptance Criteria:**
-1.  AI generates session mixes based on BPM targets for different workout phases.
-2.  Mixes incorporate user's Spotify listening history and preferences.
-3.  Users can review and adjust the generated playlist before starting a workout.
-
-**Prerequisites:** Story 3.2
-
-**Story 3.4.1: Context Window UI Input**
-
-As a user,
-I want an intuitive interface to provide daily feedback on my mood, energy, and soreness,
-So that the AI can gather my current state.
-
-**Acceptance Criteria:**
-1.  Context Window UI (bottom sheet modal) is implemented as per UX spec, allowing input via:
-    *   Energy slider (Low → Normal → High).
-    *   Sleep quality chips (Bad 😴 / Okay 🙂 / Great 😁).
-    *   Chips for physical/mental state (Sore legs, Stressed, Motivated, Need it easy, Ready to push).
-    *   Optional free-text field.
-2.  User input is captured and stored for AI processing.
-3.  All defined states and variants for Context Window UI components are implemented.
-
-**Prerequisites:** Story 2.1
-
-**Story 3.4.2: Context Window Live Feedback & AI Integration**
-
-As a user,
-I want to receive transparent, real-time feedback from the AI as I provide my daily context,
-So that I understand how my input influences my workout plan.
-
-**Acceptance Criteria:**
-1.  As the user adjusts inputs in the Context Window, transparent feedback (e.g., “Got it – I’ll reduce volume ~10%...”) is displayed live on the same sheet, as per UX spec.
-2.  The AI processes the real-time input to provide adaptive feedback before plan generation.
-3.  The Context Window transitions smoothly to a "Designing today's plan..." progress state upon user confirmation.
-
-**Prerequisites:** Story 3.4.1, Story 2.1
-
-**Story 3.5: Implement AI Adaptation to User Context**
-
-As a user,
-I want the AI to adapt my workout plan based on my daily context input,
-So that my training is always optimized for my current physical and mental state.
-
-**Acceptance Criteria:**
-1.  AI processes Context Window input to adjust workout volume, intensity, or exercise selection.
-2.  AI transparently communicates proposed changes to the user.
-3.  Users can accept or decline AI suggestions.
-
-**Prerequisites:** Story 3.4, Story 2.1
-
-**Story 3.6: Implement Simulated Recovery Inputs**
-
-As a developer,
-I want to simulate recovery data (HRV, sleep) to validate the AI's adaptive logic,
-So that I can ensure the AI responds correctly to different recovery states before real wearable integration.
-
-**Acceptance Criteria:**
-1.  System accepts simulated recovery inputs (e.g., via a hidden developer setting or specific Context Window options).
-2.  AI plan generation demonstrably changes based on simulated recovery data (e.g., -10% volume for "poor" recovery).
-
-**Prerequisites:** Story 3.5
+| FR ID | Description | Epic | Story(s) |
+|---|---|---|---|
+| FR001 | Conversational Onboarding & Goal Setting | Epic 1 | 1.4 |
+| FR002 | AI Daily-Plan Generator (adapts to user context) | Epic 2 | 2.2 |
+| FR003 | Workout Player with logging (reps, weight, RPE) | Epic 2 | 2.4, 2.5 |
+| FR004 | Progress Dashboard (volume, streaks, basic stats) | Epic 2 | 2.6 |
+| FR005 | Authentication (OAuth for Google, Email) | Epic 1 | 1.2, 1.3 |
+| FR006 | In-app Reminders & Nudges | Epic 3 | 3.4 |
+| FR007 | Offline Cache for the daily workout plan and logs | Epic 3 | 3.5 |
+| FR008 | Spotify Integration (PKCE OAuth, playback control, BPM-matched Session Mix v1) | Epic 3 | 3.1, 3.2, 3.3 |
+| FR009 | Context Window for manual user input (energy, mood, soreness) | Epic 2 | 2.1 |
+| FR010 | Simulated Recovery Inputs to validate adaptive AI logic | Epic 2 | 2.7 |
+| FR011 | Weekly Review Ritual (automated progress summary) | Epic 2 | 2.8 |
+| FR012 | Settings page with General, Appearance, Performance & Data, Music & Playback, AI & Personalization, Privacy & Account settings. | Epic 3 | 3.6 |
+| FR013 | User Profile Management (view/edit profile info, goals, equipment). | Epic 1 | 1.5 |
 
 ---
 
-## Epic 4: User Control & Settings
+## Summary
 
-**Expanded Goal:** This epic aims to provide users with comprehensive control over their application experience, personal data, and AI interactions. It involves developing a dedicated settings page with various categories, allowing users to customize preferences, manage integrations, and exercise their privacy rights, ensuring a transparent and user-centric platform.
+This document outlines the initial epic and story breakdown for the ibe160 project. The functional requirements from the Product Requirements Document (PRD) have been mapped to three core epics, each delivering distinct user value:
 
-### Story Breakdown
+*   **Epic 1: Core Platform & User Foundation:** Focuses on establishing the foundational infrastructure, user authentication, and initial conversational onboarding.
+*   **Epic 2: AI-Powered Training & Logging:** Concentrates on the core AI-driven plan generation, workout execution, logging, and progress tracking.
+*   **Epic 3: Enhanced User Experience & Settings:** Integrates Spotify for music, provides in-app reminders and offline capabilities, and offers comprehensive user settings.
 
-**Story 4.1: Implement the Main Dashboard Layout**
-
-As a user,
-I want a clear and intuitive main dashboard layout,
-So that I can get a quick overview of my current status and easily navigate the app.
-
-**Acceptance Criteria:**
-1.  A main dashboard UI is created that serves as the primary landing screen after login.
-2.  The layout includes designated areas/placeholders for the daily workout summary, progress highlights (from Story 2.4), and navigation elements.
-3.  The dashboard provides clear navigation paths to the full Workout Player, Progress Dashboard, and Settings.
-4.  The layout is responsive and functions correctly on target devices.
-
-**Prerequisites:** Story 2.4
-
-**Story 4.2: Implement the Settings Page UI**
-
-As a user,
-I want a well-organized and easy-to-navigate settings page,
-So that I can efficiently manage my preferences and account.
-
-**Acceptance Criteria:**
-1.  Settings page UI is clearly structured with categories (General, Appearance, etc.) accessible from the main navigation, as per UX spec.
-2.  Each category navigates to a dedicated sub-page displaying relevant options.
-3.  Changes made on sub-pages are applied instantly with visual feedback (e.g., confirmation toast).
-4.  The settings page layout is responsive and adapts correctly to defined breakpoints.
-
-**Prerequisites:** Story 1.1
-
-**Story 4.3: Implement General Settings**
-
-As a user,
-I want to customize general application settings like language, units, and time format,
-So that the app experience aligns with my personal preferences.
-
-**Acceptance Criteria:**
-1.  Users can change language, units (kg/lbs), and time format (12h/24h).
-2.  Changes are applied immediately and persisted across sessions.
-
-**Prerequisites:** Story 4.2
-
-**Story 4.4: Implement Music and Playback Settings**
-
-As a user,
-I want to manage my Spotify connection and music playback preferences,
-So that I have control over my integrated music experience.
-
-**Acceptance Criteria:**
-1.  Users can connect/disconnect Spotify.
-2.  Options to enable/disable Session Mix and BPM matching are available.
-3.  Users can select preferred playback devices.
-
-**Prerequisites:** Story 4.2, Story 3.1
-
-**Story 4.5: Implement AI and Personalization Settings**
-
-As a user,
-I want to review and manage the AI's learned preferences and constraints,
-So that I can understand and influence how the AI personalizes my training.
-
-**Acceptance Criteria:**
-1.  Settings display a list of AI's learned preferences and constraints.
-2.  Users can clear AI memory to reset personalization.
-
-**Prerequisites:** Story 4.2, Story 3.5
-
-**Story 4.6: Implement Privacy and Account Settings**
-
-As a user,
-I want to manage my privacy settings, export my data, or delete my account,
-So that I have full control over my personal information in compliance with GDPR.
-
-**Acceptance Criteria:**
-1.  Users can manage consent settings for analytics and AI.
-2.  Users can revoke third-party integrations (e.g., Spotify).
-3.  Functionality to export user data (JSON/CSV) is available.
-4.  Secure and GDPR-compliant account deletion process is implemented.
-5.  Destructive actions like account deletion require a confirmation modal where the user must explicitly type "DELETE" to proceed, as per UX spec.
-
-**Prerequisites:** Story 4.2, Story 1.1
-
-**Story 4.7: Implement User Profile Management**
-
-As a user,
-I want to view and edit my profile information, goals, and equipment,
-So that I can keep my personal details up-to-date and ensure accurate personalization.
-
-**Acceptance Criteria:**
-1.  Users can access a dedicated profile management section within settings.
-2.  Users can view and edit their name, email, password, and other relevant profile details.
-3.  Users can update their fitness goals and equipment list.
-4.  Changes are validated and persisted to the database.
-
-**Prerequisites:** Story 4.2
+All functional requirements have been covered, and stories have been designed to be vertically sliced, independently valuable where possible, and sized for single-session developer completion. The breakdown also incorporates technical notes and prerequisites to guide implementation.
 
 ---
 
-## Epic 5: Cross-cutting UX & Technical Polish
+_For implementation: Use the `create-story` workflow to generate individual story implementation plans from this epic breakdown._
 
-**Expanded Goal:** This epic consolidates various cross-cutting concerns and technical polish items identified during UX design, ensuring a high-quality, consistent, and maintainable application. It addresses the implementation of reusable custom components, consistent application of UX patterns, animations, comprehensive responsive adaptations, and robust handling of edge cases.
+_This document will be updated after UX Design and Architecture workflows to incorporate interaction details and technical decisions._
 
-### Story Breakdown
 
-**Story 5.1: Develop Core Custom UI Components**
 
-As a developer,
-I want to build the identified custom composite and utility components,
-So that the application has reusable, project-specific UI elements that adhere to the design system.
 
-**Acceptance Criteria:**
-1.  All custom components (e.g., Adaptive Session Card, Context Check-In Form, Workout Player Controls) are implemented as per UX specifications for content/data, user actions, states, and variants.
-2.  Each component includes basic Storybook documentation or equivalent for usage and states.
-3.  Components are integrated with the chosen design system (`shadcn/ui`) and styled with Tailwind CSS.
-
-**Prerequisites:** Story 1.1, Story 1.6
-
-**Story 5.2: Implement Consistent UX Pattern Across Application**
-
-As a developer,
-I want to ensure all defined UX patterns (e.g., Feedback, Forms, Modals) are consistently applied throughout the application,
-So that users experience a predictable and intuitive interface.
-
-**Acceptance Criteria:**
-1.  All implemented features (from Epics 1-4) utilize the UX patterns defined in the UX specification.
-2.  Review of key user flows confirms consistent application of button hierarchy, feedback, form, modal, and navigation patterns.
-3.  Notification patterns (duration, stacking) are implemented as per specification.
-
-**Prerequisites:** Story 1.1, Story 1.6
-
-**Story 5.3: Implement Animations and Transitions**
-
-As a developer,
-I want to implement subtle animations and transitions,
-So that the user interface feels fluid, responsive, and delightful.
-
-**Acceptance Criteria:**
-1.  Key interactions and state changes (e.g., loading states, navigation transitions, content updates) incorporate smooth animations.
-2.  Animations are performant and do not negatively impact user experience.
-3.  Animations align with the "Speed: Perceived Magic" principle.
-
-**Prerequisites:** Story 1.1, Story 5.2
-
-**Story 5.4: Ensure Comprehensive Responsive Adaptation**
-
-As a developer,
-I want to ensure all application screens are fully responsive across defined breakpoints,
-So that the user experience is optimal on mobile, tablet, and desktop devices.
-
-**Acceptance Criteria:**
-1.  All core screens and custom components adapt correctly to mobile, tablet, and desktop breakpoints.
-2.  Navigation and content organization adapt as specified in the UX design.
-3.  Touch targets are correctly sized for mobile interactions.
-
-**Prerequisites:** Story 1.1, Story 5.1
-
-**Story 5.5: Implement Robust Edge Case Handling**
-
-As a developer,
-I want to implement specific handling for identified edge cases,
-So that the application remains stable and provides graceful feedback even in unusual scenarios.
-
-**Acceptance Criteria:**
-1.  All edge cases identified in user journey flows (e.g., incomplete onboarding, music playback failure) are explicitly handled.
-2.  Users receive appropriate feedback or fallback options when edge cases occur.
-3.  Error states are gracefully managed, providing clear guidance to the user.
-
-**Prerequisites:** Story 1.1, Stories from relevant Epics where edge cases were identified.
-
----
-
-## Story Guidelines Reference
-
-**Story Format:**
-
-```
-**Story [EPIC.N]: [Story Title]**
-
-As a [user type],
-I want [goal/desire],
-So that [benefit/value].
-
-**Acceptance Criteria:**
-1. [Specific testable criterion]
-2. [Another specific criterion]
-3. [etc.]
-
-**Prerequisites:** [Dependencies on previous stories, if any]
-```
-
-**Story Requirements:**
-
-- **Vertical slices** - Complete, testable functionality delivery
-- **Sequential ordering** - Logical progression within epic
-- **No forward dependencies** - Only depend on previous work
-- **AI-agent sized** - Completable in 2-4 hour focused session
-- **Value-focused** - Integrate technical enablers into value-delivering stories
-
----
-
-**For implementation:** Use the `create-story` workflow to generate individual story implementation plans from this epic breakdown.

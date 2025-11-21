@@ -1,84 +1,59 @@
 # Project Plan
 
-## Instruksjoner
-
-1. Der hvor det står {prompt / user-input-file}, kan dere legge inn en egen prompt eller filnavn for å gi ekstra instruksjoner. Hvis dere ikke ønsker å legge til ekstra instruksjoner, kan dere bare fjerne denne delen.
-2. Hvis jeg har skrevet noe der allerede, f.eks. "Root Cause Analysis and Solution Design for Player Inactivity", så kan dere bytte ut min prompt med deres egen.
-
-
 ## Fase 0
 
-- [x] /run-agent-task analyst *workflow-init
-  - [x] File: bmm-workflow-status.yaml
 - [x] Brainstorming
-  - [x] /run-agent-task analyst *brainstorm "Feature Ideas"
-    - [x] File: brainstorming.md
-- [ ] Research
-  - [x] /run-agent-task analyst *Monetazion"
-    - [x] File: research-technical-date.md
+  - [x] /analyst *brainstorm "Brainstorming & Feature Ideas"
+    - [x] File : brainstorming.md
+- [x] Research
+  - [x] /analyst *research "Marketing analysis"
+    - [x] File : market-research.md
 - [x] Product Brief
-  - [x] /run-agent-task analyst *product-brief "Read the two brainstorming sessions the research session and the @proposal.md file, and create a product brief for the project."
-    - [x] File: product-brief.md
+   - [x] /analyst *product-brief "Read the brainstorming sessions the research session and the @proposal.md file, and create a product brief for the project."
+   - [x] File : product-brief.md
 
 ## Fase 1
 
-- [ ] Planning
+- [x] Planning
   - [x] /run-agent-task pm *prd
-    - [x] File: PRD.md
+    - [x] File : PRD.md
+    - [x] File : epics.md
   - [x] /run-agent-task pm *validate-prd
-    - [x] File: validation-report-PRD.md
+      - [x] File : validation-report-PRD.md
   - [x] /run-agent-task ux-designer *create-ux-design {prompt / user-input-file}
-    - [x] File: ux-design-specification.md
-    - [x] File: ux-color-themes.html
-    - [x] File: ux-design-directions.html
-  - [x] /run-agent-task ux-designer *validate-ux-design {prompt / user-input-file}     
-    - [x] File: validation-report-ux-design-1.md
-    - [x] File: validation-report-ux-design-2.md
-
+    - [x] File : ux-design-specification.md
+    - [x] File : ux-color-themes.html
+    - [x] File : ux-design-directions.html
+  - [x] /run-agent-task ux-designer *validate-ux-design {prompt / user-input-file}
+    - [x] File : validation-report-ux-design.md
+  - [x] /run-agent-task tea *framework {prompt / user-input-file}
+  - [x] /run-agent-task tea *ci {prompt / user-input-file}
+  - [x] /run-agent-task tea *test-design {prompt / user-input-file}
+    - [x] File : master-test-plan.md
 
 ## Fase 2
 
 - [x] Solutioning
-  - [x] /run-agent-task architect *create-architecture {prompt / user-input-file}
-    - [x] File: architecture.md
-  - [x] /run-agent-task pm *create-epics-and-stories {prompt / user-input-file}
-    - [x] File: epics.md
-  - [x] /run-agent-task tea *test-design {prompt / user-input-file}
-    - [x] File : test-design-epic-1
-    - [x] File : test-design-epic-2
-    - [x] File : test-design-epic-3
-    - [x] File : test-design-epic-4
-    - [x] File : test-design-epic-5
-  - [x] /run-agent-task architect *solutioning-gate-check {prompt / user-input-file}
+  - [x] /run-agent-task architect *architecture {prompt / user-input-file}
+    - [x] File : architecture.md
+  - [x] /run-agent-task architect *validate-architecture {prompt / user-input-file}
+    - [x] File : validation-report-architecture.md
 
 ## Fase 3
 
-- [ ] Implementation
-  - [ ] /run-agent-task sm *sprint-planning {prompt / user-input-file}
-    - [ ] File: sprint-artifacts/sprint-status.yaml
+- [x] Implementation
+  - [x] /run-agent-task sm *sprint-planning {prompt / user-input-file}
   - foreach epic in sprint planning:
-    - [ ] /run-agent-task sm create-epic-tech-context {prompt / user-input-file}
-      - [ ] File: sprint-artifacts/tech-spec-epic-{{epic_id}}.md
-    - [ ] /run-agent-task sm validate-epic-tech-context {prompt / user-input-file}
+    - [ ] /run-agent-task sm epic-tech-content {prompt / user-input-file}
+    - [ ] /run-agent-task sm validate-epic-tech-content {prompt / user-input-file}
     - foreach story in epic:
       - [ ] /run-agent-task sm *create-story {prompt / user-input-file}
-        - [ ] File: sprint-artifacts/{{story_key}}.md
       - [ ] /run-agent-task sm *validate-create-story {prompt / user-input-file}
-      - [ ] /run-agent-task sm *create-story-context {prompt / user-input-file}
-        - [ ] File: sprint-artifacts/{{story_key}}.context.xml
+      - [ ] /run-agent-task sm *story-context {prompt / user-input-file}
       - [ ] /run-agent-task sm *validate-story-context {prompt / user-input-file}
-      - [ ] /run-agent-task sm *story-ready-for-dev {prompt / user-input-file}
-      while code-review != approved:
-        - [ ] /run-agent-task dev *develop-story {prompt / user-input-file}
-        - [ ] /run-agent-task dev *code-review {prompt / user-input-file}
-      - [ ] /run-agent-task dev *story-done {prompt / user-input-file}
-      - [ ] /run-agent-task sm *test-review {prompt / user-input-file}
-    - [ ] /run-agent-task sm *epic-retrospective {prompt / user-input-file}
-
-
-
-
-
-## BMAD workflow
-
-<img src="images/bmad-workflow.svg" alt="BMAD workflow">
+      - [ ] /run-agent-task tea *validate-story-ready {prompt / user-input-file}
+      - [ ] /run-agent-task dev *implement-story {prompt / user-input-file}
+      - [ ] /run-agent-task dev *validate-story {prompt / user-input-file}
+      - [ ] /run-agent-task tea *automate {prompt / user-input-file}
+      - [ ] /run-agent-task tea *test-review {prompt / user-input-file}
+    - [ ] /run-agent-task sm *retrospective {prompt / user-input-file}
