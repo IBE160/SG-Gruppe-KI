@@ -115,7 +115,7 @@ C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI/
 The application will integrate with several external services and internal components:
 
 - **Supabase:**
-    - **Authentication:** For user login and registration (email/password, Google, Apple OAuth).
+    - **Authentication:** For user login and registration (email/password, Google OAuth).
     - **PostgreSQL Database:** For all application data persistence.
     - **Row-Level Security (RLS):** For fine-grained data access control.
 - **OpenAI API:**
@@ -213,6 +213,97 @@ Key design decisions focus on balancing performance, data privacy, and user expe
 - **Constraints and Important Considerations:**
     - **API Rate Limits:** All interactions with the Spotify Web API are subject to rate limiting. The backend implementation must include error handling and retry logic (e.g., exponential backoff) for rate limit-related errors.
     - **Privacy:** Only the necessary Spotify scopes (permissions) will be requested during the OAuth flow. We will request scopes for playback control, viewing private playlists, and user library access, but nothing more.
+
+## AI Integration and Prompting
+
+This section outlines the strategy for integrating with the OpenAI API and the design of the prompts used to generate and adapt workout plans.
+
+### Role of OpenAI
+
+The OpenAI GPT model functions as the core intelligence for personalized plan generation. Its primary roles are:
+
+-   **Generate Daily Workout Plans:** Create a complete, structured workout plan for the user based on a comprehensive set of inputs, including:
+    -   The user's profile from the `users` table (goals, available equipment, injuries, preferences).
+    -   The user's immediate state from the `daily_contexts` table (mood, energy level, soreness, notes).
+    -   A summary of recent `workout_logs` (training volume, intensity, muscle groups worked, RPE).
+-   **Adapt Existing Plans:** Adjust a previously generated plan in response to updated context. For example, if a user reports lower energy than expected, the AI can reduce the intensity or volume of the planned workout.
+-   **Future Capabilities:** The integration is designed to be extensible for future features, such as generating weekly performance summaries, providing nutritional advice, or offering long-term programmatic guidance.
+
+### Responsibility Boundaries
+
+The components interact in a clear, defined sequence:
+
+1.  **Supabase (System of Record):** Acts as the single source of truth for all user data, including profiles, workout logs, daily contexts, and the stored `plan_json` of generated workouts.
+2.  **FastAPI (Orchestration Layer):**
+    -   Fetches all required data from Supabase for a given user.
+    -   Constructs a detailed, structured prompt using the System Prompt and a User Prompt Template.
+    -   Sends the request to the OpenAI API.
+    -   Receives the JSON response, validates its structure against the defined schema, and, if valid, stores it in the `workout_plans.plan_json` column in Supabase.
+3.  **OpenAI (Stateless Intelligence):**
+    -   Acts as a stateless function. It receives a structured prompt containing all necessary context for a single request.
+    -   It has no memory of past interactions; all context must be provided in each API call.
+    -   Its sole responsibility is to process the input and return a well-formed JSON object matching the requested schema.
+
+### Prompting Strategy
+
+A consistent prompting strategy is crucial for reliable and high-quality outputs.
+
+#### System Prompt
+
+The following system prompt will be used to establish the AI's persona, its objective, and its output constraints.
+
+```text
+You are an expert personal training AI. Your name is "Atlas". Your goal is to create safe, effective, and personalized workout plans based on the user's profile, daily context, and recent history.
+
+You MUST follow these rules:
+1.  Always respond with a single, valid JSON object. Do not include any text, explanations, or markdown formatting before or after the JSON.
+2.  The JSON must strictly adhere to the provided schema.
+3.  Prioritize user safety. Take injuries, soreness, and low energy levels seriously by reducing volume, intensity, or suggesting alternative exercises.
+4.  Base your plan on the equipment the user has available. Do not suggest exercises requiring equipment they do not have.
+5.  Align the workout with the user's stated goals and focus for the day.
+```
+
+#### User Prompt Templates
+
+**1. Generating a New Daily Plan**
+
+```text
+Generate a workout plan for today ({date}).
+
+**User Profile:**
+- Goals: {user.goals}
+- Available Equipment: {user.equipment}
+- Injuries/Limitations: {user.injuries}
+- Preferences: {user.preferences}
+
+**Daily Context:**
+- Mood: {daily_context.mood}
+- Energy: {daily_context.energy}
+- Soreness: {daily_context.soreness}
+- Notes: {daily_context.notes}
+
+**Recent Workout Summary (Last 7 Days):**
+{workout_summary}
+
+Based on this information, create a complete workout plan in the required JSON format. The primary focus for today should be on {focus_of_the_day}.
+```
+
+**2. Updating an Existing Plan**
+
+```text
+The user's context has changed. Update the following workout plan accordingly.
+
+**Original Plan:**
+{workout_plans.plan_json}
+
+**Updated Daily Context:**
+- Mood: {daily_context.mood}
+- Energy: {daily_context.energy}
+- Soreness: {daily_context.soreness}
+- Notes: "I didn't sleep well, feeling more tired than expected."
+
+Based on this new information, adjust the original plan to be less demanding. Return the complete, updated plan in the required JSON format.
+```
 
 ## Novel Pattern Designs
 
@@ -392,7 +483,7 @@ The application will utilize PostgreSQL, managed via Supabase, for its primary d
     - `id` (UUID, Primary Key): Unique identifier for the workout plan.
     - `user_id` (UUID, Foreign Key to `users.id`): Links the plan to a user.
     - `plan_date` (DATE, UNIQUE for user_id and date): The date for which this plan is scheduled.
-    - `plan_json` (JSONB): Stores the complete AI-generated workout plan structure.
+    - `plan_json` (JSONB): Stores the complete, versioned AI-generated workout plan structure. See details below.
     - `status` (TEXT): The current status of the plan (e.g., 'generated', 'completed', 'skipped').
     - `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of plan creation.
     - `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of last plan update.
@@ -428,6 +519,46 @@ The application will utilize PostgreSQL, managed via Supabase, for its primary d
     - `created_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of setting creation.
     - `updated_at` (TIMESTAMP WITH TIME ZONE, DEFAULT NOW()): Timestamp of last setting update.
     - A composite UNIQUE constraint will be applied on `user_id` and `setting_key`.
+
+### Workout Plan JSON Structure
+
+The `workout_plans.plan_json` column stores a versioned JSON object that represents the complete workout plan. This structure is generated by the AI and is used by the frontend to render the plan.
+
+- **Version:** 1
+- **Shape:**
+
+```json
+{
+  "version": 1,
+  "date": "YYYY-MM-DD",
+  "goal": "string",
+  "focus": "string",
+  "estimated_duration_minutes": "number",
+  "notes": "string or null",
+  "blocks": [
+    {
+      "name": "string",
+      "type": "string",
+      "exercises": [
+        {
+          "name": "string",
+          "muscle_groups": ["string"],
+          "sets": [
+            {
+              "set_number": "number",
+              "target_reps": "number or string",
+              "target_weight": "number or null",
+              "target_rpe": "number or null",
+              "rest_seconds": "number or null",
+              "notes": "string or null"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
 
 ### Spotify Integration Tables
 
@@ -510,7 +641,7 @@ The application's API will adhere to RESTful principles, utilizing JSON for all 
 The application's security architecture will be built upon Supabase's robust authentication and PostgreSQL's Row-Level Security (RLS) features.
 
 ### Authentication:
-- User authentication will be handled by Supabase Auth, supporting email/password and OAuth providers (Google, Apple) as defined in the PRD.
+- User authentication will be handled by Supabase Auth, supporting email/password and OAuth providers (Google) as defined in the PRD.
 
 ### Authorization:
 - **Role-Based Access Control (RBAC):** Initially, the system will operate with a single 'user' role, implying that all authenticated users have access to their own data and features. No distinct 'admin' or 'trainer' roles are planned at this stage.
@@ -633,17 +764,17 @@ The following are key architectural decisions made for the project:
 - **Frontend Styling: Tailwind CSS**
     - **Rationale:** Provided by starter template, utility-first CSS framework for rapid UI development and consistent design.
 - **Frontend Linting: ESLint**
-    - **Rationale:** Provided by starter template, ensures code quality and adherence to coding standards.
+    - **Rationale:** Provided by starter-template, ensures code quality and adherence to coding standards.
 - **Backend Framework: FastAPI**
-    - **Rationale:** Provided by starter template, high-performance Python web framework for building APIs, with automatic OpenAPI documentation.
+    - **Rationale:** Provided by starter-template, high-performance Python web framework for building APIs, with automatic OpenAPI documentation.
 - **Backend Language: Python**
-    - **Rationale:** Provided by starter template, widely used for AI/ML, offering a rich ecosystem for backend development.
+    - **Rationale:** Provided by starter-template, widely used for AI/ML, offering a rich ecosystem for backend development.
 - **Database: Supabase (PostgreSQL)**
-    - **Rationale:** Provided by starter template, fully managed PostgreSQL with real-time capabilities, authentication, and RLS.
+    - **Rationale:** Provided by starter-template, fully managed PostgreSQL with real-time capabilities, authentication, and RLS.
 - **Authentication: Supabase Auth**
-    - **Rationale:** Provided by starter template, integrated authentication solution with various providers and robust security features.
+    - **Rationale:** Provided by starter-template, integrated authentication solution with various providers and robust security features.
 - **Project Structure: Monorepo (Next.js/FastAPI)**
-    - **Rationale:** Provided by starter template, simplifies dependency management, code sharing, and deployment for related frontend and backend projects.
+    - **Rationale:** Provided by starter-template, simplifies dependency management, code sharing, and deployment for related frontend and backend projects.
 - **AI Model Serving: OpenAI API (Cloud)**
     - **Rationale:** Simplicity, scalability, and allows focus on core application features rather than managing AI infrastructure.
 - **Data Architecture: PostgreSQL Schema**

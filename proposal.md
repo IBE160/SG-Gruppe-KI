@@ -65,6 +65,7 @@ The goal is efficient progress and lasting consistency.
 - Advanced readiness scoring and auto periodization
 - Camera-based form analysis
 - Social/leaderboards and paid tiers
+- Apple OAuth
 
 ---
 
@@ -163,7 +164,7 @@ This section gives users transparent control over the AI's learned preferences a
 | **AI Engine** | OpenAI API (GPT) | Structured plan + music scoring |
 | **Music Intelligence** | Spotify Web API | Session Mix (BPM + listening history) |
 | **Database** | PostgreSQL (Supabase) | Users, plans, logs, music history |
-| **Authentication** | Supabase | OAuth (Google, Apple), Email/Password, JWT |
+| **Authentication** | Supabase | OAuth (Google), Email/Password, JWT |
 | **Storage** | Supabase Storage / Amazon S3 | Logs, exports, (optional progress photos) |
 | **Hosting** | Vercel (Frontend) + Fly.io / Render (Backend) | CDN + containerized API |
 | **Analytics (Optional)** | Plausible / PostHog | Privacy-friendly, anonymized usage stats |
@@ -181,6 +182,7 @@ This section gives users transparent control over the AI's learned preferences a
 | **Notifications** | OneSignal / Firebase Cloud Messaging | Habit nudges, daily plan reminders |
 | **AI Readiness Engine** | HRV/sleep-based load scoring | Dynamic load adaptation |
 | **Mini Watch App** | Apple Watch / WearOS | Start/pause + HR display |
+| **Authentication** | Supabase | Apple OAuth |
 
 ---
 
@@ -285,11 +287,15 @@ The AI learns through a clear system of implicit and explicit user actions durin
 | POST   | /auth/register          | Email + password sign-up          |
 | POST   | /auth/login             | Email + password sign-in          |
 | POST   | /auth/oauth/google      | Google OAuth callback              |
-| POST   | /auth/oauth/apple       | Apple OAuth callback               |
 | POST   | /auth/verify            | Verify email (if applicable)       |
 | POST   | /auth/forgot-password   | Start password reset               |
 | POST   | /auth/reset-password    | Complete password reset            |
 | DELETE | /auth/user              | GDPR account deletion              |
+
+### Auth (Phase 2)
+| Method | Endpoint                | Purpose                           |
+|-------:|-------------------------|-----------------------------------|
+| POST   | /auth/oauth/apple       | Apple OAuth callback               |
 
 ### Plans & Logs
 | Method | Endpoint                | Purpose                           |
@@ -399,7 +405,7 @@ The Context Window is the core of the AI companion experience, enabling a daily 
 
 ---
 
-### ✅ Flow 1 – Account Creation & Authentication (Google • Apple • Email)
+### ✅ Flow 1 – Account Creation & Authentication (Google • Email)
 
 **Trigger:**  
 User opens the app for the first time or returns after logging out.
@@ -408,13 +414,12 @@ User opens the app for the first time or returns after logging out.
 1. User selects **“Sign In / Continue.”**  
 2. User is presented with multiple authentication options:
    - **Continue with Google (OAuth)**
-   - **Continue with Apple (OAuth)**
    - **Sign in with Email & Password**
    - **Create Account (Email & Password)**
-3. If the user selects Google or Apple, an OAuth flow is initiated → on success, user is authenticated.
+3. If the user selects Google, an OAuth flow is initiated → on success, user is authenticated.
 4. If the user selects “Create Account”, they register using email + password → system sends an optional verification email.
 5. Upon successful login or registration, backend checks whether this is a first-time user.
-6. If **new user** → a new entry is created in `Users` with fields such as `provider` (`google`, `apple`, or `password`).
+6. If **new user** → a new entry is created in `Users` with fields such as `provider` (`google`, or `password`).
 7. If **returning user** → existing profile is retrieved.
 8. First-time users are redirected to **Onboarding**; returning users go directly to the **Dashboard**.
 
@@ -422,11 +427,10 @@ User opens the app for the first time or returns after logging out.
 - `POST /auth/register` – Create account (Email + Password)  
 - `POST /auth/login` – Manual sign-in  
 - `POST /auth/oauth/google` – Google OAuth callback  
-- `POST /auth/oauth/apple` – Apple OAuth callback  
 - `POST /auth/verify` – Email verification (if required)
 
 **Users table fields updated/created:**  
-`id`, `email`, `provider('google'|'apple'|'password')`, `email_verified_at`, `createdAt`, `metadata`
+`id`, `email`, `provider('google'|'password')`, `email_verified_at`, `createdAt`, `metadata`
 
 **Success Outcome:**  
 ✅ User is authenticated and redirected either to Onboarding (first-time) or Dashboard (returning).
@@ -435,6 +439,34 @@ User opens the app for the first time or returns after logging out.
 ❌ Invalid email/password → error message displayed  
 ❌ Canceled OAuth flow → user returns to login screen  
 ❌ Unverified email (manual accounts) → prompt to verify or resend link  
+❌ Network failure → retry or fallback to cached session (if available)
+
+---
+
+### ✅ Flow 1.1 – Account Creation & Authentication (Apple) - Phase 2
+
+**Trigger:**  
+User opens the app for the first time or returns after logging out and selects "Continue with Apple".
+
+**Steps:**  
+1. User selects **“Continue with Apple.”**  
+2. An OAuth flow is initiated → on success, user is authenticated.
+3. Upon successful login or registration, backend checks whether this is a first-time user.
+4. If **new user** → a new entry is created in `Users` with fields such as `provider` (`apple`).
+5. If **returning user** → existing profile is retrieved.
+6. First-time users are redirected to **Onboarding**; returning users go directly to the **Dashboard**.
+
+**APIs & Data:**  
+- `POST /auth/oauth/apple` – Apple OAuth callback  
+
+**Users table fields updated/created:**  
+`id`, `email`, `provider('apple')`, `email_verified_at`, `createdAt`, `metadata`
+
+**Success Outcome:**  
+✅ User is authenticated and redirected either to Onboarding (first-time) or Dashboard (returning).
+
+**Failure / Fallback:**  
+❌ Canceled OAuth flow → user returns to login screen  
 ❌ Network failure → retry or fallback to cached session (if available)
 
 ---
@@ -1046,6 +1078,7 @@ To ensure a focused and achievable delivery, the project is divided into two mai
 
 🚫 **Deferred to Phase 2:**
 - Apple Health (HealthKit) and Health Connect
+- Apple OAuth
 - Live Heart Rate via BLE with real-time coaching cues
 - Deep wearable cloud sync (Garmin/Fitbit/Polar/Strava/Google Fit)
 - Full readiness scoring based on multi-source wearable data
@@ -1059,6 +1092,7 @@ To ensure a focused and achievable delivery, the project is divided into two mai
 
 ✅ **Planned additions:**
 - Native mobile apps (React Native or Swift/Kotlin)
+- Apple OAuth
 - Full offline workout mode (local plan storage + sync reconciliation)
 - Push notifications (daily plan reminders, nudges, habit reinforcement)
 - Lightweight Social Sharing (workout summary cards)
@@ -1203,4 +1237,3 @@ A mobile-friendly AI training assistant that:
 - Offers theme customization (light/dark mode)  
 - Works offline and protects privacy  
 - Optionally leverages Apple Health and live heart rate streaming for deeper personalization.
-

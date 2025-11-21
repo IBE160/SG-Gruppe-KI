@@ -34,7 +34,7 @@ Many individuals struggle with workout consistency due to fragmented tools, gene
 *   **FR002:** AI Daily-Plan Generator (adapts to user context)
 *   **FR003:** Workout Player with logging (reps, weight, RPE)
 *   **FR004:** Progress Dashboard (volume, streaks, basic stats)
-*   **FR005:** Authentication (OAuth for Google/Apple, Email)
+*   **FR005:** Authentication (OAuth for Google, Email)
 *   **FR006:** In-app Reminders & Nudges
 *   **FR007:** Offline Cache for the daily workout plan and logs
 *   **FR008:** Spotify Integration (PKCE OAuth, playback control, BPM-matched Session Mix v1)
@@ -66,7 +66,7 @@ Many individuals struggle with workout consistency due to fragmented tools, gene
 **Trigger:** A new user opens the app for the first time.
 
 **Steps:**
-1.  **Account Creation/Login:** The user is presented with options to sign up (Google, Apple, Email) or log in. They choose an option and complete the authentication process.
+1.  **Account Creation/Login:** The user is presented with options to sign up (Google, Email) or log in. They choose an option and complete the authentication process.
 2.  **Conversational Onboarding:** The AI guides the user through a conversational setup to gather essential information:
     *   **Goals:** User selects primary fitness goals (e.g., Build Muscle, Lose Fat).
     *   **Time & Frequency:** User specifies desired training days per week and session duration.
