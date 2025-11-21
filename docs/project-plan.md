@@ -44,21 +44,26 @@
 - [x] Implementation
   - [x] /run-agent-task sm *sprint-planning {prompt / user-input-file}
   - foreach epic in sprint planning:
-    - [x] File : sprint-status.md
+     - [x] File : sprint-status.md
   - [x] /run-agent-task sm epic-tech-content {prompt / user-input-file}
-    - [x] File : tech-spec-epic-1.md
-    - [x] File : tech-spec-epic-2.md
-    - [x] File : tech-spec-epic-3.md
+     - [x] File : tech-spec-epic-1.md
+     - [x] File : tech-spec-epic-2.md
+     - [x] File : tech-spec-epic-3.md
   - [x] /run-agent-task sm validate-epic-tech-content {prompt / user-input-file}
-    - [x] File : validation-report-tech-spec-epic-1.md
-    - [x] File : validation-report-tech-spec-epic-2.md
-    - [x] File : validation-report-tech-spec-epic-3.md
+     - [x] File : validation-report-tech-spec-epic-1.md
+     - [x] File : validation-report-tech-spec-epic-2.md
+     - [x] File : validation-report-tech-spec-epic-3.md
 
     - foreach story in epic:
-      - [ ] /run-agent-task sm *create-story {prompt / user-input-file}
-      - [ ] /run-agent-task sm *validate-create-story {prompt / user-input-file}
+      - [x] /run-agent-task sm *create-story {prompt / user-input-file}
+        - [x] File : 1-1-project-initialization-and-setup.md
+      - [x] /run-agent-task sm *validate-create-story {prompt / user-input-file}
+        - [x] File : 1-1-validation-report-20251121212400.md
       - [ ] /run-agent-task sm *story-context {prompt / user-input-file}
-      - [ ] /run-agent-task sm *validate-story-context {prompt / user-input-file}
+        - [x] File : 1-1-project-initialization-and-setup.context.md
+      - [ ] /run-agent-task sm *validate-story-context {prompt / 
+      user-input-file}
+        - [x] File : validation-report-story-context-20251121212401.md
       - [ ] /run-agent-task tea *validate-story-ready {prompt / user-input-file}
       - [ ] /run-agent-task dev *implement-story {prompt / user-input-file}
       - [ ] /run-agent-task dev *validate-story {prompt / user-input-file}
