@@ -1,0 +1,167 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.1</storyId>
+    <title>Project Initialization and Setup</title>
+    <status>drafted</status>
+    <generatedAt>søndag 23. november 2025</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts\1-1-project-initialization-and-setup.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Developer</asA>
+    <iWant>to initialize the project with Next.js, FastAPI, and Supabase</iWant>
+    <soThat>we have a foundational structure for development</soThat>
+    <tasks>
+- [ ] **Setup Frontend Application (Next.js)** (AC: 1)
+    - [ ] Run `npx create-next-app@14.x my-fullstack-app --typescript --eslint --tailwind --app --src-dir --import-alias "@/*"`
+    - [ ] Navigate into the `my-fullstack-app` directory: `cd my-fullstack-app`
+    - [ ] Install Supabase client for Next.js: `npm install @supabase/supabase-js`
+- [ ] **Setup Backend Application (FastAPI)** (AC: 1)
+    - [ ] Create backend directory: `mkdir backend`
+    - [ ] Navigate into the backend directory: `cd backend`
+    - [ ] Create and activate a Python virtual environment: `python -m venv venv` and `.\venv\Scripts\Activate.ps1` (for PowerShell)
+    - [ ] Install FastAPI, Uvicorn, and python-dotenv: `pip install fastapi uvicorn python-dotenv "uvicorn[standard]"`
+    - [ ] (Optional) Install Supabase client for Python: `pip install supabase-py`
+    - [ ] Create a basic FastAPI application file (e.g., `main.py` - content to be added manually in a subsequent story)
+    - [ ] Create a `.env` file in the backend directory for environment variables (content to be added manually in a subsequent story)
+- [ ] **Verify Project Structure and Connectivity** (AC: 1)
+    - [ ] Return to the project root: `cd ..`
+    - [ ] Verify that the `my-fullstack-app` and `backend` directories are created.
+    - [ ] Check `package.json` and `backend/requirements.txt` for installed dependencies.
+    - [ ] Confirm basic connectivity to Supabase (manual check or simple test).
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1.  **Given** the project structure is defined in `architecture.md`
+    **When** the initialization commands are run
+    **Then** a Next.js frontend, a FastAPI backend, and a Supabase project are created and connected.
+    **And** the project is structured as a monorepo.
+    - *Test:* Verify that the `my-fullstack-app` directory and its subdirectories (`backend`) are created as expected.
+    - *Test:* Verify that `package.json` in the root and `requirements.txt` in the backend are correctly populated with the specified libraries.
+    - *Test:* Verify that the project can be connected to a Supabase project (manual verification for this story).
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture</title>
+        <section>Project Initialization</section>
+        <snippet>The project will be initialized using a combination of Next.js, FastAPI, and Supabase. The following commands outline the foundational setup: ... This foundational setup provides the following architectural decisions: ... Project initialization using these commands should be the first implementation story.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture</title>
+        <section>Project Structure</section>
+        <snippet>A high-level overview of the project directory, emphasizing the monorepo structure with distinct frontend and backend applications. ...</snippet>
+      </artifact>
+    </docs>
+    <code>
+    </code>
+    <dependencies>
+      <dependency>
+        <ecosystem>Node.js</ecosystem>
+        <package>Next.js</package>
+        <version>14.x</version>
+      </dependency>
+      <dependency>
+        <ecosystem>Node.js</ecosystem>
+        <package>Supabase/supabase-js</package>
+        <version>latest</version>
+      </dependency>
+      <dependency>
+        <ecosystem>Python</ecosystem>
+        <package>FastAPI</package>
+        <version>latest</version>
+      </dependency>
+      <dependency>
+        <ecosystem>Python</ecosystem>
+        <package>Uvicorn</package>
+        <version>latest</version>
+      </dependency>
+      <dependency>
+        <ecosystem>Python</ecosystem>
+        <package>python-dotenv</package>
+        <version>latest</version>
+      </dependency>
+      <dependency>
+        <ecosystem>Python</ecosystem>
+        <package>supabase-py</package>
+        <version>latest</version>
+        <notes>Optional</notes>
+      </dependency>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>
+      <type>Architecture Pattern</type>
+      <description>Monorepo structure with distinct Next.js frontend and FastAPI backend.</description>
+    </constraint>
+    <constraint>
+      <type>Frontend Tech Stack</type>
+      <description>Next.js 14.x, TypeScript, Tailwind CSS, ESLint.</description>
+    </constraint>
+    <constraint>
+      <type>Backend Tech Stack</type>
+      <description>FastAPI 0.121.3, Python 3.11, Uvicorn.</description>
+    </constraint>
+    <constraint>
+      <type>Database</type>
+      <description>Supabase (PostgreSQL).</description>
+    </constraint>
+    <constraint>
+      <type>Deployment Strategy</type>
+      <description>Vercel for frontend, PaaS (Render/Railway) for backend.</description>
+    </constraint>
+    <constraint>
+      <type>Naming Convention</type>
+      <description>Adhere to conventions defined in architecture.md (camelCase for JS variables, PascalCase for React components, kebab-case for JS files; snake_case for Python variables/functions, PascalCase for Python classes, snake_case for Python files; snake_case plural for DB tables).</description>
+    </constraint>
+    <constraint>
+      <type>Code Organization</type>
+      <description>Follow modular organization defined in architecture.md for both frontend and backend.</description>
+    </constraint>
+    <constraint>
+      <type>Error Handling</type>
+      <description>Implement robust and consistent error handling as per architecture.md (HTTPException for FastAPI, Error Boundaries for React).</description>
+    </constraint>
+    <constraint>
+      <type>Logging Strategy</type>
+      <description>Implement structured logging with defined levels and contextual information as per architecture.md.</description>
+    </constraint>
+  </constraints>
+  <interfaces>
+  </interfaces>
+  <tests>
+    <standards>For this initial story, formal testing frameworks are not yet established. Testing will primarily involve manual verification and shell script execution to confirm successful project scaffolding and dependency installation, as indicated in the Dev Notes and Epic 1 test design. Dedicated unit, integration, and E2E testing frameworks (e.g., Playwright for frontend, Pytest for backend) will be integrated in subsequent stories.</standards>
+    <locations>
+    </locations>
+    <ideas>
+      <idea>
+        <ac_id>1</ac_id>
+        <description>Run the `npx create-next-app` command and verify the creation of the `my-fullstack-app` directory and its initial structure, including `package.json` and `tsconfig.json`.</description>
+        <type>Manual/Shell</type>
+      </idea>
+      <idea>
+        <ac_id>1</ac_id>
+        <description>Verify the installation of `@supabase/supabase-js` by checking `my-fullstack-app/package.json`.</description>
+        <type>Manual/Shell</type>
+      </idea>
+      <idea>
+        <ac_id>1</ac_id>
+        <description>Run `mkdir backend`, `python -m venv venv`, `pip install fastapi uvicorn python-dotenv`, and `pip install supabase-py` (optional) commands within the appropriate directories and verify the creation of the `backend` directory, `venv` within it, and `requirements.txt` (implicitly via pip installs) with correct packages.</description>
+        <type>Manual/Shell</type>
+      </idea>
+      <idea>
+        <ac_id>1</ac_id>
+        <description>Confirm basic connectivity to a Supabase project (e.g., by running a simple Supabase client initialization test, if feasible, or visual confirmation of project creation on Supabase dashboard).</description>
+        <type>Manual</type>
+      </idea>
+    </ideas>
+  </tests>
+
+</story-context>
