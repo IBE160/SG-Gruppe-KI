@@ -1,3 +1,13 @@
+# Story 1.1: Project Initialization and Setup
+
+Status: drafted
+
+## Story
+
+As a Developer,
+I want to initialize the project with Next.js, FastAPI, and Supabase,
+so that we have a foundational structure for development.
+
 ### Requirements Context Summary
 
 **Story 1.1: Project Initialization and Setup**
@@ -62,3 +72,28 @@ No conflicts or variances are detected as this story defines the initial project
     - [ ] Verify that the `my-fullstack-app` and `backend` directories are created.
     - [ ] Check `package.json` and `backend/requirements.txt` for installed dependencies.
     - [ ] Confirm basic connectivity to Supabase (manual check or simple test).
+
+## Dev Notes
+
+-   **Relevant Architecture Patterns and Constraints:**
+    -   **Monorepo Structure:** The project will adhere to a monorepo structure, housing both frontend (Next.js) and backend (FastAPI) components.
+    -   **Frontend Technologies:** Next.js 14.x, TypeScript, Tailwind CSS, ESLint.
+    -   **Backend Technologies:** FastAPI 0.121.3, Python 3.11, Uvicorn.
+    -   **Database:** Supabase (PostgreSQL).
+
+-   **Source Tree Components to Touch:**
+    -   New directories: `my-fullstack-app/`, `backend/`.
+    -   New files: `my-fullstack-app/package.json`, `my-fullstack-app/package-lock.json`, `backend/requirements.txt`, `backend/.env`, `backend/main.py`.
+    -   Modified files: Root `package.json` (for adding Supabase client to frontend), potentially `.gitignore`.
+
+-   **Testing Standards Summary:**
+    -   As this is the initial setup, formal testing frameworks (like Playwright for E2E or Pytest for backend) will be integrated in subsequent stories. This story primarily involves command execution and verification of directory and file creation.
+
+### Project Structure Notes
+
+-   The initial project setup will create a `my-fullstack-app` directory for the Next.js frontend and a `backend` subdirectory within it for the FastAPI application. This aligns with the monorepo structure outlined in the `architecture.md`.
+
+### References
+
+-   [Source: architecture.md#Project-Initialization]
+-   [Source: architecture.md#Project-Structure]
