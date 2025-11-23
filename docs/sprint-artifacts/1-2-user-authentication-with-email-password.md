@@ -1,6 +1,6 @@
 # Story 1.2: User Authentication with Email/Password
 
-Status: drafted
+Status: ready-for-dev
 
 ## Story
 
@@ -62,7 +62,7 @@ The preceding story (1.1) was for project initialization. As such, there are no 
 
 ### Context Reference
 
-<!-- Path(s) to story context XML will be added here by context workflow -->
+- `docs/sprint-artifacts/1-2-user-authentication-with-email-password.context.xml`
 
 ### Agent Model Used
 
@@ -76,3 +76,4 @@ Gemini CLI
 
 ## Change Log
 - 2025-11-23: Initial draft created by Gemini CLI.
+- 2025-11-23: Status changed to ready-for-dev. Context file generated.
