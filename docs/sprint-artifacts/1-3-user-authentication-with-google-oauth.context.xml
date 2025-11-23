@@ -1,0 +1,112 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.3</storyId>
+    <title>User Authentication with Google OAuth</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-23</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/1-3-user-authentication-with-google-oauth.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>User</asA>
+    <iWant>to be able to sign up and log in with my Google account</iWant>
+    <soThat>I can have a quick and easy authentication experience</soThat>
+    <tasks>
+        - [ ] **Task 1: Backend API for Google OAuth Callback** (AC: #3, #4)
+            - [ ] Create `GET /api/v1/auth/google` endpoint to initiate Google OAuth flow (redirect to Google). (Source: `tech-spec-epic-1.md#APIs-and-Interfaces`)
+            - [ ] Create `GET /api/v1/auth/google/callback` endpoint to handle the redirect from Google, exchange authorization code for tokens, and manage user creation/login via Supabase Auth. (Source: `tech-spec-epic-1.md#APIs-and-Interfaces`)
+        - [ ] **Task 2: Frontend UI for Google OAuth** (AC: #1, #2, #4)
+            - [ ] Add a "Continue with Google" button to the authentication page.
+            - [ ] Implement client-side logic to redirect to the backend `/api/v1/auth/google` endpoint when the button is clicked.
+            - [ ] Handle successful redirection back to the app, storing session information securely and updating the UI.
+        - [ ] **Task 3: Supabase Configuration**
+            - [ ] Configure Google as an OAuth provider in Supabase. (Source: `tech-spec-epic-1.md#Workflows-and-Sequencing`)
+        - [ ] **Task 4: Testing**
+            - [ ] Add Pytest integration tests for the new backend OAuth endpoints.
+            - [ ] Add a Playwright E2E test to simulate the Google OAuth flow from clicking the button to successful login.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    1.  **Given** a user is on the login/signup page
+    2.  **When** they click "Continue with Google"
+    3.  **Then** they are redirected to Google's OAuth flow.
+    4.  **And** upon successful authentication, they are redirected back to the app and are logged in.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>ibe160 - Epic Breakdown</title>
+        <section>Story 1.3: User Authentication with Google OAuth</section>
+        <snippet>As a User, I want to be able to sign up and log in with my Google account, so that I can have a quick and easy authentication experience.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Core Platform & User Foundation</title>
+        <section>APIs and Interfaces</section>
+        <snippet>GET /api/v1/auth/google, GET /api/v1/auth/google/callback</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture</title>
+        <section>Authentication</section>
+        <snippet>User authentication will be handled by Supabase Auth, supporting email/password and OAuth providers (Google) as defined in the PRD.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code artifacts found relevant to this story. This story will add to the authentication files created in story 1.2. -->
+    </code>
+    <dependencies>
+      <ecosystem name="Node">
+        <dependency name="@faker-js/faker" version="^10.1.0" type="dev" />
+        <dependency name="@playwright/test" version="^1.56.1" type="dev" />
+      </ecosystem>
+      <ecosystem name="Python">
+        <!-- No requirements.txt or pyproject.toml found. Dependencies are defined in architecture documents. -->
+        <dependency name="fastapi" version="" type="runtime" />
+        <dependency name="uvicorn" version="" type="runtime" />
+        <dependency name="python-dotenv" version="" type="runtime" />
+        <dependency name="supabase-py" version="" type="runtime" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>User authentication must be handled by Supabase Auth for Google OAuth.</constraint>
+    <constraint>The API must be RESTful and use JSON for requests and responses.</constraint>
+    <constraint>Error handling should follow the defined API contract, using standard HTTP status codes.</constraint>
+    <constraint>The implementation should be added to the existing authentication modules where appropriate.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Google OAuth Initiation</name>
+      <kind>REST Endpoint</kind>
+      <signature>GET /api/v1/auth/google</signature>
+      <path>backend/app/api/v1/auth.py</path>
+    </interface>
+    <interface>
+      <name>Google OAuth Callback</name>
+      <kind>REST Endpoint</kind>
+      <signature>GET /api/v1/auth/google/callback</signature>
+      <path>backend/app/api/v1/auth.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Backend unit tests should be written with Pytest. Frontend component tests should use React Testing Library. End-to-end tests for user flows should be implemented with Playwright. The Google OAuth flow should be tested using an E2E test that can handle redirects.
+    </standards>
+    <locations>
+      <location type="E2E">/tests/e2e/</location>
+      <location type="Backend">/backend/tests/</location>
+      <location type="Frontend">Component-colocated tests or a central /app/tests/ directory.</location>
+    </locations>
+    <ideas>
+      <idea ac_id="3, 4">Write an integration test for the `GET /api/v1/auth/google/callback` endpoint.</idea>
+      <idea ac_id="1, 2, 3, 4">Write a full E2E test using Playwright that signs up a new user via Google OAuth.</idea>
+    </ideas>
+  </tests>
+</story-context>
