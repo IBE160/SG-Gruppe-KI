@@ -97,3 +97,7 @@ No conflicts or variances are detected as this story defines the initial project
 
 -   [Source: architecture.md#Project-Initialization]
 -   [Source: architecture.md#Project-Structure]
+
+## Change Log
+
+- **2025-11-23**: Initial story creation by Scrum Master.
