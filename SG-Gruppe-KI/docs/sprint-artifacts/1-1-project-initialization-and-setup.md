@@ -5,7 +5,7 @@
 **User Story:**
 As a Developer,
 I want to initialize the project with Next.js, FastAPI, and Supabase,
-So that we have a foundational structure for development.
+So that I have a foundational structure for development.
 
 **Acceptance Criteria:**
 - Given the project structure is defined in `architecture.md`
@@ -32,3 +32,33 @@ As this is the first story in the epic, there are no previous story learnings or
 - **Backend (FastAPI):** `backend/` (with subdirectories `app/`, `api/`, `core/`, `db/`, `schemas/`, `services/`, `crud/`, `dependencies/`, `tests/`, `alembic/`).
 
 No conflicts or variances are detected as this story defines the initial project structure.
+
+## Acceptance Criteria
+
+1.  **Given** the project structure is defined in `architecture.md`
+    **When** the initialization commands are run
+    **Then** a Next.js frontend, a FastAPI backend, and a Supabase project are created and connected.
+    **And** the project is structured as a monorepo.
+    - *Test:* Verify that the `my-fullstack-app` directory and its subdirectories (`backend`) are created as expected.
+    - *Test:* Verify that `package.json` in the root and `requirements.txt` in the backend are correctly populated with the specified libraries.
+    - *Test:* Verify that the project can be connected to a Supabase project (manual verification for this story).
+
+## Tasks / Subtasks
+
+- [ ] **Setup Frontend Application (Next.js)** (AC: 1)
+    - [ ] Run `npx create-next-app@14.x my-fullstack-app --typescript --eslint --tailwind --app --src-dir --import-alias "@/*"`
+    - [ ] Navigate into the `my-fullstack-app` directory: `cd my-fullstack-app`
+    - [ ] Install Supabase client for Next.js: `npm install @supabase/supabase-js`
+- [ ] **Setup Backend Application (FastAPI)** (AC: 1)
+    - [ ] Create backend directory: `mkdir backend`
+    - [ ] Navigate into the backend directory: `cd backend`
+    - [ ] Create and activate a Python virtual environment: `python -m venv venv` and `.\venv\Scripts\Activate.ps1` (for PowerShell)
+    - [ ] Install FastAPI, Uvicorn, and python-dotenv: `pip install fastapi uvicorn python-dotenv "uvicorn[standard]"`
+    - [ ] (Optional) Install Supabase client for Python: `pip install supabase-py`
+    - [ ] Create a basic FastAPI application file (e.g., `main.py` - content to be added manually in a subsequent story)
+    - [ ] Create a `.env` file in the backend directory for environment variables (content to be added manually in a subsequent story)
+- [ ] **Verify Project Structure and Connectivity** (AC: 1)
+    - [ ] Return to the project root: `cd ..`
+    - [ ] Verify that the `my-fullstack-app` and `backend` directories are created.
+    - [ ] Check `package.json` and `backend/requirements.txt` for installed dependencies.
+    - [ ] Confirm basic connectivity to Supabase (manual check or simple test).
