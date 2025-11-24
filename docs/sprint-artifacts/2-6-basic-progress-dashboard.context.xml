@@ -1,0 +1,115 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.6</storyId>
+    <title>Basic Progress Dashboard</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-24</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-6-basic-progress-dashboard.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>User</asA>
+    <iWant>to see a progress dashboard with my workout volume, streaks, and basic stats</iWant>
+    <soThat>I can track my performance over time</soThat>
+    <tasks>
+      - [ ] **Task 1: Frontend UI for Progress Dashboard** (AC: #1)
+        - [ ] Create a new page/route for the progress dashboard.
+        - [ ] Build UI components to display workout volume, streaks, and other stats.
+        - [ ] Implement client-side logic to fetch progress data from `GET /api/v1/workout_logs/summary`.
+        - [ ] Use a charting library (e.g., Chart.js, Recharts) to visualize the data.
+      - [ ] **Task 2: Backend API for Progress Data** (AC: #1)
+        - [ ] Create a `GET /api/v1/workout_logs/summary` endpoint in FastAPI. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
+        - [ ] Implement the `Progress Data Service` to aggregate data from the `workout_logs` table. (Source: `tech-spec-epic-2.md#Services-and-Modules`)
+        - [ ] Calculate metrics such as total volume, workout streak, and other basic stats.
+      - [ ] **Task 3: Testing** (AC: #1)
+        - [ ] Add Pytest integration tests for the `GET /api/v1/workout_logs/summary` endpoint.
+        - [ ] Add React Testing Library tests for the dashboard components, mocking the API response.
+        - [ ] Add a Playwright E2E test to verify the dashboard displays correct data based on logged workouts.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    1.  **Given** a user has completed one or more workouts, **when** they view their progress dashboard, **then** they can see visualizations of their total workout volume, workout streak, and other basic metrics.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>ibe160 - Epic Breakdown</title>
+        <section>Story 2.6: Basic Progress Dashboard</section>
+        <snippet>As a User, I want to see a progress dashboard with my workout volume, streaks, and basic stats, so that I can track my performance over time.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-2.md</path>
+        <title>Epic Technical Specification: AI-Powered Training &amp; Logging</title>
+        <section>Services and Modules</section>
+        <snippet>Progress Dashboard Module: Visualizes user progress (volume, streaks, stats). Fetches data from Workout Log API (via Backend Progress Service).</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-2.md</path>
+        <title>Epic Technical Specification: AI-Powered Training &amp; Logging</title>
+        <section>APIs and Interfaces</section>
+        <snippet>GET /api/v1/workout_logs/summary: Retrieves aggregated workout log data for the progress dashboard.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <code-artifact>
+        <path>backend/app/services/progress_service.py</path>
+        <kind>service</kind>
+        <symbol>ProgressService</symbol>
+        <lines></lines>
+        <reason>This new service will contain the logic for aggregating workout log data.</reason>
+      </code-artifact>
+      <code-artifact>
+        <path>backend/app/api/v1/workout_logs.py</path>
+        <kind>api</kind>
+        <symbol>GET /api/v1/workout_logs/summary</symbol>
+        <lines></lines>
+        <reason>This existing file will be updated to include the new summary endpoint.</reason>
+      </code-artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="Node">
+        <dependency name="react" version="" type="runtime" />
+        <dependency name="next" version="" type="runtime" />
+        <dependency name="recharts" version="" type="runtime" />
+      </ecosystem>
+      <ecosystem name="Python">
+        <dependency name="fastapi" version="" type="runtime" />
+        <dependency name="pydantic" version="" type="runtime" />
+        <dependency name="supabase-py" version="" type="runtime" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>The API must be RESTful and use JSON for requests and responses.</constraint>
+    <constraint>Dashboard visualizations should be clear and easy to understand.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Get Workout Log Summary</name>
+      <kind>REST Endpoint</kind>
+      <signature>GET /api/v1/workout_logs/summary</signature>
+      <path>backend/app/api/v1/workout_logs.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Backend unit tests should be written with Pytest. Frontend component tests should use React Testing Library. End-to-end tests for user flows should be implemented with Playwright.
+    </standards>
+    <locations>
+      <location type="E2E">/tests/e2e/</location>
+      <location type="Backend">/backend/tests/</location>
+      <location type="Frontend">Component-colocated tests or a central /app/tests/ directory.</location>
+    </locations>
+    <ideas>
+      <idea ac_id="1">Write an integration test for the `GET /api/v1/workout_logs/summary` endpoint with various workout log data.</idea>
+      <idea ac_id="1">Write UI component tests for the dashboard visualizations.</idea>
+      <idea ac_id="1">Write a full E2E test to verify the dashboard displays correct data based on a series of logged workouts.</idea>
+    </ideas>
+  </tests>
+</story-context>
