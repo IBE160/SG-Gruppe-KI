@@ -1,0 +1,91 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.2</storyId>
+    <title>Spotify Playback Control in Workout Player</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-24</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/3-2-spotify-playback-control-in-workout-player.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>User</asA>
+    <iWant>to control Spotify music playback (play, pause, skip) directly from the workout player</iWant>
+    <soThat>I can manage my music without leaving the workout</soThat>
+    <tasks>
+      - [ ] **Task 1: Frontend UI for Playback Controls** (AC: #1, #2)
+        - [ ] Integrate the Spotify Web Playback SDK into the frontend application. (Source: `tech-spec-epic-3.md#APIs-and-Interfaces`)
+        - [ ] Add play, pause, and skip buttons to the Workout Player UI.
+        - [ ] Implement client-side logic to use the SDK to control playback.
+        - [ ] Display the currently playing track information.
+      - [ ] **Task 2: Backend API for Playback Control (Optional Relay)** (AC: #2)
+        - [ ] Create a `POST /api/v1/spotify/playback/{command}` endpoint in FastAPI to relay playback commands to the Spotify Web API. (Source: `tech-spec-epic-3.md#APIs-and-Interfaces`)
+        - [ ] This can serve as a fallback or for more complex interactions if the SDK is insufficient.
+      - [ ] **Task 3: Testing** (AC: #1, #2)
+        - [ ] Add React Testing Library tests for the playback control components, mocking the Spotify SDK.
+        - [ ] Add Playwright E2E tests for the full playback control flow, interacting with a real Spotify account.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    1.  **Given** a connected Spotify account and an active workout, **when** the user is in the workout player, **then** they see controls to play, pause, and skip tracks.
+    2.  **And** these controls successfully interact with Spotify playback.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>ibe160 - Epic Breakdown</title>
+        <section>Story 3.2: Spotify Playback Control in Workout Player</section>
+        <snippet>As a User, I want to control Spotify music playback (play, pause, skip) directly from the workout player, so that I can manage my music without leaving the workout.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
+        <title>Epic Technical Specification: Enhanced User Experience &amp; Settings</title>
+        <section>APIs and Interfaces</section>
+        <snippet>POST /api/v1/spotify/playback/{command}, Spotify Web Playback SDK (Frontend)</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture</title>
+        <section>Spotify Integration</section>
+        <snippet>Once authorized, the frontend integrates the Web Playback SDK. This allows the application to act as a Spotify Connect device, enabling full playback control (play, pause, skip, volume) directly within the user's browser during a workout.</snippet>
+      </doc>
+    </docs>
+    <code>
+    </code>
+    <dependencies>
+      <ecosystem name="Node">
+        <dependency name="spotify-web-playback-sdk" version="" type="runtime" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Must use the Spotify Web Playback SDK for in-browser playback control.</constraint>
+    <constraint>A connected Spotify account is a prerequisite.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Spotify Playback Control (Optional Relay)</name>
+      <kind>REST Endpoint</kind>
+      <signature>POST /api/v1/spotify/playback/{command}</signature>
+      <path>backend/app/api/v1/spotify.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Frontend component tests should use React Testing Library, mocking the Spotify Web Playback SDK. E2E tests should use Playwright and a real Spotify test account.
+    </standards>
+    <locations>
+      <location type="E2E">/tests/e2e/</location>
+      <location type="Frontend">Component-colocated tests or a central /app/tests/ directory.</location>
+    </locations>
+    <ideas>
+      <idea ac_id="1, 2">Write component tests for the playback controls, simulating different playback states.</idea>
+      <idea ac_id="1, 2">Write a full E2E test that connects a Spotify account, starts a workout, and verifies that play, pause, and skip controls work as expected.</idea>
+    </ideas>
+  </tests>
+</story-context>
