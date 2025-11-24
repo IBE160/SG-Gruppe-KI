@@ -55,7 +55,7 @@ development_status:
   3-1-spotify-account-connection: ready-for-dev
   3-2-spotify-playback-control-in-workout-player: ready-for-dev
   3-3-bpm-matched-session-mix-generation: ready-for-dev
-  3-4-in-app-reminders-and-nudges: backlog
+  3-4-in-app-reminders-and-nudges: ready-for-dev
   3-5-offline-cache-for-daily-plans-and-logs: backlog
   3-6-comprehensive-settings-page: backlog
   epic-3-retrospective: optional
