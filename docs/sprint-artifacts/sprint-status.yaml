@@ -46,7 +46,7 @@ development_status:
   2-2-ai-daily-plan-generation: ready-for-dev
   2-3-display-daily-workout-plan: ready-for-dev
   2-4-workout-player-ui: ready-for-dev
-  2-5-workout-logging: backlog
+  2-5-workout-logging: ready-for-dev
   2-6-basic-progress-dashboard: backlog
   2-7-simulated-recovery-inputs: backlog
   2-8-weekly-review-ritual: backlog
