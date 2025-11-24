@@ -42,7 +42,7 @@ development_status:
   1-5-user-profile-management: ready-for-dev
   epic-1-retrospective: optional
   epic-2: contexted
-  2-1-context-window-for-daily-input: backlog
+  2-1-context-window-for-daily-input: ready-for-dev
   2-2-ai-daily-plan-generation: backlog
   2-3-display-daily-workout-plan: backlog
   2-4-workout-player-ui: backlog

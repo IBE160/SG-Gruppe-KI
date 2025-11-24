@@ -1,0 +1,131 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.1</storyId>
+    <title>Context Window for Daily Input</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-24</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-1-context-window-for-daily-input.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>User</asA>
+    <iWant>to provide daily context on my mood, energy, and soreness</iWant>
+    <soThat>the AI can adapt my workout plan for the day</soThat>
+    <tasks>
+      - [ ] **Task 1: Frontend UI for Context Window** (AC: #1)
+        - [ ] Create a UI for the Context Window (e.g., a modal or a dedicated section on the dashboard).
+        - [ ] Implement input fields for mood, energy, and soreness.
+        - [ ] Implement client-side logic to submit the context data to the backend via `POST /api/v1/daily_context`.
+      - [ ] **Task 2: Backend API for Daily Context** (AC: #2)
+        - [ ] Create a `POST /api/v1/daily_context` endpoint in FastAPI to create or update a daily context entry. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
+        - [ ] Create a `GET /api/v1/daily_context/{date}` endpoint to retrieve daily context. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
+        - [ ] Implement logic to persist the data to the `daily_contexts` table in Supabase.
+        - [ ] Implement Pydantic schemas for request validation.
+      - [ ] **Task 3: Data Model &amp; Schema Verification** (AC: #2)
+        - [ ] Verify the `daily_contexts` table schema in Supabase (`id`, `user_id`, `context_date`, `mood`, `energy`, `soreness`, `notes`). (Source: `tech-spec-epic-2.md#Data-Models-and-Contracts`)
+      - [ ] **Task 4: Testing** (AC: #1, #2)
+        - [ ] Add Pytest integration tests for the `POST` and `GET` daily context endpoints.
+        - [ ] Add React Testing Library tests for the Context Window component.
+        - [ ] Add a Playwright E2E test for opening the Context Window, submitting data, and verifying it's saved.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    1.  **Given** an authenticated user on the dashboard, **when** they open the "Context Window", **then** they can input their mood, energy level, and any muscle soreness.
+    2.  **And** this data is saved to the `daily_contexts` table for the current date.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>ibe160 - Epic Breakdown</title>
+        <section>Story 2.1: Context Window for Daily Input</section>
+        <snippet>As a User, I want to provide daily context on my mood, energy, and soreness, so that the AI can adapt my workout plan for the day.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-2.md</path>
+        <title>Epic Technical Specification: AI-Powered Training &amp; Logging</title>
+        <section>APIs and Interfaces</section>
+        <snippet>POST /api/v1/daily_context, GET /api/v1/daily_context/{date}</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-2.md</path>
+        <title>Epic Technical Specification: AI-Powered Training &amp; Logging</title>
+        <section>Data Models and Contracts</section>
+        <snippet>`daily_contexts` table: `id`, `user_id`, `context_date`, `mood`, `energy`, `soreness`, `notes`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture</title>
+        <section>Data Architecture</section>
+        <snippet>The application will utilize PostgreSQL, managed via Supabase, for its primary data persistence. The core schema design will include the following tables to support the application's functional requirements.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <code-artifact>
+        <path>backend/app/api/v1/daily_context.py</path>
+        <kind>api</kind>
+        <symbol>POST /api/v1/daily_context, GET /api/v1/daily_context/{date}</symbol>
+        <lines></lines>
+        <reason>This new file will contain the API endpoints for creating and retrieving daily context data.</reason>
+      </code-artifact>
+      <code-artifact>
+        <path>backend/app/schemas/daily_context.py</path>
+        <kind>schema</kind>
+        <symbol>DailyContextCreate, DailyContext</symbol>
+        <lines></lines>
+        <reason>This new file will contain the Pydantic schemas for validating daily context data.</reason>
+      </code-artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="Node">
+        <dependency name="@faker-js/faker" version="^10.1.0" type="dev" />
+        <dependency name="@playwright/test" version="^1.56.1" type="dev" />
+      </ecosystem>
+      <ecosystem name="Python">
+        <dependency name="fastapi" version="" type="runtime" />
+        <dependency name="uvicorn" version="" type="runtime" />
+        <dependency name="python-dotenv" version="" type="runtime" />
+        <dependency name="supabase-py" version="" type="runtime" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>The API must be RESTful and use JSON for requests and responses.</constraint>
+    <constraint>Data models must align with the schema in architecture.md.</constraint>
+    <constraint>Row-Level Security (RLS) must be enforced on the `daily_contexts` table.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Create/Update Daily Context</name>
+      <kind>REST Endpoint</kind>
+      <signature>POST /api/v1/daily_context</signature>
+      <path>backend/app/api/v1/daily_context.py</path>
+    </interface>
+    <interface>
+      <name>Get Daily Context</name>
+      <kind>REST Endpoint</kind>
+      <signature>GET /api/v1/daily_context/{date}</signature>
+      <path>backend/app/api/v1/daily_context.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Backend unit tests should be written with Pytest. Frontend component tests should use React Testing Library. End-to-end tests for user flows should be implemented with Playwright.
+    </standards>
+    <locations>
+      <location type="E2E">/tests/e2e/</location>
+      <location type="Backend">/backend/tests/</location>
+      <location type="Frontend">Component-colocated tests or a central /app/tests/ directory.</location>
+    </locations>
+    <ideas>
+      <idea ac_id="1, 2">Write an API test for the `POST` and `GET` daily context endpoints.</idea>
+      <idea ac_id="1">Write a UI component test for the Context Window component.</idea>
+      <idea ac_id="1, 2">Write a full E2E test for opening the Context Window, submitting data, and verifying it's saved.</idea>
+    </ideas>
+  </tests>
+</story-context>
