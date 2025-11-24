@@ -1,0 +1,103 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.4</storyId>
+    <title>In-App Reminders and Nudges</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-24</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/3-4-in-app-reminders-and-nudges.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>User</asA>
+    <iWant>to receive timely in-app reminders and nudges</iWant>
+    <soThat>I stay consistent with my training and goals</soThat>
+    <tasks>
+      - [ ] **Task 1: Backend Service for Reminders** (AC: #1)
+        - [ ] Create a `Reminder Service` that manages scheduled in-app reminders. (Source: `tech-spec-epic-3.md#Services-and-Modules`)
+        - [ ] Implement a Celery task `trigger_in_app_reminder(user_id, message, type)` to send notifications.
+      - [ ] **Task 2: Frontend Notification Module** (AC: #1)
+        - [ ] Create a `Notification Module` in the frontend to display in-app reminders and nudges.
+        - [ ] Implement UI elements for displaying notifications (e.g., toast messages, pop-ups).
+        - [ ] Integrate with the backend reminder system to receive and display notifications.
+      - [ ] **Task 3: User Settings Integration** (AC: #1)
+        - [ ] Add a setting in the `Settings Module` for users to enable/disable reminders and potentially configure reminder preferences. (Source: `tech-spec-epic-3.md#Workflows-and-Sequencing`)
+      - [ ] **Task 4: Testing** (AC: #1)
+        - [ ] Add Pytest integration tests for the `Reminder Service` and Celery task, ensuring reminders are triggered and processed correctly.
+        - [ ] Add React Testing Library tests for the `Notification Module` UI.
+        - [ ] Add Playwright E2E tests to verify that reminders appear in the UI at the scheduled time.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    1.  **Given** a user has enabled reminders, **when** it's time for a scheduled workout or other event, **then** an in-app notification or message appears, reminding them.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>ibe160 - Epic Breakdown</title>
+        <section>Story 3.4: In-App Reminders and Nudges</section>
+        <snippet>As a User, I want to receive timely in-app reminders and nudges, so that I stay consistent with my training and goals.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
+        <title>Epic Technical Specification: Enhanced User Experience &amp; Settings</title>
+        <section>Services and Modules</section>
+        <snippet>Reminder Service (`app/services/reminder_service.py`): Background task (Celery) for triggering scheduled in-app reminders.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture</title>
+        <section>Background Job Processing</section>
+        <snippet>Celery with Redis will be leveraged for asynchronous tasks, particularly the automated Weekly Review Ritual.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <code-artifact>
+        <path>backend/app/services/reminder_service.py</path>
+        <kind>service</kind>
+        <symbol>ReminderService</symbol>
+        <lines></lines>
+        <reason>This new service will manage scheduled in-app reminders.</reason>
+      </code-artifact>
+      <code-artifact>
+        <path>backend/app/tasks/reminders.py</path>
+        <kind>task</kind>
+        <symbol>trigger_in_app_reminder</symbol>
+        <lines></lines>
+        <reason>This new file will contain the Celery task for triggering reminders.</reason>
+      </code-artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="Python">
+        <dependency name="celery" version="" type="runtime" />
+        <dependency name="redis" version="" type="runtime" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Must use Celery and Redis for background job processing.</constraint>
+    <constraint>Reminder delivery must be reliable and timely.</constraint>
+  </constraints>
+  <interfaces>
+  </interfaces>
+  <tests>
+    <standards>
+      Backend integration tests should be written with Pytest for the reminder service and Celery tasks. Frontend component tests should use React Testing Library. E2E tests should use Playwright.
+    </standards>
+    <locations>
+      <location type="Backend">/backend/tests/</location>
+      <location type="Frontend">Component-colocated tests or a central /app/tests/ directory.</location>
+      <location type="E2E">/tests/e2e/</location>
+    </locations>
+    <ideas>
+      <idea ac_id="1">Write an integration test for the `Reminder Service` and Celery task, simulating scheduled reminders.</idea>
+      <idea ac_id="1">Write component tests for the notification UI, testing different types of messages.</idea>
+      <idea ac_id="1">Write an E2E test to verify that reminders appear in the UI at the scheduled time.</idea>
+    </ideas>
+  </tests>
+</story-context>

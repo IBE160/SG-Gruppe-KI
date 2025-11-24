@@ -1,0 +1,87 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.4</storyId>
+    <title>Workout Player UI</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-24</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-4-workout-player-ui.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>User</asA>
+    <iWant>a workout player interface that guides me through my workout</iWant>
+    <soThat>I can focus on my exercises</soThat>
+    <tasks>
+      - [ ] **Task 1: Frontend UI for Workout Player** (AC: #1)
+        - [ ] Create a new page/route for the workout player.
+        - [ ] Build the UI to display the current exercise, set details (target reps, weight, RPE), and a rest timer.
+        - [ ] Implement state management to track the user's progress through the workout (current exercise, current set).
+        - [ ] Implement logic to handle user interactions (e.g., starting/stopping rest timer, advancing to the next set/exercise).
+      - [ ] **Task 2: Offline Data Handling** (AC: #1)
+        - [ ] Integrate IndexedDB to handle offline logging of workout data. (Source: `architecture.md#Offline-Data-Synchronization-with-Outbox-Pattern`)
+        - [ ] Implement the Outbox Pattern to queue up offline data for syncing with the backend when connectivity is restored.
+      - [ ] **Task 3: Testing** (AC: #1)
+        - [ ] Add React Testing Library tests for the Workout Player components, including state changes and user interactions.
+        - [ ] Add Playwright E2E tests for the full workout flow, including offline scenarios.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    1.  **Given** a user starts a workout, **when** the workout player is launched, **then** it displays the current exercise, set number, target reps/weight, and a timer for rest periods.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>ibe160 - Epic Breakdown</title>
+        <section>Story 2.4: Workout Player UI</section>
+        <snippet>As a User, I want a workout player interface that guides me through my workout, so that I can focus on my exercises.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-2.md</path>
+        <title>Epic Technical Specification: AI-Powered Training &amp; Logging</title>
+        <section>Services and Modules</section>
+        <snippet>Workout Player Module: Interactive UI to guide user through exercises, display current set/reps, rest timers. Interacts with Workout Log API. Handles offline logging with IndexedDB.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture</title>
+        <section>Offline Data Synchronization with Outbox Pattern</section>
+        <snippet>To support offline workout logging and plan access (NFR007), the application will implement an Offline Data Synchronization pattern utilizing IndexedDB on the client-side and an Outbox Pattern.</snippet>
+      </doc>
+    </docs>
+    <code>
+    </code>
+    <dependencies>
+      <ecosystem name="Node">
+        <dependency name="react" version="" type="runtime" />
+        <dependency name="next" version="" type="runtime" />
+        <dependency name="idb" version="" type="runtime" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Must handle offline logging of workout data using IndexedDB.</constraint>
+    <constraint>Must implement the Outbox Pattern for syncing offline data.</constraint>
+    <constraint>The UI should be intuitive and minimize distractions during a workout.</constraint>
+  </constraints>
+  <interfaces>
+  </interfaces>
+  <tests>
+    <standards>
+      Frontend component tests should use React Testing Library. End-to-end tests for user flows should be implemented with Playwright.
+    </standards>
+    <locations>
+      <location type="E2E">/tests/e2e/</location>
+      <location type="Frontend">Component-colocated tests or a central /app/tests/ directory.</location>
+    </locations>
+    <ideas>
+      <idea ac_id="1">Write component tests for the Workout Player UI, mocking the workout plan data.</idea>
+      <idea ac_id="1">Write E2E tests to simulate a user going through a full workout, including offline scenarios.</idea>
+    </ideas>
+  </tests>
+</story-context>
