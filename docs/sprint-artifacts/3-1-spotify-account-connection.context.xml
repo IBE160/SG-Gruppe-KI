@@ -1,0 +1,124 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.1</storyId>
+    <title>Spotify Account Connection</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-24</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/3-1-spotify-account-connection.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>User</asA>
+    <iWant>to securely connect my Spotify account</iWant>
+    <soThat>the application can access my playback controls and listening history</soThat>
+    <tasks>
+      - [ ] **Task 1: Frontend UI for Spotify Connection** (AC: #1)
+        - [ ] Create a "Connect Spotify" button in the settings or onboarding flow.
+        - [ ] Implement client-side logic to initiate the Spotify PKCE OAuth flow by redirecting to `GET /api/v1/spotify/connect`.
+      - [ ] **Task 2: Backend API for Spotify OAuth** (AC: #1, #2)
+        - [ ] Create `GET /api/v1/spotify/connect` endpoint to initiate the Spotify PKCE OAuth flow. (Source: `tech-spec-epic-3.md#APIs-and-Interfaces`)
+        - [ ] Create `GET /api/v1/spotify/callback` endpoint to handle the redirect from Spotify. (Source: `tech-spec-epic-3.md#APIs-and-Interfaces`)
+        - [ ] Implement logic to exchange the authorization code for access and refresh tokens.
+        - [ ] Securely encrypt and store the tokens in the `spotify_integrations` table. (Source: `tech-spec-epic-3.md#Data-Models-and-Contracts`)
+      - [ ] **Task 3: Data Model &amp; Schema Verification** (AC: #2)
+        - [ ] Verify the `spotify_integrations` table schema in Supabase (`id`, `user_id`, `spotify_user_id`, `access_token`, `refresh_token`, `expires_at`, `created_at`, `updated_at`). (Source: `tech-spec-epic-3.md#Data-Models-and-Contracts`)
+        - [ ] Ensure RLS policies are applied to this table.
+      - [ ] **Task 4: Testing** (AC: #1, #2)
+        - [ ] Add Pytest integration tests for the Spotify OAuth endpoints, mocking Spotify API calls.
+        - [ ] Add Playwright E2E tests for the full Spotify connection flow, verifying redirection and token storage.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    1.  **Given** a user is in the settings or onboarding flow, **when** they click "Connect Spotify", **then** they are redirected to Spotify's OAuth (PKCE) consent screen.
+    2.  **And** upon successful authorization, their access and refresh tokens are securely stored in the `spotify_integrations` table.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>ibe160 - Epic Breakdown</title>
+        <section>Story 3.1: Spotify Account Connection</section>
+        <snippet>As a User, I want to securely connect my Spotify account, so that the application can access my playback controls and listening history.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
+        <title>Epic Technical Specification: Enhanced User Experience &amp; Settings</title>
+        <section>APIs and Interfaces</section>
+        <snippet>GET /api/v1/spotify/connect, GET /api/v1/spotify/callback</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-3.md</path>
+        <title>Epic Technical Specification: Enhanced User Experience &amp; Settings</title>
+        <section>Data Models and Contracts</section>
+        <snippet>`spotify_integrations` table: `id`, `user_id`, `spotify_user_id`, `access_token` (ENCRYPTED), `refresh_token` (ENCRYPTED), `expires_at`</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture</title>
+        <section>Spotify Integration</section>
+        <snippet>This section provides a detailed breakdown of the Spotify integration using the Business, Model, Architecture, and Design (BMAD) framework.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <code-artifact>
+        <path>backend/app/api/v1/spotify.py</path>
+        <kind>api</kind>
+        <symbol>GET /api/v1/spotify/connect, GET /api/v1/spotify/callback</symbol>
+        <lines></lines>
+        <reason>This new file will contain the API endpoints for Spotify OAuth.</reason>
+      </code-artifact>
+      <code-artifact>
+        <path>backend/app/schemas/spotify.py</path>
+        <kind>schema</kind>
+        <symbol>SpotifyToken</symbol>
+        <lines></lines>
+        <reason>This new file will contain Pydantic schemas for Spotify token data.</reason>
+      </code-artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="Python">
+        <dependency name="fastapi" version="" type="runtime" />
+        <dependency name="pydantic" version="" type="runtime" />
+        <dependency name="supabase-py" version="" type="runtime" />
+        <dependency name="cryptography" version="" type="runtime" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>The API must be RESTful and use JSON for requests and responses.</constraint>
+    <constraint>Spotify access and refresh tokens must be securely encrypted before being stored in the database.</constraint>
+    <constraint>Row-Level Security policies must be applied to the `spotify_integrations` table.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Connect Spotify</name>
+      <kind>REST Endpoint</kind>
+      <signature>GET /api/v1/spotify/connect</signature>
+      <path>backend/app/api/v1/spotify.py</path>
+    </interface>
+    <interface>
+      <name>Spotify OAuth Callback</name>
+      <kind>REST Endpoint</kind>
+      <signature>GET /api/v1/spotify/callback</signature>
+      <path>backend/app/api/v1/spotify.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Backend integration tests should be written with Pytest, mocking calls to the external Spotify API. E2E tests should use Playwright to automate the browser-based OAuth flow.
+    </standards>
+    <locations>
+      <location type="Backend">/backend/tests/</location>
+      <location type="E2E">/tests/e2e/</location>
+    </locations>
+    <ideas>
+      <idea ac_id="1, 2">Write an integration test for the full OAuth callback flow, including token exchange, encryption, and database storage.</idea>
+      <idea ac_id="1, 2">Write a full E2E test that clicks the "Connect Spotify" button, logs into a test Spotify account, and verifies a successful connection.</idea>
+    </ideas>
+  </tests>
+</story-context>
