@@ -43,10 +43,10 @@ development_status:
   epic-1-retrospective: optional
   epic-2: contexted
   2-1-context-window-for-daily-input: ready-for-dev
-  2-2-ai-daily-plan-generation: ready-for-dev
+  2-2-ai-daily-plan-generation: drafted
   2-3-display-daily-workout-plan: ready-for-dev
   2-4-workout-player-ui: ready-for-dev
-  2-5-workout-logging: ready-for-dev
+  2-5-workout-logging: drafted
   2-6-basic-progress-dashboard: ready-for-dev
   2-7-simulated-recovery-inputs: ready-for-dev
   2-8-weekly-review-ritual: ready-for-dev
