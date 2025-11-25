@@ -43,19 +43,19 @@ development_status:
   epic-1-retrospective: optional
   epic-2: contexted
   2-1-context-window-for-daily-input: ready-for-dev
-  2-2-ai-daily-plan-generation: drafted
+  2-2-ai-daily-plan-generation: ready-for-dev
   2-3-display-daily-workout-plan: ready-for-dev
   2-4-workout-player-ui: ready-for-dev
-  2-5-workout-logging: drafted
-  2-6-basic-progress-dashboard: drafted
+  2-5-workout-logging: ready-for-dev
+  2-6-basic-progress-dashboard: ready-for-dev
   2-7-simulated-recovery-inputs: ready-for-dev
   2-8-weekly-review-ritual: ready-for-dev
   epic-2-retrospective: optional
   epic-3: contexted
   3-1-spotify-account-connection: ready-for-dev
-  3-2-spotify-playback-control-in-workout-player: drafted
-  3-3-bpm-matched-session-mix-generation: drafted
-  3-4-in-app-reminders-and-nudges: drafted
-  3-5-offline-cache-for-daily-plans-and-logs: drafted
-  3-6-comprehensive-settings-page: drafted
+  3-2-spotify-playback-control-in-workout-player: ready-for-dev
+  3-3-bpm-matched-session-mix-generation: ready-for-dev
+  3-4-in-app-reminders-and-nudges: ready-for-dev
+  3-5-offline-cache-for-daily-plans-and-logs: ready-for-dev
+  3-6-comprehensive-settings-page: ready-for-dev
   epic-3-retrospective: optional
