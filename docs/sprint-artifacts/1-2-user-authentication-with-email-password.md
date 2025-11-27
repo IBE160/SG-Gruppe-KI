@@ -16,12 +16,12 @@ So that I can have a secure personal account.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Backend API for Email/Password Auth** (AC: #1, #3)
-    - [ ] Create `POST /api/v1/auth/signup` endpoint in FastAPI. (Source: `tech-spec-epic-1.md#APIs-and-Interfaces`)
-    - [ ] Implement logic to call Supabase Auth to create a new user.
-    - [ ] Create `POST /api/v1/auth/login` endpoint in FastAPI. (Source: `tech-spec-epic-1.md#APIs-and-Interfaces`)
-    - [ ] Implement logic to call Supabase Auth to sign in a user and return tokens.
-    - [ ] Add Pydantic schemas for request/response validation. (Source: `tech-spec-epic-1.md#Services-and-Modules`)
+- [x] **Task 1: Backend API for Email/Password Auth** (AC: #1, #3)
+    - [x] Create `POST /api/v1/auth/signup` endpoint in FastAPI. (Source: `tech-spec-epic-1.md#APIs-and-Interfaces`)
+    - [x] Implement logic to call Supabase Auth to create a new user.
+    - [x] Create `POST /api/v1/auth/login` endpoint in FastAPI. (Source: `tech-spec-epic-1.md#APIs-and-Interfaces`)
+    - [x] Implement logic to call Supabase Auth to sign in a user and return tokens.
+    - [x] Add Pydantic schemas for request/response validation. (Source: `tech-spec-epic-1.md#Services-and-Modules`)
 - [ ] **Task 2: Frontend UI for Signup and Login** (AC: #1, #2, #3)
     - [ ] Create a new page/route for authentication in the Next.js app.
     - [ ] Build the UI form with fields for email and password.
@@ -70,9 +70,25 @@ Gemini CLI
 
 ### Debug Log References
 
+- Task 1: Backend API for Email/Password Auth completed.
+    - Created basic backend directory structure (backend/, backend/app/, backend/app/schemas/, backend/app/api/v1/).
+    - Installed necessary Python packages (FastAPI, Uvicorn, python-dotenv, supabase) in a virtual environment.
+    - Created backend/main.py and integrated auth router.
+    - Defined Pydantic schemas in backend/app/schemas/user.py.
+    - Implemented /api/v1/auth/signup and /api/v1/auth/login endpoints in backend/app/api/v1/auth.py.
+
 ### Completion Notes List
 
 ### File List
+- backend/
+- backend/app/
+- backend/app/schemas/
+- backend/app/api/v1/
+- backend/venv/
+- backend/main.py
+- backend/.env
+- backend/app/schemas/user.py
+- backend/app/api/v1/auth.py
 
 ## Change Log
 - 2025-11-23: Initial draft created by Gemini CLI.

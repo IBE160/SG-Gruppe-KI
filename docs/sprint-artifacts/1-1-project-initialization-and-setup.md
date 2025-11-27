@@ -19,10 +19,10 @@ Status: ready-for-dev
 ## Tasks / Subtasks
 
 -   [ ] **Initialize Next.js Frontend:** (AC: #1)
-    -   [ ] Execute `npx create-next-app@14.x my-fullstack-app --typescript --eslint --tailwind --app --src-dir --import-alias "@/*"` (Source: `architecture.md`) (AC: #1)
-    -   [ ] Navigate into the `my-fullstack-app` directory. (AC: #1)
-    -   [ ] Install Supabase client for Next.js: `npm install @supabase/supabase-js` (Source: `architecture.md`) (AC: #1)
-    -   [ ] Verify basic Next.js application runs without errors. (AC: #1)
+    -   [x] Execute `npx create-next-app@14.x my-fullstack-app --typescript --eslint --tailwind --app --src-dir --import-alias "@/*" --yes` (Source: `architecture.md`) (AC: #1)
+    -   [x] Navigate into the `my-fullstack-app` directory. (AC: #1)
+    -   [x] Install Supabase client for Next.js: `npm install @supabase/supabase-js` (Source: `architecture.md`) (AC: #1)
+tyyes    -   [ ] Verify basic Next.js application runs without errors. (AC: #1)
 -   [ ] **Set up FastAPI Backend:** (AC: #1)
     -   [ ] Create `backend` directory. (AC: #1)
     -   [ ] Navigate into `backend` directory. (AC: #1)

@@ -35,7 +35,7 @@ story_location: docs/sprint-artifacts
 
 development_status:
   epic-1: contexted
-  1-1-project-initialization-and-setup: ready-for-dev
+  1-1-project-initialization-and-setup: in-progress
   1-2-user-authentication-with-email-password: ready-for-dev
   1-3-user-authentication-with-google-oauth: ready-for-dev
   1-4-conversational-onboarding-for-goal-setting: ready-for-dev
