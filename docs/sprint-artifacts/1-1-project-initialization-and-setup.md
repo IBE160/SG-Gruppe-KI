@@ -1,6 +1,6 @@
 # Story 1.1: Project Initialization and Setup
 
-Status: ready-for-dev
+Status: completed
 
 ## Story
 
@@ -18,12 +18,25 @@ Status: ready-for-dev
 
 ## Tasks / Subtasks
 
--   [x] **Initialize Next.js Frontend:** (AC: #1)
-    -   [x] Execute `npx create-next-app@14.x my-fullstack-app --typescript --eslint --tailwind --app --src-dir --import-alias "@/*" --yes` (Source: `architecture.md`) (AC: #1)
-    -   [x] Navigate into the `my-fullstack-app` directory. (AC: #1)
+-   [ ] **Initialize Next.js Frontend:** (AC: #1)
+    -   [x] Execute `npx create-next-app@14.x my-fullstack-app --typescript --eslint --tailwind --app --src-dir --import-alias "@/*"` (Source: `architecture.md`) (AC: #1)
+    -   [x] Navigate into the `my-fullstack-app` directory (now root). (AC: #1)
+    -   [x] Install Supabase client for Next.js: `npm install @supabase/supabase-js` (Source: `architecture.md`) (AC: #1)
     -   [x] Verify basic Next.js application runs without errors. (AC: #1)
-
-
+-   [ ] **Set up FastAPI Backend:** (AC: #1)
+    -   [x] Create `backend` directory. (AC: #1)
+    -   [x] Navigate into `backend` directory. (AC: #1)
+    -   [x] Create and activate a Python virtual environment: `python -m venv venv` and `.\venv\Scripts\Activate.ps1` (Source: `architecture.md`) (AC: #1)
+    -   [x] Install FastAPI, Uvicorn, and python-dotenv: `pip install fastapi uvicorn python-dotenv "uvicorn[standard]"` (Source: `architecture.md`) (AC: #1)
+    -   [x] Install Supabase client for Python (if needed for direct backend interaction): `pip install supabase` (Source: `architecture.md`) (AC: #1)
+    -   [x] Create a basic FastAPI application file (e.g., `main.py`) with a simple health check endpoint. (AC: #1)
+    -   [x] Create a `.env` file in the backend directory for environment variables. (AC: #1)
+    -   [x] Verify basic FastAPI application runs without errors (e.g., `uvicorn main:app --reload`). (AC: #1)
+-   [ ] **Verify Monorepo Structure:** (AC: #2)
+    -   [x] Confirm the project root contains both the `my-fullstack-app` (frontend in root) and `backend` directories. (AC: #2)
+-   [ ] Basic End-to-End Test (Playwright): (AC: #1, #2) (Skipped by user for now)
+    -   [ ] Add a basic Playwright test to verify the Next.js frontend loads. (AC: #1)
+    -   [ ] Add a basic Playwright test to call the FastAPI health check endpoint. (AC: #1)
 
 ## Dev Notes
 
@@ -62,4 +75,3 @@ Gemini CLI
 
 ## Change Log
 - 2025-11-21: Initial draft created by Gemini CLI.
-
