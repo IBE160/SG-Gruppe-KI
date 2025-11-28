@@ -1,6 +1,6 @@
 # Story 1.1: Project Initialization and Setup
 
-Status: completed
+Status: ready-for-dev
 
 ## Story
 
@@ -32,11 +32,11 @@ Status: completed
     -   [x] Create a basic FastAPI application file (e.g., `main.py`) with a simple health check endpoint. (AC: #1)
     -   [x] Create a `.env` file in the backend directory for environment variables. (AC: #1)
     -   [x] Verify basic FastAPI application runs without errors (e.g., `uvicorn main:app --reload`). (AC: #1)
--   [ ] **Verify Monorepo Structure:** (AC: #2)
+-   [x] **Verify Monorepo Structure:** (AC: #2)
     -   [x] Confirm the project root contains both the `my-fullstack-app` (frontend in root) and `backend` directories. (AC: #2)
--   [ ] Basic End-to-End Test (Playwright): (AC: #1, #2) (Skipped by user for now)
-    -   [ ] Add a basic Playwright test to verify the Next.js frontend loads. (AC: #1)
-    -   [ ] Add a basic Playwright test to call the FastAPI health check endpoint. (AC: #1)
+-   [ ] **Basic End-to-End Test (Playwright):** (AC: #1, #2)
+    -   [x] Add a basic Playwright test to verify the Next.js frontend loads. (AC: #1)
+    -   [x] Add a basic Playwright test to call the FastAPI health check endpoint. (AC: #1)
 
 ## Dev Notes
 
