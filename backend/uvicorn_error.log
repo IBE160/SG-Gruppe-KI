@@ -46,3 +46,5 @@ Traceback (most recent call last):
     from .app.api.v1.auth import router as auth_router # Import the auth router
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ImportError: attempted relative import with no known parent package
+WARNING:  WatchFiles detected changes in 'app\api\v1\__init__.py', 'app\schemas\user.py', 'app\api\__init__.py', 'app\api\v1\auth.py', 'main.py', 'app\__init__.py', 'app\schemas\__init__.py', 'tests\test_auth.py', '__init__.py'. Reloading...
+ERROR:    Error loading ASGI app. Could not import module "main".
