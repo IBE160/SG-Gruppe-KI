@@ -64,7 +64,7 @@
       - [x] /run-agent-task sm *validate-story-context {prompt / 
       user-input-file}
         - [x] File : validation-report-story-context-20251121212401.md
-      - [ ] /run-agent-task tea *validate-story-ready {prompt / user-input-file}
+      - [x] /run-agent-task tea *validate-story-ready {prompt / user-input-file}
       - [ ] /run-agent-task dev *implement-story {prompt / user-input-file}
       - [ ] /run-agent-task dev *validate-story {prompt / user-input-file}
       - [ ] /run-agent-task tea *automate {prompt / user-input-file}
