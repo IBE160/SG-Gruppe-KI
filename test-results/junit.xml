@@ -1,95 +1,179 @@
-<testsuites id="" name="" tests="3" failures="3" skipped="0" errors="0" time="4.674734">
-<testsuite name="onboarding.spec.ts" timestamp="2025-11-17T18:36:19.390Z" hostname="chromium" tests="1" failures="1" skipped="0" time="0.01" errors="0">
-<testcase name="First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow" classname="onboarding.spec.ts" time="0.01">
-<failure message="onboarding.spec.ts:5:7 should allow a new user to complete the conversational onboarding flow" type="FAILURE">
-<![CDATA[  [chromium] › onboarding.spec.ts:5:7 › First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow 
+<testsuites id="" name="" tests="6" failures="3" skipped="0" errors="0" time="21.835486999999997">
+<testsuite name="smoke.spec.ts" timestamp="2025-11-27T23:58:09.048Z" hostname="chromium" tests="2" failures="1" skipped="0" time="17.885" errors="0">
+<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="17.442">
+<failure message="smoke.spec.ts:4:7 should load Next.js frontend" type="FAILURE">
+<![CDATA[  [chromium] › smoke.spec.ts:4:7 › Smoke Tests › should load Next.js frontend ──────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at C:\Users\Robert\AppData\Local\ms-playwright\chromium_headless_shell-1194\chrome-win\headless_shell.exe
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: expect(page).toHaveTitle(expected) failed
 
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\trace.zip
+    Expected pattern: /Create Next App/
+    Received string:  "DS-Analyzer-Pro"
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 15000ms
+        18 × unexpected value "DS-Analyzer-Pro"
+
+
+      4 |   test('should load Next.js frontend', async ({ page }) => {
+      5 |     await page.goto('http://localhost:3000');
+    > 6 |     await expect(page).toHaveTitle(/Create Next App/);
+        |                        ^
+      7 |   });
+      8 |
+      9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:6:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\trace.zip
     Usage:
 
-        npx playwright show-trace ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\trace.zip
+        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\trace.zip
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\trace.zip]]
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\video.webm]]
+
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\error-context.md]]
+
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\trace.zip]]
 ]]>
 </system-out>
 </testcase>
+<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.443">
+</testcase>
 </testsuite>
-<testsuite name="onboarding.spec.ts" timestamp="2025-11-17T18:36:19.390Z" hostname="firefox" tests="1" failures="1" skipped="0" time="0.012" errors="0">
-<testcase name="First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow" classname="onboarding.spec.ts" time="0.012">
-<failure message="onboarding.spec.ts:5:7 should allow a new user to complete the conversational onboarding flow" type="FAILURE">
-<![CDATA[  [firefox] › onboarding.spec.ts:5:7 › First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow 
+<testsuite name="smoke.spec.ts" timestamp="2025-11-27T23:58:09.048Z" hostname="firefox" tests="2" failures="1" skipped="0" time="18.849" errors="0">
+<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="18.448">
+<failure message="smoke.spec.ts:4:7 should load Next.js frontend" type="FAILURE">
+<![CDATA[  [firefox] › smoke.spec.ts:4:7 › Smoke Tests › should load Next.js frontend ───────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at C:\Users\Robert\AppData\Local\ms-playwright\firefox-1495\firefox\firefox.exe
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: expect(page).toHaveTitle(expected) failed
 
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\trace.zip
+    Expected pattern: /Create Next App/
+    Received string:  "DS-Analyzer-Pro"
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 15000ms
+        18 × unexpected value "DS-Analyzer-Pro"
+
+
+      4 |   test('should load Next.js frontend', async ({ page }) => {
+      5 |     await page.goto('http://localhost:3000');
+    > 6 |     await expect(page).toHaveTitle(/Create Next App/);
+        |                        ^
+      7 |   });
+      8 |
+      9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:6:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\trace.zip
     Usage:
 
-        npx playwright show-trace ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\trace.zip
+        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\trace.zip
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\trace.zip]]
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\test-failed-1.png]]
+
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\video.webm]]
+
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\error-context.md]]
+
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\trace.zip]]
 ]]>
 </system-out>
 </testcase>
+<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.401">
+</testcase>
 </testsuite>
-<testsuite name="onboarding.spec.ts" timestamp="2025-11-17T18:36:19.390Z" hostname="webkit" tests="1" failures="1" skipped="0" time="0.008" errors="0">
-<testcase name="First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow" classname="onboarding.spec.ts" time="0.008">
-<failure message="onboarding.spec.ts:5:7 should allow a new user to complete the conversational onboarding flow" type="FAILURE">
-<![CDATA[  [webkit] › onboarding.spec.ts:5:7 › First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow 
+<testsuite name="smoke.spec.ts" timestamp="2025-11-27T23:58:09.048Z" hostname="webkit" tests="2" failures="1" skipped="0" time="17.176" errors="0">
+<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="16.755">
+<failure message="smoke.spec.ts:4:7 should load Next.js frontend" type="FAILURE">
+<![CDATA[  [webkit] › smoke.spec.ts:4:7 › Smoke Tests › should load Next.js frontend ────────────────────────
 
-    Error: browserType.launch: Executable doesn't exist at C:\Users\Robert\AppData\Local\ms-playwright\webkit-2215\Playwright.exe
-    ╔═════════════════════════════════════════════════════════════════════════╗
-    ║ Looks like Playwright Test or Playwright was just installed or updated. ║
-    ║ Please run the following command to download new browsers:              ║
-    ║                                                                         ║
-    ║     npx playwright install                                              ║
-    ║                                                                         ║
-    ║ <3 Playwright Team                                                      ║
-    ╚═════════════════════════════════════════════════════════════════════════╝
+    Error: expect(page).toHaveTitle(expected) failed
 
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\trace.zip
+    Expected pattern: /Create Next App/
+    Received string:  "DS-Analyzer-Pro"
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 15000ms
+        18 × unexpected value "DS-Analyzer-Pro"
+
+
+      4 |   test('should load Next.js frontend', async ({ page }) => {
+      5 |     await page.goto('http://localhost:3000');
+    > 6 |     await expect(page).toHaveTitle(/Create Next App/);
+        |                        ^
+      7 |   });
+      8 |
+      9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:6:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\trace.zip
     Usage:
 
-        npx playwright show-trace ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\trace.zip
+        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\trace.zip
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\trace.zip]]
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\test-failed-1.png]]
+
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\video.webm]]
+
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\error-context.md]]
+
+[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\trace.zip]]
 ]]>
 </system-out>
+</testcase>
+<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.421">
 </testcase>
 </testsuite>
 </testsuites>
