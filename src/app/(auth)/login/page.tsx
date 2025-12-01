@@ -45,6 +45,11 @@ export default function LoginPage() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    // Redirect to the backend endpoint that initiates Google OAuth
+    window.location.href = '/api/v1/auth/google';
+  };
+
   return (
     <div style={{ padding: '20px', maxWidth: '400px', margin: '50px auto', border: '1px solid #ccc', borderRadius: '8px' }}>
       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
@@ -76,6 +81,26 @@ export default function LoginPage() {
           {isLogin ? 'Log In' : 'Sign Up'}
         </button>
       </form>
+      <div style={{ marginTop: '20px', textAlign: 'center' }}>
+        <button
+          onClick={handleGoogleLogin}
+          style={{
+            padding: '10px 15px',
+            backgroundColor: '#db4437', // Google's brand color
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%'
+          }}
+        >
+          <img src="/google-icon.svg" alt="Google icon" style={{ marginRight: '10px', height: '18px' }} />
+          Continue with Google
+        </button>
+      </div>
       <p style={{ marginTop: '20px', textAlign: 'center' }}>
         {isLogin ? "Don't have an account?" : "Already have an account?"}{' '}
         <button

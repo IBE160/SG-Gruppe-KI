@@ -1,53 +1,104 @@
-import { test, expect } from '../support/fixtures';
-import { faker } from '@faker-js/faker';
+import { test, expect } from '@playwright/test';
 
-test.describe('First-Time User Onboarding', () => {
-  test('should allow a new user to complete the conversational onboarding flow', async ({ page }) => {
-    // GIVEN: A new user is on the welcome page
-    await page.goto('/');
-    await expect(page.getByTestId('welcome-hero-card')).toBeVisible();
-
-    // WHEN: The user starts the onboarding
-    await page.getByTestId('begin-onboarding-button').click();
-
-    // AND: The user answers the conversational prompts
-    await expect(page.getByTestId('conversational-check-in')).toBeVisible();
-
-    // Mock the API response for creating the user
-    await page.route('**/api/users', (route) => {
-      // Check that the request payload is correct
-      const body = route.request().postDataJSON();
-      expect(body.goal).toBe('build-strength');
-      expect(body.trainingDaysPerWeek).toBe(3);
-      route.fulfill({
-        status: 201,
-        contentType: 'application/json',
-        body: JSON.stringify({ id: `usr_${faker.string.uuid()}`, ...body }),
-      });
+test.describe('Onboarding Flow', () => {
+  test('should complete multi-step onboarding and redirect to home', async ({ page }) => {
+    // Mock Supabase authentication to simulate a logged-in user
+    await page.addInitScript(() => {
+      window.localStorage.setItem('sb-test-user-session', JSON.stringify({
+        access_token: 'mock-access-token',
+        refresh_token: 'mock-refresh-token',
+        user: {
+          id: 'mock-user-uuid',
+          email: 'test@example.com',
+          user_metadata: {},
+        },
+      }));
     });
-    
-    // Mock the API response for the plan generation
-    await page.route('**/api/plans/generate', (route) => {
-      route.fulfill({
+
+    // Intercept and mock the user profile fetch
+    await page.route('/api/v1/users/me', async route => {
+      await route.fulfill({
         status: 200,
         contentType: 'application/json',
-        body: JSON.stringify({ planId: `pln_${faker.string.uuid()}`, summary: 'Your First Adaptive Plan' }),
+        body: JSON.stringify({
+          message: "success",
+          data: {
+            id: 'mock-user-uuid',
+            email: 'test@example.com',
+            name: null,
+            goals: null, // Simulate no onboarding data
+            preferences: null,
+            equipment: null,
+            injuries: null,
+            units: null,
+          }
+        }),
       });
     });
 
-    await page.getByTestId('goal-chip-build-strength').click();
-    await page.getByTestId('training-days-slider').fill('3');
-    await page.getByTestId('equipment-chip-dumbbells').click();
-    await page.getByTestId('music-chip-energetic').click();
-    await page.getByTestId('submit-onboarding-button').click();
+    // Intercept and mock the onboarding submission
+    await page.route('**/api/v1/users/onboarding', async route => {
+      const requestBody = JSON.parse(route.request().postData() as string);
+      expect(requestBody).toHaveProperty('goals');
+      expect(requestBody).toHaveProperty('preferences');
+      expect(requestBody).toHaveProperty('equipment');
+      expect(requestBody).toHaveProperty('injuries');
+      expect(requestBody).toHaveProperty('units');
 
-    // THEN: The user sees the "Plan Ready" confirmation
-    await expect(page.getByTestId('plan-reveal-screen')).toBeVisible();
-    await expect(page.getByText('Your First Adaptive Plan Is Ready!')).toBeVisible();
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          message: "success",
+          data: {
+            id: 'mock-user-uuid',
+            email: 'test@example.com',
+            ...requestBody // Echo back the data
+          }
+        }),
+      });
+    });
 
-    // AND: The user can view their new plan
-    await page.getByTestId('view-my-plan-button').click();
-    await expect(page.getByTestId('workout-player-preview')).toBeVisible();
-    await expect(page.getByText('Here’s how your session works.')).toBeVisible();
+    // Go to the home page, which should redirect to onboarding due to mock profile
+    await page.goto('/');
+    await page.waitForURL('**/onboarding');
+    expect(page.url()).toContain('/onboarding');
+
+    // Step 1: Goals
+    await expect(page.getByText('What are your primary fitness goals?')).toBeVisible();
+    await page.getByPlaceholder('Enter your goals as JSON').fill('{ "strength": true }');
+    await page.getByRole('button', { name: 'Next' }).click();
+
+    // Step 2: Preferences
+    await expect(page.getByText('Any specific workout preferences?')).toBeVisible();
+    await page.getByPlaceholder('Enter your preferences as JSON').fill('{ "time": "evening" }');
+    await page.getByRole('button', { name: 'Next' }).click();
+
+    // Step 3: Equipment
+    await expect(page.getByText('What equipment do you have available?')).toBeVisible();
+    await page.getByLabel('Dumbbells').check();
+    await page.getByLabel('Yoga Mat').check();
+    await page.getByRole('button', { name: 'Next' }).click();
+
+    // Step 4: Injuries
+    await expect(page.getByText('Do you have any injuries or physical limitations?')).toBeVisible();
+    await page.getByPlaceholder('Describe any injuries or limitations').fill('Previous knee injury');
+    await page.getByRole('button', { name: 'Next' }).click();
+
+    // Step 5: Units
+    await expect(page.getByText('What units do you prefer?')).toBeVisible();
+    await page.getByLabel('Imperial (lbs, inches)').check();
+    await page.getByRole('button', { name: 'Finish Onboarding' }).click();
+
+    // Expect successful submission message and redirect to home
+    await page.waitForTimeout(500); // Give some time for alert and redirect
+    page.on('dialog', async dialog => {
+      expect(dialog.message()).toContain('Onboarding complete! Redirecting to dashboard.');
+      await dialog.accept();
+    });
+
+    // Verify redirection to home page
+    await page.waitForURL('/');
+    expect(page.url()).toBe(page.baseURL + '/');
   });
 });
