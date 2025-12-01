@@ -1,1125 +1,155 @@
-<testsuites id="" name="" tests="27" failures="21" skipped="0" errors="0" time="66.55460099999999">
-<testsuite name="basic-checks.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="chromium" tests="2" failures="2" skipped="0" time="24.384" errors="0">
-<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="23.955">
-<failure message="basic-checks.spec.ts:4:7 Next.js frontend loads correctly" type="FAILURE">
-<![CDATA[  [chromium] › basic-checks.spec.ts:4:7 › Basic Application Checks › Next.js frontend loads correctly 
+<testsuites id="" name="" tests="3" failures="3" skipped="0" errors="0" time="22.163425">
+<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T17:14:56.226Z" hostname="chromium" tests="1" failures="1" skipped="0" time="18.055" errors="0">
+<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="18.055">
+<failure message="user-profile.spec.ts:48:5 should navigate to profile page, edit details, and save changes successfully" type="FAILURE">
+<![CDATA[  [chromium] › user-profile.spec.ts:48:5 › should navigate to profile page, edit details, and save changes successfully 
 
-    Error: expect(locator).toContainText(expected) failed
-
-    Locator: locator('h1')
-    Expected substring: "Welcome"
-    Timeout: 15000ms
-    Error: element(s) not found
-
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
     Call log:
-      - Expect "toContainText" with timeout 15000ms
-      - waiting for locator('h1')
+      - waiting for getByRole('link', { name: /go to profile/i })
 
 
-       5 |     await page.goto('/');
-       6 |     // Assuming your Next.js app has a welcome message with an h1 tag containing "Welcome"
-    >  7 |     await expect(page.locator('h1')).toContainText('Welcome');
-         |                                      ^
-       8 |   });
-       9 |
-      10 |   test('FastAPI health check endpoint returns status ok', async ({ request }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:7:38
+      50 |
+      51 |   // Click the "Go to Profile" link
+    > 52 |   await page.getByRole('link', { name: /go to profile/i }).click();
+         |                                                            ^
+      53 |
+      54 |   // Expect the profile page to load and display initial data
+      55 |   await expect(page.getByRole('heading', { name: /user profile/i })).toBeVisible();
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\user-profile.spec.ts:52:60
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-chromium\test-failed-1.png
+    ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-chromium\test-failed-1.png
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
     attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-chromium\video.webm
+    ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-chromium\video.webm
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-    Error Context: ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-chromium\error-context.md
+    Error Context: ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-chromium\error-context.md
 
     attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-chromium\trace.zip
+    ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-chromium\trace.zip
     Usage:
 
-        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-chromium\trace.zip
+        npx playwright show-trace ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-chromium\trace.zip
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-chromium\test-failed-1.png]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-chromium\test-failed-1.png]]
 
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-chromium\video.webm]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-chromium\video.webm]]
 
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-chromium\error-context.md]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-chromium\error-context.md]]
 
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-chromium\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.429">
-<failure message="basic-checks.spec.ts:10:7 FastAPI health check endpoint returns status ok" type="FAILURE">
-<![CDATA[  [chromium] › basic-checks.spec.ts:10:7 › Basic Application Checks › FastAPI health check endpoint returns status ok 
-
-    Error: apiRequestContext.get: connect ECONNREFUSED ::1:8001
-    Call log:
-      - → GET http://localhost:8001/health
-        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.7499.4 Safari/537.36
-        - accept: */*
-        - accept-encoding: gzip,deflate,br
-
-        at apiRequestContext.get: connect ECONNREFUSED ::1:8001
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:11:36
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-chromium\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-chromium\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-chromium\trace.zip]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-chromium\trace.zip]]
 ]]>
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="basic.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="chromium" tests="2" failures="1" skipped="0" time="24.355" errors="0">
-<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="23.957">
-<failure message="basic.spec.ts:3:5 Next.js frontend loads successfully" type="FAILURE">
-<![CDATA[  [chromium] › basic.spec.ts:3:5 › Next.js frontend loads successfully ─────────────────────────────
+<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T17:14:56.226Z" hostname="firefox" tests="1" failures="1" skipped="0" time="17.929" errors="0">
+<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="17.929">
+<failure message="user-profile.spec.ts:48:5 should navigate to profile page, edit details, and save changes successfully" type="FAILURE">
+<![CDATA[  [firefox] › user-profile.spec.ts:48:5 › should navigate to profile page, edit details, and save changes successfully 
 
-    Error: expect(locator).toContainText(expected) failed
-
-    Locator: locator('html')
-    Expected substring: "Welcome"
-    Received string:    "DS-Analyzer-ProDiscoverPreferencesOptimizeScrapePricingOrdersSuppliers / APIsLoginDS-Analyzer-ProSign InSign UporSign In with Google"
-    Timeout: 15000ms
-
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
     Call log:
-      - Expect "toContainText" with timeout 15000ms
-      - waiting for locator('html')
-        3 × locator resolved to <html lang="en">…</html>
-          - unexpected value "Loading..."
-        2 × locator resolved to <html lang="en">…</html>
-          - unexpected value "DS-Analyzer-ProDiscoverPreferencesOptimizeScrapePricingOrdersSuppliers / APIsLoginLoading..."
-        13 × locator resolved to <html lang="en">…</html>
-           - unexpected value "DS-Analyzer-ProDiscoverPreferencesOptimizeScrapePricingOrdersSuppliers / APIsLoginDS-Analyzer-ProSign InSign UporSign In with Google"
+      - waiting for getByRole('link', { name: /go to profile/i })
 
 
-       5 |   await page.goto('http://localhost:3000');
-       6 |   // You might need to adjust the text to something specific on your default Next.js page
-    >  7 |   await expect(page.locator('html')).toContainText('Welcome'); 
-         |                                      ^
-       8 | });
-       9 |
-      10 | test('FastAPI backend health check returns ok', async ({ request }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic.spec.ts:7:38
+      50 |
+      51 |   // Click the "Go to Profile" link
+    > 52 |   await page.getByRole('link', { name: /go to profile/i }).click();
+         |                                                            ^
+      53 |
+      54 |   // Expect the profile page to load and display initial data
+      55 |   await expect(page.getByRole('heading', { name: /user profile/i })).toBeVisible();
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\user-profile.spec.ts:52:60
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\basic-Next-js-frontend-loads-successfully-chromium\test-failed-1.png
+    ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-firefox\test-failed-1.png
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
     attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\basic-Next-js-frontend-loads-successfully-chromium\video.webm
+    ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-firefox\video.webm
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-    Error Context: ..\..\test-results\basic-Next-js-frontend-loads-successfully-chromium\error-context.md
+    Error Context: ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-firefox\error-context.md
 
     attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-Next-js-frontend-loads-successfully-chromium\trace.zip
+    ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-firefox\trace.zip
     Usage:
 
-        npx playwright show-trace ..\..\test-results\basic-Next-js-frontend-loads-successfully-chromium\trace.zip
+        npx playwright show-trace ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-firefox\trace.zip
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-chromium\test-failed-1.png]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-firefox\test-failed-1.png]]
 
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-chromium\video.webm]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-firefox\video.webm]]
 
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-chromium\error-context.md]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-firefox\error-context.md]]
 
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-chromium\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.398">
-</testcase>
-</testsuite>
-<testsuite name="example.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="chromium" tests="2" failures="2" skipped="0" time="25.646" errors="0">
-<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="23.961">
-<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
-<![CDATA[  [chromium] › example.spec.ts:4:7 › Example Test Suite › should load homepage ─────────────────────
-
-    Error: expect(page).toHaveTitle(expected) failed
-
-    Expected pattern: /Home/i
-    Received string:  "DS-Analyzer-Pro"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toHaveTitle" with timeout 15000ms
-        18 × unexpected value "DS-Analyzer-Pro"
-
-
-      4 |   test('should load homepage', async ({ page }) => {
-      5 |     await page.goto('/');
-    > 6 |     await expect(page).toHaveTitle(/Home/i);
-        |                        ^
-      7 |   });
-      8 |
-      9 |   test('should create user and login', async ({ page, userFactory }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\video.webm]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\error-context.md]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="1.685">
-<failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
-<![CDATA[  [chromium] › example.spec.ts:9:7 › Example Test Suite › should create user and login ─────────────
-
-    TypeError: Failed to parse URL from undefined/users
-
-       at ..\support\fixtures\factories\user-factory.ts:15
-
-      13 |
-      14 |     // API call to create user
-    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
-         |                      ^
-      16 |       method: 'POST',
-      17 |       headers: { 'Content-Type': 'application/json' },
-      18 |       body: JSON.stringify(user),
-        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:22)
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:18
-    [cause]: TypeError: Invalid URL
-        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:28)
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:36
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-chromium\video.webm]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-chromium\trace.zip]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-firefox\trace.zip]]
 ]]>
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="onboarding.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="chromium" tests="1" failures="1" skipped="0" time="23.886" errors="0">
-<testcase name="First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow" classname="onboarding.spec.ts" time="23.886">
-<failure message="onboarding.spec.ts:5:7 should allow a new user to complete the conversational onboarding flow" type="FAILURE">
-<![CDATA[  [chromium] › onboarding.spec.ts:5:7 › First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow 
+<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T17:14:56.226Z" hostname="webkit" tests="1" failures="1" skipped="0" time="16.597" errors="0">
+<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="16.597">
+<failure message="user-profile.spec.ts:48:5 should navigate to profile page, edit details, and save changes successfully" type="FAILURE">
+<![CDATA[  [webkit] › user-profile.spec.ts:48:5 › should navigate to profile page, edit details, and save changes successfully 
 
-    Error: expect(locator).toBeVisible() failed
-
-    Locator: getByTestId('welcome-hero-card')
-    Expected: visible
-    Timeout: 15000ms
-    Error: element(s) not found
-
+    TimeoutError: locator.click: Timeout 15000ms exceeded.
     Call log:
-      - Expect "toBeVisible" with timeout 15000ms
-      - waiting for getByTestId('welcome-hero-card')
+      - waiting for getByRole('link', { name: /go to profile/i })
 
 
-       6 |     // GIVEN: A new user is on the welcome page
-       7 |     await page.goto('/');
-    >  8 |     await expect(page.getByTestId('welcome-hero-card')).toBeVisible();
-         |                                                         ^
-       9 |
-      10 |     // WHEN: The user starts the onboarding
-      11 |     await page.getByTestId('begin-onboarding-button').click();
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\onboarding.spec.ts:8:57
+      50 |
+      51 |   // Click the "Go to Profile" link
+    > 52 |   await page.getByRole('link', { name: /go to profile/i }).click();
+         |                                                            ^
+      53 |
+      54 |   // Expect the profile page to load and display initial data
+      55 |   await expect(page.getByRole('heading', { name: /user profile/i })).toBeVisible();
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\user-profile.spec.ts:52:60
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\test-failed-1.png
+    ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-webkit\test-failed-1.png
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
     attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\video.webm
+    ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-webkit\video.webm
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-    Error Context: ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\error-context.md
+    Error Context: ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-webkit\error-context.md
 
     attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\trace.zip
+    ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-webkit\trace.zip
     Usage:
 
-        npx playwright show-trace ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\trace.zip
+        npx playwright show-trace ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-webkit\trace.zip
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\test-failed-1.png]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-webkit\test-failed-1.png]]
 
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\video.webm]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-webkit\video.webm]]
 
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\error-context.md]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-webkit\error-context.md]]
 
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-chromium\trace.zip]]
+[[ATTACHMENT|user-profile-should-naviga-cdce2-d-save-changes-successfully-webkit\trace.zip]]
 ]]>
 </system-out>
-</testcase>
-</testsuite>
-<testsuite name="smoke.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="chromium" tests="2" failures="1" skipped="0" time="24.342" errors="0">
-<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="23.932">
-<failure message="smoke.spec.ts:4:7 should load Next.js frontend" type="FAILURE">
-<![CDATA[  [chromium] › smoke.spec.ts:4:7 › Smoke Tests › should load Next.js frontend ──────────────────────
-
-    Error: expect(page).toHaveTitle(expected) failed
-
-    Expected pattern: /Create Next App/
-    Received string:  "DS-Analyzer-Pro"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toHaveTitle" with timeout 15000ms
-        18 × unexpected value "DS-Analyzer-Pro"
-
-
-      4 |   test('should load Next.js frontend', async ({ page }) => {
-      5 |     await page.goto('http://localhost:3000');
-    > 6 |     await expect(page).toHaveTitle(/Create Next App/);
-        |                        ^
-      7 |   });
-      8 |
-      9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:6:24
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\video.webm]]
-
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\error-context.md]]
-
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-chromium\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.41">
-</testcase>
-</testsuite>
-<testsuite name="basic-checks.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="firefox" tests="2" failures="2" skipped="0" time="24.971" errors="0">
-<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="24.334">
-<failure message="basic-checks.spec.ts:4:7 Next.js frontend loads correctly" type="FAILURE">
-<![CDATA[  [firefox] › basic-checks.spec.ts:4:7 › Basic Application Checks › Next.js frontend loads correctly 
-
-    Error: expect(locator).toContainText(expected) failed
-
-    Locator: locator('h1')
-    Expected substring: "Welcome"
-    Timeout: 15000ms
-    Error: element(s) not found
-
-    Call log:
-      - Expect "toContainText" with timeout 15000ms
-      - waiting for locator('h1')
-
-
-       5 |     await page.goto('/');
-       6 |     // Assuming your Next.js app has a welcome message with an h1 tag containing "Welcome"
-    >  7 |     await expect(page.locator('h1')).toContainText('Welcome');
-         |                                      ^
-       8 |   });
-       9 |
-      10 |   test('FastAPI health check endpoint returns status ok', async ({ request }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:7:38
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-firefox\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-firefox\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-firefox\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-firefox\test-failed-1.png]]
-
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-firefox\video.webm]]
-
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-firefox\error-context.md]]
-
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-firefox\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.637">
-<failure message="basic-checks.spec.ts:10:7 FastAPI health check endpoint returns status ok" type="FAILURE">
-<![CDATA[  [firefox] › basic-checks.spec.ts:10:7 › Basic Application Checks › FastAPI health check endpoint returns status ok 
-
-    Error: apiRequestContext.get: connect ECONNREFUSED ::1:8001
-    Call log:
-      - → GET http://localhost:8001/health
-        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0.2) Gecko/20100101 Firefox/144.0.2
-        - accept: */*
-        - accept-encoding: gzip,deflate,br
-
-        at apiRequestContext.get: connect ECONNREFUSED ::1:8001
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:11:36
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-firefox\trace.zip]]
-]]>
-</system-out>
-</testcase>
-</testsuite>
-<testsuite name="basic.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="firefox" tests="2" failures="1" skipped="0" time="21.786" errors="0">
-<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="21.323">
-<failure message="basic.spec.ts:3:5 Next.js frontend loads successfully" type="FAILURE">
-<![CDATA[  [firefox] › basic.spec.ts:3:5 › Next.js frontend loads successfully ──────────────────────────────
-
-    Error: expect(locator).toContainText(expected) failed
-
-    Locator: locator('html')
-    Expected substring: "Welcome"
-    Received string:    "DS-Analyzer-ProDiscoverPreferencesOptimizeScrapePricingOrdersSuppliers / APIsLoginDS-Analyzer-ProSign InSign UporSign In with Google"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toContainText" with timeout 15000ms
-      - waiting for locator('html')
-        3 × locator resolved to <html lang="en">…</html>
-          - unexpected value "DS-Analyzer-ProDiscoverPreferencesOptimizeScrapePricingOrdersSuppliers / APIsLoginLoading..."
-        15 × locator resolved to <html lang="en">…</html>
-           - unexpected value "DS-Analyzer-ProDiscoverPreferencesOptimizeScrapePricingOrdersSuppliers / APIsLoginDS-Analyzer-ProSign InSign UporSign In with Google"
-
-
-       5 |   await page.goto('http://localhost:3000');
-       6 |   // You might need to adjust the text to something specific on your default Next.js page
-    >  7 |   await expect(page.locator('html')).toContainText('Welcome'); 
-         |                                      ^
-       8 | });
-       9 |
-      10 | test('FastAPI backend health check returns ok', async ({ request }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic.spec.ts:7:38
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\basic-Next-js-frontend-loads-successfully-firefox\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\basic-Next-js-frontend-loads-successfully-firefox\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\basic-Next-js-frontend-loads-successfully-firefox\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-Next-js-frontend-loads-successfully-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-Next-js-frontend-loads-successfully-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-firefox\test-failed-1.png]]
-
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-firefox\video.webm]]
-
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-firefox\error-context.md]]
-
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-firefox\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.463">
-</testcase>
-</testsuite>
-<testsuite name="example.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="firefox" tests="2" failures="2" skipped="0" time="26.593" errors="0">
-<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="22.267">
-<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
-<![CDATA[  [firefox] › example.spec.ts:4:7 › Example Test Suite › should load homepage ──────────────────────
-
-    Error: expect(page).toHaveTitle(expected) failed
-
-    Expected pattern: /Home/i
-    Received string:  "DS-Analyzer-Pro"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toHaveTitle" with timeout 15000ms
-        18 × unexpected value "DS-Analyzer-Pro"
-
-
-      4 |   test('should load homepage', async ({ page }) => {
-      5 |     await page.goto('/');
-    > 6 |     await expect(page).toHaveTitle(/Home/i);
-        |                        ^
-      7 |   });
-      8 |
-      9 |   test('should create user and login', async ({ page, userFactory }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\test-failed-1.png]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\video.webm]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\error-context.md]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="4.326">
-<failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
-<![CDATA[  [firefox] › example.spec.ts:9:7 › Example Test Suite › should create user and login ──────────────
-
-    TypeError: Failed to parse URL from undefined/users
-
-       at ..\support\fixtures\factories\user-factory.ts:15
-
-      13 |
-      14 |     // API call to create user
-    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
-         |                      ^
-      16 |       method: 'POST',
-      17 |       headers: { 'Content-Type': 'application/json' },
-      18 |       body: JSON.stringify(user),
-        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:22)
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:18
-    [cause]: TypeError: Invalid URL
-        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:28)
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:36
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-firefox\test-failed-1.png]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-firefox\video.webm]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-firefox\trace.zip]]
-]]>
-</system-out>
-</testcase>
-</testsuite>
-<testsuite name="onboarding.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="firefox" tests="1" failures="1" skipped="0" time="23.355" errors="0">
-<testcase name="First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow" classname="onboarding.spec.ts" time="23.355">
-<failure message="onboarding.spec.ts:5:7 should allow a new user to complete the conversational onboarding flow" type="FAILURE">
-<![CDATA[  [firefox] › onboarding.spec.ts:5:7 › First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow 
-
-    Error: expect(locator).toBeVisible() failed
-
-    Locator: getByTestId('welcome-hero-card')
-    Expected: visible
-    Timeout: 15000ms
-    Error: element(s) not found
-
-    Call log:
-      - Expect "toBeVisible" with timeout 15000ms
-      - waiting for getByTestId('welcome-hero-card')
-
-
-       6 |     // GIVEN: A new user is on the welcome page
-       7 |     await page.goto('/');
-    >  8 |     await expect(page.getByTestId('welcome-hero-card')).toBeVisible();
-         |                                                         ^
-       9 |
-      10 |     // WHEN: The user starts the onboarding
-      11 |     await page.getByTestId('begin-onboarding-button').click();
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\onboarding.spec.ts:8:57
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\test-failed-1.png]]
-
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\video.webm]]
-
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\error-context.md]]
-
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-firefox\trace.zip]]
-]]>
-</system-out>
-</testcase>
-</testsuite>
-<testsuite name="smoke.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="firefox" tests="2" failures="1" skipped="0" time="24.494" errors="0">
-<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="24.036">
-<failure message="smoke.spec.ts:4:7 should load Next.js frontend" type="FAILURE">
-<![CDATA[  [firefox] › smoke.spec.ts:4:7 › Smoke Tests › should load Next.js frontend ───────────────────────
-
-    Error: expect(page).toHaveTitle(expected) failed
-
-    Expected pattern: /Create Next App/
-    Received string:  "DS-Analyzer-Pro"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toHaveTitle" with timeout 15000ms
-        18 × unexpected value "DS-Analyzer-Pro"
-
-
-      4 |   test('should load Next.js frontend', async ({ page }) => {
-      5 |     await page.goto('http://localhost:3000');
-    > 6 |     await expect(page).toHaveTitle(/Create Next App/);
-        |                        ^
-      7 |   });
-      8 |
-      9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:6:24
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\test-failed-1.png]]
-
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\video.webm]]
-
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\error-context.md]]
-
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-firefox\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.458">
-</testcase>
-</testsuite>
-<testsuite name="basic-checks.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="webkit" tests="2" failures="2" skipped="0" time="19.264" errors="0">
-<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="18.612">
-<failure message="basic-checks.spec.ts:4:7 Next.js frontend loads correctly" type="FAILURE">
-<![CDATA[  [webkit] › basic-checks.spec.ts:4:7 › Basic Application Checks › Next.js frontend loads correctly 
-
-    Error: expect(locator).toContainText(expected) failed
-
-    Locator: locator('h1')
-    Expected substring: "Welcome"
-    Timeout: 15000ms
-    Error: element(s) not found
-
-    Call log:
-      - Expect "toContainText" with timeout 15000ms
-      - waiting for locator('h1')
-
-
-       5 |     await page.goto('/');
-       6 |     // Assuming your Next.js app has a welcome message with an h1 tag containing "Welcome"
-    >  7 |     await expect(page.locator('h1')).toContainText('Welcome');
-         |                                      ^
-       8 |   });
-       9 |
-      10 |   test('FastAPI health check endpoint returns status ok', async ({ request }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:7:38
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-webkit\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-webkit\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-webkit\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-webkit\test-failed-1.png]]
-
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-webkit\video.webm]]
-
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-webkit\error-context.md]]
-
-[[ATTACHMENT|basic-checks-Basic-Applica-af86f-js-frontend-loads-correctly-webkit\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.652">
-<failure message="basic-checks.spec.ts:10:7 FastAPI health check endpoint returns status ok" type="FAILURE">
-<![CDATA[  [webkit] › basic-checks.spec.ts:10:7 › Basic Application Checks › FastAPI health check endpoint returns status ok 
-
-    Error: apiRequestContext.get: connect ECONNREFUSED ::1:8001
-    Call log:
-      - → GET http://localhost:8001/health
-        - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Safari/605.1.15
-        - accept: */*
-        - accept-encoding: gzip,deflate,br
-
-        at apiRequestContext.get: connect ECONNREFUSED ::1:8001
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:11:36
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-webkit\trace.zip]]
-]]>
-</system-out>
-</testcase>
-</testsuite>
-<testsuite name="basic.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="webkit" tests="2" failures="1" skipped="0" time="20.726" errors="0">
-<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="19.849">
-<failure message="basic.spec.ts:3:5 Next.js frontend loads successfully" type="FAILURE">
-<![CDATA[  [webkit] › basic.spec.ts:3:5 › Next.js frontend loads successfully ───────────────────────────────
-
-    Error: expect(locator).toContainText(expected) failed
-
-    Locator: locator('html')
-    Expected substring: "Welcome"
-    Received string:    "DS-Analyzer-ProDiscoverPreferencesOptimizeScrapePricingOrdersSuppliers / APIsLoginDS-Analyzer-ProSign InSign UporSign In with Google"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toContainText" with timeout 15000ms
-      - waiting for locator('html')
-        3 × locator resolved to <html lang="en">…</html>
-          - unexpected value "Loading..."
-        - locator resolved to <html lang="en">…</html>
-        - unexpected value "DS-Analyzer-ProDiscoverPreferencesOptimizeScrapePricingOrdersSuppliers / APIsLoginLoading..."
-        13 × locator resolved to <html lang="en">…</html>
-           - unexpected value "DS-Analyzer-ProDiscoverPreferencesOptimizeScrapePricingOrdersSuppliers / APIsLoginDS-Analyzer-ProSign InSign UporSign In with Google"
-
-
-       5 |   await page.goto('http://localhost:3000');
-       6 |   // You might need to adjust the text to something specific on your default Next.js page
-    >  7 |   await expect(page.locator('html')).toContainText('Welcome'); 
-         |                                      ^
-       8 | });
-       9 |
-      10 | test('FastAPI backend health check returns ok', async ({ request }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic.spec.ts:7:38
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\basic-Next-js-frontend-loads-successfully-webkit\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\basic-Next-js-frontend-loads-successfully-webkit\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\basic-Next-js-frontend-loads-successfully-webkit\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-Next-js-frontend-loads-successfully-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-Next-js-frontend-loads-successfully-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-webkit\test-failed-1.png]]
-
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-webkit\video.webm]]
-
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-webkit\error-context.md]]
-
-[[ATTACHMENT|basic-Next-js-frontend-loads-successfully-webkit\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.877">
-</testcase>
-</testsuite>
-<testsuite name="example.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="webkit" tests="2" failures="2" skipped="0" time="20.554" errors="0">
-<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="18.656">
-<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
-<![CDATA[  [webkit] › example.spec.ts:4:7 › Example Test Suite › should load homepage ───────────────────────
-
-    Error: expect(page).toHaveTitle(expected) failed
-
-    Expected pattern: /Home/i
-    Received string:  "DS-Analyzer-Pro"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toHaveTitle" with timeout 15000ms
-        18 × unexpected value "DS-Analyzer-Pro"
-
-
-      4 |   test('should load homepage', async ({ page }) => {
-      5 |     await page.goto('/');
-    > 6 |     await expect(page).toHaveTitle(/Home/i);
-        |                        ^
-      7 |   });
-      8 |
-      9 |   test('should create user and login', async ({ page, userFactory }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\test-failed-1.png]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\video.webm]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\error-context.md]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="1.898">
-<failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
-<![CDATA[  [webkit] › example.spec.ts:9:7 › Example Test Suite › should create user and login ───────────────
-
-    TypeError: Failed to parse URL from undefined/users
-
-       at ..\support\fixtures\factories\user-factory.ts:15
-
-      13 |
-      14 |     // API call to create user
-    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
-         |                      ^
-      16 |       method: 'POST',
-      17 |       headers: { 'Content-Type': 'application/json' },
-      18 |       body: JSON.stringify(user),
-        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:22)
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:18
-    [cause]: TypeError: Invalid URL
-        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:28)
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:36
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-webkit\test-failed-1.png]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-webkit\video.webm]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-webkit\trace.zip]]
-]]>
-</system-out>
-</testcase>
-</testsuite>
-<testsuite name="onboarding.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="webkit" tests="1" failures="1" skipped="0" time="18.981" errors="0">
-<testcase name="First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow" classname="onboarding.spec.ts" time="18.981">
-<failure message="onboarding.spec.ts:5:7 should allow a new user to complete the conversational onboarding flow" type="FAILURE">
-<![CDATA[  [webkit] › onboarding.spec.ts:5:7 › First-Time User Onboarding › should allow a new user to complete the conversational onboarding flow 
-
-    Error: expect(locator).toBeVisible() failed
-
-    Locator: getByTestId('welcome-hero-card')
-    Expected: visible
-    Timeout: 15000ms
-    Error: element(s) not found
-
-    Call log:
-      - Expect "toBeVisible" with timeout 15000ms
-      - waiting for getByTestId('welcome-hero-card')
-
-
-       6 |     // GIVEN: A new user is on the welcome page
-       7 |     await page.goto('/');
-    >  8 |     await expect(page.getByTestId('welcome-hero-card')).toBeVisible();
-         |                                                         ^
-       9 |
-      10 |     // WHEN: The user starts the onboarding
-      11 |     await page.getByTestId('begin-onboarding-button').click();
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\onboarding.spec.ts:8:57
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\test-failed-1.png]]
-
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\video.webm]]
-
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\error-context.md]]
-
-[[ATTACHMENT|onboarding-First-Time-User-d7ae0-versational-onboarding-flow-webkit\trace.zip]]
-]]>
-</system-out>
-</testcase>
-</testsuite>
-<testsuite name="smoke.spec.ts" timestamp="2025-11-28T01:03:28.955Z" hostname="webkit" tests="2" failures="1" skipped="0" time="18.578" errors="0">
-<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="18.167">
-<failure message="smoke.spec.ts:4:7 should load Next.js frontend" type="FAILURE">
-<![CDATA[  [webkit] › smoke.spec.ts:4:7 › Smoke Tests › should load Next.js frontend ────────────────────────
-
-    Error: expect(page).toHaveTitle(expected) failed
-
-    Expected pattern: /Create Next App/
-    Received string:  "DS-Analyzer-Pro"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toHaveTitle" with timeout 15000ms
-        18 × unexpected value "DS-Analyzer-Pro"
-
-
-      4 |   test('should load Next.js frontend', async ({ page }) => {
-      5 |     await page.goto('http://localhost:3000');
-    > 6 |     await expect(page).toHaveTitle(/Create Next App/);
-        |                        ^
-      7 |   });
-      8 |
-      9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:6:24
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\test-failed-1.png]]
-
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\video.webm]]
-
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\error-context.md]]
-
-[[ATTACHMENT|smoke-Smoke-Tests-should-load-Next-js-frontend-webkit\trace.zip]]
-]]>
-</system-out>
-</testcase>
-<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.411">
 </testcase>
 </testsuite>
 </testsuites>

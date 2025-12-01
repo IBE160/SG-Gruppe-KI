@@ -90,6 +90,13 @@ export default function Home() {
           >
             Go to Login
           </a>
+          {/* Temporary link to Profile Page for development */}
+          <a
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-blue-600 px-5 text-white transition-colors hover:bg-blue-700 md:w-[158px]"
+            href="/profile"
+          >
+            Go to Profile
+          </a>
         </div>
       </main>
     </div>

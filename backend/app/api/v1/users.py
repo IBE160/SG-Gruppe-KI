@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from supabase import Client
 from app.db.supabase import get_supabase_client
-from app.schemas.user import OnboardingData, UserProfile
+from app.schemas.user import OnboardingData, UserProfile, UserProfileUpdate # Import UserProfileUpdate
 from app.dependencies import get_current_user
 
 router = APIRouter()
@@ -85,13 +85,12 @@ async def get_user_profile(
 
 @router.put("/me", response_model=UserProfile)
 async def update_user_profile(
-    user_profile_update: OnboardingData, # Re-using OnboardingData for partial updates
+    user_profile_update: UserProfileUpdate, # Changed from OnboardingData
     current_user: dict = Depends(get_current_user),
     supabase: Client = Depends(get_supabase_client)
 ):
     """
     Updates the authenticated user's profile information.
-    Re-uses OnboardingData schema for simplicity, as it covers the updatable fields.
     """
     user_id = current_user["id"]
     update_data = user_profile_update.model_dump(exclude_unset=True)

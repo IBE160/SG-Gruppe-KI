@@ -18,3 +18,12 @@ class UserProfile(BaseModel):
     equipment: Optional[List[str]] = None
     injuries: Optional[str] = None
     units: Optional[str] = None
+
+# New schema for updating user profile
+class UserProfileUpdate(BaseModel):
+    name: Optional[str] = None
+    goals: Optional[Dict[str, Any]] = None
+    preferences: Optional[Dict[str, Any]] = None
+    equipment: Optional[List[str]] = None
+    injuries: Optional[str] = None
+    units: Optional[str] = None

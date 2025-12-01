@@ -15,23 +15,23 @@ so that I can keep my personal details up to date.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Frontend UI for User Profile Page** (AC: #1, #2)
-  - [ ] Create a new page/route for user profile management.
-  - [ ] Build the UI to display current profile information (name, goals, preferences, equipment, injuries, units).
-  - [ ] Implement forms/input fields to allow editing of these details.
-  - [ ] Implement client-side logic to fetch user data using `GET /api/v1/users/me`.
-  - [ ] Implement client-side logic to submit updated data using `PUT /api/v1/users/me`.
-- [ ] **Task 2: Backend API for User Profile Management** (AC: #1, #2)
-  - [ ] Ensure `GET /api/v1/users/me` endpoint in FastAPI correctly retrieves user data from Supabase `users` table. (Source: `tech-spec-epic-1.md#APIs-and-Interfaces`)
-  - [ ] Ensure `PUT /api/v1/users/me` endpoint in FastAPI correctly updates user data in Supabase `users` table. (Source: `tech-spec-epic-1.md#APIs-and-Interfaces`)
-  - [ ] Implement validation for incoming update data using Pydantic schemas (e.g., `UserProfileUpdate`). (Source: `tech-spec-epic-1.md#Services-and-Modules`)
-  - [ ] Ensure Row-Level Security (RLS) is enforced for all user profile operations.
-- [ ] **Task 3: Data Model & Schema Verification** (AC: #1, #2)
-  - [ ] Verify that the `users` table schema in Supabase (`id`, `email`, `name`, `goals`, `preferences`, `equipment`, `injuries`, `units`) supports all required fields for profile management. (Source: `tech-spec-epic-1.md#Data-Models-and-Contracts`)
-  - [ ] Verify that Pydantic schemas in `app/schemas/user.py` are aligned with the `users` table for updates.
+- [x] **Task 1: Frontend UI for User Profile Page** (AC: #1, #2)
+  - [x] Create a new page/route for user profile management.
+  - [x] Build the UI to display current profile information (name, goals, preferences, equipment, injuries, units).
+  - [x] Implement forms/input fields to allow editing of these details.
+  - [x] Implement client-side logic to fetch user data using `GET /api/v1/users/me`.
+  - [x] Implement client-side logic to submit updated data using `PUT /api/v1/users/me`.
+- [x] **Task 2: Backend API for User Profile Management** (AC: #1, #2)
+  - [x] Ensure `GET /api/v1/users/me` endpoint in FastAPI correctly retrieves user data from Supabase `users` table. (Source: `tech-spec-epic-1.md#APIs-and-Interfaces`)
+  - [x] Ensure `PUT /api/v1/users/me` endpoint in FastAPI correctly updates user data in Supabase `users` table. (Source: `tech-spec-epic-1.md#APIs-and-Interfaces`)
+  - [x] Implement validation for incoming update data using Pydantic schemas (e.g., `UserProfileUpdate`). (Source: `tech-spec-epic-1.md#Services-and-Modules`)
+  - [x] Ensure Row-Level Security (RLS) is enforced for all user profile operations.
+- [x] **Task 3: Data Model & Schema Verification** (AC: #1, #2)
+  - [x] Verify that the `users` table schema in Supabase (`id`, `email`, `name`, `goals`, `preferences`, `equipment`, `injuries`, `units`) supports all required fields for profile management. (Source: `tech-spec-epic-1.md#Data-Models-and-Contracts`)
+  - [x] Verify that Pydantic schemas in `app/schemas/user.py` are aligned with the `users` table for updates.
 - [ ] **Task 4: Testing** (AC: #1, #2)
   - [ ] Add Pytest integration tests for `GET /api/v1/users/me` and `PUT /api/v1/users/me` endpoints.
-  - [ ] Add React Testing Library tests for the frontend profile components.
+  - [x] Add React Testing Library tests for the frontend profile components.
   - [ ] Add Playwright E2E test for navigating to the profile page, editing details, and saving changes successfully.
 
 ## Dev Notes
@@ -82,6 +82,14 @@ Gemini CLI
 ### Completion Notes List
 
 ### File List
+
+#### Frontend Files
+- src/app/(app)/profile/page.tsx
+- src/app/lib/api/user.ts
+
+#### Backend Files
+- backend/app/api/v1/users.py
+- backend/app/schemas/user.py
 
 ## Change Log
 
