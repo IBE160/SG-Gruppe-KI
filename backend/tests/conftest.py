@@ -6,28 +6,6 @@ from app.core import config # Import the config module, not just Settings
 import httpx # Import httpx to patch it
 from app.dependencies import get_current_user # Import get_current_user for patching
 
-@pytest.fixture(autouse=True)
-def mock_settings():
-    # Store original settings
-    original_settings = config.settings
-
-    # Create a mock settings instance
-    mock_instance = MagicMock()
-    mock_instance.SUPABASE_URL = "http://mock-supabase-url"
-    mock_instance.SUPABASE_KEY = "mock-supabase-key"
-    mock_instance.SUPABASE_REDIRECT_URI = "http://mock-redirect-uri"
-    mock_instance.GOOGLE_CLIENT_ID = "mock-google-client-id"
-    mock_instance.GOOGLE_CLIENT_SECRET = "mock-google-client-secret"
-    mock_instance.BASE_URL = "http://mock-base-url"
-
-    # Patch the global settings instance
-    with patch("app.core.config.settings", new=mock_instance):
-        yield mock_instance
-    
-    # Restore original settings after test (important for other tests that might rely on real settings)
-    with patch("app.core.config.settings", new=original_settings):
-        pass # This pass is just to make the context manager happy, actual restoration happens on exit
-
 # Mock for supabase client creation
 @pytest.fixture
 def mock_supabase_client():
@@ -70,10 +48,3 @@ def mock_httpx_async_client():
 
         mock_async_client_class.return_value = mock_instance
         yield mock_instance
-
-@pytest.fixture(autouse=True, scope="module")
-def setup_auth_mocks():
-    with patch("app.db.supabase.get_current_user_from_supabase",
-               return_value={"id": "mock-user-uuid", "email": "test@example.com"}) as mock_get_current_user_from_supabase:
-        with patch("app.dependencies.oauth2_scheme", return_value="fake-token") as mock_oauth2_scheme:
-            yield mock_get_current_user_from_supabase, mock_oauth2_scheme
