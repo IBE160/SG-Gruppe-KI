@@ -1,22 +1,298 @@
-<testsuites id="" name="" tests="3" failures="3" skipped="0" errors="0" time="22.163425">
-<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T17:14:56.226Z" hostname="chromium" tests="1" failures="1" skipped="0" time="18.055" errors="0">
-<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="18.055">
+<testsuites id="" name="" tests="33" failures="21" skipped="0" errors="0" time="73.33631299999999">
+<testsuite name="basic-checks.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="2" failures="1" skipped="0" time="4.153" errors="0">
+<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="3.57">
+</testcase>
+<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.583">
+<failure message="basic-checks.spec.ts:10:7 FastAPI health check endpoint returns status ok" type="FAILURE">
+<![CDATA[  [chromium] › basic-checks.spec.ts:10:7 › Basic Application Checks › FastAPI health check endpoint returns status ok 
+
+    Error: apiRequestContext.get: connect ECONNREFUSED ::1:8001
+    Call log:
+      - → GET http://localhost:8001/health
+        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.7499.4 Safari/537.36
+        - accept: */*
+        - accept-encoding: gzip,deflate,br
+
+        at apiRequestContext.get: connect ECONNREFUSED ::1:8001
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:11:36
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="basic.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="2" failures="1" skipped="0" time="4.047" errors="0">
+<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="3.511">
+</testcase>
+<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.536">
+<failure message="basic.spec.ts:10:5 FastAPI backend health check returns ok" type="FAILURE">
+<![CDATA[  [chromium] › basic.spec.ts:10:5 › FastAPI backend health check returns ok ────────────────────────
+
+    Error: expect(received).toBeTruthy()
+
+    Received: false
+
+      11 |   // Assuming FastAPI backend is running on http://localhost:8000
+      12 |   const response = await request.get('http://localhost:8000/health');
+    > 13 |   expect(response.ok()).toBeTruthy();
+         |                         ^
+      14 |   expect(await response.json()).toEqual({ status: 'ok' });
+      15 | });
+      16 |
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic.spec.ts:13:25
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|basic-FastAPI-backend-health-check-returns-ok-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="example.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="2" failures="2" skipped="0" time="19.938" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="19.518">
+<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
+<![CDATA[  [chromium] › example.spec.ts:4:7 › Example Test Suite › should load homepage ─────────────────────
+
+    Error: expect(page).toHaveTitle(expected) failed
+
+    Expected pattern: /Home/i
+    Received string:  "Create Next App"
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 15000ms
+        18 × unexpected value "Create Next App"
+
+
+      4 |   test('should load homepage', async ({ page }) => {
+      5 |     await page.goto('/');
+    > 6 |     await expect(page).toHaveTitle(/Home/i);
+        |                        ^
+      7 |   });
+      8 |
+      9 |   test('should create user and login', async ({ page, userFactory }) => {
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\error-context.md]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="0.42">
+<failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
+<![CDATA[  [chromium] › example.spec.ts:9:7 › Example Test Suite › should create user and login ─────────────
+
+    TypeError: Failed to parse URL from undefined/users
+
+       at ..\support\fixtures\factories\user-factory.ts:15
+
+      13 |
+      14 |     // API call to create user
+    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
+         |                      ^
+      16 |       method: 'POST',
+      17 |       headers: { 'Content-Type': 'application/json' },
+      18 |       body: JSON.stringify(user),
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:22)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:18
+    [cause]: TypeError: Invalid URL
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:28)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-chromium\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="google_oauth.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="1" failures="0" skipped="0" time="6.19" errors="0">
+<testcase name="Google OAuth Flow › should redirect to Google when &quot;Continue with Google&quot; button is clicked" classname="google_oauth.spec.ts" time="6.19">
+<system-out>
+<![CDATA[Redirected to Google OAuth URL: https://accounts.google.com/v3/signin/identifier?opparams=%253F&dsh=S1328996191%3A1764630956603062&access_type=offline&client_id=1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com&o2v=2&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fv1%2Fauth%2Fgoogle%2Fcallback&response_type=code&scope=openid+email+profile&service=lso&state=some_random_secure_string&flowName=GeneralOAuthFlow&continue=https%3A%2F%2Faccounts.google.com%2Fsignin%2Foauth%2Fconsent%3Fauthuser%3Dunknown%26part%3DAJi8hAN8UOEIfx1E9lPM77MEdBNmGViq51RWEeyM97hEktT_avskAzBI8M78CM1k4gUg8x_4Ib-ZU7b8YC81HRF7UHDmEbLR5RxIhbqgn6xW4raYEOW_3OcZA9wzaCCY8Qtid8zmJ3u_rwsMRoQfgeJvaS49CUmdja8EuRAqFbs_wHnA79s-0S2yMS3_Yt5o0tr9GSjkeXzGmoZcBq-nFPivGE7Zs5bH1BYQsDaYJFw5P_uIDH-h5946UwlSjZ8gJ2f9B2_4F34L6D_L-dL1jrr39tPDuPdDtOJl8cLJWWIChXtuxZBl6fOoO_JwmonkPes9A5GVqcMiTyLN-Tdf8lRWeQ4kIbjcLfJU84vV7oZQgswCujCDrafjrSthVj0KXhzmPPRbztIXc81dLD1vjENDGoUj9VAs5Tka1ZkikXhnL47aDWTaTXkfGbwtL56ICD3f6pAm-D_nkdW9O35M1A9n1MsDGAmXpA%26flowName%3DGeneralOAuthFlow%26as%3DS1328996191%253A1764630956603062%26client_id%3D1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com%26requestPath%3D%252Fsignin%252Foauth%252Fconsent%23&app_domain=http%3A%2F%2Flocalhost%3A8000&rart=ANgoxceFWscVzjgkfmzPWLDM3C-O5uhXzghtVGipsuPQFEVBhLhAQ7HlBbH8V0mBCJgtc_JyDrcfv6GT1d8nRzgWroWLEsG-pjSmBJ3Dofa7I-zauT-0d5A
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="onboarding.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="1" failures="1" skipped="0" time="34.679" errors="0">
+<testcase name="Onboarding Flow › should complete multi-step onboarding and redirect to home" classname="onboarding.spec.ts" time="34.679">
+<failure message="onboarding.spec.ts:4:7 should complete multi-step onboarding and redirect to home" type="FAILURE">
+<![CDATA[  [chromium] › onboarding.spec.ts:4:7 › Onboarding Flow › should complete multi-step onboarding and redirect to home 
+
+    TimeoutError: page.waitForURL: Timeout 30000ms exceeded.
+    =========================== logs ===========================
+    waiting for navigation to "**/onboarding" until "load"
+    ============================================================
+
+      62 |     // Go to the home page, which should redirect to onboarding due to mock profile
+      63 |     await page.goto('/');
+    > 64 |     await page.waitForURL('**/onboarding');
+         |                ^
+      65 |     expect(page.url()).toContain('/onboarding');
+      66 |
+      67 |     // Step 1: Goals
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\onboarding.spec.ts:64:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-chromium\video.webm]]
+
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-chromium\error-context.md]]
+
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="smoke.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="2" failures="1" skipped="0" time="3.397" errors="0">
+<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="2.718">
+</testcase>
+<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.679">
+<failure message="smoke.spec.ts:9:7 should get successful health check from FastAPI backend" type="FAILURE">
+<![CDATA[  [chromium] › smoke.spec.ts:9:7 › Smoke Tests › should get successful health check from FastAPI backend 
+
+    Error: expect(received).toBeTruthy()
+
+    Received: false
+
+       9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
+      10 |     const response = await request.get('http://localhost:8000/health');
+    > 11 |     expect(response.ok()).toBeTruthy();
+         |                           ^
+      12 |     const json = await response.json();
+      13 |     expect(json).toEqual({ status: 'ok' });
+      14 |   });
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:11:27
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="1" failures="1" skipped="0" time="19.64" errors="0">
+<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="19.64">
 <failure message="user-profile.spec.ts:48:5 should navigate to profile page, edit details, and save changes successfully" type="FAILURE">
 <![CDATA[  [chromium] › user-profile.spec.ts:48:5 › should navigate to profile page, edit details, and save changes successfully 
 
-    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Initial User')
+    Expected: visible
+    Timeout: 15000ms
+    Error: element(s) not found
+
     Call log:
-      - waiting for getByRole('link', { name: /go to profile/i })
+      - Expect "toBeVisible" with timeout 15000ms
+      - waiting for getByText('Initial User')
 
 
-      50 |
-      51 |   // Click the "Go to Profile" link
-    > 52 |   await page.getByRole('link', { name: /go to profile/i }).click();
-         |                                                            ^
-      53 |
       54 |   // Expect the profile page to load and display initial data
       55 |   await expect(page.getByRole('heading', { name: /user profile/i })).toBeVisible();
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\user-profile.spec.ts:52:60
+    > 56 |   await expect(page.getByText('Initial User')).toBeVisible();
+         |                                                ^
+      57 |   await expect(page.getByText('test@example.com')).toBeVisible();
+      58 |   await expect(page.locator('pre').filter({ hasText: 'initial_goal' })).toBeVisible();
+      59 |   await expect(page.getByText('initial_equipment')).toBeVisible();
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\user-profile.spec.ts:56:48
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
     ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-chromium\test-failed-1.png
@@ -50,24 +326,300 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T17:14:56.226Z" hostname="firefox" tests="1" failures="1" skipped="0" time="17.929" errors="0">
-<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="17.929">
+<testsuite name="basic-checks.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="2" failures="1" skipped="0" time="8.04" errors="0">
+<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="7.612">
+</testcase>
+<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.428">
+<failure message="basic-checks.spec.ts:10:7 FastAPI health check endpoint returns status ok" type="FAILURE">
+<![CDATA[  [firefox] › basic-checks.spec.ts:10:7 › Basic Application Checks › FastAPI health check endpoint returns status ok 
+
+    Error: apiRequestContext.get: connect ECONNREFUSED ::1:8001
+    Call log:
+      - → GET http://localhost:8001/health
+        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0.2) Gecko/20100101 Firefox/144.0.2
+        - accept: */*
+        - accept-encoding: gzip,deflate,br
+
+        at apiRequestContext.get: connect ECONNREFUSED ::1:8001
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:11:36
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-firefox\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="basic.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="2" failures="1" skipped="0" time="9.262" errors="0">
+<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="8.768">
+</testcase>
+<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.494">
+<failure message="basic.spec.ts:10:5 FastAPI backend health check returns ok" type="FAILURE">
+<![CDATA[  [firefox] › basic.spec.ts:10:5 › FastAPI backend health check returns ok ─────────────────────────
+
+    Error: expect(received).toBeTruthy()
+
+    Received: false
+
+      11 |   // Assuming FastAPI backend is running on http://localhost:8000
+      12 |   const response = await request.get('http://localhost:8000/health');
+    > 13 |   expect(response.ok()).toBeTruthy();
+         |                         ^
+      14 |   expect(await response.json()).toEqual({ status: 'ok' });
+      15 | });
+      16 |
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic.spec.ts:13:25
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|basic-FastAPI-backend-health-check-returns-ok-firefox\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="example.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="2" failures="2" skipped="0" time="31.391" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="26.394">
+<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
+<![CDATA[  [firefox] › example.spec.ts:4:7 › Example Test Suite › should load homepage ──────────────────────
+
+    Error: expect(page).toHaveTitle(expected) failed
+
+    Expected pattern: /Home/i
+    Received string:  "Create Next App"
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 15000ms
+        18 × unexpected value "Create Next App"
+
+
+      4 |   test('should load homepage', async ({ page }) => {
+      5 |     await page.goto('/');
+    > 6 |     await expect(page).toHaveTitle(/Home/i);
+        |                        ^
+      7 |   });
+      8 |
+      9 |   test('should create user and login', async ({ page, userFactory }) => {
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\error-context.md]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="4.997">
+<failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
+<![CDATA[  [firefox] › example.spec.ts:9:7 › Example Test Suite › should create user and login ──────────────
+
+    TypeError: Failed to parse URL from undefined/users
+
+       at ..\support\fixtures\factories\user-factory.ts:15
+
+      13 |
+      14 |     // API call to create user
+    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
+         |                      ^
+      16 |       method: 'POST',
+      17 |       headers: { 'Content-Type': 'application/json' },
+      18 |       body: JSON.stringify(user),
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:22)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:18
+    [cause]: TypeError: Invalid URL
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:28)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-firefox\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-firefox\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-firefox\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="google_oauth.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="1" failures="0" skipped="0" time="11.203" errors="0">
+<testcase name="Google OAuth Flow › should redirect to Google when &quot;Continue with Google&quot; button is clicked" classname="google_oauth.spec.ts" time="11.203">
+<system-out>
+<![CDATA[Redirected to Google OAuth URL: https://accounts.google.com/v3/signin/identifier?opparams=%253F&dsh=S623017291%3A1764630979382064&access_type=offline&client_id=1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com&o2v=2&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fv1%2Fauth%2Fgoogle%2Fcallback&response_type=code&scope=openid+email+profile&service=lso&state=some_random_secure_string&flowName=GeneralOAuthFlow&continue=https%3A%2F%2Faccounts.google.com%2Fsignin%2Foauth%2Fconsent%3Fauthuser%3Dunknown%26part%3DAJi8hAPmVs_sXumCB_VNV6K_WeVMOMufttHcqeZC66zqshWVQkuPZDAKkuoviWSHh010pPVF3xrgEDscbB2V5pgbIMvEDqalYHXn_3Ibmmkc6t8u2i2OLvpPsruNZJmD0FkyPnOU-cRqkE4lqgpTF3MgXIKkZ0jbudVJSc4MLHTvLCAXLC1dnnJtfhGZLW8Ex5owcLsuDLgHMUxKv9OFdV_kUEQGUbhEIiPj8f3e-j3eybi-JbMmog2vvJv0FjTLkrfudga2c_IvjDuSQdOwLDbcIEZuBpQBzPC5I6SrNuasVS0fD8Svowl5I6njCobIHXDEHr0K7VjOfc2kO-IviNk__RtuyjHoDSSJwfynHWgrKwUINx02RREwd8ZX1DHwPefvT59RwhxWTXSyDvOcXTMOCrwD6h0-4BCaZZlDx2DgvYph_AcQANXWum0N9NONZOEVNLpV9cqFvL0-0h0IMNv7eE9R-SzePA%26flowName%3DGeneralOAuthFlow%26as%3DS623017291%253A1764630979382064%26client_id%3D1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com%26requestPath%3D%252Fsignin%252Foauth%252Fconsent%23&app_domain=http%3A%2F%2Flocalhost%3A8000&rart=ANgoxcfoanfnSaS1o-eGceJue01U7UDKeyCUK2yv3GtKCLaIcGRj5MVovKDl10wLarL9YhBtzohOLJzfBp5vFJ_jsfOWT37_vwuAmlKbcrXoV2V29tGSVWk
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="onboarding.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="1" failures="1" skipped="0" time="35.369" errors="0">
+<testcase name="Onboarding Flow › should complete multi-step onboarding and redirect to home" classname="onboarding.spec.ts" time="35.369">
+<failure message="onboarding.spec.ts:4:7 should complete multi-step onboarding and redirect to home" type="FAILURE">
+<![CDATA[  [firefox] › onboarding.spec.ts:4:7 › Onboarding Flow › should complete multi-step onboarding and redirect to home 
+
+    TimeoutError: page.waitForURL: Timeout 30000ms exceeded.
+    =========================== logs ===========================
+    waiting for navigation to "**/onboarding" until "load"
+    ============================================================
+
+      62 |     // Go to the home page, which should redirect to onboarding due to mock profile
+      63 |     await page.goto('/');
+    > 64 |     await page.waitForURL('**/onboarding');
+         |                ^
+      65 |     expect(page.url()).toContain('/onboarding');
+      66 |
+      67 |     // Step 1: Goals
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\onboarding.spec.ts:64:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-firefox\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-firefox\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-firefox\test-failed-1.png]]
+
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-firefox\video.webm]]
+
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-firefox\error-context.md]]
+
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-firefox\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="smoke.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="2" failures="1" skipped="0" time="5.209" errors="0">
+<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="4.755">
+</testcase>
+<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.454">
+<failure message="smoke.spec.ts:9:7 should get successful health check from FastAPI backend" type="FAILURE">
+<![CDATA[  [firefox] › smoke.spec.ts:9:7 › Smoke Tests › should get successful health check from FastAPI backend 
+
+    Error: expect(received).toBeTruthy()
+
+    Received: false
+
+       9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
+      10 |     const response = await request.get('http://localhost:8000/health');
+    > 11 |     expect(response.ok()).toBeTruthy();
+         |                           ^
+      12 |     const json = await response.json();
+      13 |     expect(json).toEqual({ status: 'ok' });
+      14 |   });
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:11:27
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-firefox\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="1" failures="1" skipped="0" time="25.461" errors="0">
+<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="25.461">
 <failure message="user-profile.spec.ts:48:5 should navigate to profile page, edit details, and save changes successfully" type="FAILURE">
 <![CDATA[  [firefox] › user-profile.spec.ts:48:5 › should navigate to profile page, edit details, and save changes successfully 
 
-    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Initial User')
+    Expected: visible
+    Timeout: 15000ms
+    Error: element(s) not found
+
     Call log:
-      - waiting for getByRole('link', { name: /go to profile/i })
+      - Expect "toBeVisible" with timeout 15000ms
+      - waiting for getByText('Initial User')
 
 
-      50 |
-      51 |   // Click the "Go to Profile" link
-    > 52 |   await page.getByRole('link', { name: /go to profile/i }).click();
-         |                                                            ^
-      53 |
       54 |   // Expect the profile page to load and display initial data
       55 |   await expect(page.getByRole('heading', { name: /user profile/i })).toBeVisible();
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\user-profile.spec.ts:52:60
+    > 56 |   await expect(page.getByText('Initial User')).toBeVisible();
+         |                                                ^
+      57 |   await expect(page.getByText('test@example.com')).toBeVisible();
+      58 |   await expect(page.locator('pre').filter({ hasText: 'initial_goal' })).toBeVisible();
+      59 |   await expect(page.getByText('initial_equipment')).toBeVisible();
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\user-profile.spec.ts:56:48
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
     ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-firefox\test-failed-1.png
@@ -101,24 +653,301 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T17:14:56.226Z" hostname="webkit" tests="1" failures="1" skipped="0" time="16.597" errors="0">
-<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="16.597">
+<testsuite name="basic-checks.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="2" failures="1" skipped="0" time="4.172" errors="0">
+<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="3.586">
+</testcase>
+<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.586">
+<failure message="basic-checks.spec.ts:10:7 FastAPI health check endpoint returns status ok" type="FAILURE">
+<![CDATA[  [webkit] › basic-checks.spec.ts:10:7 › Basic Application Checks › FastAPI health check endpoint returns status ok 
+
+    Error: apiRequestContext.get: connect ECONNREFUSED ::1:8001
+    Call log:
+      - → GET http://localhost:8001/health
+        - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Safari/605.1.15
+        - accept: */*
+        - accept-encoding: gzip,deflate,br
+
+        at apiRequestContext.get: connect ECONNREFUSED ::1:8001
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:11:36
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-webkit\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="basic.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="2" failures="1" skipped="0" time="4.066" errors="0">
+<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="3.425">
+</testcase>
+<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.641">
+<failure message="basic.spec.ts:10:5 FastAPI backend health check returns ok" type="FAILURE">
+<![CDATA[  [webkit] › basic.spec.ts:10:5 › FastAPI backend health check returns ok ──────────────────────────
+
+    Error: expect(received).toBeTruthy()
+
+    Received: false
+
+      11 |   // Assuming FastAPI backend is running on http://localhost:8000
+      12 |   const response = await request.get('http://localhost:8000/health');
+    > 13 |   expect(response.ok()).toBeTruthy();
+         |                         ^
+      14 |   expect(await response.json()).toEqual({ status: 'ok' });
+      15 | });
+      16 |
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic.spec.ts:13:25
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|basic-FastAPI-backend-health-check-returns-ok-webkit\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="example.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="2" failures="2" skipped="0" time="20.196" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="19.039">
+<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
+<![CDATA[  [webkit] › example.spec.ts:4:7 › Example Test Suite › should load homepage ───────────────────────
+
+    Error: expect(page).toHaveTitle(expected) failed
+
+    Expected pattern: /Home/i
+    Received string:  "Create Next App"
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 15000ms
+        17 × unexpected value "Create Next App"
+
+
+      4 |   test('should load homepage', async ({ page }) => {
+      5 |     await page.goto('/');
+    > 6 |     await expect(page).toHaveTitle(/Home/i);
+        |                        ^
+      7 |   });
+      8 |
+      9 |   test('should create user and login', async ({ page, userFactory }) => {
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\error-context.md]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="1.157">
+<failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
+<![CDATA[  [webkit] › example.spec.ts:9:7 › Example Test Suite › should create user and login ───────────────
+
+    TypeError: Failed to parse URL from undefined/users
+
+       at ..\support\fixtures\factories\user-factory.ts:15
+
+      13 |
+      14 |     // API call to create user
+    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
+         |                      ^
+      16 |       method: 'POST',
+      17 |       headers: { 'Content-Type': 'application/json' },
+      18 |       body: JSON.stringify(user),
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:22)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:18
+    [cause]: TypeError: Invalid URL
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:28)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-webkit\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-webkit\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-webkit\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="google_oauth.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="1" failures="0" skipped="0" time="7.76" errors="0">
+<testcase name="Google OAuth Flow › should redirect to Google when &quot;Continue with Google&quot; button is clicked" classname="google_oauth.spec.ts" time="7.76">
+<system-out>
+<![CDATA[Redirected to Google OAuth URL: https://accounts.google.com/v3/signin/identifier?opparams=%253F&dsh=S-1373947564%3A1764630990955485&access_type=offline&client_id=1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com&o2v=2&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fv1%2Fauth%2Fgoogle%2Fcallback&response_type=code&scope=openid+email+profile&service=lso&state=some_random_secure_string&flowName=GeneralOAuthFlow&continue=https%3A%2F%2Faccounts.google.com%2Fsignin%2Foauth%2Fconsent%3Fauthuser%3Dunknown%26part%3DAJi8hAML_4MGgiDiPBmjefVaRhNAZaBUME9KC8awlJhuIRlfqjOLBx4yY499GzZB-pJlLsfuk1HPXHOSvJ9O0ukF76dVlqc0Zf67HJaUUOMN72lcDLfVRxiAV_cQPAaTlSGTWaDgoCpd10ooHiPgnDC0eF0ipnmJVMA-kzNUEo72EsyQHdXFBmnVKkhlD2q_cV94mhrZKDJD6ymD5qJSPUypC1S5YE-D0e5HCcQDEgrGO0fxBYT6xFZaULXnBmhoHWEQ8XM9pfMhEiduKYJroWQWyjMyAEo_6T7SMWg5GJovTdPPX4N6P-lf7mmwSDsy-UPNB0fa6xMtNBfin-9uB4FCGqJbgXFvWsa-t7_O4Od6XLenMhje6XkAkWpRSQMGgU-Jg2xIh0a8cE8X2aKTkcxRcIhSEYOCmECB4hG5SoHIXmjeEUza-AhRjcOb55BqASX-ugtUpFrU3-dERbEqAlMqEHQ-JWipig%26flowName%3DGeneralOAuthFlow%26as%3DS-1373947564%253A1764630990955485%26client_id%3D1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com%26requestPath%3D%252Fsignin%252Foauth%252Fconsent%23&app_domain=http%3A%2F%2Flocalhost%3A8000&rart=ANgoxcdnm4ldKZFkOXkYwXwywLEQfSzHvSDDzRDGGm7WHG4A3KnnVXSwJF8lFADNoCY5DiyZ0zfDVUG2EHysv6mjddKMUbL60U_LkKgIT0Av8KkHmRnqx8o
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="onboarding.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="1" failures="1" skipped="0" time="32.889" errors="0">
+<testcase name="Onboarding Flow › should complete multi-step onboarding and redirect to home" classname="onboarding.spec.ts" time="32.889">
+<failure message="onboarding.spec.ts:4:7 should complete multi-step onboarding and redirect to home" type="FAILURE">
+<![CDATA[  [webkit] › onboarding.spec.ts:4:7 › Onboarding Flow › should complete multi-step onboarding and redirect to home 
+
+    TimeoutError: page.waitForURL: Timeout 30000ms exceeded.
+    =========================== logs ===========================
+    waiting for navigation to "**/onboarding" until "load"
+      navigated to "http://localhost:3000/"
+    ============================================================
+
+      62 |     // Go to the home page, which should redirect to onboarding due to mock profile
+      63 |     await page.goto('/');
+    > 64 |     await page.waitForURL('**/onboarding');
+         |                ^
+      65 |     expect(page.url()).toContain('/onboarding');
+      66 |
+      67 |     // Step 1: Goals
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\onboarding.spec.ts:64:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-webkit\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-webkit\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-webkit\test-failed-1.png]]
+
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-webkit\video.webm]]
+
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-webkit\error-context.md]]
+
+[[ATTACHMENT|onboarding-Onboarding-Flow-8a0d2-arding-and-redirect-to-home-webkit\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="smoke.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="2" failures="1" skipped="0" time="3.201" errors="0">
+<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="2.651">
+</testcase>
+<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.55">
+<failure message="smoke.spec.ts:9:7 should get successful health check from FastAPI backend" type="FAILURE">
+<![CDATA[  [webkit] › smoke.spec.ts:9:7 › Smoke Tests › should get successful health check from FastAPI backend 
+
+    Error: expect(received).toBeTruthy()
+
+    Received: false
+
+       9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
+      10 |     const response = await request.get('http://localhost:8000/health');
+    > 11 |     expect(response.ok()).toBeTruthy();
+         |                           ^
+      12 |     const json = await response.json();
+      13 |     expect(json).toEqual({ status: 'ok' });
+      14 |   });
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:11:27
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-webkit\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="1" failures="1" skipped="0" time="18.881" errors="0">
+<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="18.881">
 <failure message="user-profile.spec.ts:48:5 should navigate to profile page, edit details, and save changes successfully" type="FAILURE">
 <![CDATA[  [webkit] › user-profile.spec.ts:48:5 › should navigate to profile page, edit details, and save changes successfully 
 
-    TimeoutError: locator.click: Timeout 15000ms exceeded.
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('Initial User')
+    Expected: visible
+    Timeout: 15000ms
+    Error: element(s) not found
+
     Call log:
-      - waiting for getByRole('link', { name: /go to profile/i })
+      - Expect "toBeVisible" with timeout 15000ms
+      - waiting for getByText('Initial User')
 
 
-      50 |
-      51 |   // Click the "Go to Profile" link
-    > 52 |   await page.getByRole('link', { name: /go to profile/i }).click();
-         |                                                            ^
-      53 |
       54 |   // Expect the profile page to load and display initial data
       55 |   await expect(page.getByRole('heading', { name: /user profile/i })).toBeVisible();
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\user-profile.spec.ts:52:60
+    > 56 |   await expect(page.getByText('Initial User')).toBeVisible();
+         |                                                ^
+      57 |   await expect(page.getByText('test@example.com')).toBeVisible();
+      58 |   await expect(page.locator('pre').filter({ hasText: 'initial_goal' })).toBeVisible();
+      59 |   await expect(page.getByText('initial_equipment')).toBeVisible();
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\user-profile.spec.ts:56:48
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
     ..\..\test-results\user-profile-should-naviga-cdce2-d-save-changes-successfully-webkit\test-failed-1.png

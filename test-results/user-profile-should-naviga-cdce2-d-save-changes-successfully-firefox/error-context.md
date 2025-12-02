@@ -1,6 +1,16 @@
 # Page snapshot
 
 ```yaml
-- main [ref=e2]:
-  - paragraph [ref=e4]: Loading...
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - heading "User Profile" [level=1] [ref=e3]
+    - paragraph [ref=e4]: "Error: Failed to fetch user profile"
+  - button "Open Next.js Dev Tools" [ref=e10] [cursor=pointer]:
+    - generic [ref=e13]:
+      - text: Compiling
+      - generic [ref=e14]:
+        - generic [ref=e15]: .
+        - generic [ref=e16]: .
+        - generic [ref=e17]: .
+  - alert [ref=e18]
 ```
