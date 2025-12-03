@@ -19,7 +19,13 @@ describe('LoginPage', () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
-        json: () => Promise.resolve({ message: 'Success', access_token: 'mock_token' }),
+        json: () => Promise.resolve({
+          message: 'Success',
+          data: {
+            access_token: 'mock_token',
+            refresh_token: 'mock_refresh_token',
+          },
+        }),
       })
     ) as jest.Mock;
   });

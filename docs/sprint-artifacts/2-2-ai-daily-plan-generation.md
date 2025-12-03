@@ -15,22 +15,22 @@ So that I have a clear plan to follow.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Backend API for Plan Generation** (AC: 2.2.1, 2.2.2)
-  - [ ] Create a `POST /api/v1/workout_plans/generate` endpoint in FastAPI to trigger plan generation. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
-  - [ ] Implement the `AI Plan Generation Service` to orchestrate data fetching (user profile, daily context, workout history). (Source: `tech-spec-epic-2.md#Services-and-Modules`)
-  - [ ] Construct a prompt for the OpenAI API using relevant user data.
-  - [ ] Implement logic to call the OpenAI API.
-  - [ ] Validate OpenAI's JSON response against the defined schema (`Architecture.md`).
-  - [ ] Save the valid `plan_json` to the `workout_plans` table.
-  - [ ] Implement AI Response Caching using Redis. (Source: `tech-spec-epic-2.md#Services-and-Modules`)
-- [ ] **Task 2: Data Model & Schema Verification** (AC: 2.2.2)
-  - [ ] Verify the `workout_plans` table schema in Supabase (`id`, `user_id`, `plan_date`, `plan_json`, `status`). (Source: `tech-spec-epic-2.md#Data-Models-and-Contracts`)
-  - [ ] Verify the `AI Workout Plan JSON Structure` defined in `Architecture.md`.
-- [ ] **Task 3: Testing** (AC: 2.2.1, 2.2.2)
-  - [ ] Add Pytest integration tests for the `POST /api/v1/workout_plans/generate` endpoint, mocking OpenAI API calls.
-  - [ ] Test prompt construction and data extraction.
-  - [ ] Test JSON schema validation of the AI response.
-  - [ ] Test AI Response Caching functionality.
+- [x] **Task 1: Backend API for Plan Generation** (AC: 2.2.1, 2.2.2)
+  - [x] Create a `POST /api/v1/workout_plans/generate` endpoint in FastAPI to trigger plan generation. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
+  - [x] Implement the `AI Plan Generation Service` to orchestrate data fetching (user profile, daily context, workout history). (Source: `tech-spec-epic-2.md#Services-and-Modules`)
+  - [x] Construct a prompt for the OpenAI API using relevant user data.
+  - [x] Implement logic to call the OpenAI API.
+  - [x] Validate OpenAI's JSON response against the defined schema (`Architecture.md`).
+  - [x] Save the valid `plan_json` to the `workout_plans` table.
+  - [x] Implement AI Response Caching using Redis. (Source: `tech-spec-epic-2.md#Services-and-Modules`)
+- [x] **Task 2: Data Model & Schema Verification** (AC: 2.2.2)
+  - [x] Verify the `workout_plans` table schema in Supabase (`id`, `user_id`, `plan_date`, `plan_json`, `status`). (Source: `tech-spec-epic-2.md#Data-Models-and-Contracts`)
+  - [x] Verify the `AI Workout Plan JSON Structure` defined in `Architecture.md`.
+- [x] **Task 3: Testing** (AC: 2.2.1, 2.2.2)
+  - [x] Add Pytest integration tests for the `POST /api/v1/workout_plans/generate` endpoint, mocking OpenAI API calls.
+  - [x] Test prompt construction and data extraction.
+  - [x] Test JSON schema validation of the AI response.
+  - [x] Test AI Response Caching functionality.
 
 ## Dev Notes
 

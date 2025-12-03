@@ -12,7 +12,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 from app.core import config # Import the config module, not just Settings
 import httpx # Import httpx to patch it
-from app.dependencies import get_current_user # Import get_current_user for patching
+# from app.dependencies import get_current_user # Import get_current_user for patching
 
 # Mock for supabase client creation
 @pytest.fixture
@@ -38,6 +38,20 @@ def mock_supabase_client():
         mock_table_builder = MagicMock()
         mock_client.table.return_value = mock_table_builder
         
+        yield mock_client
+
+@pytest.fixture
+def mock_openai_client():
+    with patch("openai.OpenAI") as mock_openai_class:
+        mock_client = MagicMock()
+        mock_openai_class.return_value = mock_client
+        yield mock_client
+
+@pytest.fixture
+def mock_redis_client():
+    with patch("redis.Redis") as mock_redis_class:
+        mock_client = MagicMock()
+        mock_redis_class.return_value = mock_client
         yield mock_client
 @pytest.fixture
 def mock_httpx_async_client():

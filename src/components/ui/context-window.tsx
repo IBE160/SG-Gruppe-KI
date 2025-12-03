@@ -10,10 +10,39 @@ export function ContextWindow() {
   const [soreness, setSoreness] = React.useState<string[]>([]); // Array of strings for chips
   const [notes, setNotes] = React.useState("");
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     console.log("Submitting context:", { mood, energy, soreness, notes });
-    // TODO: Implement actual API call to POST /api/v1/daily_context
+
+    const dailyContextData = {
+      mood,
+      energy,
+      soreness: soreness.join(", "), // Convert array to comma-separated string
+      notes,
+    };
+
+    try {
+      const response = await fetch("/api/v1/daily_context", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dailyContextData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to submit daily context");
+      }
+
+      const result = await response.json();
+      console.log("Daily context submitted successfully:", result);
+      alert("Daily context submitted successfully!");
+      // Optionally close the dialog or reset the form here
+    } catch (error) {
+      console.error("Error submitting daily context:", error);
+      alert(`Error: ${error.message}`);
+    }
   };
 
   return (

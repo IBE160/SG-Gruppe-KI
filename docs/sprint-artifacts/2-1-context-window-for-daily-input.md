@@ -18,14 +18,14 @@ so that the AI can adapt my workout plan for the day.
 - [x] **Task 1: Frontend UI for Context Window** (AC: #1)
   - [x] Create a UI for the Context Window (e.g., a modal or a dedicated section on the dashboard).
   - [x] Implement input fields for mood, energy, and soreness.
-  - [ ] Implement client-side logic to submit the context data to the backend via `POST /api/v1/daily_context`.
+  - [x] Implement client-side logic to submit the context data to the backend via `POST /api/v1/daily_context`.
 - [x] **Task 2: Backend API for Daily Context** (AC: #2)
   - [x] Create a `POST /api/v1/daily_context` endpoint in FastAPI to create or update a daily context entry. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
   - [x] Create a `GET /api/v1/daily_context/{date}` endpoint to retrieve daily context. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
   - [x] Implement logic to persist the data to the `daily_contexts` table in Supabase.
   - [x] Implement Pydantic schemas for request validation.
 - [x] **Task 3: Data Model & Schema Verification** (AC: #2)
-  - [ ] Verify the `daily_contexts` table schema in Supabase (`id`, `user_id`, `context_date`, `mood`, `energy`, `soreness`, `notes`). (Source: `tech-spec-epic-2.md#Data-Models-and-Contracts`)
+  - [x] Verify the `daily_contexts` table schema in Supabase (`id`, `user_id`, `context_date`, `mood`, `energy`, `soreness`, `notes`). (Source: `tech-spec-epic-2.md#Data-Models-and-Contracts`)
 - [x] **Task 4: Testing** (AC: #1, #2)
   - [x] Add Pytest integration tests for the `POST` and `GET` daily context endpoints.
   - [x] Add React Testing Library tests for the Context Window component.
