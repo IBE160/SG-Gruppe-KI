@@ -1,140 +1,30 @@
-<testsuites id="" name="" tests="33" failures="21" skipped="0" errors="0" time="73.33631299999999">
-<testsuite name="basic-checks.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="2" failures="1" skipped="0" time="4.153" errors="0">
-<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="3.57">
+<testsuites id="" name="" tests="33" failures="9" skipped="0" errors="0" time="73.622731">
+<testsuite name="basic-checks.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="chromium" tests="2" failures="0" skipped="0" time="4.449" errors="0">
+<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="4.041">
 </testcase>
-<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.583">
-<failure message="basic-checks.spec.ts:10:7 FastAPI health check endpoint returns status ok" type="FAILURE">
-<![CDATA[  [chromium] › basic-checks.spec.ts:10:7 › Basic Application Checks › FastAPI health check endpoint returns status ok 
-
-    Error: apiRequestContext.get: connect ECONNREFUSED ::1:8001
-    Call log:
-      - → GET http://localhost:8001/health
-        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.7499.4 Safari/537.36
-        - accept: */*
-        - accept-encoding: gzip,deflate,br
-
-        at apiRequestContext.get: connect ECONNREFUSED ::1:8001
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:11:36
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-chromium\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-chromium\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-chromium\trace.zip]]
-]]>
-</system-out>
+<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.408">
 </testcase>
 </testsuite>
-<testsuite name="basic.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="2" failures="1" skipped="0" time="4.047" errors="0">
-<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="3.511">
+<testsuite name="basic.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="chromium" tests="2" failures="0" skipped="0" time="4.004" errors="0">
+<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="3.59">
 </testcase>
-<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.536">
-<failure message="basic.spec.ts:10:5 FastAPI backend health check returns ok" type="FAILURE">
-<![CDATA[  [chromium] › basic.spec.ts:10:5 › FastAPI backend health check returns ok ────────────────────────
-
-    Error: expect(received).toBeTruthy()
-
-    Received: false
-
-      11 |   // Assuming FastAPI backend is running on http://localhost:8000
-      12 |   const response = await request.get('http://localhost:8000/health');
-    > 13 |   expect(response.ok()).toBeTruthy();
-         |                         ^
-      14 |   expect(await response.json()).toEqual({ status: 'ok' });
-      15 | });
-      16 |
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic.spec.ts:13:25
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-chromium\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-chromium\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-FastAPI-backend-health-check-returns-ok-chromium\trace.zip]]
-]]>
-</system-out>
+<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.414">
 </testcase>
 </testsuite>
-<testsuite name="example.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="2" failures="2" skipped="0" time="19.938" errors="0">
-<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="19.518">
-<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
-<![CDATA[  [chromium] › example.spec.ts:4:7 › Example Test Suite › should load homepage ─────────────────────
-
-    Error: expect(page).toHaveTitle(expected) failed
-
-    Expected pattern: /Home/i
-    Received string:  "Create Next App"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toHaveTitle" with timeout 15000ms
-        18 × unexpected value "Create Next App"
-
-
-      4 |   test('should load homepage', async ({ page }) => {
-      5 |     await page.goto('/');
-    > 6 |     await expect(page).toHaveTitle(/Home/i);
-        |                        ^
-      7 |   });
-      8 |
-      9 |   test('should create user and login', async ({ page, userFactory }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\video.webm]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\error-context.md]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\trace.zip]]
-]]>
-</system-out>
+<testsuite name="example.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="chromium" tests="2" failures="1" skipped="0" time="5.118" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="4.059">
 </testcase>
-<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="0.42">
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="1.059">
 <failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
 <![CDATA[  [chromium] › example.spec.ts:9:7 › Example Test Suite › should create user and login ─────────────
 
-    TypeError: Failed to parse URL from undefined/users
+    TypeError: Failed to parse URL from undefined/api/v1/users
 
        at ..\support\fixtures\factories\user-factory.ts:15
 
       13 |
       14 |     // API call to create user
-    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
+    > 15 |     const response = await fetch(`${process.env.API_URL}/api/v1/users`, {
          |                      ^
       16 |       method: 'POST',
       17 |       headers: { 'Content-Type': 'application/json' },
@@ -173,16 +63,16 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="google_oauth.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="1" failures="0" skipped="0" time="6.19" errors="0">
-<testcase name="Google OAuth Flow › should redirect to Google when &quot;Continue with Google&quot; button is clicked" classname="google_oauth.spec.ts" time="6.19">
+<testsuite name="google_oauth.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="chromium" tests="1" failures="0" skipped="0" time="10.337" errors="0">
+<testcase name="Google OAuth Flow › should redirect to Google when &quot;Continue with Google&quot; button is clicked" classname="google_oauth.spec.ts" time="10.337">
 <system-out>
-<![CDATA[Redirected to Google OAuth URL: https://accounts.google.com/v3/signin/identifier?opparams=%253F&dsh=S1328996191%3A1764630956603062&access_type=offline&client_id=1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com&o2v=2&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fv1%2Fauth%2Fgoogle%2Fcallback&response_type=code&scope=openid+email+profile&service=lso&state=some_random_secure_string&flowName=GeneralOAuthFlow&continue=https%3A%2F%2Faccounts.google.com%2Fsignin%2Foauth%2Fconsent%3Fauthuser%3Dunknown%26part%3DAJi8hAN8UOEIfx1E9lPM77MEdBNmGViq51RWEeyM97hEktT_avskAzBI8M78CM1k4gUg8x_4Ib-ZU7b8YC81HRF7UHDmEbLR5RxIhbqgn6xW4raYEOW_3OcZA9wzaCCY8Qtid8zmJ3u_rwsMRoQfgeJvaS49CUmdja8EuRAqFbs_wHnA79s-0S2yMS3_Yt5o0tr9GSjkeXzGmoZcBq-nFPivGE7Zs5bH1BYQsDaYJFw5P_uIDH-h5946UwlSjZ8gJ2f9B2_4F34L6D_L-dL1jrr39tPDuPdDtOJl8cLJWWIChXtuxZBl6fOoO_JwmonkPes9A5GVqcMiTyLN-Tdf8lRWeQ4kIbjcLfJU84vV7oZQgswCujCDrafjrSthVj0KXhzmPPRbztIXc81dLD1vjENDGoUj9VAs5Tka1ZkikXhnL47aDWTaTXkfGbwtL56ICD3f6pAm-D_nkdW9O35M1A9n1MsDGAmXpA%26flowName%3DGeneralOAuthFlow%26as%3DS1328996191%253A1764630956603062%26client_id%3D1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com%26requestPath%3D%252Fsignin%252Foauth%252Fconsent%23&app_domain=http%3A%2F%2Flocalhost%3A8000&rart=ANgoxceFWscVzjgkfmzPWLDM3C-O5uhXzghtVGipsuPQFEVBhLhAQ7HlBbH8V0mBCJgtc_JyDrcfv6GT1d8nRzgWroWLEsG-pjSmBJ3Dofa7I-zauT-0d5A
+<![CDATA[Redirected to Google OAuth URL: https://accounts.google.com/v3/signin/identifier?opparams=%253Fredirect_to%253Dhttp%25253A%25252F%25252Flocalhost%25253A3000%25252Fauth%25252Fcallback&dsh=S623017291%3A1764669488650531&client_id=1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com&o2v=2&redirect_uri=https%3A%2F%2Fznzsydhtncfrnqgubsfo.supabase.co%2Fauth%2Fv1%2Fcallback&response_type=code&scope=email+profile&service=lso&state=eyJhbGciOiJIUzI1NiIsImtpZCI6IlhRNG5PWWxGZkY5dzA3MnAiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3NjQ2Njk3ODgsInNpdGVfdXJsIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWQiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJmdW5jdGlvbl9ob29rcyI6bnVsbCwicHJvdmlkZXIiOiJnb29nbGUiLCJyZWZlcnJlciI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMC9hdXRoL2NhbGxiYWNrIiwiZmxvd19zdGF0ZV9pZCI6IiJ9.-UC9FfAW-KQEQTRb-2AV2jAgpdWolJq5jEgMjmaequs&flowName=GeneralOAuthFlow&continue=https%3A%2F%2Faccounts.google.com%2Fsignin%2Foauth%2Fconsent%3Fauthuser%3Dunknown%26part%3DAJi8hANqre2ZQ5k3j1-gBDCd-qwml2ORVAIVguYjngmLAwpTxgmZ9P3bUL4jKj0KOsapZwZtu1jl_lAOfoExIk9Q0ePzTiaTFtGGY9zSGaS8cSmb3FwMfS3mBlYYO3h_L0eOX3NFFmXePBIPYB705susSphUOVVkh2zp5FZZ-4_9D9SQNyf58MKcClj1_K6DgJTBEG--WgXR2x16oWVE1Fe_VCwhRzzViiVnhzX674J6DJNq3ofqXEwVIbRxQPncj829qR5ey-stcrWZyfiSE8buOWCCgPKWdeYQLLjKso-g1XTN5XCGIdfjMWC0LaGxgNmKbGDZ1uq8XFBcvWoEjX6m7IRwqK0ShY5VwFNAtqNYqeGqrea2qNd1tipsPxZqrKHKwh7sHvl0QEZT_uMwULi-mDEjk7D0SpA3rsXbDet6cFyT2ysUsIMSlJ5-CGT50gOayGzQzdBeCNrNK37uqdt5tV1CCUMDRFrW47Of5LKOawQAMQS0OHQ%26flowName%3DGeneralOAuthFlow%26as%3DS623017291%253A1764669488650531%26client_id%3D1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com%26requestPath%3D%252Fsignin%252Foauth%252Fconsent%23&app_domain=https%3A%2F%2Fznzsydhtncfrnqgubsfo.supabase.co&rart=ANgoxcfcKC3-VeeVguatZRSbLEacJcF-XPlsatjN2yCZDsc9spCP_2HkDTe9-QobBm5k6oPr5eVHyRugOtcYef70NVBcp-hDAyRpY1nyGgldmgmkomIJHYI
 ]]>
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="onboarding.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="1" failures="1" skipped="0" time="34.679" errors="0">
-<testcase name="Onboarding Flow › should complete multi-step onboarding and redirect to home" classname="onboarding.spec.ts" time="34.679">
+<testsuite name="onboarding.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="chromium" tests="1" failures="1" skipped="0" time="34.559" errors="0">
+<testcase name="Onboarding Flow › should complete multi-step onboarding and redirect to home" classname="onboarding.spec.ts" time="34.559">
 <failure message="onboarding.spec.ts:4:7 should complete multi-step onboarding and redirect to home" type="FAILURE">
 <![CDATA[  [chromium] › onboarding.spec.ts:4:7 › Onboarding Flow › should complete multi-step onboarding and redirect to home 
 
@@ -232,44 +122,14 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="smoke.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="2" failures="1" skipped="0" time="3.397" errors="0">
-<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="2.718">
+<testsuite name="smoke.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="chromium" tests="2" failures="0" skipped="0" time="3.484" errors="0">
+<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="3.464">
 </testcase>
-<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.679">
-<failure message="smoke.spec.ts:9:7 should get successful health check from FastAPI backend" type="FAILURE">
-<![CDATA[  [chromium] › smoke.spec.ts:9:7 › Smoke Tests › should get successful health check from FastAPI backend 
-
-    Error: expect(received).toBeTruthy()
-
-    Received: false
-
-       9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
-      10 |     const response = await request.get('http://localhost:8000/health');
-    > 11 |     expect(response.ok()).toBeTruthy();
-         |                           ^
-      12 |     const json = await response.json();
-      13 |     expect(json).toEqual({ status: 'ok' });
-      14 |   });
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:11:27
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-chromium\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-chromium\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-chromium\trace.zip]]
-]]>
-</system-out>
+<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.02">
 </testcase>
 </testsuite>
-<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="chromium" tests="1" failures="1" skipped="0" time="19.64" errors="0">
-<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="19.64">
+<testsuite name="user-profile.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="chromium" tests="1" failures="1" skipped="0" time="21.086" errors="0">
+<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="21.086">
 <failure message="user-profile.spec.ts:48:5 should navigate to profile page, edit details, and save changes successfully" type="FAILURE">
 <![CDATA[  [chromium] › user-profile.spec.ts:48:5 › should navigate to profile page, edit details, and save changes successfully 
 
@@ -326,142 +186,32 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="basic-checks.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="2" failures="1" skipped="0" time="8.04" errors="0">
-<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="7.612">
+<testsuite name="basic-checks.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="firefox" tests="2" failures="0" skipped="0" time="9.212" errors="0">
+<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="8.435">
 </testcase>
-<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.428">
-<failure message="basic-checks.spec.ts:10:7 FastAPI health check endpoint returns status ok" type="FAILURE">
-<![CDATA[  [firefox] › basic-checks.spec.ts:10:7 › Basic Application Checks › FastAPI health check endpoint returns status ok 
-
-    Error: apiRequestContext.get: connect ECONNREFUSED ::1:8001
-    Call log:
-      - → GET http://localhost:8001/health
-        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0.2) Gecko/20100101 Firefox/144.0.2
-        - accept: */*
-        - accept-encoding: gzip,deflate,br
-
-        at apiRequestContext.get: connect ECONNREFUSED ::1:8001
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:11:36
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-firefox\trace.zip]]
-]]>
-</system-out>
+<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.777">
 </testcase>
 </testsuite>
-<testsuite name="basic.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="2" failures="1" skipped="0" time="9.262" errors="0">
-<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="8.768">
+<testsuite name="basic.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="firefox" tests="2" failures="0" skipped="0" time="14.831" errors="0">
+<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="14.129">
 </testcase>
-<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.494">
-<failure message="basic.spec.ts:10:5 FastAPI backend health check returns ok" type="FAILURE">
-<![CDATA[  [firefox] › basic.spec.ts:10:5 › FastAPI backend health check returns ok ─────────────────────────
-
-    Error: expect(received).toBeTruthy()
-
-    Received: false
-
-      11 |   // Assuming FastAPI backend is running on http://localhost:8000
-      12 |   const response = await request.get('http://localhost:8000/health');
-    > 13 |   expect(response.ok()).toBeTruthy();
-         |                         ^
-      14 |   expect(await response.json()).toEqual({ status: 'ok' });
-      15 | });
-      16 |
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic.spec.ts:13:25
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-FastAPI-backend-health-check-returns-ok-firefox\trace.zip]]
-]]>
-</system-out>
+<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.702">
 </testcase>
 </testsuite>
-<testsuite name="example.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="2" failures="2" skipped="0" time="31.391" errors="0">
-<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="26.394">
-<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
-<![CDATA[  [firefox] › example.spec.ts:4:7 › Example Test Suite › should load homepage ──────────────────────
-
-    Error: expect(page).toHaveTitle(expected) failed
-
-    Expected pattern: /Home/i
-    Received string:  "Create Next App"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toHaveTitle" with timeout 15000ms
-        18 × unexpected value "Create Next App"
-
-
-      4 |   test('should load homepage', async ({ page }) => {
-      5 |     await page.goto('/');
-    > 6 |     await expect(page).toHaveTitle(/Home/i);
-        |                        ^
-      7 |   });
-      8 |
-      9 |   test('should create user and login', async ({ page, userFactory }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\test-failed-1.png]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\video.webm]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\error-context.md]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\trace.zip]]
-]]>
-</system-out>
+<testsuite name="example.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="firefox" tests="2" failures="1" skipped="0" time="13.609" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="8.771">
 </testcase>
-<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="4.997">
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="4.838">
 <failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
 <![CDATA[  [firefox] › example.spec.ts:9:7 › Example Test Suite › should create user and login ──────────────
 
-    TypeError: Failed to parse URL from undefined/users
+    TypeError: Failed to parse URL from undefined/api/v1/users
 
        at ..\support\fixtures\factories\user-factory.ts:15
 
       13 |
       14 |     // API call to create user
-    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
+    > 15 |     const response = await fetch(`${process.env.API_URL}/api/v1/users`, {
          |                      ^
       16 |       method: 'POST',
       17 |       headers: { 'Content-Type': 'application/json' },
@@ -500,16 +250,16 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="google_oauth.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="1" failures="0" skipped="0" time="11.203" errors="0">
-<testcase name="Google OAuth Flow › should redirect to Google when &quot;Continue with Google&quot; button is clicked" classname="google_oauth.spec.ts" time="11.203">
+<testsuite name="google_oauth.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="firefox" tests="1" failures="0" skipped="0" time="17.001" errors="0">
+<testcase name="Google OAuth Flow › should redirect to Google when &quot;Continue with Google&quot; button is clicked" classname="google_oauth.spec.ts" time="17.001">
 <system-out>
-<![CDATA[Redirected to Google OAuth URL: https://accounts.google.com/v3/signin/identifier?opparams=%253F&dsh=S623017291%3A1764630979382064&access_type=offline&client_id=1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com&o2v=2&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fv1%2Fauth%2Fgoogle%2Fcallback&response_type=code&scope=openid+email+profile&service=lso&state=some_random_secure_string&flowName=GeneralOAuthFlow&continue=https%3A%2F%2Faccounts.google.com%2Fsignin%2Foauth%2Fconsent%3Fauthuser%3Dunknown%26part%3DAJi8hAPmVs_sXumCB_VNV6K_WeVMOMufttHcqeZC66zqshWVQkuPZDAKkuoviWSHh010pPVF3xrgEDscbB2V5pgbIMvEDqalYHXn_3Ibmmkc6t8u2i2OLvpPsruNZJmD0FkyPnOU-cRqkE4lqgpTF3MgXIKkZ0jbudVJSc4MLHTvLCAXLC1dnnJtfhGZLW8Ex5owcLsuDLgHMUxKv9OFdV_kUEQGUbhEIiPj8f3e-j3eybi-JbMmog2vvJv0FjTLkrfudga2c_IvjDuSQdOwLDbcIEZuBpQBzPC5I6SrNuasVS0fD8Svowl5I6njCobIHXDEHr0K7VjOfc2kO-IviNk__RtuyjHoDSSJwfynHWgrKwUINx02RREwd8ZX1DHwPefvT59RwhxWTXSyDvOcXTMOCrwD6h0-4BCaZZlDx2DgvYph_AcQANXWum0N9NONZOEVNLpV9cqFvL0-0h0IMNv7eE9R-SzePA%26flowName%3DGeneralOAuthFlow%26as%3DS623017291%253A1764630979382064%26client_id%3D1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com%26requestPath%3D%252Fsignin%252Foauth%252Fconsent%23&app_domain=http%3A%2F%2Flocalhost%3A8000&rart=ANgoxcfoanfnSaS1o-eGceJue01U7UDKeyCUK2yv3GtKCLaIcGRj5MVovKDl10wLarL9YhBtzohOLJzfBp5vFJ_jsfOWT37_vwuAmlKbcrXoV2V29tGSVWk
+<![CDATA[Redirected to Google OAuth URL: https://accounts.google.com/v3/signin/identifier?opparams=%253Fredirect_to%253Dhttp%25253A%25252F%25252Flocalhost%25253A3000%25252Fauth%25252Fcallback&dsh=S1360850770%3A1764669505761573&client_id=1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com&o2v=2&redirect_uri=https%3A%2F%2Fznzsydhtncfrnqgubsfo.supabase.co%2Fauth%2Fv1%2Fcallback&response_type=code&scope=email+profile&service=lso&state=eyJhbGciOiJIUzI1NiIsImtpZCI6IlhRNG5PWWxGZkY5dzA3MnAiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3NjQ2Njk4MDUsInNpdGVfdXJsIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWQiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJmdW5jdGlvbl9ob29rcyI6bnVsbCwicHJvdmlkZXIiOiJnb29nbGUiLCJyZWZlcnJlciI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMC9hdXRoL2NhbGxiYWNrIiwiZmxvd19zdGF0ZV9pZCI6IiJ9.eyzKg48iihyqY6davUmYlD7B3CfV8531riGmnyKha1g&flowName=GeneralOAuthFlow&continue=https%3A%2F%2Faccounts.google.com%2Fsignin%2Foauth%2Fconsent%3Fauthuser%3Dunknown%26part%3DAJi8hAMjEPQNtWghzIGVuXaejtg9eLla9PAdlj36cm91o8zRaTUZpCKK2KsA7sDrdi_K-XJgnNCOcR9Mu5lEFqLljQWT4AF_zygUtFvTgq4XNvqpM4j4twM3TsJnWfhhLcmoJ3OmNuTs20mfysqkpQhr8EYEKyvj5_Ae0-3ZzjPITWnNDuiKIutBSj_6jjIJXNYsJVVF_-yjA1n5lJkPDFbtllFgk2Uo7I-DKXs6IxdRd-h-ZS_W7BsAqSKn9d_ialI68PH-tuHRalcJvK0UMGMdFjx3wyZWPprJ3-zeZb67K6TQNoQ2Lh89GQrmwsHA5aaObtiGein248CEJlyVQQAm82VUssLZt1WCuPLExyYkVNhtWQN7rEfUmFGhM5Qu3WIsdWJjx9eSpLwZ9uMrNwAa80i6sNMfmhLwgnFMEbdWtX6LY9dWMODEkb0JTDvQd3SKwOR0geFCtFMOenYQa-G8-onhRQbhMDkfe0-pioMT_KDBa3PIE6o%26flowName%3DGeneralOAuthFlow%26as%3DS1360850770%253A1764669505761573%26client_id%3D1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com%26requestPath%3D%252Fsignin%252Foauth%252Fconsent%23&app_domain=https%3A%2F%2Fznzsydhtncfrnqgubsfo.supabase.co&rart=ANgoxcdFT2aHaJVa1wkmY4qyTv49qtWnrmN0IKeL2q6tPU7SsvCDzp4iTl1vEyqcYzWd08puuq6lVJ1iCTPbQdnEjaP2Gv96ApRGxzY5F6cHnR81rEhKoCM
 ]]>
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="onboarding.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="1" failures="1" skipped="0" time="35.369" errors="0">
-<testcase name="Onboarding Flow › should complete multi-step onboarding and redirect to home" classname="onboarding.spec.ts" time="35.369">
+<testsuite name="onboarding.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="firefox" tests="1" failures="1" skipped="0" time="38.858" errors="0">
+<testcase name="Onboarding Flow › should complete multi-step onboarding and redirect to home" classname="onboarding.spec.ts" time="38.858">
 <failure message="onboarding.spec.ts:4:7 should complete multi-step onboarding and redirect to home" type="FAILURE">
 <![CDATA[  [firefox] › onboarding.spec.ts:4:7 › Onboarding Flow › should complete multi-step onboarding and redirect to home 
 
@@ -559,44 +309,14 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="smoke.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="2" failures="1" skipped="0" time="5.209" errors="0">
-<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="4.755">
+<testsuite name="smoke.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="firefox" tests="2" failures="0" skipped="0" time="8.869" errors="0">
+<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="8.371">
 </testcase>
-<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.454">
-<failure message="smoke.spec.ts:9:7 should get successful health check from FastAPI backend" type="FAILURE">
-<![CDATA[  [firefox] › smoke.spec.ts:9:7 › Smoke Tests › should get successful health check from FastAPI backend 
-
-    Error: expect(received).toBeTruthy()
-
-    Received: false
-
-       9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
-      10 |     const response = await request.get('http://localhost:8000/health');
-    > 11 |     expect(response.ok()).toBeTruthy();
-         |                           ^
-      12 |     const json = await response.json();
-      13 |     expect(json).toEqual({ status: 'ok' });
-      14 |   });
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:11:27
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-firefox\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-firefox\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-firefox\trace.zip]]
-]]>
-</system-out>
+<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.498">
 </testcase>
 </testsuite>
-<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="firefox" tests="1" failures="1" skipped="0" time="25.461" errors="0">
-<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="25.461">
+<testsuite name="user-profile.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="firefox" tests="1" failures="1" skipped="0" time="24.752" errors="0">
+<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="24.752">
 <failure message="user-profile.spec.ts:48:5 should navigate to profile page, edit details, and save changes successfully" type="FAILURE">
 <![CDATA[  [firefox] › user-profile.spec.ts:48:5 › should navigate to profile page, edit details, and save changes successfully 
 
@@ -653,142 +373,32 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="basic-checks.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="2" failures="1" skipped="0" time="4.172" errors="0">
-<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="3.586">
+<testsuite name="basic-checks.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="webkit" tests="2" failures="0" skipped="0" time="5.9" errors="0">
+<testcase name="Basic Application Checks › Next.js frontend loads correctly" classname="basic-checks.spec.ts" time="5.401">
 </testcase>
-<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.586">
-<failure message="basic-checks.spec.ts:10:7 FastAPI health check endpoint returns status ok" type="FAILURE">
-<![CDATA[  [webkit] › basic-checks.spec.ts:10:7 › Basic Application Checks › FastAPI health check endpoint returns status ok 
-
-    Error: apiRequestContext.get: connect ECONNREFUSED ::1:8001
-    Call log:
-      - → GET http://localhost:8001/health
-        - user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Safari/605.1.15
-        - accept: */*
-        - accept-encoding: gzip,deflate,br
-
-        at apiRequestContext.get: connect ECONNREFUSED ::1:8001
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic-checks.spec.ts:11:36
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-checks-Basic-Applica-9bccf--endpoint-returns-status-ok-webkit\trace.zip]]
-]]>
-</system-out>
+<testcase name="Basic Application Checks › FastAPI health check endpoint returns status ok" classname="basic-checks.spec.ts" time="0.499">
 </testcase>
 </testsuite>
-<testsuite name="basic.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="2" failures="1" skipped="0" time="4.066" errors="0">
-<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="3.425">
+<testsuite name="basic.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="webkit" tests="2" failures="0" skipped="0" time="5.817" errors="0">
+<testcase name="Next.js frontend loads successfully" classname="basic.spec.ts" time="5.382">
 </testcase>
-<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.641">
-<failure message="basic.spec.ts:10:5 FastAPI backend health check returns ok" type="FAILURE">
-<![CDATA[  [webkit] › basic.spec.ts:10:5 › FastAPI backend health check returns ok ──────────────────────────
-
-    Error: expect(received).toBeTruthy()
-
-    Received: false
-
-      11 |   // Assuming FastAPI backend is running on http://localhost:8000
-      12 |   const response = await request.get('http://localhost:8000/health');
-    > 13 |   expect(response.ok()).toBeTruthy();
-         |                         ^
-      14 |   expect(await response.json()).toEqual({ status: 'ok' });
-      15 | });
-      16 |
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\basic.spec.ts:13:25
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\basic-FastAPI-backend-health-check-returns-ok-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|basic-FastAPI-backend-health-check-returns-ok-webkit\trace.zip]]
-]]>
-</system-out>
+<testcase name="FastAPI backend health check returns ok" classname="basic.spec.ts" time="0.435">
 </testcase>
 </testsuite>
-<testsuite name="example.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="2" failures="2" skipped="0" time="20.196" errors="0">
-<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="19.039">
-<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
-<![CDATA[  [webkit] › example.spec.ts:4:7 › Example Test Suite › should load homepage ───────────────────────
-
-    Error: expect(page).toHaveTitle(expected) failed
-
-    Expected pattern: /Home/i
-    Received string:  "Create Next App"
-    Timeout: 15000ms
-
-    Call log:
-      - Expect "toHaveTitle" with timeout 15000ms
-        17 × unexpected value "Create Next App"
-
-
-      4 |   test('should load homepage', async ({ page }) => {
-      5 |     await page.goto('/');
-    > 6 |     await expect(page).toHaveTitle(/Home/i);
-        |                        ^
-      7 |   });
-      8 |
-      9 |   test('should create user and login', async ({ page, userFactory }) => {
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\error-context.md
-
-    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\test-failed-1.png]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\video.webm]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\error-context.md]]
-
-[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\trace.zip]]
-]]>
-</system-out>
+<testsuite name="example.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="webkit" tests="2" failures="1" skipped="0" time="4.478" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="3">
 </testcase>
-<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="1.157">
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="1.478">
 <failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
 <![CDATA[  [webkit] › example.spec.ts:9:7 › Example Test Suite › should create user and login ───────────────
 
-    TypeError: Failed to parse URL from undefined/users
+    TypeError: Failed to parse URL from undefined/api/v1/users
 
        at ..\support\fixtures\factories\user-factory.ts:15
 
       13 |
       14 |     // API call to create user
-    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
+    > 15 |     const response = await fetch(`${process.env.API_URL}/api/v1/users`, {
          |                      ^
       16 |       method: 'POST',
       17 |       headers: { 'Content-Type': 'application/json' },
@@ -827,16 +437,16 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="google_oauth.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="1" failures="0" skipped="0" time="7.76" errors="0">
-<testcase name="Google OAuth Flow › should redirect to Google when &quot;Continue with Google&quot; button is clicked" classname="google_oauth.spec.ts" time="7.76">
+<testsuite name="google_oauth.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="webkit" tests="1" failures="0" skipped="0" time="9.417" errors="0">
+<testcase name="Google OAuth Flow › should redirect to Google when &quot;Continue with Google&quot; button is clicked" classname="google_oauth.spec.ts" time="9.417">
 <system-out>
-<![CDATA[Redirected to Google OAuth URL: https://accounts.google.com/v3/signin/identifier?opparams=%253F&dsh=S-1373947564%3A1764630990955485&access_type=offline&client_id=1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com&o2v=2&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Fv1%2Fauth%2Fgoogle%2Fcallback&response_type=code&scope=openid+email+profile&service=lso&state=some_random_secure_string&flowName=GeneralOAuthFlow&continue=https%3A%2F%2Faccounts.google.com%2Fsignin%2Foauth%2Fconsent%3Fauthuser%3Dunknown%26part%3DAJi8hAML_4MGgiDiPBmjefVaRhNAZaBUME9KC8awlJhuIRlfqjOLBx4yY499GzZB-pJlLsfuk1HPXHOSvJ9O0ukF76dVlqc0Zf67HJaUUOMN72lcDLfVRxiAV_cQPAaTlSGTWaDgoCpd10ooHiPgnDC0eF0ipnmJVMA-kzNUEo72EsyQHdXFBmnVKkhlD2q_cV94mhrZKDJD6ymD5qJSPUypC1S5YE-D0e5HCcQDEgrGO0fxBYT6xFZaULXnBmhoHWEQ8XM9pfMhEiduKYJroWQWyjMyAEo_6T7SMWg5GJovTdPPX4N6P-lf7mmwSDsy-UPNB0fa6xMtNBfin-9uB4FCGqJbgXFvWsa-t7_O4Od6XLenMhje6XkAkWpRSQMGgU-Jg2xIh0a8cE8X2aKTkcxRcIhSEYOCmECB4hG5SoHIXmjeEUza-AhRjcOb55BqASX-ugtUpFrU3-dERbEqAlMqEHQ-JWipig%26flowName%3DGeneralOAuthFlow%26as%3DS-1373947564%253A1764630990955485%26client_id%3D1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com%26requestPath%3D%252Fsignin%252Foauth%252Fconsent%23&app_domain=http%3A%2F%2Flocalhost%3A8000&rart=ANgoxcdnm4ldKZFkOXkYwXwywLEQfSzHvSDDzRDGGm7WHG4A3KnnVXSwJF8lFADNoCY5DiyZ0zfDVUG2EHysv6mjddKMUbL60U_LkKgIT0Av8KkHmRnqx8o
+<![CDATA[Redirected to Google OAuth URL: https://accounts.google.com/v3/signin/identifier?opparams=%253Fredirect_to%253Dhttp%25253A%25252F%25252Flocalhost%25253A3000%25252Fauth%25252Fcallback&dsh=S-1759541941%3A1764669518202133&client_id=1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com&o2v=2&redirect_uri=https%3A%2F%2Fznzsydhtncfrnqgubsfo.supabase.co%2Fauth%2Fv1%2Fcallback&response_type=code&scope=email+profile&service=lso&state=eyJhbGciOiJIUzI1NiIsImtpZCI6IlhRNG5PWWxGZkY5dzA3MnAiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE3NjQ2Njk4MTcsInNpdGVfdXJsIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIiwiaWQiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJmdW5jdGlvbl9ob29rcyI6bnVsbCwicHJvdmlkZXIiOiJnb29nbGUiLCJyZWZlcnJlciI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMC9hdXRoL2NhbGxiYWNrIiwiZmxvd19zdGF0ZV9pZCI6IiJ9.r6Q7H4lvZ3kycaunX0f2dwc-9BGIFH71EBEE5VGoxTs&flowName=GeneralOAuthFlow&continue=https%3A%2F%2Faccounts.google.com%2Fsignin%2Foauth%2Fconsent%3Fauthuser%3Dunknown%26part%3DAJi8hAOWoHr5aeuuzAFyYcNYM6Jw4oiFp451OhlUjLfQWSDd1Nn5wMmaOwiRvgtw8Chz7qbUuQiArwveABqTZxA5HtURTMFUeMejbWlNHZ5tWcKlsMtcGtnrBwGCWdseRW78aLIY7EFwJdCKofCcZ_GbzFvDYhFGvFFH7jPpykbNGy3MWUdIPr23KrZowgU9ntCrH7x1fu9ax0hRkx0nYndNeJCBl0_Kf4loZj_KNOH29TM4miPVmDq68jfHju3SS7r0Sh4ducXFErMC85pZQcm7smFYFE-HIn1J_7X55nb_xxB7hUdpDx5ublQbx3pSBDo0lGMl5yEbWxOjgX7Whsdn_gHA4W9uW971njdhK9p_zGoMW1kfrbBCyVWD6_zVJATdBxDbaacggWxOHHXOgzuQpN4MXRi3WbJwLog-njezL6Ign9powBVfYW1bQNU-9yTi6xwCkgsjDZt9-kkpdtvb5v8kX4ZDDsO7G_Uz6elIzCl1nWAGoDw%26flowName%3DGeneralOAuthFlow%26as%3DS-1759541941%253A1764669518202133%26client_id%3D1044309634102-trnb000ke058c3n3duqiq630as8r257s.apps.googleusercontent.com%26requestPath%3D%252Fsignin%252Foauth%252Fconsent%23&app_domain=https%3A%2F%2Fznzsydhtncfrnqgubsfo.supabase.co&rart=ANgoxceSkDmzMal0ELz3WkhVI5pftPwnQeGdYuzV4ji2ZMs4gMmsGXjBXhmiRoLWlqHxx-q7jtCof64XALtSgdXsf1um2qI4MU97qp81QTbKueRc38kr7z8
 ]]>
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="onboarding.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="1" failures="1" skipped="0" time="32.889" errors="0">
-<testcase name="Onboarding Flow › should complete multi-step onboarding and redirect to home" classname="onboarding.spec.ts" time="32.889">
+<testsuite name="onboarding.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="webkit" tests="1" failures="1" skipped="0" time="32.666" errors="0">
+<testcase name="Onboarding Flow › should complete multi-step onboarding and redirect to home" classname="onboarding.spec.ts" time="32.666">
 <failure message="onboarding.spec.ts:4:7 should complete multi-step onboarding and redirect to home" type="FAILURE">
 <![CDATA[  [webkit] › onboarding.spec.ts:4:7 › Onboarding Flow › should complete multi-step onboarding and redirect to home 
 
@@ -887,44 +497,14 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="smoke.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="2" failures="1" skipped="0" time="3.201" errors="0">
-<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="2.651">
+<testsuite name="smoke.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="webkit" tests="2" failures="0" skipped="0" time="2.652" errors="0">
+<testcase name="Smoke Tests › should load Next.js frontend" classname="smoke.spec.ts" time="2.227">
 </testcase>
-<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.55">
-<failure message="smoke.spec.ts:9:7 should get successful health check from FastAPI backend" type="FAILURE">
-<![CDATA[  [webkit] › smoke.spec.ts:9:7 › Smoke Tests › should get successful health check from FastAPI backend 
-
-    Error: expect(received).toBeTruthy()
-
-    Received: false
-
-       9 |   test('should get successful health check from FastAPI backend', async ({ request }) => {
-      10 |     const response = await request.get('http://localhost:8000/health');
-    > 11 |     expect(response.ok()).toBeTruthy();
-         |                           ^
-      12 |     const json = await response.json();
-      13 |     expect(json).toEqual({ status: 'ok' });
-      14 |   });
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\smoke.spec.ts:11:27
-
-    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-webkit\trace.zip
-    Usage:
-
-        npx playwright show-trace ..\..\test-results\smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-webkit\trace.zip
-
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|smoke-Smoke-Tests-should-g-7058f--check-from-FastAPI-backend-webkit\trace.zip]]
-]]>
-</system-out>
+<testcase name="Smoke Tests › should get successful health check from FastAPI backend" classname="smoke.spec.ts" time="0.425">
 </testcase>
 </testsuite>
-<testsuite name="user-profile.spec.ts" timestamp="2025-12-01T23:15:50.586Z" hostname="webkit" tests="1" failures="1" skipped="0" time="18.881" errors="0">
-<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="18.881">
+<testsuite name="user-profile.spec.ts" timestamp="2025-12-02T09:57:57.897Z" hostname="webkit" tests="1" failures="1" skipped="0" time="19.946" errors="0">
+<testcase name="should navigate to profile page, edit details, and save changes successfully" classname="user-profile.spec.ts" time="19.946">
 <failure message="user-profile.spec.ts:48:5 should navigate to profile page, edit details, and save changes successfully" type="FAILURE">
 <![CDATA[  [webkit] › user-profile.spec.ts:48:5 › should navigate to profile page, edit details, and save changes successfully 
 

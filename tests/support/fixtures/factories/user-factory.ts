@@ -12,7 +12,7 @@ export class UserFactory {
     };
 
     // API call to create user
-    const response = await fetch(`${process.env.API_URL}/users`, {
+    const response = await fetch(`${process.env.API_URL}/api/v1/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
@@ -26,7 +26,7 @@ export class UserFactory {
   async cleanup() {
     // Delete all created users
     for (const userId of this.createdUsers) {
-      await fetch(`${process.env.API_URL}/users/${userId}`, {
+      await fetch(`${process.env.API_URL}/api/v1/users/${userId}`, {
         method: 'DELETE',
       });
     }

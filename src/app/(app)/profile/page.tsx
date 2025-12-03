@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { getUserProfile, updateUserProfile, UserProfile, UserProfileUpdate } from '@/app/lib/api/user'; // Using @/app for absolute import
+import { getUserProfile, updateUserProfile, UserProfile, UserProfileUpdate } from '@/app/lib/api/user';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -12,13 +13,21 @@ export default function ProfilePage() {
 
   useEffect(() => {
     async function fetchProfile() {
-      try {
-        const profile = await getUserProfile();
-        setUser(profile);
-        setFormData(profile); // Initialize form data with fetched profile
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (session) {
+        try {
+          // Pass the access token to the API function
+          const profile = await getUserProfile(session.access_token);
+          setUser(profile);
+          setFormData(profile);
+        } catch (err: any) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setError("You are not authenticated.");
         setLoading(false);
       }
     }
@@ -50,13 +59,21 @@ export default function ProfilePage() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    try {
-      const updatedProfile = await updateUserProfile(formData);
-      setUser(updatedProfile);
-      setIsEditing(false); // Exit editing mode on successful save
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
+
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (session) {
+      try {
+        const updatedProfile = await updateUserProfile(session.access_token, formData);
+        setUser(updatedProfile);
+        setIsEditing(false); // Exit editing mode on successful save
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setError("You are not authenticated.");
       setLoading(false);
     }
   };

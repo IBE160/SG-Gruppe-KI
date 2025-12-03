@@ -1,4 +1,6 @@
-pytest_plugins = ["anyio"] # ADD THIS LINE
+
+
+pytest_plugins = ["anyio"] 
 
 import pytest
 from unittest.mock import patch, MagicMock
@@ -11,31 +13,26 @@ from app.dependencies import get_current_user # Import get_current_user for patc
 def mock_supabase_client():
     with patch("supabase.create_client") as mock_create_client:
         mock_client = MagicMock()
+        mock_create_client.return_value = mock_client
         
-        # Add a mock 'auth' attribute to the client
+        # Mock for supabase.auth
         mock_client.auth = MagicMock()
-        
-        # Mock get_user method within auth
         mock_client.auth.get_user.return_value = MagicMock(
             user=MagicMock(
-                id="mock-user-uuid",
+                id="00000000-0000-4000-8000-000000000001",
                 email="test@example.com",
-                model_dump=lambda: {"id": "mock-user-uuid", "email": "test@example.com"} # Mimic pydantic model_dump
+                model_dump=lambda: {"id": "00000000-0000-4000-8000-000000000001", "email": "test@example.com"}
             )
         )
+        mock_client.auth.get_user.return_value.user.id = "00000000-0000-4000-8000-000000000001"
+        mock_client.auth.get_user.return_value.user.email = "test@example.com"
         
-        # --- Add robust mocking for table operations ---
-        mock_client.table.return_value.update.return_value.eq.return_value.execute.return_value = MagicMock(
-            data=[{"id": "mock-user-uuid", "email": "test@example.com"}] # Default success for update
-        )
-        mock_client.table.return_value.select.return_value.eq.return_value.single.return_value.execute.return_value = MagicMock(
-            data={"id": "mock-user-uuid", "email": "test@example.example.com"} # Default success for select single
-        )
-        # --- End robust mocking for table operations ---
-
-        mock_create_client.return_value = mock_client
+        # Create a single mock object for the return value of supabase.table()
+        # This will be used by all tests for any table operation
+        mock_table_builder = MagicMock()
+        mock_client.table.return_value = mock_table_builder
+        
         yield mock_client
-
 @pytest.fixture
 def mock_httpx_async_client():
     with patch("httpx.AsyncClient") as mock_async_client_class:

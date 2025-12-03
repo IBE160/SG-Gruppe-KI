@@ -47,7 +47,8 @@ export default function LoginPage() {
 
   const handleGoogleLogin = () => {
     // Redirect to the backend endpoint that initiates Google OAuth
-    window.location.href = '/api/v1/auth/google';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    window.location.href = `${apiUrl}/api/v1/auth/google`;
   };
 
   return (

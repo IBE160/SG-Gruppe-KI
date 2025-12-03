@@ -1,6 +1,10 @@
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 
+class CurrentUser(BaseModel):
+    id: str
+    email: str
+
 class OnboardingData(BaseModel):
     goals: Optional[Dict[str, Any]] = Field(default_factory=dict)
     preferences: Optional[Dict[str, Any]] = Field(default_factory=dict)

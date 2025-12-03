@@ -3,7 +3,7 @@ import { test, expect } from '../support/fixtures';
 test.describe('Example Test Suite', () => {
   test('should load homepage', async ({ page }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/Home/i);
+    await expect(page).toHaveTitle(/Create Next App/i);
   });
 
   test('should create user and login', async ({ page, userFactory }) => {

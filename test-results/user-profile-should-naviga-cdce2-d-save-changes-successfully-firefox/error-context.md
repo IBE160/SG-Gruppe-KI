@@ -4,7 +4,7 @@
 - generic [active] [ref=e1]:
   - generic [ref=e2]:
     - heading "User Profile" [level=1] [ref=e3]
-    - paragraph [ref=e4]: "Error: Failed to fetch user profile"
+    - paragraph [ref=e4]: "Error: You are not authenticated."
   - button "Open Next.js Dev Tools" [ref=e10] [cursor=pointer]:
     - generic [ref=e13]:
       - text: Compiling

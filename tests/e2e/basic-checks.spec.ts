@@ -8,7 +8,7 @@ test.describe('Basic Application Checks', () => {
   });
 
   test('FastAPI health check endpoint returns status ok', async ({ request }) => {
-    const response = await request.get('http://localhost:8001/health');
+    const response = await request.get('http://localhost:8000/health');
     expect(response.ok()).toBeTruthy();
     expect(await response.json()).toEqual({ status: 'ok' });
   });

@@ -5,6 +5,15 @@ def get_supabase_client() -> Client:
     supabase: Client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
     return supabase
 
+
+def get_supabase_service_client() -> Client:
+    """Create a Supabase client with the service role key for privileged operations."""
+    supabase: Client = create_client(
+        settings.SUPABASE_URL, settings.SUPABASE_SERVICE_ROLE_KEY
+    )
+    return supabase
+
+
 def get_current_user_from_supabase(token: str) -> dict:
     """Fetches user information from Supabase using the provided JWT."""
     supabase: Client = get_supabase_client()
