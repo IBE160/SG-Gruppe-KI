@@ -4,11 +4,11 @@ from typing import Any
 from uuid import UUID
 from datetime import date
 
-from ...schemas.daily_context import DailyContext, DailyContextCreate
-from ...dependencies import get_current_user
-from ...db.supabase import get_supabase_client
-from ...schemas.user import CurrentUser
-from ...crud import daily_context as crud_daily_context
+from app.schemas.daily_context import DailyContext, DailyContextCreate
+from app.dependencies import get_current_user
+from app.db.supabase import get_supabase_client
+from app.schemas.user import CurrentUser
+from app.crud import daily_context as crud_daily_context
 from supabase import Client
 
 router = APIRouter()

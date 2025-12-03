@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordBearer
-from .db.supabase import get_supabase_client, get_current_user_from_supabase
-from .schemas.user import CurrentUser # Import CurrentUser
+from app.db.supabase import get_supabase_client, get_current_user_from_supabase
+from app.schemas.user import CurrentUser
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token") # This tokenUrl is a placeholder, actual Supabase auth is different
 

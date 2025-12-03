@@ -19,7 +19,7 @@ except Exception as e:
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .api.v1 import auth, users, daily_context  # ← Add daily_context
+from app.api.v1 import auth, users, daily_context
 
 app = FastAPI(
     title="AI Personal Training Advisor Backend",

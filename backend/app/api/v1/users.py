@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from supabase import Client
-from ...db.supabase import get_supabase_client, get_supabase_service_client
-from ...schemas.user import OnboardingData, UserProfile, UserProfileUpdate, CurrentUser # Import CurrentUser
-from ...dependencies import get_current_user
+from app.db.supabase import get_supabase_client, get_supabase_service_client
+from app.schemas.user import OnboardingData, UserProfile, UserProfileUpdate, CurrentUser
+from app.dependencies import get_current_user
 
 router = APIRouter()
 

@@ -1,12 +1,12 @@
 import pytest
 import httpx
 from unittest.mock import patch, MagicMock
-from backend.app.main import app
-from backend.app.schemas.user import OnboardingData, UserProfile, CurrentUser
+from app.main import app
+from app.schemas.user import OnboardingData, UserProfile, CurrentUser
 import pytest_asyncio
 from starlette import status
-from backend.app.dependencies import get_current_user # Import get_current_user
-from backend.app.db.supabase import get_supabase_service_client # Import this for mocking
+from app.dependencies import get_current_user
+from app.db.supabase import get_supabase_service_client
 
 @pytest.fixture(scope="module")
 def anyio_backend():
@@ -20,7 +20,7 @@ async def client():
 # Mock for get_supabase_client dependency
 @pytest.fixture
 def mock_supabase_client():
-    with patch("backend.app.db.supabase.get_supabase_service_client") as mock_get_client:
+    with patch("app.db.supabase.get_supabase_service_client") as mock_get_client:
         mock_client = MagicMock()
         mock_get_client.return_value = mock_client
         

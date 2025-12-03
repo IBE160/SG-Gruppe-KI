@@ -2,13 +2,13 @@
 import pytest
 import httpx
 from unittest.mock import patch, AsyncMock, MagicMock, ANY
-from backend.app.main import app
-from backend.app.schemas.user import CurrentUser
-from backend.app.schemas.daily_context import DailyContext, DailyContextCreate
+from app.main import app
+from app.schemas.user import CurrentUser
+from app.schemas.daily_context import DailyContext, DailyContextCreate
 import pytest_asyncio
 from starlette import status
-from backend.app.dependencies import get_current_user
-from backend.app.db.supabase import get_supabase_client # Import get_supabase_client
+from app.dependencies import get_current_user
+from app.db.supabase import get_supabase_client
 
 from datetime import date
 from uuid import uuid4, UUID
@@ -59,7 +59,7 @@ async def test_create_daily_context_success(
         **daily_context_data_in
     )
 
-    with patch("backend.app.crud.daily_context.create_daily_context", new_callable=AsyncMock) as mock_create_daily_context_func:
+    with patch("app.crud.daily_context.create_daily_context", new_callable=AsyncMock) as mock_create_daily_context_func:
         mock_create_daily_context_func.return_value = expected_return_context.model_dump()
 
         response = await client.post(
@@ -112,7 +112,7 @@ async def test_create_daily_context_update_existing(
         **updated_context_input
     )
 
-    with patch("backend.app.crud.daily_context.create_daily_context", new_callable=AsyncMock) as mock_create_daily_context_func:
+    with patch("app.crud.daily_context.create_daily_context", new_callable=AsyncMock) as mock_create_daily_context_func:
         mock_create_daily_context_func.return_value = expected_updated_context.model_dump()
 
         response = await client.post(
@@ -176,7 +176,7 @@ async def test_get_daily_context_success(
         notes="Feeling great today!"
     )
 
-    with patch("backend.app.crud.daily_context.get_daily_context", new_callable=AsyncMock) as mock_get_daily_context_func:
+    with patch("app.crud.daily_context.get_daily_context", new_callable=AsyncMock) as mock_get_daily_context_func:
         mock_get_daily_context_func.return_value = expected_return_context.model_dump()
         
         response = await client.get(
@@ -206,7 +206,7 @@ async def test_get_daily_context_not_found(
 ):
     today = date.today()
     
-    with patch("backend.app.crud.daily_context.get_daily_context", new_callable=AsyncMock) as mock_get_daily_context_func:
+    with patch("app.crud.daily_context.get_daily_context", new_callable=AsyncMock) as mock_get_daily_context_func:
         # Mock the get_daily_context function in crud to return None
         mock_get_daily_context_func.return_value = None
         

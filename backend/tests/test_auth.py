@@ -1,10 +1,10 @@
 import pytest
 from httpx import AsyncClient
 from unittest.mock import patch, MagicMock
-from backend.app.main import app
-from backend.app.schemas.user import UserCreate, CurrentUser
-from backend.app.db.supabase import get_current_user_from_supabase # Import directly
-from backend.app.core.config import settings
+from app.main import app
+from app.schemas.user import UserCreate, CurrentUser
+from app.db.supabase import get_current_user_from_supabase
+from app.core.config import settings
 
 @pytest.fixture(scope="module")
 def anyio_backend():
@@ -15,8 +15,8 @@ async def client():
     async with AsyncClient(app=app, base_url="http://test") as client:
         yield client
 
-@patch.object(settings, "GOOGLE_CLIENT_ID", "test_client_id")
-@patch.object(settings, "SUPABASE_REDIRECT_URI", "http://localhost:8000/api/v1/auth/google/callback")
+@patch.object(app.core.config.settings, "GOOGLE_CLIENT_ID", "test_client_id")
+@patch.object(app.core.config.settings, "SUPABASE_REDIRECT_URI", "http://localhost:8000/api/v1/auth/google/callback")
 async def test_google_oauth_initiate_redirects_correctly(client: AsyncClient):
     response = await client.get("/api/v1/auth/google")
     assert response.status_code == 307 # Temporary Redirect

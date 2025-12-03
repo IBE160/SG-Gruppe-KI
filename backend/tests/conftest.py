@@ -10,7 +10,7 @@ pytest_plugins = ["pytest_asyncio"]
 
 import pytest
 from unittest.mock import patch, MagicMock
-from backend.app.core import config # Import the config module, not just Settings
+from app.core import config # Import the config module, not just Settings
 import httpx # Import httpx to patch it
 from app.dependencies import get_current_user # Import get_current_user for patching
 
