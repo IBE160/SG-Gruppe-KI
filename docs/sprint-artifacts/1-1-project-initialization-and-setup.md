@@ -1,6 +1,6 @@
 # Story 1.1: Project Initialization and Setup
 
-Status: ready-for-dev
+Status: Approved
 
 ## Story
 
