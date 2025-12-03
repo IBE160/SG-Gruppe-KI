@@ -1,3 +1,22 @@
+import sys
+import os
+
+# --- BEGIN sys.path HACK ---
+# This is a workaround for a persistent environment issue where modules are not being found.
+# It forcefully adds the local virtual environment's site-packages to the Python path.
+try:
+    # __file__ is backend/app/main.py
+    # Go up 3 levels to the project root, then down to backend/.venv
+    project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    site_packages = os.path.join(project_root, 'backend', '.venv', 'Lib', 'site-packages')
+
+    if os.path.exists(site_packages) and site_packages not in sys.path:
+        print(f"--- HACK: Prepending '{site_packages}' to sys.path ---")
+        sys.path.insert(0, site_packages)
+except Exception as e:
+    print(f"--- HACK: Failed to modify sys.path: {e} ---")
+# --- END sys.path HACK ---
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .api.v1 import auth, users  # ← viktig: punktum foran api

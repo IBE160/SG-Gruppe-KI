@@ -19,6 +19,11 @@
       - text: Don't have an account?
       - button "Sign Up" [ref=e16] [cursor=pointer]
   - button "Open Next.js Dev Tools" [ref=e22] [cursor=pointer]:
-    - img [ref=e23]
-  - alert [ref=e28]
+    - generic [ref=e25]:
+      - text: Compiling
+      - generic [ref=e26]:
+        - generic [ref=e27]: .
+        - generic [ref=e28]: .
+        - generic [ref=e29]: .
+  - alert [ref=e30]
 ```
