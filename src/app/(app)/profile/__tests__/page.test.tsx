@@ -3,11 +3,21 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ProfilePage from '../page'; // Adjust path as necessary
 import * as userService from '@/app/lib/api/user'; // Mock the API service
+import { supabase } from '@/lib/supabaseClient'; // Import supabase for mocking
 
 // Mock the API service functions
 jest.mock('@/app/lib/api/user', () => ({
   getUserProfile: jest.fn(),
   updateUserProfile: jest.fn(),
+}));
+
+// Mock the Supabase client
+jest.mock('@/lib/supabaseClient', () => ({
+  supabase: {
+    auth: {
+      getSession: jest.fn(),
+    },
+  },
 }));
 
 const mockUserProfile = {
@@ -21,17 +31,43 @@ const mockUserProfile = {
   units: 'metric',
 };
 
+const mockSession = {
+  access_token: 'mock-access-token',
+  refresh_token: 'mock-refresh-token',
+  expires_in: 3600,
+  token_type: 'Bearer',
+  user: {
+    id: 'user123',
+    aud: 'authenticated',
+    role: 'authenticated',
+    email: 'test@example.com',
+    email_confirmed_at: '2023-01-01T00:00:00Z',
+    phone_confirmed_at: '2023-01-01T00:00:00Z',
+    created_at: '2023-01-01T00:00:00Z',
+    updated_at: '2023-01-01T00:00:00Z',
+    identities: [],
+    app_metadata: {},
+    user_metadata: {},
+  },
+};
+
 describe('ProfilePage', () => {
   beforeEach(() => {
     // Reset mocks before each test
     (userService.getUserProfile as jest.Mock).mockClear();
     (userService.updateUserProfile as jest.Mock).mockClear();
+    (supabase.auth.getSession as jest.Mock).mockClear(); // Clear supabase mock
+    // Default mock for supabase: return a valid session
+    (supabase.auth.getSession as jest.Mock).mockResolvedValue({ data: { session: mockSession } });
   });
 
-  test('renders loading state initially', () => {
-    (userService.getUserProfile as jest.Mock).mockReturnValueOnce(new Promise(() => {})); // Never resolves
+  test('renders loading state initially', async () => {
+    // Make getUserProfile never resolve to keep it in loading state
+    (userService.getUserProfile as jest.Mock).mockReturnValue(new Promise(() => {}));
     render(<ProfilePage />);
     expect(screen.getByText('Loading profile...')).toBeInTheDocument();
+    // Ensure the session mock is called even in this test
+    expect(supabase.auth.getSession).toHaveBeenCalled();
   });
 
   test('renders user profile after successful API call', async () => {
@@ -52,6 +88,8 @@ describe('ProfilePage', () => {
     });
 
     expect(screen.getByRole('button', { name: /edit profile/i })).toBeInTheDocument();
+    expect(supabase.auth.getSession).toHaveBeenCalled();
+    expect(userService.getUserProfile).toHaveBeenCalledWith(mockSession.access_token);
   });
 
   test('renders error message if API call fails', async () => {
@@ -62,6 +100,19 @@ describe('ProfilePage', () => {
     await waitFor(() => {
       expect(screen.getByText(`Error: ${errorMessage}`)).toBeInTheDocument();
     });
+    expect(supabase.auth.getSession).toHaveBeenCalled();
+    expect(userService.getUserProfile).toHaveBeenCalledWith(mockSession.access_token);
+  });
+
+  test('renders error message if not authenticated', async () => {
+    (supabase.auth.getSession as jest.Mock).mockResolvedValue({ data: { session: null } }); // Simulate no session
+    render(<ProfilePage />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Error: You are not authenticated.')).toBeInTheDocument();
+    });
+    expect(supabase.auth.getSession).toHaveBeenCalled();
+    expect(userService.getUserProfile).not.toHaveBeenCalled(); // getUserProfile should not be called if no session
   });
 
   test('switches to editing mode when Edit Profile button is clicked', async () => {
@@ -101,8 +152,8 @@ describe('ProfilePage', () => {
     fireEvent.click(screen.getByRole('button', { name: /save changes/i }));
 
     await waitFor(() => {
-      expect(userService.updateUserProfile).toHaveBeenCalledWith({
-        ...mockUserProfile,
+      expect(userService.updateUserProfile).toHaveBeenCalledWith(mockSession.access_token, {
+        ...mockUserProfile, // Ensure all original fields are passed
         name: updatedName,
         units: updatedUnits,
         goals: updatedGoals,
@@ -128,3 +179,4 @@ describe('ProfilePage', () => {
     });
   });
 });
+

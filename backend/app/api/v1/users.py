@@ -80,17 +80,30 @@ async def get_user_profile(
 async def update_user_profile(
     user_profile_update: UserProfileUpdate,
     current_user: CurrentUser = Depends(get_current_user),
-    supabase: Client = Depends(get_supabase_client)
+    supabase: Client = Depends(get_supabase_service_client)
 ):
     """
     Updates the authenticated user's profile information.
     """
     user_id = current_user.id
-    update_data = user_profile_update.model_dump(exclude_unset=True)
+    # Exclude unset fields and also filter out any fields that are explicitly set to None
+    update_data = {k: v for k, v in user_profile_update.model_dump().items() if v is not None}
+    
+    print(f"--- Attempting to update profile for user_id: {user_id} ---")
+    print(f"1. Filtered update data to be sent: {update_data}")
+
+    if not update_data:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No update data provided."
+        )
 
     try:
         response = supabase.table("users").update(update_data).eq("id", user_id).execute()
+        print(f"2. Supabase update response: {response}")
+
         if response.data and len(response.data) > 0:
+            print("3. Successfully updated data.")
             updated_user = response.data[0]
             auth_email = current_user.email
             return UserProfile(
@@ -104,21 +117,26 @@ async def update_user_profile(
                 units=updated_user.get("units")
             )
         else:
+            print("3. ERROR: No data returned from Supabase after update.")
+            error_detail = "User not found or no data updated. This may be due to RLS policy."
+            if hasattr(response, 'error') and response.error:
+                error_detail = response.error.message
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
-                detail="User not found or no data updated."
+                detail=error_detail
             )
     except Exception as e:
+        print(f"--- EXCEPTION in update_user_profile: {type(e).__name__} - {e} ---")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to update user profile: {e}"
+            detail=f"Failed to update user profile: {type(e).__name__} - {e}"
         )
 
 @router.post("/onboarding", response_model=UserProfile)
 async def onboard_user(
     onboarding_data: OnboardingData,
     current_user: CurrentUser = Depends(get_current_user),
-    supabase: Client = Depends(get_supabase_client)
+    supabase: Client = Depends(get_supabase_service_client)
 ):
     """
     Saves initial onboarding data for an authenticated user.
