@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  transpilePackages: ['tw-animate-css'],
   async rewrites() {
     return [
       {
