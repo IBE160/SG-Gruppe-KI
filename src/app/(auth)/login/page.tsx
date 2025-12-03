@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'; // Import useRouter
+import { supabase } from '@/lib/supabaseClient'; // Import the singleton Supabase client
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -26,18 +27,23 @@ export default function LoginPage() {
         body: JSON.stringify(body),
       });
 
-      const data = await response.json();
+      const result = await response.json();
 
-      if (response.ok) {
-        // Assuming the backend returns a token or session info on successful login/signup
-        console.log('Success:', data);
-        // For now, we'll just log and redirect. In a real app, store securely (e.g., http-only cookies)
-        // localStorage.setItem('authToken', data.access_token); // Example for client-side token (not recommended for production)
-        alert('Authentication successful! Redirecting...'); // Use alert for immediate feedback
-        router.push('/'); // Redirect to the authenticated page (e.g., home)
+      if (response.ok && result.data) {
+        console.log('Success:', result);
+
+        // Manually set the session on the client-side
+        const { access_token, refresh_token } = result.data;
+        if (access_token && refresh_token) {
+          await supabase.auth.setSession({ access_token, refresh_token });
+          alert('Authentication successful! Redirecting...');
+          router.push('/'); // Redirect to the authenticated page (e.g., home)
+        } else {
+          setError('Received invalid session data from server.');
+        }
       } else {
-        setError(data.detail || 'Authentication failed');
-        console.error('Error:', data);
+        setError(result.detail || 'Authentication failed');
+        console.error('Error:', result);
       }
     } catch (err) {
       setError('Network error or server unavailable');

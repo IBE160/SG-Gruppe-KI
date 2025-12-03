@@ -236,7 +236,29 @@ A contrast check was performed to ensure the palette meets WCAG 2.1 AA standards
 
 ---
 
-## 5. User Journey Flows
+## 5. Visual Design Direction from Stich
+
+Based on a review of the design explorations in the `docs/stich_design` folder, the following visual design direction has been selected. This direction aligns with the "Data-Driven Dashboard" approach and the "Flow" color theme.
+
+### Dashboard
+
+The dashboard will be the central hub of the application, providing users with a quick overview of their progress and a clear starting point for their daily workout. The design is based on `daily_dashboard_1` and `daily_dashboard_2` from the `stich_design` folder.
+
+**Light Theme:**
+![Light Theme Dashboard](./stich_design/daily_dashboard_2/screen.png)
+
+**Dark Theme:**
+![Dark Theme Dashboard](./stich_design/daily_dashboard_1/screen.png)
+
+### Onboarding
+
+The onboarding flow will be a conversational experience designed to gather information about the user's goals and preferences. The design is based on the `conversational_check-in` and `first_plan_reveal` screens from the `stich_design` folder.
+
+*(More details on the onboarding flow will be added in the User Journey Flows section.)*
+
+---
+
+## 6. User Journey Flows
 
 ### 5.1 Critical User Paths
 
@@ -249,52 +271,57 @@ A contrast check was performed to ensure the palette meets WCAG 2.1 AA standards
 **Flow Steps:**
 
 1.  **Warm Welcome (Emotional Hook)**
-    *   **User sees:** Full-screen hero card: “Hey, I’m your AI Training Advisor 👋” “I’ll help you train smarter — not harder. Let’s get your plan set up together.” Below it: “Let’s Begin” button, Subtext: “Takes about 2 minutes. You can edit everything later.”
+    *   **User sees:** A welcoming screen with a prominent "Let's Begin" button.
+        *   **Light Theme:**
+            ![Warm Welcome Light](./stich_design/warm_welcome_1/screen.png)
+        *   **Dark Theme:**
+            ![Warm Welcome Dark](./stich_design/warm_welcome_2/screen.png)
     *   **User does:** Taps “Let’s Begin”.
     *   **System responds:** Transitions to Conversational Check-In.
 
 2.  **Conversational Check-In (Adaptive Dialogue)**
-    *   **User sees:** Chat bubbles from AI.
-        *   AI: “What brings you here today?” -> Chips: 🏋️ Build strength, 🔥 Get lean, 🎯 Stay consistent, 🎯 Performance goal.
-        *   AI: “Nice. How many days a week can you realistically train?” -> Slider input: 1–7 days.
-        *   AI: “Do you have access to any equipment?” -> Checkbox chips: Dumbbells, Barbell, Bench, Resistance bands, Bodyweight only.
-        *   AI: “Perfect. Any injuries or movement limitations I should know about?” -> Text input (optional).
-        *   AI: “Almost done — what kind of music keeps you moving?” -> Chips + mini album previews (if Spotify connected): Energetic, Focus beats, Calm & steady, Surprise me.
-        *   AI: “Got it. I’m tuning your first plan…” -> Subtle animation starts.
-    *   **User does:** Selects chips, uses slider, types text, selects music preferences.
-    *   **System responds:** Displays next AI chat bubble/question.
+    *   **User sees:** A conversational interface where the AI asks a series of questions to understand the user's goals and preferences.
+        *   **Light Theme:**
+            ![Conversational Check-In Light](./stich_design/conversational_check-in_2/screen.png)
+        *   **Dark Theme:**
+            ![Conversational Check-In Dark](./stich_design/conversational_check_in_1/screen.png)
+    *   **User does:** Taps on chips and other UI elements to answer the questions.
+    *   **System responds:** Progresses through the conversation, gathering information.
 
 3.  **Instant AI Feedback (Transparency Moment)**
-    *   **User sees:** "Thinking sequence": “Checking recovery profile…”, “Balancing intensity for your 3-day schedule…”, “Syncing with your music preferences…” Subtle animation.
+    *   **User sees:** A loading or "thinking" screen while the AI generates the plan.
     *   **User does:** Waits.
     *   **System responds:** Transitions smoothly to the First Plan Reveal screen.
 
 4.  **The First Plan Reveal**
-    *   **User sees:** Celebratory screen: 🎉 Your First Adaptive Plan Is Ready! Below: Compact summary card (Goal, Schedule, Equipment, Focus Today). Buttons: [View My Plan] (Primary), [Adjust Details] (Secondary).
+    *   **User sees:** A celebratory screen announcing that their first plan is ready, with a summary of the plan and clear calls to action.
+        *   **Light Theme:**
+            ![First Plan Reveal Light](./stich_design/first_plan_reveal_2/screen.png)
+        *   **Dark Theme:**
+            ![First Plan Reveal Dark](./stich_design/first_plan_reveal_4/screen.png)
     *   **User does:** Taps “View My Plan”.
-    *   **System responds:** Transitions to Workout Player Preview in “Guided Mode”.
+    *   **System responds:** Transitions to the workout player.
 
 5.  **Guided First Workout Preview**
-    *   **User sees:** Workout Player Preview in “Guided Mode”. AI narrates a short walk-through: “Here’s how your session works. Each exercise is explained, and I’ll track your progress as you go.” “Whenever you train, I’ll adapt your next session automatically.”
-    *   **User does:** Listens to narration.
-    *   **System responds:** Presents "Start Workout" button.
+    *   **User sees:** The workout player with a guided walkthrough of the interface and features.
+    *   **User does:** Follows the guide.
+    *   **System responds:** Presents the "Start Workout" button.
 
 6.  **After Completion – “The Loop” (Post-Workout)**
-    *   **User sees:** AI recap: “Nice job, Robert. I’ve logged your session and adjusted tomorrow’s recovery plan.” “Want me to remind you when it’s time for your next session?” Buttons: [Yes] [Maybe later].
-    *   **User does:** Selects reminder preference.
-    *   **System responds:** Confirms reminder setting.
+    *   **User sees:** A summary of the completed workout and feedback from the AI.
+    *   **User does:** Provides feedback on the workout.
+    *   **System responds:** Confirms the feedback and prepares for the next session.
 
 **Mermaid Diagram:**
 
 ```mermaid
 graph TD
-    A[User opens app] --> B{Warm Welcome Screen};
-    B -- Tap "Let's Begin" --> C{Conversational Check-In};
-    C -- User provides input --> D{AI Processing / Thinking Sequence};
-    D -- Plan Generated --> E{First Plan Reveal Screen};
-    E -- Tap "View My Plan" --> F{Workout Player Preview (Guided Mode)};
-    F -- User starts workout --> G[Workout Session];
-    G -- Session Completed --> H{Post-Workout Recap / "The Loop"};
+    A[User opens app] --> B(Warm Welcome Screen);
+    B -- Tap "Let's Begin" --> C(Conversational Check-In);
+    C -- User provides input --> D(AI Processing / Thinking Sequence);
+    D -- Plan Generated --> E(First Plan Reveal Screen);
+    E -- Tap "View My Plan" --> F(Workout Player);
+    F -- Session Completed --> G(Post-Workout Recap / "The Loop");
 ```
 
 #### User Journey: Daily Workout Experience
@@ -305,25 +332,29 @@ graph TD
 
 **Flow Steps:**
 
-1.  **Daily Launch (Ritual Entry Point):** User opens the app or taps a notification. They see a prominent "Adaptive Session: Ready" tile on the dashboard and tap it to open the Context Window.
-2.  **Context Window (Emotional Calibration):** The user interacts with a half-screen modal, providing input on mood, sleep, energy, etc., in a conversational flow.
-3.  **AI Plan Review (Transparency + Trust):** The modal transitions to a Plan Summary. The user sees AI feedback copy explaining the adaptations, a workout overview, session breakdown, and music preview. They can adjust the plan, regenerate it, or ask "Why this plan?".
-4.  **Adjustment Interaction (Co-Creation):** If the user requests a change (e.g., "make it shorter"), the plan reflows dynamically with clear feedback.
-5.  **Live Workout Mode (Immersive Flow):** The user taps "Start Workout," and the view transitions to the Workout Player with a timer, set tracker, and synced music.
-6.  **Post-Session Reflection (Closure Loop):** After finishing, the user sees an AI feedback summary and provides their own feedback ("Felt great," "Too much"). An optional "Session Card" is generated for sharing.
+1.  **Daily Launch (Ritual Entry Point):** User opens the app. They see the main dashboard with a prominent "Adaptive Session" card.
+    *   **Light Theme:**
+        ![Light Theme Dashboard](./stich_design/daily_dashboard_2/screen.png)
+    *   **Dark Theme:**
+        ![Dark Theme Dashboard](./stich_design/daily_dashboard_1/screen.png)
+2.  **Context Window (Emotional Calibration):** The user taps "Start Workout" and a context window appears, asking for input on energy level, sleep, and other factors.
+    *   **Light Theme:**
+        ![Light Context Window](./stich_design/context_window_1/screen.png)
+    *   **Dark Theme:**
+        ![Dark Context Window](./stich_design/context_window_2/screen.png)
+3.  **AI Plan Review (Transparency + Trust):** After providing context, the user is presented with a plan summary.
+4.  **Live Workout Mode (Immersive Flow):** The user taps "Start Workout," and the view transitions to the Workout Player.
+5.  **Post-Session Reflection (Closure Loop):** After finishing, the user sees a summary and can provide feedback.
 
 **Mermaid Diagram:**
 
 ```mermaid
 graph TD
-    A[User opens app / Taps notification] --> B{Dashboard with "Adaptive Session: Ready" tile};
-    B -- Tap to start --> C{Context Window (Emotional Calibration)};
-    C -- User provides input --> D{AI Plan Review (Transparency + Trust)};
-    D -- User adjusts plan --> D;
+    A[User opens app] --> B{Dashboard};
+    B -- Tap "Start Workout" --> C{Context Window};
+    C -- User provides input --> D{AI Plan Review};
     D -- Tap "Start Workout" --> E{Live Workout Mode};
-    E -- Session Completed --> F{Post-Session Reflection (Closure Loop)};
-    F -- User provides feedback --> G[Personalization Model Updated];
-    F -- User shares --> H[Session Card Generated];
+    E -- Session Completed --> F{Post-Session Reflection};
 ```
 
 #### User Journey: Managing Settings and Preferences
@@ -354,7 +385,7 @@ graph TD
 
 ---
 
-## 6. Component Library
+## 7. Component Library
 
 ### 6.1 Component Strategy
 
@@ -454,9 +485,9 @@ For each custom component identified, a dedicated specification (either as a sep
 
 ---
 
-## 7. UX Pattern Decisions
+## 9. UX Pattern Decisions
 
-### 7.1 Consistency Rules
+### 9.1 Consistency Rules
 
 The following UX patterns establish consistent interaction and visual language across the application. Each pattern includes its specification, usage guidance, and examples.
 
@@ -626,9 +657,9 @@ The following UX patterns establish consistent interaction and visual language a
 
 ---
 
-## 8. Responsive Design & Accessibility
+## 10. Responsive Design & Accessibility
 
-### 8.1 Responsive Strategy
+### 10.1 Responsive Strategy
 
 **Goal:** Ensure the app delivers a smooth, adaptive experience across mobile, tablet, and desktop — starting web-first with future mobile-native expansion.
 
@@ -660,7 +691,7 @@ The following UX patterns establish consistent interaction and visual language a
 *   **Desktop:** Left menu for categories → right panel for content.
 *   **Long forms (onboarding):** Multi-step wizards with progress bar.
 
-### 8.2 Accessibility
+### 10.2 Accessibility
 
 **Goal:** To ensure the AI-Powered Personal Training Advisor is usable by the widest possible audience, including individuals with disabilities, adhering to established accessibility standards.
 
@@ -683,9 +714,7 @@ The following UX patterns establish consistent interaction and visual language a
 
 ---
 
-## 9. Implementation Guidance
-
-### 9.1 Completion Summary
+### 11.1 Completion Summary
 
 This UX Design Specification represents the culmination of a collaborative design process, translating core product requirements into a detailed and actionable user experience. Key outcomes include:
 
@@ -747,10 +776,6 @@ This UX Design Specification can serve as input to:
 ---
 
 _This UX Design Specification was created through collaborative design facilitation, not template generation. All decisions were made with user input and are documented with rationale._
-
----
-
-## 9. Implementation Guidance
 
 ### 9.1 Completion Summary
 

@@ -1,12 +1,12 @@
 import pytest
 import httpx
 from unittest.mock import patch, MagicMock
-from app.main import app
+from backend.app.main import app
 from app.core.config import settings
-from app.schemas.user import OnboardingData, UserProfile, CurrentUser
+from backend.app.schemas.user import OnboardingData, UserProfile, CurrentUser
 import pytest_asyncio
 from starlette import status
-from app.dependencies import get_current_user # Import get_current_user
+from backend.app.dependencies import get_current_user # Import get_current_user
 
 @pytest.fixture(scope="module")
 def anyio_backend():

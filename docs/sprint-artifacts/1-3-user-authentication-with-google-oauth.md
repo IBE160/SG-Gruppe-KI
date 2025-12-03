@@ -1,6 +1,6 @@
 # Story 1.3: User Authentication with Google OAuth
 
-Status: review
+Status: done
 
 
 
@@ -147,7 +147,10 @@ Gemini CLI
 
 
 
-### Completion Notes List
+### Completion Notes
+**Completed:** onsdag 3. desember 2025
+**Definition of Done:** All acceptance criteria met, code reviewed, tests passing
+ List
 
 - Implemented Task 1: Backend API for Google OAuth Callback. Created necessary directories and files (backend/app/core/config.py, backend/app/db/supabase.py, backend/app/api/v1/auth.py, backend/app/main.py). Configured environment variable setup and installed required Python dependencies.
 - Implemented Task 2: Frontend UI for Google OAuth. Modified src/app/(auth)/login/page.tsx to include the "Continue with Google" button and client-side redirection logic. Created public/google-icon.svg.

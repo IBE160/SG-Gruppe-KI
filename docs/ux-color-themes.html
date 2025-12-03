@@ -225,6 +225,22 @@
             background-color: var(--background);
         }
 
+        .theme-container.chosen {
+            border: 2px solid #7C3AED;
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
+        }
+
+        .chosen .theme-header h2::after {
+            content: 'Chosen';
+            display: inline-block;
+            background-color: #7C3AED;
+            color: white;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
     </style>
 </head>
 <body>
@@ -293,7 +309,7 @@
         </div>
 
         <!-- Theme 3: Flow -->
-        <div class="theme-container theme-flow">
+        <div class="theme-container theme-flow chosen">
             <div class="theme-header">
                 <h2>3. Flow (Dynamic & Personal)</h2>
                 <p>Inspired by Spotify's personalization. A versatile base with a dynamic primary color that could adapt to user mood or workout intensity.</p>

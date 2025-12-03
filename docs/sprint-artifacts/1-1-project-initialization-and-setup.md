@@ -1,6 +1,6 @@
 # Story 1.1: Project Initialization and Setup
 
-Status: review
+Status: Completed
 
 ## Story
 

@@ -209,6 +209,22 @@
         .direction-container { display: none; }
         .direction-container.active { display: block; }
 
+        .direction-container.chosen {
+            border: 2px solid var(--primary);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.2);
+        }
+
+        .chosen .direction-header h2::after {
+            content: 'Chosen';
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+
     </style>
 </head>
 <body>
@@ -257,7 +273,7 @@
         </div>
 
         <!-- Direction 2: Data-Driven Dashboard -->
-        <div class="direction-container direction-2 active">
+        <div class="direction-container direction-2 active chosen">
             <div class="direction-header">
                 <h2>2. Data-Driven Dashboard</h2>
                 <p>Puts key stats front and center. For users who are motivated by numbers and progress, inspired by Strava.</p>

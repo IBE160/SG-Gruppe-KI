@@ -24,8 +24,8 @@ async def sign_up(user_credentials: UserCreate, supabase: Client = Depends(get_s
         # using the service role client if you have public tables with RLS.
         
         # For now, just returning the session which includes the new user's ID and email.
-        if session.user:
-            return {"message": "success", "data": {"user_id": session.user.id, "email": session.user.email}}
+        if session.session:
+            return {"message": "success", "data": session.session}
         else:
             # This case might happen with email confirmation enabled.
              raise HTTPException(
