@@ -1,10 +1,16 @@
 
 
-pytest_plugins = ["anyio"] 
+import sys
+import os
+
+# Add the project root to sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+pytest_plugins = ["pytest_asyncio"] 
 
 import pytest
 from unittest.mock import patch, MagicMock
-from app.core import config # Import the config module, not just Settings
+from backend.app.core import config # Import the config module, not just Settings
 import httpx # Import httpx to patch it
 from app.dependencies import get_current_user # Import get_current_user for patching
 

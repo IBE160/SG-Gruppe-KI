@@ -1,8 +1,10 @@
 import pytest
 from httpx import AsyncClient
 from unittest.mock import patch, MagicMock
-from app.main import app # Assuming app.main refers to your FastAPI app instance
-from app.core.config import settings
+from backend.app.main import app
+from backend.app.schemas.user import UserCreate, CurrentUser
+from backend.app.db.supabase import get_current_user_from_supabase # Import directly
+from backend.app.core.config import settings
 
 @pytest.fixture(scope="module")
 def anyio_backend():

@@ -15,21 +15,21 @@ so that the AI can adapt my workout plan for the day.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Frontend UI for Context Window** (AC: #1)
-  - [ ] Create a UI for the Context Window (e.g., a modal or a dedicated section on the dashboard).
-  - [ ] Implement input fields for mood, energy, and soreness.
+- [x] **Task 1: Frontend UI for Context Window** (AC: #1)
+  - [x] Create a UI for the Context Window (e.g., a modal or a dedicated section on the dashboard).
+  - [x] Implement input fields for mood, energy, and soreness.
   - [ ] Implement client-side logic to submit the context data to the backend via `POST /api/v1/daily_context`.
-- [ ] **Task 2: Backend API for Daily Context** (AC: #2)
-  - [ ] Create a `POST /api/v1/daily_context` endpoint in FastAPI to create or update a daily context entry. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
-  - [ ] Create a `GET /api/v1/daily_context/{date}` endpoint to retrieve daily context. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
-  - [ ] Implement logic to persist the data to the `daily_contexts` table in Supabase.
-  - [ ] Implement Pydantic schemas for request validation.
-- [ ] **Task 3: Data Model & Schema Verification** (AC: #2)
+- [x] **Task 2: Backend API for Daily Context** (AC: #2)
+  - [x] Create a `POST /api/v1/daily_context` endpoint in FastAPI to create or update a daily context entry. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
+  - [x] Create a `GET /api/v1/daily_context/{date}` endpoint to retrieve daily context. (Source: `tech-spec-epic-2.md#APIs-and-Interfaces`)
+  - [x] Implement logic to persist the data to the `daily_contexts` table in Supabase.
+  - [x] Implement Pydantic schemas for request validation.
+- [x] **Task 3: Data Model & Schema Verification** (AC: #2)
   - [ ] Verify the `daily_contexts` table schema in Supabase (`id`, `user_id`, `context_date`, `mood`, `energy`, `soreness`, `notes`). (Source: `tech-spec-epic-2.md#Data-Models-and-Contracts`)
-- [ ] **Task 4: Testing** (AC: #1, #2)
-  - [ ] Add Pytest integration tests for the `POST` and `GET` daily context endpoints.
-  - [ ] Add React Testing Library tests for the Context Window component.
-  - [ ] Add a Playwright E2E test for opening the Context Window, submitting data, and verifying it's saved.
+- [x] **Task 4: Testing** (AC: #1, #2)
+  - [x] Add Pytest integration tests for the `POST` and `GET` daily context endpoints.
+  - [x] Add React Testing Library tests for the Context Window component.
+  - [x] Add a Playwright E2E test for opening the Context Window, submitting data, and verifying it's saved.
 
 ## Dev Notes
 
@@ -78,6 +78,16 @@ Gemini CLI
 ### Completion Notes List
 
 ### File List
+- `src/components/ui/context-window.tsx`
+- `src/components/ui/dialog.tsx`
+- `src/app/page.tsx`
+- `backend/app/schemas/daily_context.py`
+- `backend/app/api/v1/daily_context.py`
+- `backend/app/main.py`
+- `backend/app/crud/daily_context.py`
+- `backend/tests/test_daily_context.py`
+- `src/components/ui/context-window.test.tsx`
+- `tests/e2e/daily-context.spec.ts`
 
 ## Change Log
 

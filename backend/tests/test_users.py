@@ -2,11 +2,11 @@ import pytest
 import httpx
 from unittest.mock import patch, MagicMock
 from backend.app.main import app
-from app.core.config import settings
 from backend.app.schemas.user import OnboardingData, UserProfile, CurrentUser
 import pytest_asyncio
 from starlette import status
 from backend.app.dependencies import get_current_user # Import get_current_user
+from backend.app.db.supabase import get_supabase_service_client # Import this for mocking
 
 @pytest.fixture(scope="module")
 def anyio_backend():
@@ -17,20 +17,40 @@ async def client():
     async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://test") as client:
         yield client
 
-
-
 # Mock for get_supabase_client dependency
 @pytest.fixture
 def mock_supabase_client():
-    with patch("app.db.supabase.get_supabase_client") as mock:
+    with patch("backend.app.db.supabase.get_supabase_service_client") as mock_get_client:
         mock_client = MagicMock()
-        mock.return_value = mock_client
-        yield mock_client
+        mock_get_client.return_value = mock_client
+        
+        # Mock for supabase.auth (used by get_current_user_from_supabase indirectly)
+        mock_client.auth = MagicMock()
+        mock_client.auth.get_user.return_value = MagicMock(
+            user=MagicMock(
+                id="00000000-0000-4000-8000-000000000001",
+                email="test@example.com",
+                model_dump=lambda: {"id": "00000000-0000-4000-8000-000000000001", "email": "test@example.com"}
+            )
+        )
+
+        # Create a mock for the PostgrestAPI object returned by supabase.table("users")
+        mock_postgrest_api = MagicMock()
+        mock_client.table.return_value = mock_postgrest_api
+
+        # Configure common chainable methods to return themselves for further chaining
+        mock_postgrest_api.select.return_value = mock_postgrest_api
+        mock_postgrest_api.insert.return_value = mock_postgrest_api
+        mock_postgrest_api.update.return_value = mock_postgrest_api
+        mock_postgrest_api.eq.return_value = mock_postgrest_api
+        mock_postgrest_api.execute.return_value = MagicMock(data=[], count=0) # Default for execute
+
+        yield mock_client # Yield the mock_client so tests can call mock_client.table(...)
 
 @pytest.mark.asyncio
 async def test_post_onboarding_success(
     client: httpx.AsyncClient,
-    mock_supabase_client: MagicMock
+    mock_supabase_client: MagicMock # This is the mock_client, not the postgrest_api
 ):
     # Define a local override for get_current_user
     async def override_get_current_user():
@@ -47,8 +67,9 @@ async def test_post_onboarding_success(
             "units": "metric"
         }
 
-        # Mock the Supabase table update method
-        mock_supabase_client.table.return_value.update.return_value.eq.return_value.execute.return_value = MagicMock(
+        # Configure the mock for supabase.table("users").update().eq().execute()
+        mock_postgrest_api = mock_supabase_client.table.return_value
+        mock_postgrest_api.update.return_value.eq.return_value.execute.return_value = MagicMock(
             data=[
                 {
                     "id": "00000000-0000-4000-8000-000000000001",
@@ -61,9 +82,9 @@ async def test_post_onboarding_success(
                     "name": None # Assuming name might be null initially
                 }
             ],
-            count=1
+            count=1,
+            error=None # Explicitly set error to None for success case
         )
-
         response = await client.post(
             "/api/v1/users/onboarding",
             json=onboarding_data,
@@ -115,12 +136,13 @@ async def test_post_onboarding_user_not_found(
             "units": "metric"
         }
 
-        # Mock Supabase to return no data
-        mock_supabase_client.table.return_value.update.return_value.eq.return_value.execute.return_value = MagicMock(
-            data=[],
-            count=0
+        # Configure the mock for supabase.table("users").update().eq().execute()
+        mock_postgrest_api = mock_supabase_client.table.return_value
+        mock_postgrest_api.update.return_value.eq.return_value.execute.return_value = MagicMock(
+            data=[], # Mock Supabase to return no data
+            count=0,
+            error=None # Explicitly set error to None for this case
         )
-
         response = await client.post(
             "/api/v1/users/onboarding",
             json=onboarding_data,
@@ -151,22 +173,22 @@ async def test_get_user_profile_success(
             "injuries": "knee pain",
             "units": "imperial"
         }
-        # Configure the mock for supabase.table("users")
-        mock_table_chain = MagicMock()
-        mock_supabase_client.table.return_value = mock_table_chain
+        
+        # Configure the mock for supabase.table("users").select().eq().execute()
+        # This should return no data initially to trigger the insert path in the API
+        mock_postgrest_api = mock_supabase_client.table.return_value
+        mock_postgrest_api.select.return_value.eq.return_value.execute.return_value = MagicMock(
+            data=[], # User not found
+            count=0
+        )
 
-        # Configure the select chain
-        mock_select_chain = MagicMock()
-        mock_table_chain.select.return_value = mock_select_chain
-        mock_select_chain.eq.return_value = mock_select_chain # eq returns self
-        mock_select_chain.single.return_value = mock_select_chain # single returns self
-        mock_select_chain.execute.return_value = MagicMock(data=[mock_user_data], count=1)
-
-        # Configure the insert chain (in case select doesn't find it)
-        mock_insert_chain = MagicMock()
-        mock_table_chain.insert.return_value = mock_insert_chain
-        mock_insert_chain.execute.return_value = MagicMock(data=[mock_user_data], count=1)
-
+        # Configure the mock for supabase.table("users").insert().execute()
+        # This should return the created user data
+        mock_postgrest_api.insert.return_value.execute.return_value = MagicMock(
+            data=[mock_user_data],
+            count=1,
+            error=None # Explicitly set error to None for success case
+        )
         response = await client.get(
             "/api/v1/users/me",
             headers={"Authorization": "Bearer fake-token"}
@@ -175,7 +197,8 @@ async def test_get_user_profile_success(
         assert response.json()["email"] == "test@example.com"
         assert response.json()["goals"] == {"weight_loss": True}
         mock_supabase_client.table.assert_called_with("users")
-        mock_supabase_client.table.return_value.select.assert_called_once_with("*")
+        mock_postgrest_api.select.assert_called_once_with("*")
+        mock_postgrest_api.insert.assert_called_once()
     finally:
         app.dependency_overrides = {}
 
@@ -193,7 +216,10 @@ async def test_update_user_profile_success(
             "name": "Updated Name",
             "preferences": {"focus": "legs"}
         }
-        mock_supabase_client.table.return_value.update.return_value.eq.return_value.execute.return_value = MagicMock(
+
+        # Configure the mock for supabase.table("users").update().eq().execute()
+        mock_postgrest_api = mock_supabase_client.table.return_value
+        mock_postgrest_api.update.return_value.eq.return_value.execute.return_value = MagicMock(
             data=[
                 {
                     "id": "00000000-0000-4000-8000-000000000001",
@@ -206,9 +232,9 @@ async def test_update_user_profile_success(
                     "units": "metric"
                 }
             ],
-            count=1
+            count=1,
+            error=None # Explicitly set error to None for success case
         )
-
         response = await client.put(
             "/api/v1/users/me",
             json=update_data,
@@ -218,6 +244,6 @@ async def test_update_user_profile_success(
         assert response.json()["name"] == "Updated Name"
         assert response.json()["preferences"] == {"focus": "legs"}
         mock_supabase_client.table.assert_called_with("users")
-        mock_supabase_client.table.return_value.update.assert_called_once()
+        mock_postgrest_api.update.assert_called_once()
     finally:
         app.dependency_overrides = {}

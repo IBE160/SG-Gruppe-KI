@@ -1,153 +1,174 @@
-<testsuites id="" name="" tests="3" failures="3" skipped="0" errors="0" time="20.857122999999998">
-<testsuite name="email-auth.spec.ts" timestamp="2025-12-03T03:32:52.703Z" hostname="chromium" tests="1" failures="1" skipped="0" time="17.826" errors="0">
-<testcase name="Email Authentication › should allow a user to sign up, log out, and log back in" classname="email-auth.spec.ts" time="17.826">
-<failure message="email-auth.spec.ts:5:7 should allow a user to sign up, log out, and log back in" type="FAILURE">
-<![CDATA[  [chromium] › email-auth.spec.ts:5:7 › Email Authentication › should allow a user to sign up, log out, and log back in 
+<testsuites id="" name="" tests="3" failures="3" skipped="0" errors="0" time="23.989942000000003">
+<testsuite name="daily-context.spec.ts" timestamp="2025-12-03T13:01:00.149Z" hostname="chromium" tests="1" failures="1" skipped="0" time="19.999" errors="0">
+<testcase name="Daily Context Window › should allow an authenticated user to submit daily context" classname="daily-context.spec.ts" time="19.999">
+<failure message="daily-context.spec.ts:6:7 should allow an authenticated user to submit daily context" type="FAILURE">
+<![CDATA[  [chromium] › daily-context.spec.ts:6:7 › Daily Context Window › should allow an authenticated user to submit daily context 
 
-    TimeoutError: page.fill: Timeout 15000ms exceeded.
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: /Open Context Window/i })
+    Expected: visible
+    Timeout: 15000ms
+    Error: element(s) not found
+
     Call log:
-      - waiting for locator('input[name="email"]')
+      - Expect "toBeVisible" with timeout 15000ms
+      - waiting for getByRole('button', { name: /Open Context Window/i })
 
 
-      11 |
-      12 |     // Fill sign-up form
-    > 13 |     await page.fill('input[name="email"]', email);
-         |                ^
-      14 |     await page.fill('input[name="password"]', password);
-      15 |
-      16 |     // Click sign-up button
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\email-auth.spec.ts:13:16
+      11 |     // The ContextWindow trigger button should be visible.
+      12 |     const openContextButton = page.getByRole('button', { name: /Open Context Window/i });
+    > 13 |     await expect(openContextButton).toBeVisible();
+         |                                     ^
+      14 |
+      15 |     // Click the button to open the context window dialog
+      16 |     await openContextButton.click();
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\daily-context.spec.ts:13:37
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-chromium\test-failed-1.png
+    ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-chromium\test-failed-1.png
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
     attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-chromium\video.webm
+    ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-chromium\video.webm
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-    Error Context: ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-chromium\error-context.md
+    Error Context: ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-chromium\error-context.md
 
     attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-chromium\trace.zip
+    ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-chromium\trace.zip
     Usage:
 
-        npx playwright show-trace ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-chromium\trace.zip
+        npx playwright show-trace ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-chromium\trace.zip
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-chromium\test-failed-1.png]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-chromium\test-failed-1.png]]
 
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-chromium\video.webm]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-chromium\video.webm]]
 
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-chromium\error-context.md]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-chromium\error-context.md]]
 
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-chromium\trace.zip]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-chromium\trace.zip]]
 ]]>
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="email-auth.spec.ts" timestamp="2025-12-03T03:32:52.703Z" hostname="firefox" tests="1" failures="1" skipped="0" time="17.6" errors="0">
-<testcase name="Email Authentication › should allow a user to sign up, log out, and log back in" classname="email-auth.spec.ts" time="17.6">
-<failure message="email-auth.spec.ts:5:7 should allow a user to sign up, log out, and log back in" type="FAILURE">
-<![CDATA[  [firefox] › email-auth.spec.ts:5:7 › Email Authentication › should allow a user to sign up, log out, and log back in 
+<testsuite name="daily-context.spec.ts" timestamp="2025-12-03T13:01:00.149Z" hostname="firefox" tests="1" failures="1" skipped="0" time="18.114" errors="0">
+<testcase name="Daily Context Window › should allow an authenticated user to submit daily context" classname="daily-context.spec.ts" time="18.114">
+<failure message="daily-context.spec.ts:6:7 should allow an authenticated user to submit daily context" type="FAILURE">
+<![CDATA[  [firefox] › daily-context.spec.ts:6:7 › Daily Context Window › should allow an authenticated user to submit daily context 
 
-    TimeoutError: page.fill: Timeout 15000ms exceeded.
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: /Open Context Window/i })
+    Expected: visible
+    Timeout: 15000ms
+    Error: element(s) not found
+
     Call log:
-      - waiting for locator('input[name="email"]')
+      - Expect "toBeVisible" with timeout 15000ms
+      - waiting for getByRole('button', { name: /Open Context Window/i })
 
 
-      11 |
-      12 |     // Fill sign-up form
-    > 13 |     await page.fill('input[name="email"]', email);
-         |                ^
-      14 |     await page.fill('input[name="password"]', password);
-      15 |
-      16 |     // Click sign-up button
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\email-auth.spec.ts:13:16
+      11 |     // The ContextWindow trigger button should be visible.
+      12 |     const openContextButton = page.getByRole('button', { name: /Open Context Window/i });
+    > 13 |     await expect(openContextButton).toBeVisible();
+         |                                     ^
+      14 |
+      15 |     // Click the button to open the context window dialog
+      16 |     await openContextButton.click();
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\daily-context.spec.ts:13:37
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-firefox\test-failed-1.png
+    ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-firefox\test-failed-1.png
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
     attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-firefox\video.webm
+    ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-firefox\video.webm
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-    Error Context: ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-firefox\error-context.md
+    Error Context: ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-firefox\error-context.md
 
     attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-firefox\trace.zip
+    ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-firefox\trace.zip
     Usage:
 
-        npx playwright show-trace ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-firefox\trace.zip
+        npx playwright show-trace ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-firefox\trace.zip
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-firefox\test-failed-1.png]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-firefox\test-failed-1.png]]
 
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-firefox\video.webm]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-firefox\video.webm]]
 
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-firefox\error-context.md]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-firefox\error-context.md]]
 
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-firefox\trace.zip]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-firefox\trace.zip]]
 ]]>
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="email-auth.spec.ts" timestamp="2025-12-03T03:32:52.703Z" hostname="webkit" tests="1" failures="1" skipped="0" time="16.612" errors="0">
-<testcase name="Email Authentication › should allow a user to sign up, log out, and log back in" classname="email-auth.spec.ts" time="16.612">
-<failure message="email-auth.spec.ts:5:7 should allow a user to sign up, log out, and log back in" type="FAILURE">
-<![CDATA[  [webkit] › email-auth.spec.ts:5:7 › Email Authentication › should allow a user to sign up, log out, and log back in 
+<testsuite name="daily-context.spec.ts" timestamp="2025-12-03T13:01:00.149Z" hostname="webkit" tests="1" failures="1" skipped="0" time="19.479" errors="0">
+<testcase name="Daily Context Window › should allow an authenticated user to submit daily context" classname="daily-context.spec.ts" time="19.479">
+<failure message="daily-context.spec.ts:6:7 should allow an authenticated user to submit daily context" type="FAILURE">
+<![CDATA[  [webkit] › daily-context.spec.ts:6:7 › Daily Context Window › should allow an authenticated user to submit daily context 
 
-    TimeoutError: page.fill: Timeout 15000ms exceeded.
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: /Open Context Window/i })
+    Expected: visible
+    Timeout: 15000ms
+    Error: element(s) not found
+
     Call log:
-      - waiting for locator('input[name="email"]')
+      - Expect "toBeVisible" with timeout 15000ms
+      - waiting for getByRole('button', { name: /Open Context Window/i })
 
 
-      11 |
-      12 |     // Fill sign-up form
-    > 13 |     await page.fill('input[name="email"]', email);
-         |                ^
-      14 |     await page.fill('input[name="password"]', password);
-      15 |
-      16 |     // Click sign-up button
-        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\email-auth.spec.ts:13:16
+      11 |     // The ContextWindow trigger button should be visible.
+      12 |     const openContextButton = page.getByRole('button', { name: /Open Context Window/i });
+    > 13 |     await expect(openContextButton).toBeVisible();
+         |                                     ^
+      14 |
+      15 |     // Click the button to open the context window dialog
+      16 |     await openContextButton.click();
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\daily-context.spec.ts:13:37
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-webkit\test-failed-1.png
+    ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-webkit\test-failed-1.png
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
     attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-webkit\video.webm
+    ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-webkit\video.webm
     ────────────────────────────────────────────────────────────────────────────────────────────────
 
-    Error Context: ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-webkit\error-context.md
+    Error Context: ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-webkit\error-context.md
 
     attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
-    ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-webkit\trace.zip
+    ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-webkit\trace.zip
     Usage:
 
-        npx playwright show-trace ..\..\test-results\email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-webkit\trace.zip
+        npx playwright show-trace ..\..\test-results\daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-webkit\trace.zip
 
     ────────────────────────────────────────────────────────────────────────────────────────────────
 ]]>
 </failure>
 <system-out>
 <![CDATA[
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-webkit\test-failed-1.png]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-webkit\test-failed-1.png]]
 
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-webkit\video.webm]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-webkit\video.webm]]
 
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-webkit\error-context.md]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-webkit\error-context.md]]
 
-[[ATTACHMENT|email-auth-Email-Authentic-b0e9b--up-log-out-and-log-back-in-webkit\trace.zip]]
+[[ATTACHMENT|daily-context-Daily-Contex-cb4fd-ser-to-submit-daily-context-webkit\trace.zip]]
 ]]>
 </system-out>
 </testcase>

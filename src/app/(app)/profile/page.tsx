@@ -20,7 +20,11 @@ export default function ProfilePage() {
           // Pass the access token to the API function
           const profile = await getUserProfile(session.access_token);
           setUser(profile);
-          setFormData(profile);
+          setFormData({
+            ...profile,
+            goals: (profile.goals as string[] | null | undefined) ?? [],
+            preferences: profile.preferences ?? {},
+          });
         } catch (err: any) {
           setError(err.message);
         } finally {
@@ -39,14 +43,20 @@ export default function ProfilePage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleGoalsChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleGoalsInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+    // Split by comma, trim whitespace, filter out empty strings
+    const goalsArray = value.split(',').map(item => item.trim()).filter(item => item.length > 0);
+    setFormData(prev => ({ ...prev, goals: goalsArray }));
+  };
+
+  const handlePreferencesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
     try {
-      const goals = JSON.parse(e.target.value);
-      setFormData(prev => ({ ...prev, goals }));
+      const parsed = value ? JSON.parse(value) : {};
+      setFormData(prev => ({ ...prev, preferences: parsed }));
     } catch (err) {
-      // Handle invalid JSON input
-      console.error("Invalid JSON for goals:", err);
-      // Optionally set an error state for the goals field
+      console.error("Invalid JSON for preferences:", err);
     }
   };
 
@@ -134,12 +144,12 @@ export default function ProfilePage() {
             />
           </div>
           <div>
-            <label htmlFor="goals" className="block text-sm font-medium text-gray-700">Goals (JSON)</label>
+            <label htmlFor="goals" className="block text-sm font-medium text-gray-700">Goals</label>
             <textarea
               name="goals"
               id="goals"
-              value={JSON.stringify(formData.goals, null, 2)}
-              onChange={handleGoalsChange}
+              value={Array.isArray(formData.goals) ? formData.goals.join(', ') : ''}
+              onChange={handleGoalsInput}
               rows={5}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             ></textarea>
@@ -150,9 +160,9 @@ export default function ProfilePage() {
               name="preferences"
               id="preferences"
               value={JSON.stringify(formData.preferences, null, 2)}
-              onChange={handleGoalsChange} // Re-using handleGoalsChange for preferences (assuming similar JSON structure)
+              onChange={handlePreferencesChange}
               rows={5}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm font-mono"
             ></textarea>
           </div>
           <div>
@@ -219,7 +229,7 @@ export default function ProfilePage() {
           </div>
           <div>
             <p className="text-sm font-medium text-gray-700">Goals:</p>
-            <pre className="mt-1 p-2 bg-gray-50 rounded-md text-sm">{JSON.stringify(user.goals, null, 2)}</pre>
+            <p className="mt-1 text-lg font-semibold">{Array.isArray(user.goals) ? user.goals.join(', ') : ''}</p>
           </div>
           <div>
             <p className="text-sm font-medium text-gray-700">Preferences:</p>

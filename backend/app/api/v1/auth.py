@@ -3,9 +3,9 @@ from fastapi.responses import RedirectResponse
 from supabase import Client
 from gotrue.errors import AuthApiError
 
-from app.schemas.user import UserCreate, UserLogin
-from app.db.supabase import get_supabase_client
-from app.core.config import settings
+from ...schemas.user import UserCreate, UserLogin
+from ...db.supabase import get_supabase_client
+from ...core.config import settings
 
 router = APIRouter()
 

@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from '@/lib/supabaseClient';
 
+import { ContextWindow } from "@/components/ui/context-window";
+
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -92,6 +94,7 @@ export default function Home() {
           >
             Go to Profile
           </a>
+          <ContextWindow />
         </div>
       </main>
     </div>
