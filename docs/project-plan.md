@@ -28,8 +28,8 @@
     - [x] File : validation-report-ux-design.md
   - [x] /run-agent-task tea *framework {prompt / user-input-file}
   - [x] /run-agent-task tea *ci {prompt / user-input-file}
-  - [] /run-agent-task tea *test-design {prompt / user-input-file}
-    - [] File : master-test-plan.md
+  - [x] /run-agent-task tea *test-design {prompt / user-input-file}
+    - [x] File : master-test-plan.md
 
 ## Fase 2
 
@@ -52,10 +52,10 @@
      - [x] File : tech-spec-epic-4.md
 
   - [] /run-agent-task sm validate-epic-tech-content {prompt / user-input-file}
-     - [] File : validation-report-tech-spec-epic-1.md
-     - [] File : validation-report-tech-spec-epic-2.md
-     - [] File : validation-report-tech-spec-epic-3.md
-     - [] File : validation-report-tech-spec-epic-4.md
+     - [x] File : validation-report-tech-spec-epic-1.md
+     - [x] File : validation-report-tech-spec-epic-2.md
+     - [x] File : validation-report-tech-spec-epic-3.md
+     - [x] File : validation-report-tech-spec-epic-4.md
 
 
     - foreach story in epic:

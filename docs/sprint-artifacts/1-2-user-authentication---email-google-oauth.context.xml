@@ -1,0 +1,149 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.2</storyId>
+    <title>User Authentication - Email &amp; Google OAuth</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-04</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\docs\sprint-artifacts\1-2-user-authentication---email-google-oauth.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>new user</asA>
+    <iWant>to create an account or log in using my email/password or Google</iWant>
+    <soThat>I can securely access the application.</soThat>
+    <tasks>
+      <task>
+        <description>Frontend - UI Implementation</description>
+        <subtasks>
+          <subtask>Create the Welcome/Authentication Gateway screen (Flow 1, Screen 1).</subtask>
+          <subtask>Create the Email Sign-up form (Flow 1, Screen 2A).</subtask>
+          <subtask>Create the Email Login form with a "Forgot Password" link (Flow 1, Screen 2B).</subtask>
+          <subtask>**Testing:** Implement component tests for all three screens to verify rendering and basic interactions. [Source: docs/architecture.md#Decision Summary - Testing]</subtask>
+        </subtasks>
+      </task>
+      <task>
+        <description>Frontend - Supabase Integration</description>
+        <subtasks>
+          <subtask>Integrate Supabase Auth client for email/password sign-up.</subtask>
+          <subtask>Integrate Supabase Auth client for email/password sign-in.</subtask>
+          <subtask>Integrate Supabase Auth client for Google OAuth.</subtask>
+          <subtask>Implement client-side logic to handle redirection after successful authentication (to Onboarding or Dashboard).</subtask>
+          <subtask>Manage JWT tokens securely on the client-side.</subtask>
+          <subtask>**Testing:** Implement integration tests to verify successful authentication and redirection flows for both email/password and Google OAuth.</subtask>
+        </subtasks>
+      </task>
+      <task>
+        <description>Backend - Supabase Setup</description>
+        <subtasks>
+          <subtask>Enable Email and Google providers in the Supabase Auth settings.</subtask>
+          <subtask>Configure the `Users` table in the Supabase database.</subtask>
+          <subtask>**Testing:** Verify that new users are correctly added to the `Users` table upon registration.</subtask>
+        </subtasks>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="1">Given I am on the Welcome/Authentication Gateway screen, when I choose "Create Account" or "Log In" using email and password, then I am presented with the appropriate forms (Email Sign-up or Email Login).</criterion>
+    <criterion id="2">Given I am on the Email Sign-up form, when I enter valid credentials and register, then I am successfully authenticated and redirected to the Onboarding flow.</criterion>
+    <criterion id="3">Given I am on the Email Login form, when I enter valid credentials and log in, then I am successfully authenticated and redirected to the Dashboard.</criterion>
+    <criterion id="4">Given I am on the Welcome/Authentication Gateway screen, when I choose "Continue with Google", then I am redirected to the Google OAuth flow and can successfully authenticate.</criterion>
+    <criterion id="5">Upon successful Google authentication, as a new user, I am redirected to the Onboarding flow.</criterion>
+    <criterion id="6">Upon successful Google authentication, as a returning user, I am redirected to the Dashboard.</criterion>
+    <criterion id="7">All authentication is handled via Supabase Auth.</criterion>
+    <criterion id="8">User data for new registrations is stored in the Supabase `Users` table.</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Authentication</section>
+        <snippet>Handled by **Supabase Auth**. Use `Bearer` token in `Authorization` header.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Architecture</section>
+        <snippet>Data Models: Based on the ERD in the project proposal. Key models include `Users`, `Goals`, `WorkoutPlans`, `WorkoutLogs`, and `Integrations`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>ibe160 - Epic Breakdown</title>
+        <section>Story 1.2: User Authentication - Email &amp; Google OAuth</section>
+        <snippet>As a new user, I want to create an account or log in using my email/password or Google, so that I can securely access the application.</snippet>
+      </doc>
+      <doc>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction - Phase 1</title>
+        <section>Flow 1: Account Creation &amp; Authentication (Google • Email)</section>
+        <snippet>Core User Journey: User lands on a visually compelling dark-themed welcome screen. They choose to "Create Account" (leading to the email sign-up form) or "Log In" (leading to the email login form), or use social login via Google/Apple icons. Users can also easily switch between sign-up and login forms via embedded links. New users proceed to onboarding, returning users to dashboard.</snippet>
+      </doc>
+    </docs>
+    <code></code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <package name="next" version="latest"/>
+        <package name="@supabase/supabase-js"/>
+        <package name="react"/>
+        <package name="react-dom"/>
+        <package name="typescript"/>
+        <package name="tailwindcss"/>
+        <package name="eslint"/>
+        <package name="jest"/>
+        <package name="@testing-library/react"/>
+        <package name="playwright"/>
+        <package name="zustand"/>
+      </ecosystem>
+      <ecosystem name="Python">
+        <package name="FastAPI"/>
+        <package name="uvicorn"/>
+        <package name="pydantic"/>
+        <package name="pytest"/>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>
+      <type>Security</type>
+      <description>Authentication via Supabase Auth. Authorization via PostgreSQL Row Level Security (RLS). Secrets managed via environment variables. Input validation using Pydantic models in FastAPI.</description>
+      <source>docs/architecture.md#Security Architecture</source>
+    </constraint>
+    <constraint>
+      <type>API</type>
+      <description>Protected endpoints expect a `Bearer` token in the `Authorization` header.</description>
+      <source>docs/architecture.md#API Contracts</source>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>Supabase Auth</name>
+      <kind>JavaScript Library</kind>
+      <signature>supabase.auth.signUp(), supabase.auth.signInWithPassword(), supabase.auth.signInWithOAuth()</signature>
+      <path>@supabase/supabase-js</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      <standard>Frontend: Jest, React Testing Library (unit/integration), Playwright (end-to-end).</standard>
+      <standard>Backend: Pytest.</standard>
+    </standards>
+    <locations>
+      <location>Frontend components: `apps/web/src/app/(auth)/**/*.test.tsx`</location>
+      <location>Frontend end-to-end: `apps/web/tests/auth.spec.ts`</location>
+    </locations>
+    <ideas>
+      <idea>Verify that a new user can sign up with email and password and is redirected to the onboarding page.</idea>
+      <idea>Verify that an existing user can sign in with email and password and is redirected to the dashboard.</idea>
+      <idea>Verify that a user can sign in with Google and is redirected correctly.</idea>
+      <idea>Verify that invalid email/password combinations are handled gracefully with appropriate error messages.</idea>
+      <idea>Verify that a new user's data is correctly stored in the Supabase `Users` table.</idea>
+    </ideas>
+  </tests>
+</story-context>

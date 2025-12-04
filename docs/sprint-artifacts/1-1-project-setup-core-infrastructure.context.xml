@@ -1,0 +1,203 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.1</storyId>
+    <title>Project Setup & Core Infrastructure</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-04</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\docs\sprint-artifacts\1-1-project-setup-core-infrastructure.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>to initialize the project with the specified tech stack</iWant>
+    <soThat>I can begin developing features on a solid foundation.</soThat>
+    <tasks>
+      <task>
+        <description>Initialize Next.js Project (`apps/web`)</description>
+        <subtasks>
+          <subtask>Execute `npx create-next-app@latest my-ai-trainer --typescript --tailwind --eslint --app --src-dir` in the project root.</subtask>
+          <subtask>Verify `apps/web` directory is created with Next.js project structure.</subtask>
+          <subtask>**Testing:** Verify `apps/web/tests` directory exists and basic testing setup (Jest, React Testing Library, Playwright) is configured. [Source: docs/architecture.md#Decision Summary - Testing]</subtask>
+        </subtasks>
+      </task>
+      <task>
+        <description>Create FastAPI Project (`apps/api`)</description>
+        <subtasks>
+          <subtask>Create `apps/api` directory as a peer to `apps/web`.</subtask>
+          <subtask>Initialize a Python virtual environment within `apps/api`.</subtask>
+          <subtask>Install FastAPI and Uvicorn.</subtask>
+          <subtask>Create a basic `main.py` (e.g., with a simple "Hello World" endpoint).</subtask>
+          <subtask>**Testing:** Verify `apps/api/tests` directory exists and basic testing setup (e.g., pytest) is configured. [Source: docs/architecture.md#Decision Summary - Testing]</subtask>
+        </subtasks>
+      </task>
+      <task>
+        <description>Configure Monorepo `package.json`</description>
+        <subtasks>
+          <subtask>Update root `package.json` to reflect monorepo structure (e.g., using `workspaces` for npm/yarn or `pnpm-workspace.yaml` for pnpm).</subtask>
+          <subtask>Configure scripts to run commands in both `apps/web` and `apps/api` (e.g., `npm run dev:web`, `npm run dev:api`).</subtask>
+        </subtasks>
+      </task>
+      <task>
+        <description>Initial `.gitignore` and `README.md`</description>
+        <subtasks>
+          <subtask>Create/update root `.gitignore` to ignore common development artifacts (`node_modules`, `.next`, `__pycache__`, `.venv`).</subtask>
+          <subtask>Create/update root `README.md` with basic project information and setup instructions.</subtask>
+        </subtasks>
+      </task>
+      <task>
+        <description>Initial Project Build and Run Verification</description>
+        <subtasks>
+          <subtask>Successfully run `npm install` in the root.</subtask>
+          <subtask>Successfully start the Next.js development server.</subtask>
+          <subtask>Successfully start the FastAPI development server.</subtask>
+          <subtask>**Testing:** Run initial provided tests for both frontend and backend to confirm basic setup. [Source: docs/architecture.md#Development Environment - Setup Commands]</subtask>
+        </subtasks>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="1">Given the project is new and empty</criterion>
+    <criterion id="2">When I execute the `npx create-next-app@latest my-ai-trainer --typescript --tailwind --eslint --app --src-dir` command</criterion>
+    <criterion id="3">Then a Next.js project structure is created in `apps/web`</criterion>
+    <criterion id="4">And `apps/api` (FastAPI) directory is created as a peer to `apps/web`</criterion>
+    <criterion id="5">And basic `.gitignore` and `README.md` files are present</criterion>
+    <criterion id="6">And `package.json` reflects a monorepo setup</criterion>
+    <criterion id="7">And `Next.js` and `FastAPI` are installed as part of the monorepo</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+  <doc>
+    <path>docs/architecture.md</path>
+    <title>Architecture</title>
+    <section>Executive Summary</section>
+    <snippet>This document outlines the architecture for the AI-Powered Personal Training Advisor. It defines a modern, scalable, and robust technology stack designed to support the project's unique requirements, including a conversational AI engine, real-time feedback, and integrated music features. The architecture is centered around a decoupled frontend (Next.js) and backend (FastAPI), with Supabase providing the data and authentication layers.</snippet>
+  </doc>
+  <doc>
+    <path>docs/architecture.md</path>
+    <title>Architecture</title>
+    <section>Project Initialization</section>
+    <snippet>The first implementation story should be to initialize the project by executing the following command in the terminal. This will create the foundational structure of the web application. `npx create-next-app@latest my-ai-trainer --typescript --tailwind --eslint --app --src-dir`</snippet>
+  </doc>
+  <doc>
+    <path>docs/architecture.md</path>
+    <title>Architecture</title>
+    <section>Decision Summary</section>
+    <snippet>Key architectural decisions including FastAPI for API, Supabase for data/auth, Zustand for state, and Jest/React Testing Library/Playwright for testing.</snippet>
+  </doc>
+  <doc>
+    <path>docs/architecture.md</path>
+    <title>Architecture</title>
+    <section>Project Structure</section>
+    <snippet>The project will be a monorepo containing two main packages: one for the Next.js frontend and one for the FastAPI backend. The `create-next-app` command with the `--src-dir` flag will establish the initial frontend structure.</snippet>
+  </doc>
+  <doc>
+    <path>docs/epics.md</path>
+    <title>ibe160 - Epic Breakdown</title>
+    <section>Epic 1: Core Platform & User Foundation</section>
+    <snippet>Establish the foundational infrastructure, user authentication, and conversational onboarding to enable basic user interaction and personalization.</snippet>
+  </doc>
+  <doc>
+    <path>docs/epics.md</path>
+    <title>ibe160 - Epic Breakdown</title>
+    <section>Story 1.1: Project Setup & Core Infrastructure</section>
+    <snippet>As a developer, I want to initialize the project with the specified tech stack, so that I can begin developing features on a solid foundation. Includes Acceptance Criteria and Technical Notes.</snippet>
+  </doc>
+  <doc>
+    <path>docs/validation-report-architecture.md</path>
+    <title>Validation Report</title>
+    <section>Summary</section>
+    <snippet>Validation of the architecture document, confirming 18/22 passed with 0 critical issues. The architecture document is validated and ready to guide implementation.</snippet>
+  </doc>
+  <doc>
+    <path>docs/ux-design-direction.md</path>
+    <title>UX Design Direction - Phase 1</title>
+    <section>Overarching UX Principles</section>
+    <snippet>The UX design for Phase 1 is guided by User-Centric AI, Intuitive Efficiency, Motivating & Engaging, Transparent & Trustworthy, and Accessible & Robust principles.</snippet>
+  </doc>
+</docs>
+    <code></code>
+    <dependencies>
+  <ecosystem name="Node.js">
+    <package name="next" version="latest"/>
+    <package name="react"/>
+    <package name="react-dom"/>
+    <package name="typescript"/>
+    <package name="tailwindcss"/>
+    <package name="eslint"/>
+    <package name="jest" version="30.2.0"/>
+    <package name="@testing-library/react" version="16.3.0"/>
+    <package name="playwright" version="1.57.0"/>
+    <package name="zustand" version="5.0.9"/>
+    <package name="date-fns"/>
+  </ecosystem>
+  <ecosystem name="Python">
+    <package name="FastAPI" version="0.123.7"/>
+    <package name="uvicorn"/>
+    <package name="pydantic"/>
+    <package name="pytest"/>
+  </ecosystem>
+</dependencies>
+  </artifacts>
+
+  <constraints>
+  <constraint>
+    <type>Error Handling</type>
+    <description>Implement graceful error recovery using React Error Boundaries on the frontend and consistent JSON error format on the backend.</description>
+    <source>docs/architecture.md#Error Handling &amp; Logging</source>
+  </constraint>
+  <constraint>
+    <type>Logging</type>
+    <description>Use structured JSON logging to the console with INFO level, including timestamp, level, message, and context.</description>
+    <source>docs/architecture.md#Error Handling &amp; Logging</source>
+  </constraint>
+  <constraint>
+    <type>API Response Format</type>
+    <description>All API responses must follow standard success (`{"data": ...}`) or error (`{"error": {"message": ..., "code": ...}}`) JSON formats.</description>
+    <source>docs/architecture.md#API Response Format</source>
+  </constraint>
+  <constraint>
+    <type>Date &amp; Time Handling</type>
+    <description>All dates and times in the backend/database must be stored in UTC. Frontend will convert to local timezone for display using `date-fns`.</description>
+    <source>docs/architecture.md#Date &amp; Time Handling</source>
+  </constraint>
+  <constraint>
+    <type>Naming Convention</type>
+    <description>API Routes: kebab-case, plural; Database Tables: PascalCase, plural; Database Columns: snake_case; React Components: PascalCase; CSS/Styled Components: camelCase/kebab-case; Event Names: domain:event.</description>
+    <source>docs/architecture.md#Naming Conventions</source>
+  </constraint>
+  <constraint>
+    <type>Code Organization</type>
+    <description>Test files co-located with source (e.g., `*.test.ts`); shared code in `lib` or `utils` directories.</description>
+    <source>docs/architecture.md#Code Organization</source>
+  </constraint>
+  <constraint>
+    <type>Security</type>
+    <description>Authentication via Supabase Auth. Authorization via PostgreSQL Row Level Security (RLS). Secrets managed via environment variables. Input validation using Pydantic models in FastAPI.</description>
+    <source>docs/architecture.md#Security Architecture</source>
+  </constraint>
+</constraints>
+  <interfaces></interfaces>
+<tests>
+  <standards>
+    <standard>Frontend: Jest, React Testing Library (unit/integration), Playwright (end-to-end).</standard>
+    <standard>Backend: Pytest.</standard>
+  </standards>
+  <locations>
+    <location>Frontend unit/integration: co-located with source, e.g., `src/**/*.test.ts` or `src/**/*.spec.ts`.</location>
+    <location>Frontend end-to-end: `apps/web/tests/`.</location>
+    <location>Backend unit/integration: `apps/api/tests/`.</location>
+  </locations>
+  <ideas>
+    <idea>Verify Next.js project structure after `create-next-app` command.</idea>
+    <idea>Verify `apps/api` directory and basic FastAPI setup (e.g., a simple endpoint responds).</idea>
+    <idea>Verify root `package.json` reflects monorepo configuration (e.g., `workspaces`).</idea>
+    <idea>Verify `.gitignore` file correctly ignores build artifacts and environment directories.</idea>
+    <idea>Verify `README.md` exists with basic project information.</idea>
+    <idea>Confirm successful startup of both Next.js and FastAPI development servers.</idea>
+  </ideas>
+</tests>
+</story-context>
