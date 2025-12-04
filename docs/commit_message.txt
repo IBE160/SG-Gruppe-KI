@@ -1,8 +1,0 @@
-feat(architecture): Explicitly define technology versions in architecture document
-
-Addressed critical issues from the architecture validation report by:
-- Specifying explicit version numbers for key technologies (Next.js, TypeScript, Tailwind CSS, ESLint, FastAPI, Python, Supabase clients, OpenAI client) in the "Decision Summary" table.
-- Including verification dates and notes on LTS considerations and potential breaking changes.
-- Updating the `create-next-next-app` command and Python version in the "Project Initialization" section with specific versions.
-
-This improves clarity for AI agents and future developers, and mitigates risks associated with unspecified "latest" versions.
