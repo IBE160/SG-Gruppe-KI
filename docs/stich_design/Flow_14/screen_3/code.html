@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customize Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex min-h-screen w-full flex-col">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-10 flex items-center justify-between bg-background-light/80 p-4 pb-3 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="flex size-10 shrink-0 items-center justify-center text-white/90">
+<span class="material-symbols-outlined text-3xl">arrow_back_ios_new</span>
+</div>
+<h1 class="flex-1 text-center text-lg font-bold leading-tight tracking-[-0.015em] text-white">Customize Dashboard</h1>
+<div class="size-10 shrink-0"></div>
+</header>
+<main class="flex-1 px-4 pb-48">
+<!-- Section: Available Widgets -->
+<section class="mt-4">
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] text-white/90">Available Widgets</h2>
+<div class="mt-3 flex flex-col gap-2">
+<!-- List Item: Weekly Activity -->
+<div class="flex min-h-14 items-center justify-between gap-4 rounded-lg bg-white/5 p-3">
+<div class="flex items-center gap-4">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined">bar_chart</span>
+</div>
+<p class="flex-1 truncate text-base font-normal leading-normal text-white">Weekly Activity</p>
+</div>
+<button class="shrink-0 rounded-full bg-primary/20 px-4 py-1.5 text-sm font-medium leading-normal text-primary">+ Add</button>
+</div>
+<!-- List Item: Calorie Tracker -->
+<div class="flex min-h-14 items-center justify-between gap-4 rounded-lg bg-white/5 p-3">
+<div class="flex items-center gap-4">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined">local_fire_department</span>
+</div>
+<p class="flex-1 truncate text-base font-normal leading-normal text-white">Calorie Tracker</p>
+</div>
+<button class="shrink-0 rounded-full bg-primary/20 px-4 py-1.5 text-sm font-medium leading-normal text-primary">+ Add</button>
+</div>
+<!-- List Item: Workout Streak -->
+<div class="flex min-h-14 items-center justify-between gap-4 rounded-lg bg-white/5 p-3">
+<div class="flex items-center gap-4">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<p class="flex-1 truncate text-base font-normal leading-normal text-white">Workout Streak</p>
+</div>
+<div class="shrink-0">
+<div class="flex items-center gap-2 text-white/60">
+<span class="material-symbols-outlined text-xl">check_circle</span>
+<span class="text-sm font-medium">Added</span>
+</div>
+</div>
+</div>
+<!-- List Item: Water Intake -->
+<div class="flex min-h-14 items-center justify-between gap-4 rounded-lg bg-white/5 p-3">
+<div class="flex items-center gap-4">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<p class="flex-1 truncate text-base font-normal leading-normal text-white">Water Intake</p>
+</div>
+<div class="shrink-0">
+<div class="flex items-center gap-2 text-white/60">
+<span class="material-symbols-outlined text-xl">check_circle</span>
+<span class="text-sm font-medium">Added</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Your Dashboard Layout -->
+<section class="mt-8">
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] text-white/90">Your Dashboard Layout</h2>
+<div class="mt-3 flex flex-col gap-3 rounded-lg border border-dashed border-white/20 bg-white/5 p-4">
+<!-- Draggable Item: Workout Streak -->
+<div class="flex min-h-14 cursor-grab items-center justify-between gap-4 rounded-lg bg-white/10 p-3">
+<div class="flex items-center gap-4">
+<div class="flex size-10 shrink-0 items-center justify-center text-white/50">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<p class="flex-1 truncate text-base font-normal leading-normal text-white">Workout Streak</p>
+</div>
+<button class="flex size-8 shrink-0 items-center justify-center text-white/50">
+<span class="material-symbols-outlined">remove_circle</span>
+</button>
+</div>
+<!-- Draggable Item: Water Intake -->
+<div class="flex min-h-14 cursor-grab items-center justify-between gap-4 rounded-lg bg-white/10 p-3">
+<div class="flex items-center gap-4">
+<div class="flex size-10 shrink-0 items-center justify-center text-white/50">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<p class="flex-1 truncate text-base font-normal leading-normal text-white">Water Intake</p>
+</div>
+<button class="flex size-8 shrink-0 items-center justify-center text-white/50">
+<span class="material-symbols-outlined">remove_circle</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Fixed Footer Actions & Nav -->
+<div class="pointer-events-none fixed inset-x-0 bottom-0 z-10 h-auto">
+<div class="flex flex-col gap-4 bg-gradient-to-t from-background-dark via-background-dark to-transparent px-6 pb-6 pt-8">
+<div class="pointer-events-auto flex flex-col items-center gap-4">
+<button class="h-14 w-full rounded-full bg-primary text-base font-bold text-background-dark">Save Layout</button>
+<button class="text-base font-medium text-white/60">Reset to Default</button>
+</div>
+<!-- Bottom Navigation Bar -->
+<nav class="pointer-events-auto flex w-full items-center justify-around rounded-full bg-white/10 p-2 backdrop-blur-lg">
+<a class="flex flex-col items-center gap-1 p-2 text-primary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-white/60" href="#">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="text-xs font-medium">Workout</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-white/60" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-xs font-medium">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-white/60" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-xs font-medium">Settings</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</body></html>

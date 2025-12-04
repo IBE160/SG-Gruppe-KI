@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - Performance &amp; Data</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .group:focus-within .group-focus-within\:flex { display: flex; }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center bg-background-dark p-4 pb-2 justify-between shrink-0">
+<div class="text-white flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-3xl">arrow_back_ios_new</span>
+</div>
+<h1 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Performance &amp; Data</h1>
+<div class="flex size-12 shrink-0 items-center"></div>
+</div>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto px-4 pt-4 pb-28">
+<!-- Offline Access Section -->
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-4">Offline Access</h2>
+<!-- List Item: Offline Mode -->
+<div class="flex items-center gap-4 bg-background-dark py-3.5 min-h-14 justify-between">
+<div class="flex items-center gap-4">
+<div class="text-white flex items-center justify-center rounded-lg bg-[#23482f] shrink-0 size-10">
+<span class="material-symbols-outlined">cloud_off</span>
+</div>
+<p class="text-white text-base font-normal leading-normal flex-1 truncate">Offline Mode</p>
+<div class="relative group">
+<span class="material-symbols-outlined text-white/70">info</span>
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 rounded-lg bg-neutral-900 text-white text-sm font-normal z-10 hidden group-hover:block">
+                            Downloads essential workout data for use without an internet connection.
+                            <div class="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-neutral-900"></div>
+</div>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#23482f] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white transition-transform" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- List Item: Auto-Sync Offline Data -->
+<div class="flex items-center gap-4 bg-background-dark py-2 min-h-[72px] justify-between">
+<div class="flex items-start gap-4">
+<div class="text-white flex items-center justify-center rounded-lg bg-[#23482f] shrink-0 size-12 mt-1">
+<span class="material-symbols-outlined">sync</span>
+</div>
+<div class="flex flex-col justify-center flex-1">
+<p class="text-white text-base font-medium leading-normal line-clamp-1">Auto-Sync Offline Data</p>
+<p class="text-[#92c9a4] text-sm font-normal leading-normal">Automatically syncs your completed offline workouts when you reconnect to the internet.</p>
+</div>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-[#23482f] p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white transition-transform" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<!-- Data Management Section -->
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-8">Data Management</h2>
+<!-- List Item: Clear Local Cache -->
+<div class="group">
+<div class="flex items-center gap-4 bg-background-dark py-3.5 min-h-14 justify-between cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="text-white flex items-center justify-center rounded-lg bg-[#23482f] shrink-0 size-10">
+<span class="material-symbols-outlined">delete</span>
+</div>
+<p class="text-white text-base font-normal leading-normal flex-1 truncate">Clear Local Cache</p>
+<div class="relative group">
+<span class="material-symbols-outlined text-white/70">info</span>
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 rounded-lg bg-neutral-900 text-white text-sm font-normal z-10 hidden group-hover:block">
+                                Frees up storage space by removing temporary files but does not delete workout history.
+                                <div class="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-neutral-900"></div>
+</div>
+</div>
+</div>
+<div class="shrink-0">
+<span class="material-symbols-outlined text-white/70">arrow_forward_ios</span>
+</div>
+</div>
+<!-- Confirmation Modal -->
+<div class="fixed inset-0 bg-black/60 z-40 items-center justify-center hidden group-focus-within:flex">
+<div class="bg-[#1e1e1e] rounded-xl w-11/12 max-w-sm p-6 text-center shadow-2xl m-4 flex flex-col items-center">
+<h3 class="text-white text-xl font-bold mb-2">Clear Local Cache?</h3>
+<p class="text-white/70 text-base mb-6">This will remove temporary data and downloaded content. Your workout history and account information will not be affected.</p>
+<div class="flex flex-col w-full gap-3">
+<button class="w-full bg-[#CF6679] text-white py-3 rounded-full font-semibold">Clear</button>
+<button class="w-full bg-[#333] text-white/90 py-3 rounded-full font-semibold">Cancel</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="absolute bottom-0 left-0 right-0 bg-[#1A3824]/80 backdrop-blur-lg border-t border-white/10">
+<div class="flex justify-around items-center h-20">
+<a class="flex flex-col items-center gap-1 text-white/70" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-white/70" href="#">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="text-xs">Workout</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-white/70" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-xs">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-xs font-bold">Settings</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings - Music &amp; Playback</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center p-4 pb-2">
+<button class="text-white flex size-12 shrink-0 items-center justify-start text-zinc-400">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</button>
+<h1 class="text-zinc-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Music &amp; Playback</h1>
+</div>
+<div class="flex flex-col gap-4 p-4">
+<!-- Spotify Connection -->
+<div class="flex items-center justify-between gap-4 rounded-lg bg-white/5 p-4">
+<div class="flex items-center gap-4">
+<div class="text-white flex items-center justify-center rounded-lg bg-primary/20 shrink-0 size-10">
+<svg fill="currentColor" height="24" viewbox="0 0 16 16" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.669 11.538a.498.498 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686m.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858m.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 9.752 1.27a.75.75 0 0 1-.722 1.222"></path>
+</svg>
+</div>
+<div>
+<p class="text-zinc-400 dark:text-zinc-500 text-sm font-normal leading-normal">Spotify Connection Status</p>
+<p class="text-primary text-base font-medium leading-normal">Connected</p>
+</div>
+</div>
+<button class="text-primary text-base font-medium leading-normal shrink-0">Disconnect</button>
+</div>
+<!-- Playback Options Section -->
+<div>
+<h2 class="text-zinc-500 dark:text-zinc-400 text-xs font-bold leading-tight tracking-widest px-4 pb-2 pt-4 uppercase">Playback Options</h2>
+<div class="flex flex-col overflow-hidden rounded-lg bg-white/5">
+<div class="flex items-center gap-4 p-4 min-h-[72px]">
+<div class="flex items-center gap-4">
+<div class="text-white flex items-center justify-center rounded-lg bg-primary/20 shrink-0 size-12">
+<span class="material-symbols-outlined">spark</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">Use Session Mix</p>
+<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal leading-normal">Uses AI to create a workout playlist</p>
+</div>
+</div>
+<div class="shrink-0 ml-auto">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-zinc-700 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white transition-transform" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+<div class="h-px w-full bg-zinc-200/10 dark:bg-white/10 ml-20"></div>
+<div class="flex items-center gap-4 p-4 min-h-[72px]">
+<div class="flex items-center gap-4">
+<div class="text-white flex items-center justify-center rounded-lg bg-primary/20 shrink-0 size-12">
+<span class="material-symbols-outlined">music_note</span>
+</div>
+<div class="flex flex-col justify-center">
+<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">BPM Matching by Workout Phase</p>
+<p class="text-zinc-500 dark:text-zinc-400 text-sm font-normal leading-normal">Syncs music tempo to workout intensity</p>
+</div>
+</div>
+<div class="shrink-0 ml-auto">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-zinc-700 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white transition-transform" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Music Preferences Section -->
+<div>
+<h2 class="text-zinc-500 dark:text-zinc-400 text-xs font-bold leading-tight tracking-widest px-4 pb-2 pt-4 uppercase">Music Preferences for AI Mixes</h2>
+<div class="flex flex-col overflow-hidden rounded-lg bg-white/5">
+<button class="flex items-center justify-between gap-4 p-4 min-h-[56px] w-full text-left">
+<p class="text-zinc-900 dark:text-white text-base font-normal leading-normal">Preferred Genres</p>
+<span class="material-symbols-outlined text-zinc-500 dark:text-zinc-400">chevron_right</span>
+</button>
+<div class="h-px w-full bg-zinc-200/10 dark:bg-white/10 ml-4"></div>
+<button class="flex items-center justify-between gap-4 p-4 min-h-[56px] w-full text-left">
+<p class="text-zinc-900 dark:text-white text-base font-normal leading-normal">Favorite Workout Artists</p>
+<span class="material-symbols-outlined text-zinc-500 dark:text-zinc-400">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Energy Level Slider -->
+<div class="flex flex-col gap-2 rounded-lg bg-white/5 p-4">
+<label class="text-zinc-900 dark:text-white text-base font-normal leading-normal" for="energy-level">Overall Energy Level</label>
+<input class="w-full h-2 bg-zinc-700 rounded-lg appearance-none cursor-pointer range-lg accent-primary" id="energy-level" max="100" min="0" type="range" value="75"/>
+<div class="flex justify-between text-xs text-zinc-500 dark:text-zinc-400">
+<span>Low</span>
+<span>Medium</span>
+<span>High</span>
+</div>
+</div>
+<!-- Exclude Artists/Genres -->
+<div class="flex flex-col gap-3 rounded-lg bg-white/5 p-4">
+<label class="text-zinc-900 dark:text-white text-base font-normal leading-normal" for="exclude-input">Exclude Artists/Genres</label>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 rounded-full bg-primary/20 px-3 py-1.5 text-sm text-primary">
+<span>Country</span>
+<button class="p-0 m-0"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+<input class="w-full bg-transparent border-0 border-b border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:ring-0 focus:border-primary px-1 py-2" id="exclude-input" placeholder="Add artists or genres..." type="text"/>
+</div>
+</div>
+</div>
+</body></html>

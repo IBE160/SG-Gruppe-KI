@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Training Advisor - UX Flow Visualizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4 {
+            color: #002D62; /* Blue-900 */
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        h1 { font-size: 2.2em; border-bottom: 2px solid #007BFF; padding-bottom: 10px; }
+        h2 { font-size: 1.8em; color: #0056B3; }
+        h3 { font-size: 1.4em; color: #007BFF; }
+        h4 { font-size: 1.2em; color: #212529; }
+
+        .flow {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            padding: 25px;
+            border-left: 5px solid #007BFF;
+        }
+        .flow-description {
+            font-style: italic;
+            color: #6C757D;
+            margin-bottom: 15px;
+        }
+        .screen {
+            background-color: #EBF5FF; /* Blue-100 */
+            border: 1px solid #007BFF;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .screen::before {
+            content: 'Screen:';
+            font-weight: bold;
+            color: #0056B3;
+            position: absolute;
+            top: 5px;
+            left: 10px;
+            font-size: 0.8em;
+        }
+        .screen-description {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: #212529;
+        }
+        .visual-elements ul, .interactions ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        .visual-elements li, .interactions li {
+            margin-bottom: 5px;
+            color: #495057;
+        }
+        .improvement {
+            color: #DC3545; /* Error Red for highlighting changes */
+            font-weight: bold;
+            background-color: #FFF3CD; /* Warning Yellow background */
+            padding: 2px 5px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+        .interaction-step {
+            margin-bottom: 8px;
+        }
+        .trigger {
+            font-weight: bold;
+            color: #0056B3;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Training Advisor - UX Flow Visualizer (Phase 1)</h1>
+    <p>This document provides a visual, structured overview of the user flows designed for Phase 1 of the AI Training Advisor application, highlighting key screens, interactions, and implemented UX improvements.</p>
+
+    <!-- Flow 1 -->
+    <div class="flow">
+        <h2>Flow 1: Account Creation & Authentication (Google • Email)</h2>
+        <p class="flow-description">Goal: To provide a clear, secure, and streamlined entry point for both new and returning users.</p>
+
+        <div class="screen">
+            <h4>Screen 1: Welcome / Authentication Gateway</h4>
+            <p class="screen-description">The app's initial entry screen, featuring a compelling visual, main app title, and primary account actions. It sets an energetic and modern tone with its dark theme and vibrant green accent.</p>
+            <ul>
+                <li>**Visual Elements:** Background Image (rowing machine), Dark Overlay/Gradient, App Icon/Logo (`neurology` Material Symbol), Main Heading "Your Personal AI Trainer", Sub-heading "Smart, personalized workouts that adapt to you.".</li>
+                <li>**Primary Action Buttons:**
+                    <ul>
+                        <li>`[ Create Account ]` (Prominent, vibrant green background, dark text).</li>
+                        <li>`[ Log In ]` (Secondary, dark background, white text).</li>
+                    </ul>
+                </li>
+                <li>**Social Login:** "Or continue with" separator, `[ Google Icon ]` button, `[ Apple Icon ]` button.</li>
+                <li>**Legal Text:** "By continuing, you agree to our Terms of Service and Privacy Policy."</li>
+                <li>**Interactions:**
+                    <ul>
+                        <li>Tap `Create Account`: Navigates to **Screen 2: Email Authentication** (for sign-up).</li>
+                        <li>Tap `Log In`: Navigates to **Screen 2: Email Authentication** (for sign-in).</li>
+                        <li>Tap `Google Icon`: Initiates Google OAuth flow.</li>
+                        <li>Tap `Apple Icon`: Initiates Apple OAuth flow (Phase 2).</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 2: Email Authentication (now split into 2A and 2B)</h4>
+            <p class="screen-description">This section details the email sign-up and login screens. The app navigates to the appropriate screen based on user action (from Welcome screen, or "Log in" / "Sign up" links on these screens). <span class="improvement">Streamlined Email Authentication with a Combined Flow</span></p>
+
+            <div class="screen-part">
+                <h5>Screen 2A: Email Sign-up</h5>
+                <p>Inspired by `email_signup/code.html`</p>
+                <ul>
+                    <li>**Visual Elements:** Header (`[ Back Button ]`), Main Heading "Create your account", Sub-heading "Join us to unlock your potential.". Email Input Field (`[ mail ]` icon), Password Input Field (`[ lock ]` icon, visibility toggle), Password Strength Indicator, Confirm Password Input Field (`[ lock ]` icon, `check_circle` icon). Primary `[ Create Account ]` button (vibrant green). Secondary link "Already have an account? [Log in]".</li>
+                    <li>**Interactions:** Tap `Back Button` returns to Screen 1. Tap `Create Account` submits form. Tap `Log in` link navigates to **Screen 2B: Email Login**.</li>
+                </ul>
+            </div>
+
+            <div class="screen-part">
+                <h5>Screen 2B: Email Login</h5>
+                <p>Inspired by `email_authentication/code.html`</p>
+                <ul>
+                    <li>**Visual Elements:** Header (`[ Back Button ]`), Main Heading "Welcome back!". Email Input Field (`[ mail ]` icon), Password Input Field (`[ lock ]` icon, visibility toggle). `[ Forgot Password? ]` Link (primary green, underlined) <span class="improvement">Prominently Display a "Forgot Password" Option</span>. Primary `[ Log In ]` button (vibrant green). Secondary link "Don't have an account? [Sign up]".</li>
+                    <li>**Interactions:** Tap `Back Button` returns to Screen 1. Tap `Log In` submits form. Tap `Forgot Password?` initiates flow. Tap `Sign up` link navigates to **Screen 2A: Email Sign-up**.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 3: Google OAuth Flow (External)</h4>
+            <p class="screen-description">User is redirected to Google's consent page.</p>
+            <ul>
+                <li>**Interactions:** User grants/denies permission. Redirects back to app on completion.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 4: Post-Authentication Redirection</h4>
+            <p class="screen-description">Internal redirect logic based on user status.</p>
+            <ul>
+                <li>**Interactions:** New user -> Flow 2 (Onboarding). Returning user -> Dashboard.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 2 -->
+    <div class="flow">
+        <h2>Flow 2: Goal & Preference Setup (Conversational Onboarding)</h2>
+        <p class="flow-description">Goal: Engage new users in a low-friction process to gather essential data for AI personalization, consistent with the app's new dark aesthetic and green primary accent.</p>
+
+        <p class="trigger">Trigger: Immediately after first authentication for new users.</p>
+
+        <div class="screen">
+            <h4>Onboarding Screen Layout (Common Elements)</h4>
+            <ul>
+                <li>**Header:** Fixed at top. <span class="improvement">Visual Progress Indicator</span> using small, rounded circles (e.g., `h-2 w-2 rounded-full bg-primary` and `bg-primary/30`). Back Button (if applicable).</li>
+                <li>**Main Content:** Scrollable chat area.
+                    <ul>
+                        <li>**AI Chat Bubble:** `AI Trainer` (text-zinc-500), `[ AI Avatar ]`, `[ Speech Bubble (bg-zinc-800 dark:text-white) ]`.</li>
+                        <li>**User Response Bubble:** `[ Speech Bubble (bg-primary text-background-dark) ]`.</li>
+                    </ul>
+                </li>
+                <li>**Sticky Footer (Composer / Navigation):** Fixed at bottom. Includes text input field (for "Custom" options) and `[ Arrow Forward Button ]` (large, rounded, `bg-primary text-background-dark`) for "Continue/Next".</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Step 1: Welcome & Goal Selection</h4>
+            <ul>
+                <li>**AI Prompt:** "Welcome! I'm your personal AI trainer. What's your main fitness goal?"</li>
+                <li>**User Input:** Rounded buttons for goals (e.g., `Lose Weight`, `Build Muscle`). <span class="improvement">Enhance Flexibility in User Input for Goals</span>: `[ Custom... ]` button reveals text input in Sticky Footer.</li>
+                <li>**Example User Response:** "Build Muscle".</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Step 2: Time & Frequency</h4>
+            <ul>
+                <li>**AI Prompt:** "How many days a week do you want to train, and for how long?"</li>
+                <li>**User Input:** Sliders for "Days per week" and "Minutes per session" (aligned with chat style).</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Step 3: Equipment</h4>
+            <ul>
+                <li>**AI Prompt:** "Got it. What equipment do you have access to?"</li>
+                <li>**User Input:** Rounded buttons for equipment options (e.g., `No Equipment`, `Full Gym`). <span class="improvement">Enhance Flexibility in User Input for Equipment</span>: `[ Specify... ]` button reveals text input in Sticky Footer.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Step 4: Injuries & Limitations</h4>
+            <ul>
+                <li>**AI Prompt:** "Do you have any injuries or limitations?"</li>
+                <li>**User Input:** Rounded buttons for common areas. Text input field. `(i)` icon explains necessity.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Step 5: Units</h4>
+            <ul>
+                <li>**AI Prompt:** "Last question. Do you prefer to work with kilograms or pounds?"</li>
+                <li>**User Input:** Toggle switch: `[ kg / lbs ]` (aligned with chat style).</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Step 6: Confirmation & Redirection</h4>
+            <ul>
+                <li>**AI Prompt:** "Perfect! I have everything I need to create your first workout plan."</li>
+                <li>**Interactions:** Automatic redirection to the **Dashboard** after a short pause or on tap of the `[ Arrow Forward Button ]`.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 3 -->
+    <div class="flow">
+        <h2>Flow 3: Connect Spotify (Optional Music Integration)</h2>
+        <p class="flow-description">Goal: Allow users to seamlessly integrate Spotify, with clear communication.</p>
+
+        <p class="trigger">Trigger: Tap "Connect Spotify" during onboarding or in Settings.</p>
+
+        <div class="screen">
+            <h4>Screen 1: Spotify Connection Explainer</h4>
+            <p class="screen-description">This interstitial screen appears *before* redirecting to Spotify OAuth, proactively informing the user about the value and required permissions. It features a compelling header image and a clear list of benefits and permissions, consistent with the app's dark theme and vibrant green accent.</p>
+            <ul>
+                <li>**Visual Elements:** Top App Bar (Left: `[ Close Button ]` (Material Symbols Outlined: `close`), Center: Heading "Connect Spotify" (bold, white)). Header Image ("An abstract graphic representing sound waves and energy"). Headline "Power Your Workouts with Music", Body Text.</li>
+                <li>**Benefit List (3 items):** "AI-Powered Playlists", "Performance Insights", "Seamless Experience", each with relevant Material Symbols icon (e.g., `psychology`, `analytics`, `music_note`) in primary green, within a rounded `bg-primary/20` circle.</li>
+                <li>**Permissions Section (Boxed):** Heading "To do this, we'll need permission to:", two permission items (`check_circle` icon in primary green, Title, Description).</li>
+                <li>**Sticky Footer (CTA):** Primary Button `[ Connect with Spotify ]` (vibrant green, `text-background-dark`, with Spotify SVG icon). Disclaimer ("We will never post anything without your permission. Read our Privacy Policy.").</li>
+                <li>**Interactions:** Tap `[ Close Button ]`: Returns to previous screen. Tap `[ Connect with Spotify ]`: Initiates external Spotify OAuth flow.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 2: Spotify OAuth (External Process)</h4>
+            <p class="screen-description">User redirected to Spotify's consent page.</p>
+            <ul>
+                <li>**Interactions:** User grants/denies permission. Redirects back to app.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 3: Spotify Connection Status & Confirmation</h4>
+            <p class="screen-description">Appears upon return from Spotify OAuth.</p>
+            <ul>
+                <li>**Visual Elements:** Success: Header "Spotify Connected!", message, `[ Got It ]`, `[ Explore Music Settings ]`. Failure: Header "Connection Unsuccessful", message, `[ Try Again ]`, `[ Maybe Later ]`.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 4: Post-Connection Features (Settings -> Music & Playback)</h4>
+            <p class="screen-description">Settings section updates to reflect connection.</p>
+            <ul>
+                <li>**Visual Elements:** "Spotify Connection Status", Toggles for "Use Session Mix", "BPM Matching". <span class="improvement">Section for "Music Preferences for AI Mixes" (from Flow 11)</span>.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 6 -->
+    <div class="flow">
+        <h2>Flow 6: Generate AI Daily Plan</h2>
+        <p class="flow-description">Goal: Allow users to provide real-time context, receive an adaptive AI-generated plan, and maintain control.</p>
+
+        <p class="trigger">Trigger: Tap `[ Generate Today's Plan ]` from Dashboard or auto-generated.</p>
+
+        <div class="screen">
+            <h4>Screen 1: Context Window</h4>
+            <p class="screen-description">Modal/overlay for user to input current state.</p>
+            <ul>
+                <li>**Visual Elements:** Header "How Are You Feeling Today?", AI Prompt, Mood/Energy/Sleep Input (emoticons). <span class="improvement">Context Window Defaults & Smart Suggestions</span> (pre-filled/contextual prompts). Optional Free-Text Input. Action Buttons: `[ Generate Plan ]`, `[ Skip / Use Last Plan ]`.</li>
+                <li>**Interactions:** Tap `Generate Plan` moves to **Screen 2**. Tap `Skip` uses cached plan.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 2: AI Plan Generation (Loading State)</h4>
+            <p class="screen-description">Brief loading screen.</p>
+            <ul>
+                <li>**Visual Elements:** Animated Spinner, "AI is crunching the numbers..." message.</li>
+                <li>**Interactions:** Auto-transitions to **Screen 3**. Displays fallback on timeout/failure.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 3: Review Proposed Plan</h4>
+            <p class="screen-description">Displays AI-generated plan for review.</p>
+            <ul>
+                <li>**Visual Elements:** Header "Your Daily Plan - Review & Adjust", AI Prompt (explains adaptation). Workout Plan Display (list of exercises, sets, reps, RPE). <span class="improvement">Visual Representation of Plan Changes</span> (highlights for adjusted elements, tooltips explaining changes). Action Buttons: `[ Confirm Plan ]`, `[ Edit Plan ]` <span class="improvement">"Edit Plan" Option Before Confirmation</span>.</li>
+                <li>**Interactions:** Tap `Confirm Plan` moves to **Screen 4**. Tap `Edit Plan` opens modal/interface for granular edits.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 4: Plan Confirmed/Saved</h4>
+            <p class="screen-description">Brief confirmation screen.</p>
+            <ul>
+                <li>**Visual Elements:** "Plan Confirmed!", "Redirecting to your Dashboard...".</li>
+                <li>**Interactions:** Auto-redirects to the **Dashboard**.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 7 -->
+    <div class="flow">
+        <h2>Flow 7: Start Workout (Using AI Plan or Synced Plan)</h2>
+        <p class="flow-description">Goal: Provide a smooth, clear, and prepared transition into the active workout session, starting with a distinct warm-up phase.</p>
+
+        <p class="trigger">Trigger: User taps `[ Start Workout ]` from Dashboard or plan card.</p>
+
+        <div class="screen">
+            <h4>Screen 1: Workout Loading State</h4>
+            <p class="screen-description">Brief interstitial to signal preparation. <span class="improvement">Visual Confirmation of Plan Loading</span></p>
+            <ul>
+                <li>**Visual Elements:** App Logo/AI Icon, "Loading your personalized plan...", subtle spinner.</li>
+                <li>**Interactions:** Auto-transitions to **Screen 2**.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 2: Pre-Workout Preparation / Warm-up Introduction</h4>
+            <p class="screen-description">Transition and preparation hub. <span class="improvement">Explicit "Warm-up" Phase Start</span></p>
+            <ul>
+                <li>**Visual Elements:** Header "Ready for your workout?", Summary Card, AI Prompt. If warm-up in plan: "Today's Warm-up:" section, list of exercises, `[ Start Warm-up ]`. If no warm-up: `[ Start Workout ]`. Secondary options.</li>
+                <li>**Interactions:** Tap `Start Warm-up` moves to **Screen 3**. Tap `Start Workout` (no warm-up) moves to **Screen 4**.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 3: Active Workout Player (Warm-up Phase)</h4>
+            <p class="screen-description">Active workout environment for warm-up.</p>
+            <ul>
+                <li>**Visual Elements:** Prominent "WARM-UP" label, current warm-up exercise, instructions, countdown timer, `[ Next Exercise ]` / `[ Finish Warm-up ]`.</li>
+                <li>**Interactions:** User completes exercises, taps `Next`. Tap `Finish Warm-up` moves to **Screen 4**.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 4: Active Workout Player (Main Workout Ready)</h4>
+            <p class="screen-description">Core workout logging interface, ready for first main exercise.</p>
+            <ul>
+                <li>**Visual Elements:** Prominent "MAIN WORKOUT" label, current exercise, target sets/reps/RPE. Integrates elements detailed in Flow 9 UX.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 9 -->
+    <div class="flow">
+        <h2>Flow 9: Perform & Log Workout</h2>
+        <p class="flow-description">Goal: Provide an intuitive, efficient, and adaptable interface for users to execute and accurately log their workout sets.</p>
+
+        <p class="trigger">Trigger: User is inside Workout Player and begins progressing through exercises.</p>
+
+        <div class="screen">
+            <h4>Screen: Active Workout Player (Main Workout View)</h4>
+            <ul>
+                <li>**Top Bar:** `[ Exit/Pause ]`, Workout Title, `[ Overall Workout Progress Bar ]` <span class="improvement">Visual Cues for Progression</span>.</li>
+                <li>**Main Content (Current Exercise Card):** Exercise Name, Target, Instructions, `[ Current Set Progress ]` <span class="improvement">Visual Cues for Progression</span>.</li>
+                <li>**Logging Controls:**
+                    <ul>
+                        <li><span class="improvement">Optimized Input for Reps/Weight/RPE</span>: Large `[ + ]` / `[ - ]` buttons, RPE slider/buttons, smart pre-fill.</li>
+                    </ul>
+                </li>
+                <li>**Action Button:** `[ Log Set ]`.</li>
+                <li>**Rest Timer Section (after Logging):** Countdown timer.
+                    <ul>
+                        <li><span class="improvement">Clear Next Exercise/Set Preview</span>: Prominent "Next: [Exercise Name] - Set X of Y". `[ Skip Rest ]`, `[ Extend Rest (30s) ]`.</li>
+                    </ul>
+                </li>
+                <li>**Workout Controls (via icon/menu):**
+                    <ul>
+                        <li><span class="improvement">Integrated Mid-Workout Modification UI</span>: `[ Edit Current Plan ]` option for quick granular edits.</li>
+                        <li>`[ Enable/Disable Audio Cues ]` (for improvement below).</li>
+                        <li>`[ End Workout ]`.</li>
+                    </ul>
+                </li>
+                <li><span class="improvement">Audio Cues/Guidance</span>: Configurable audio cues for rest timer end, new exercise start, motivational prompts.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 10 -->
+    <div class="flow">
+        <h2>Flow 10: Finish Workout & AI Feedback</h2>
+        <p class="flow-description">Goal: Provide a rewarding and insightful conclusion, summarizing achievements and delivering actionable AI guidance.</p>
+
+        <p class="trigger">Trigger: User taps `[ Finish Workout ]` from Active Workout Player.</p>
+
+        <div class="screen">
+            <h4>Screen 1: Post-Workout Summary & Feedback Input</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Workout Complete!", Basic Stats (Duration, Volume, Sets/Reps). Feedback Prompt "How did that feel?". Input for Perceived Fatigue/Overall RPE (visual scale), Optional "Quick Notes." Action Button: `[ Get AI Feedback ]`.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 2: AI Feedback & Achievements Display</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Your Session Insights". <span class="improvement">Highlight Key Insights/Achievements</span> ("Celebrate Wins" section with PRs, milestones, streaks, animations). <span class="improvement">Provide Actionable AI Feedback</span> (AI Coach Summary/Recommendation). Detailed Metrics. Next Steps / Action Buttons: `[ Go to Dashboard ]`, `[ Share Workout ]`, `[ Edit Workout Log ]`.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 11 -->
+    <div class="flow">
+        <h2>Flow 11: Generate Session Mix (Optional AI-Based Playlist)</h2>
+        <p class="flow-description">Goal: Provide personalized, AI-generated music that adapts to workout phases, with review options and real-time feedback.</p>
+
+        <p class="trigger">Trigger: Pre-Workout, Post-Workout, or Settings -> Music & Playback.</p>
+
+        <div class="screen">
+            <h4>Settings Screen (Music & Playback Section): For Preference Input</h4>
+            <ul>
+                <li>**Visual Elements:** "Spotify Connection Status", Toggles for "Use Session Mix", "BPM Matching". <span class="improvement">"Seed" Playlist/Genre Preference Input</span> (Preferred Genres, Favorite Workout Artists, Overall Energy Level, Exclude Artists/Genres).</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 1: Generate Session Mix Options (Modal/Overlay)</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Generate Session Mix", AI Prompt, Playlist Mode Selection (`[ Warm-up only ]`, `[ Full Session ]`, `[ Recovery / Cooldown ]`), `[ Create Mix ]`, `[ Cancel ]`.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 2: Session Mix Preview & Customization</h4>
+            <p class="screen-description">Displays AI's proposed tracklist for review and adjustment. <span class="improvement">Pre-Generation Preview & Customization</span></p>
+            <ul>
+                <li>**Visual Elements:** Header "Review Your Session Mix", AI Prompt. Tracklist Display (with `[X]` Remove, `[Refresh]` Replace icons per track). Action Buttons: `[ Start Mix / Play Workout ]`, `[ Generate New Mix ]`, `[ Cancel ]`.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 3: Active Music Playback (within Workout Player - Flow 9)</h4>
+            <ul>
+                <li>**Visual Elements:** Music Control Widget. <span class="improvement">Visual Feedback on BPM Matching</span> (BPM Indicator showing current song's BPM vs. target phase BPM, color-coded, textual feedback). `[ Device Selector ]`.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 13 -->
+    <div class="flow">
+        <h2>Flow 13: Edit Synced or Completed Workout</h2>
+        <p class="flow-description">Goal: Provide a flexible and robust way to correct or refine workout logs post-completion.</p>
+
+        <p class="trigger">Trigger: User taps `[ Edit ]` on a completed workout from history.</p>
+
+        <div class="screen">
+            <h4>Screen 1: Workout Details & Edit Mode Entry</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Workout Details", Workout Summary (read-only), `[ Edit Workout ]` button.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 2: Granular Editing Interface</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Edit Workout", Save/Cancel Bar. Editable Workout Details (Workout-level, Exercise-level, Set-level). <span class="improvement">"Undo" Option for Edits</span> (Floating `[ Undo ]` button). <span class="improvement">Visual Diff for Versioned Logs - Secondary Access</span> (`[ Version History ]` button/link).</li>
+                <li>**Interactions:** User makes changes. `Undo` reverts. `Save Changes` processes, handles conflicts.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 3: Version History & Visual Diff (Accessed via `[ Version History ]`)</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Workout Version History". Version List. <span class="improvement">Comparison View</span> (Side-by-side diff or inline highlighting). Action Buttons: `[ Restore this Version ]`, `[ Compare with Current ]`.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 14 -->
+    <div class="flow">
+        <h2>Flow 14: View Dashboard & Weekly Review</h2>
+        <p class="flow-description">Goal: Provide a personalized, motivating, and interactive overview of training progress and adherence.</p>
+
+        <p class="trigger">Trigger: User opens Dashboard or navigates to "Weekly Summary".</p>
+
+        <div class="screen">
+            <h4>Screen 1: Main Dashboard View</h4>
+            <ul>
+                <li>**Visual Elements:** Top Bar (`[ Menu/Profile ]`, Workout Title, `[ Generate Today's Plan ]`). <span class="improvement">"Celebrate Wins" Section</span> (prominent, dynamic section for PRs, milestones, streaks). <span class="improvement">Customizable Dashboard Widgets</span> (Widget Grid/Layout, `[ Customize Dashboard ]` icon). Example Widgets: <span class="improvement">Benchmarking & Goal Progress Visualization</span> (`[ Goal Progress Widget ]`), `[ Weekly Volume Trend ]`, `[ Workout Streak ]`, `[ RPE Trend ]`, `[ Recent Workouts ]`, `[ Today's Context Summary ]`. Bottom Navigation.</li>
+                <li>**Interactions:** Scrolls, taps widgets (links to Screen 2), taps `Customize Dashboard`.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 2: Weekly Review / Detailed Insights</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Weekly Review", Timeframe Selector. <span class="improvement">Interactive Data Exploration</span> (Interactive Charts - Volume, Intensity, Consistency. Tap data points for details, drill-down to workouts). AI Insights & Recommendations.</li>
+                <li>**Interactions:** User adjusts timeframe, interacts with charts. Back button returns to Screen 1.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 3: Customize Dashboard (Settings)</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Customize Dashboard", "Available Widgets List", "Current Layout Preview" (draggable representation). `[ Remove ]` / `[ Drag Handle ]` for widgets. `[ Save Layout ]`, `[ Reset to Default ]`.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 15 -->
+    <div class="flow">
+        <h2>Flow 15: Export Data (GDPR Compliance)</h2>
+        <p class="flow-description">Goal: Provide a clear, transparent, and secure process for users to export their personal data.</p>
+
+        <p class="trigger">Trigger: User navigates to `Settings -> Privacy & Account -> Export Data`.</p>
+
+        <div class="screen">
+            <h4>Screen 1: Export Data Information & Request</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Export Your Data", AI Prompt. <span class="improvement">Clear Scope of Exported Data (Phase 1 Focused)</span> ("What's Included (Phase 1):" bullet list, exclusion statement for wearables). Process Explanation. Action Button: `[ Request Data Export ]`.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 2: Export Initiated Confirmation</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Export Request Received!", Confirmation Icon, AI Prompt. <span class="improvement">Estimated Time for Export Generation</span> ("Your export may take up to [e.g., 5-10 minutes]"). Delivery Method. Action Button: `[ Go to Settings ]` or `[ Go to Dashboard ]`.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 16 -->
+    <div class="flow">
+        <h2>Flow 16: Delete Account (Full GDPR Removal)</h2>
+        <p class="flow-description">Goal: Provide a secure, transparent, and irreversible process for users to permanently delete their account.</p>
+
+        <p class="trigger">Trigger: User navigates to `Settings -> Privacy & Account -> Delete Account`.</p>
+
+        <div class="screen">
+            <h4>Screen 1: Delete Account Warning & Export Reminder</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Permanently Delete Your Account?" (Red text), Warning Icon, AI Prompt ("This action cannot be undone."). Impact Statement (Phase 1 Focused). GDPR Reminder. Last Chance to Export (link to Flow 15). Action Buttons: `[ Continue to Delete ]`, `[ Cancel / Go Back ]`.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 2: Final Confirmation with User Input</h4>
+            <p class="screen-description"><span class="improvement">Enhanced Confirmation Steps with User Input</span></p>
+            <ul>
+                <li>**Visual Elements:** Header "Confirm Account Deletion" (Red text), Final Warning. AI Prompt ("Type 'DELETE'"). Confirmation Input Field. Re-enter Password Field (Optional). Action Button: `[ Permanently Delete My Account ]` (disabled until correct input).</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 3: Deletion Initiated Confirmation & Logout</h4>
+            <p class="screen-description"><span class="improvement">Clear Deletion Timeline & Communication</span></p>
+            <ul>
+                <li>**Visual Elements:** Header "Account Deletion Initiated", Confirmation Icon, AI Prompt. Deletion Timeline ("removed within [e.g., 30 days]. Email confirmation..."). Action Button: `[ Okay, Log Me Out ]`.</li>
+                <li>**Interactions:** User is immediately logged out, redirects to **Screen 4**.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Screen 4: Completion Screen (Logged Out State)</h4>
+            <ul>
+                <li>**Visual Elements:** App Logo, "Your account deletion process is underway.", `[ Return to Login ]`.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 17 -->
+    <div class="flow">
+        <h2>Flow 17: Toggle Offline Mode & Resume Sync</h2>
+        <p class="flow-description">Goal: Ensure robust app functionality and data preservation even without an internet connection.</p>
+
+        <p class="trigger">Trigger: User enables "Offline Mode" in Settings or loses/restores connection.</p>
+
+        <div class="screen">
+            <h4>Settings Screen (Performance & Data Section): For Offline Mode Configuration</h4>
+            <ul>
+                <li>**Visual Elements:** Toggle `[ Offline Mode ]`. <span class="improvement">Automatic Sync with Notification</span> (Toggle `[ Auto-Sync Offline Data ]`, with description).</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>General App UI: Offline Status Indicator & Sync Now Button</h4>
+            <ul>
+                <li>**Visual Elements:** <span class="improvement">Clear Offline Status Indicator</span> (Persistent banner stating "Offline Mode" or "No Internet Connection"). <span class="improvement">Easily Accessible "Sync Now" Button</span> (on banner, or Dashboard/History, or Settings).</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Sync Prompt (on reconnection, if Auto-Sync is OFF)</h4>
+            <ul>
+                <li>**Visual Elements:** Modal/Toast: "Internet Restored!", "You have offline changes...", `[ Sync Now ]`, `[ Review Changes First ]`, `[ Not Now ]`.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Confirmation/Notification (Post-Sync)</h4>
+            <ul>
+                <li>**Visual Elements:** Toast message: "Offline changes synced successfully!" or "Sync failed."</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Flow 18 -->
+    <div class="flow">
+        <h2>Flow 18: Change Settings (General, Health, Playback & Privacy)</h2>
+        <p class="flow-description">Goal: Provide a comprehensive, intuitive control panel for personalizing the app experience.</p>
+
+        <p class="trigger">Trigger: User taps `[ Settings Icon/Menu Option ]`.</p>
+
+        <div class="screen">
+            <h4>Screen 1: Main Settings Menu</h4>
+            <ul>
+                <li>**Visual Elements:** Header "Settings". <span class="improvement">Search Functionality for Settings</span> (`[ Search Settings... ]` input). List of Setting Categories.</li>
+            </ul>
+        </div>
+
+        <div class="screen">
+            <h4>Sub-Screens (Examples): Appearance, Performance & Data, AI & Personalization, Privacy & Account</h4>
+            <ul>
+                <li>**General Elements:** Header, Back Button. Settings Toggles/Dropdowns/Inputs.</li>
+                <li><span class="improvement">Contextual Help & "Learn More"</span>: `[ (i) ]` icons next to complex settings with tooltips.</li>
+                <li><span class="improvement">Preview for Appearance Settings</span> (in Appearance Sub-Screen): Live preview for theme/color changes.</li>
+                <li><span class="improvement">Confirmation for Destructive Actions</span>: Confirmation modals for actions like `[ Clear Local Cache ]` or `[ Reset All AI Learning ]`.</li>
+                <li><span class="improvement">Transparent AI Preference Management</span> (in AI & Personalization): "Learned Preferences/Constraints" lists with `[ Edit ]` / `[ Delete ]` options.</li>
+                <li><span class="improvement">Prominent Logout Option</span> (in Privacy & Account): `[ Logout ]` button with confirmation.</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

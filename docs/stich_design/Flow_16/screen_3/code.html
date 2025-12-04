@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Deletion Initiated &amp; Logout</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display">
+<div class="relative flex h-screen min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center p-4 pb-2">
+<div class="flex size-12 shrink-0 items-center justify-start">
+</div>
+<h2 class="flex-1 text-center text-lg font-bold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">Account Deletion Initiated</h2>
+<div class="flex w-12 items-center justify-end">
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex flex-1 flex-col justify-between p-4">
+<!-- Icon and Text Content -->
+<div class="flex flex-1 flex-col items-center justify-center text-center">
+<!-- Icon -->
+<div class="flex w-full grow items-center justify-center bg-transparent py-3">
+<span class="material-symbols-outlined text-primary" style="font-size: 96px;">task_alt</span>
+</div>
+<!-- Headline Text -->
+<h1 class="tracking-light text-[32px] font-bold leading-tight text-gray-900 dark:text-white">Deletion Process Has Begun</h1>
+<!-- Body Text -->
+<p class="pt-1 text-base font-normal leading-normal text-gray-600 dark:text-gray-300">
+                    Your account deletion process has begun.
+                </p>
+<!-- Deletion Timeline Card -->
+<div class="mt-8 w-full max-w-md rounded-lg bg-background-light dark:bg-white/5 p-6 text-left">
+<h3 class="text-md font-bold text-gray-900 dark:text-white">Deletion Timeline</h3>
+<p class="mt-2 text-sm font-normal leading-normal text-gray-600 dark:text-gray-300">
+                        All your personal data will be permanently removed within 30 days. You will receive an email confirmation once the process is complete.
+                    </p>
+</div>
+</div>
+<!-- Single Button -->
+<div class="py-3">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 flex-1 w-full bg-primary text-background-dark text-base font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Okay, Log Me Out</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

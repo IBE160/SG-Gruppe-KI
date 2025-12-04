@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Feedback &amp; Achievements</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#111813",
+                        "card-dark": "#1C1C1E",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "1.25rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-dark font-display text-white group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex flex-col gap-2 bg-background-dark p-4 pb-2 sticky top-0 z-10">
+<div class="flex items-center h-12 justify-between">
+<div class="flex size-12 shrink-0 items-center"></div>
+<div class="flex w-12 items-center justify-end">
+<p class="text-primary text-base font-bold leading-normal tracking-[0.015em] shrink-0">Done</p>
+</div>
+</div>
+<p class="text-white tracking-light text-[28px] font-bold leading-tight">Your Session Insights</p>
+</div>
+<div class="flex-grow">
+<!-- Celebrate Wins Section -->
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Celebrate Wins</h2>
+<div class="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden pl-4 pr-1">
+<div class="flex items-stretch gap-3">
+<div class="flex h-full flex-1 flex-col gap-3 rounded-lg min-w-44">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex flex-col justify-center items-center bg-card-dark" data-alt="Trophy icon for new personal record">
+<span class="material-symbols-outlined text-primary text-6xl">trophy</span>
+</div>
+<div>
+<p class="text-white text-base font-medium leading-normal">New PR!</p>
+<p class="text-[#9db9a6] text-sm font-normal leading-normal">Bench Press: 135 lbs</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-3 rounded-lg min-w-44">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex flex-col justify-center items-center bg-card-dark" data-alt="Flame icon for a workout streak">
+<span class="material-symbols-outlined text-primary text-6xl">local_fire_department</span>
+</div>
+<div>
+<p class="text-white text-base font-medium leading-normal">5-Day Streak!</p>
+<p class="text-[#9db9a6] text-sm font-normal leading-normal">You're on fire!</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-3 rounded-lg min-w-44">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex flex-col justify-center items-center bg-card-dark" data-alt="Milestone flag icon">
+<span class="material-symbols-outlined text-primary text-6xl">flag</span>
+</div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Milestone!</p>
+<p class="text-[#9db9a6] text-sm font-normal leading-normal">25 Workouts Logged</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-3 rounded-lg min-w-44">
+<div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg flex flex-col justify-center items-center bg-card-dark" data-alt="Upward trend arrow icon">
+<span class="material-symbols-outlined text-primary text-6xl">trending_up</span>
+</div>
+<div>
+<p class="text-white text-base font-medium leading-normal">Improved Form</p>
+<p class="text-[#9db9a6] text-sm font-normal leading-normal">Great squat depth</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Key Takeaways Section -->
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-8">Key Takeaways</h2>
+<div class="px-4">
+<div class="flex flex-col items-stretch justify-start rounded-lg bg-card-dark p-4">
+<div class="flex w-full items-start gap-3">
+<div class="flex size-10 items-center justify-center rounded-full bg-primary/20 shrink-0">
+<span class="material-symbols-outlined text-primary text-2xl">smart_toy</span>
+</div>
+<div class="flex grow flex-col items-stretch justify-center gap-1">
+<p class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">AI Coach Summary</p>
+<p class="text-[#9db9a6] text-base font-normal leading-normal">Great work on pushing your limits today. Your final set of squats showed excellent power.</p>
+</div>
+</div>
+<div class="mt-4 flex flex-col gap-4">
+<p class="text-[#9db9a6] text-base font-normal leading-normal">Consider increasing the weight next week to continue building strength. Prioritize a full 8 hours of sleep tonight for optimal recovery.</p>
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-white/10 text-primary text-sm font-bold leading-normal">
+<span class="truncate">Adjust Next Plan</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Detailed Metrics Section -->
+<div class="px-4 mt-8">
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3">Detailed Metrics</h2>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between rounded-lg bg-card-dark p-4 h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#9db9a6]">timer</span>
+<p class="text-base font-medium text-white">Duration</p>
+</div>
+<p class="text-base font-medium text-white">45:12 min</p>
+</div>
+<div class="flex items-center justify-between rounded-lg bg-card-dark p-4 h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#9db9a6]">fitness_center</span>
+<p class="text-base font-medium text-white">Total Volume</p>
+</div>
+<p class="text-base font-medium text-white">12,450 lbs</p>
+</div>
+<div class="flex items-center justify-between rounded-lg bg-card-dark p-4 h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#9db9a6]">favorite</span>
+<p class="text-base font-medium text-white">Avg. Heart Rate</p>
+</div>
+<p class="text-base font-medium text-white">134 bpm</p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3 px-4 pt-12 pb-4">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-primary text-background-dark text-base font-bold leading-normal">
+<span class="truncate">Go to Dashboard</span>
+</button>
+<div class="flex gap-3">
+<button class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-card-dark text-white text-base font-bold leading-normal">
+<span class="truncate">Share Workout</span>
+</button>
+<button class="flex flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-card-dark text-white text-base font-bold leading-normal">
+<span class="truncate">Edit Workout Log</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="sticky bottom-0 mt-auto flex h-24 items-center justify-around border-t border-white/10 bg-background-dark/80 backdrop-blur-lg">
+<div class="flex flex-col items-center gap-1 text-[#9db9a6]">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-xs">Dashboard</p>
+</div>
+<div class="flex flex-col items-center gap-1 text-[#9db9a6]">
+<span class="material-symbols-outlined">play_circle</span>
+<p class="text-xs">Workout</p>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+<p class="text-xs font-bold">History</p>
+</div>
+<div class="flex flex-col items-center gap-1 text-[#9db9a6]">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-xs">Settings</p>
+</div>
+</div>
+</div>
+</body></html>

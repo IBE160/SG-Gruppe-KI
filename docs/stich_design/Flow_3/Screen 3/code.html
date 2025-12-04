@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Spotify Connection Status</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+            },
+            fontFamily: {
+              "display": ["Lexend"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="flex flex-col space-y-16 p-4">
+<!-- Success State -->
+<div class="flex h-auto min-h-screen w-full flex-col items-center justify-center p-4">
+<div class="flex w-full max-w-sm flex-col items-center">
+<div class="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-primary/20">
+<span class="material-symbols-outlined text-primary text-6xl">check_circle</span>
+</div>
+<h1 class="text-white tracking-light text-3xl font-bold leading-tight px-4 text-center pb-3">Spotify Connected!</h1>
+<p class="text-white/70 text-base font-normal leading-normal pb-8 pt-1 px-4 text-center">Your Spotify account is now linked and ready to sync with your workouts.</p>
+<div class="flex w-full flex-col items-stretch gap-3 px-4 py-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-primary text-background-dark text-base font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">Continue</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-transparent text-primary text-base font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">Explore Music Settings</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Failure State -->
+<div class="flex h-auto min-h-screen w-full flex-col items-center justify-center p-4">
+<div class="flex w-full max-w-sm flex-col items-center">
+<div class="mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-red-500/20">
+<span class="material-symbols-outlined text-red-500 text-6xl">cancel</span>
+</div>
+<h1 class="text-white tracking-light text-3xl font-bold leading-tight px-4 text-center pb-3">Connection Unsuccessful</h1>
+<p class="text-white/70 text-base font-normal leading-normal pb-8 pt-1 px-4 text-center">We couldn't link your Spotify account because the connection was cancelled.</p>
+<div class="flex w-full flex-col items-stretch gap-3 px-4 py-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-primary text-background-dark text-base font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">Try Again</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-transparent text-primary text-base font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">Maybe Later</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

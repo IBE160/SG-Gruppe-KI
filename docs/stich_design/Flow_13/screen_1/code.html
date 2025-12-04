@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workout Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#13ec5b",
+            "background-light": "#f6f8f6",
+            "background-dark": "#102216",
+          },
+          fontFamily: {
+            "display": ["Lexend", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+    .material-symbols-outlined.fill {
+        font-variation-settings: 'FILL' 1;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<div class="flex-1 pb-28">
+<!-- Top App Bar -->
+<div class="flex items-center p-4 pb-2 justify-between sticky top-0 z-10 bg-background-light dark:bg-background-dark">
+<div class="flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-white" style="font-size: 24px;">arrow_back_ios_new</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Workout Details</h2>
+<div class="flex size-12 shrink-0 items-center"></div>
+</div>
+<!-- Workout Title & Date -->
+<h1 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 text-left pb-1 pt-5">Full Body Strength A</h1>
+<p class="text-stone-400 dark:text-[#92c9a4] text-sm font-normal leading-normal pb-3 pt-1 px-4">Monday, October 26</p>
+<!-- Stats Grid -->
+<div class="flex flex-wrap gap-4 p-4">
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-zinc-900 border border-zinc-800 dark:border-[#326744]">
+<p class="text-gray-300 dark:text-white text-base font-medium leading-normal">Total Duration</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">45:32</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-zinc-900 border border-zinc-800 dark:border-[#326744]">
+<p class="text-gray-300 dark:text-white text-base font-medium leading-normal">Total Volume</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">12,500 lbs</p>
+</div>
+<div class="flex min-w-full flex-1 flex-col gap-2 rounded-xl p-6 bg-zinc-900 border border-zinc-800 dark:border-[#326744]">
+<p class="text-gray-300 dark:text-white text-base font-medium leading-normal">Calories Burned</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">350 kcal</p>
+</div>
+</div>
+<!-- Edit Button with Badge -->
+<div class="flex items-center gap-3 px-4 py-3">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 flex-1 bg-primary text-background-dark text-base font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Edit Workout</span>
+</button>
+<div class="flex items-center justify-center rounded-full bg-primary/20 px-3 py-1">
+<p class="text-xs font-bold text-primary">Edited</p>
+</div>
+</div>
+<!-- Exercises List Header -->
+<div class="px-4 pt-6 pb-2">
+<h3 class="text-lg font-bold text-white">Exercises</h3>
+</div>
+<!-- Exercise List -->
+<div class="flex flex-col gap-3 px-4">
+<!-- Exercise Item 1 -->
+<div class="flex flex-col rounded-xl bg-zinc-900 border border-zinc-800 dark:border-[#326744] overflow-hidden">
+<div class="flex items-center gap-4 p-4 cursor-pointer">
+<div class="flex size-14 items-center justify-center rounded-lg bg-zinc-800">
+<span class="material-symbols-outlined text-primary" style="font-size: 32px;">fitness_center</span>
+</div>
+<div class="flex-1">
+<p class="font-semibold text-white">Bench Press</p>
+<p class="text-sm text-gray-400">3 sets x 8 reps x 150 lbs</p>
+</div>
+<span class="material-symbols-outlined text-gray-400">expand_more</span>
+</div>
+</div>
+<!-- Exercise Item 2 -->
+<div class="flex flex-col rounded-xl bg-zinc-900 border border-zinc-800 dark:border-[#326744] overflow-hidden">
+<div class="flex items-center gap-4 p-4 cursor-pointer">
+<div class="flex size-14 items-center justify-center rounded-lg bg-zinc-800">
+<span class="material-symbols-outlined text-primary" style="font-size: 32px;">fitness_center</span>
+</div>
+<div class="flex-1">
+<p class="font-semibold text-white">Overhead Press</p>
+<p class="text-sm text-gray-400">3 sets x 10 reps x 85 lbs</p>
+</div>
+<span class="material-symbols-outlined text-gray-400">expand_more</span>
+</div>
+<!-- Expanded Details -->
+<div class="flex flex-col gap-3 border-t border-zinc-800 dark:border-primary/20 bg-background-dark p-4">
+<div class="flex items-center justify-between text-sm">
+<p class="text-gray-400">Set 1</p>
+<p class="font-medium text-white">10 reps x 85 lbs</p>
+</div>
+<div class="flex items-center justify-between text-sm">
+<p class="text-gray-400">Set 2</p>
+<p class="font-medium text-white">10 reps x 85 lbs</p>
+</div>
+<div class="flex items-center justify-between text-sm">
+<p class="text-gray-400">Set 3</p>
+<p class="font-medium text-white">9 reps x 85 lbs</p>
+</div>
+</div>
+</div>
+<!-- Exercise Item 3 -->
+<div class="flex flex-col rounded-xl bg-zinc-900 border border-zinc-800 dark:border-[#326744] overflow-hidden">
+<div class="flex items-center gap-4 p-4 cursor-pointer">
+<div class="flex size-14 items-center justify-center rounded-lg bg-zinc-800">
+<span class="material-symbols-outlined text-primary" style="font-size: 32px;">fitness_center</span>
+</div>
+<div class="flex-1">
+<p class="font-semibold text-white">Tricep Pushdown</p>
+<p class="text-sm text-gray-400">4 sets x 12 reps x 50 lbs</p>
+</div>
+<span class="material-symbols-outlined text-gray-400">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-10 border-t border-zinc-800 bg-zinc-900/80 backdrop-blur-lg">
+<div class="flex h-20 items-center justify-around px-2">
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="text-xs">Workout</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined fill">history</span>
+<span class="text-xs font-bold">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-gray-400" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-xs">Settings</span>
+</a>
+</div>
+</div>
+</div>
+</body></html>

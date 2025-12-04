@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Main Dashboard View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+              "card-dark": "#1A2C20"
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "1rem",
+              "lg": "1.5rem",
+              "xl": "2rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+      .material-symbols-outlined.fill {
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-dark dark group/design-root overflow-x-hidden">
+<div class="flex-1 pb-28">
+<!-- Top App Bar -->
+<div class="flex items-center bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="flex size-12 shrink-0 items-center justify-start">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User's profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCQErvFjyzX5lgQRyqBM8MbaqzhAd_xTX9wYNq67fdqqtQFwsWnSuztvD2KXviJEBBdO1fXhYrVbd7AwzDTZscM24LHe_MoxkHucZmCwU-jmHAUyMaWTLETI8wX0iUNJ9wbKWIeX_gGg5M5NvcW5664OxnKY4GCXboHSfj_5c7DYM9rbhh5ichGMEzfXa8Sro8Y0xXuSdIj7oo1sXJvbK2driNOAU2MNQAQq4GiID5rQp8ZIPuKPCUIXgtWKW0DrgrV2mSsvN9mGBnH");'></div>
+</div>
+<h1 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Dashboard</h1>
+<div class="flex w-auto items-center justify-end">
+<button class="text-background-dark bg-primary text-sm font-bold leading-normal tracking-[0.015em] shrink-0 px-4 py-2 rounded-full">Generate Plan</button>
+</div>
+</div>
+<!-- Celebrate Your Wins Section -->
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Celebrate Your Wins</h2>
+<div class="flex overflow-x-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden pl-4 pr-1">
+<div class="flex items-stretch gap-3">
+<div class="flex h-full flex-1 flex-col gap-3 rounded-lg min-w-60 bg-card-dark p-4">
+<div class="w-full bg-center bg-no-repeat aspect-[1.5/1] bg-cover rounded-lg flex flex-col" data-alt="Abstract graphic of a barbell" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBjgFXYXkucz7B8jbRGgSApzLguMHpmA6o3oUzPUVbhg9rVNTmwXxIYMl3rD89yFB6JKLWBuiKULLhXpUt7fNgE1NKjsZZ_VsqBkcIYxtvYxNhgvPREwa79VPhxMMzg7ive3_cXiDEgp7IQyEoHMFZh8xiXDWjFSN3HB3kjr7RICm6DajOGjXDe-QD6eAFDsWJc8lXkbedS01cSMrqiaPmMMv_b6NMAnqErxXO9SuuuIDyjqLksrNHRNlixuYMgmWgYk6XBDZxlkl7n");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">New PR: Squat!</p>
+<p class="text-primary text-sm font-normal leading-normal">You lifted 120kg!</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-3 rounded-lg min-w-60 bg-card-dark p-4">
+<div class="w-full bg-center bg-no-repeat aspect-[1.5/1] bg-cover rounded-lg flex flex-col" data-alt="Graphic with a flame icon" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAdYzDDFg8U2ghHuopG4QBHdseC3ixdPCM04Cmp25gaCjevHIWl-q9kZt5iep50O6hO4ltmXUfVEn13InLA8tKkeaARO3J2reUzYOizDfZeY7dl-D7x4i4XnG63sCl7Dvuy7cuEFJcTdV0UNlPh1yNHoz4Ue9DLP_Q5zXQ7ER7hBqqQovM-jKhwTOWN6hRAKyoxyqjJMgdmjTwS_cvmrXP96HJ7ltda6O7PrrWrpXuP7qUrJ7CL0MVn1RjT0wkaxxbHJpctvoUlWJ7s");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">5 Day Streak!</p>
+<p class="text-primary text-sm font-normal leading-normal">Keep the fire going!</p>
+</div>
+</div>
+<div class="flex h-full flex-1 flex-col gap-3 rounded-lg min-w-60 bg-card-dark p-4 mr-3">
+<div class="w-full bg-center bg-no-repeat aspect-[1.5/1] bg-cover rounded-lg flex flex-col" data-alt="Graphic of a medal" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA9B1Ocx5sJIJyHOMQf1ZkF1jCPIhj5IsIcpoLSNOXLESbbqWApWfkCqvt8-G2M9wbKTfsYeedujWj99O9zHoaNXk9yLGFvua-jWnbpb7Afe5FtmL8eK6rC0aD5yYwH7EZDUagTmW1gLEp0_aymu4x9zS1FNDUbfhJkw4V6FxUyJOklMeJZPsa0lr9oVQske3y8tzYtlHoXvFH4fe91XyfONgrIlimO4Ro9Va9iimbjd3uOHXPYCxFC1ADLyg-ECacH5ZtkfQzG-8gn");'></div>
+<div>
+<p class="text-white text-base font-medium leading-normal">50 Workouts Logged</p>
+<p class="text-primary text-sm font-normal leading-normal">Consistency is key!</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Your Widgets Section -->
+<div class="flex items-center justify-between px-4 pb-3 pt-8">
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em]">Your Widgets</h2>
+<button class="flex items-center justify-center size-8 rounded-full text-white/70 hover:bg-white/10">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</div>
+<!-- Widget Grid -->
+<div class="grid grid-cols-2 gap-4 p-4">
+<!-- Goal Progress Widget -->
+<div class="flex flex-col gap-3 p-4 rounded-lg bg-card-dark col-span-2">
+<div class="flex gap-6 justify-between items-center">
+<p class="text-white text-base font-medium leading-normal">Goal: Bench Press</p>
+<p class="text-white/70 text-sm font-normal leading-normal">85kg / 100kg</p>
+</div>
+<div class="rounded-full bg-primary/20 h-2">
+<div class="h-2 rounded-full bg-primary" style="width: 85%;"></div>
+</div>
+</div>
+<!-- Workout Streak Widget -->
+<div class="flex flex-col gap-2 p-4 rounded-lg bg-card-dark items-center justify-center aspect-square">
+<span class="material-symbols-outlined text-primary text-4xl">local_fire_department</span>
+<p class="text-white text-2xl font-bold">5 Days</p>
+<p class="text-white/70 text-sm">Workout Streak</p>
+</div>
+<!-- Weekly Volume Widget -->
+<div class="flex flex-col gap-2 p-4 rounded-lg bg-card-dark justify-between aspect-square">
+<div>
+<p class="text-white text-base font-medium">Weekly Volume</p>
+<p class="text-white/70 text-sm">Last 7 days</p>
+</div>
+<img class="w-full h-auto object-contain -ml-2 -mb-2" data-alt="Line chart showing weekly workout volume increasing over the past 7 days" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzNjPnJ-GgHG7kXZRQt_FiXCIzXCAuALb6qz2uu10zi7JmVwF2xbv_2U-90Cg0JRY7geQY2-AeqdaDp7gszptq97bYvic8uVDvkqJff8k4hOUiDapwK1k9TCUv_9OqLwZGP4Mp1QpROmaP_HtWlV4jRnR4ksIi4RRKfWh0B5xymw2Uq26DbMqPdtAm-oer-zIzPpCjqFaWQnIcaOCKOl0xDbjJ_B3jtZk7oCBTV_cjdV9izKhC8kmdbAnO0lV_0e_amNrhU032N18D"/>
+</div>
+<!-- Today's Context Widget -->
+<div class="col-span-2 flex flex-col gap-3 p-4 rounded-lg bg-card-dark">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+<p class="text-white font-medium">Today's Context</p>
+</div>
+<p class="text-white/70 text-sm leading-relaxed">You seem rested. Today's a good day for a high-intensity session. Let's aim for a new PR!</p>
+</div>
+<!-- Recent Workouts Widget -->
+<div class="col-span-2 flex flex-col gap-3 p-4 rounded-lg bg-card-dark">
+<p class="text-white text-base font-medium">Recent Workouts</p>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<p class="text-white">Push Day - Upper Body</p>
+<p class="text-white/50 text-sm">Yesterday</p>
+</div>
+<div class="w-full h-px bg-white/10"></div>
+<div class="flex justify-between items-center">
+<p class="text-white">Leg Day - Hypertrophy</p>
+<p class="text-white/50 text-sm">Mar 15</p>
+</div>
+<div class="w-full h-px bg-white/10"></div>
+<div class="flex justify-between items-center">
+<p class="text-white">Pull Day - Back &amp; Biceps</p>
+<p class="text-white/50 text-sm">Mar 14</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="fixed bottom-0 left-0 right-0 bg-black/50 backdrop-blur-lg border-t border-white/10">
+<div class="flex justify-around items-center h-20 px-4">
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined fill">dashboard</span>
+<span class="text-xs font-medium">Dashboard</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-white/70">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="text-xs font-medium">Workout</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-white/70">
+<span class="material-symbols-outlined">history</span>
+<span class="text-xs font-medium">History</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-white/70">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-xs font-medium">Settings</span>
+</div>
+</div>
+</div>
+</div>
+</body></html>

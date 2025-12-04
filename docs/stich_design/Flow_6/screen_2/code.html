@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Start Workout: Loading</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#13ec5b",
+            "background-light": "#f6f8f6",
+            "background-dark": "#102216",
+          },
+          fontFamily: {
+            "display": ["Lexend"]
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-screen w-full flex-col group/design-root overflow-hidden">
+<!-- Background Image -->
+<div class="absolute inset-0 w-full h-full bg-center bg-no-repeat bg-cover" data-alt="Dimly lit gym with workout equipment in the background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA2k24PtcSqDZktIDfhEDTbi7TmUHqimf8IBnzTfltwpy0vcRwDEH6P5SFBw5zdH4sVfpofjPNnT-QgLxbyVbf4XM8oJUaupm8LR_hq5DSJltrpPK7-dAjKDiJ_H4apLRm2N2AOTd_ZfYOlOl6YcEjBshw73uqstNiqMRf0n87Jte9RaWYjGgk3kV7Hr0ytY1PzxRUFWh_ixMZ1AOtkJ4gu4w6N1x7QKoeEgDaFEgjEElJ8nbc6FH3KRPe3bSFOm3FjbFbhQUfBSg");'>
+<div class="absolute inset-0 bg-background-dark/80 backdrop-blur-sm"></div>
+</div>
+<!-- Main Content -->
+<div class="relative flex flex-col h-full p-4">
+<!-- Header Spacer -->
+<div class="flex-grow-[0.5]"></div>
+<!-- Header Content -->
+<div class="flex flex-col items-center justify-center text-center">
+<div class="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/20">
+<div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary">
+<span class="material-symbols-outlined text-background-dark text-4xl animate-pulse">
+              fitness_center
+            </span>
+</div>
+</div>
+<h1 class="text-white tracking-tight text-4xl font-bold leading-tight px-4 pb-3">Preparing your workout...</h1>
+<p class="text-white/80 text-lg font-normal leading-normal px-4">Your personalized session is moments away.</p>
+</div>
+<!-- Middle Spacer -->
+<div class="flex-grow"></div>
+<!-- Progress Bar -->
+<div class="flex flex-col gap-3 p-4">
+<div class="flex gap-6 justify-between">
+<p class="text-white text-base font-medium leading-normal">Analyzing your goals</p>
+</div>
+<div class="rounded bg-white/10 overflow-hidden">
+<div class="h-2 rounded bg-primary" style="width: 75%;"></div>
+</div>
+</div>
+<!-- Footer Tip -->
+<div class="flex flex-col items-center justify-center text-center p-4">
+<p class="text-white/60 text-base font-normal leading-normal">Tip: Remember to breathe during your reps.</p>
+</div>
+</div>
+</div>
+</body></html>
