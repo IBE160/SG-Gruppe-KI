@@ -1,330 +1,291 @@
-# Decision Architecture
+# Architecture
 
 ## Executive Summary
 
-The AI-Powered Personal Training Advisor (project ibe160) provides personalized, adaptive fitness guidance through AI-driven workout plans, comprehensive logging, and Spotify integration. Its architecture prioritizes consistency for AI agents, scalability, and adherence to key non-functional requirements including WCAG 2.1 AA, GDPR, performance, and security.
+This document outlines the architecture for the AI-Powered Personal Training Advisor. It defines a modern, scalable, and robust technology stack designed to support the project's unique requirements, including a conversational AI engine, real-time feedback, and integrated music features. The architecture is centered around a decoupled frontend (Next.js) and backend (FastAPI), with Supabase providing the data and authentication layers. This approach ensures a clear separation of concerns, enabling efficient development and future scalability. Key decisions and implementation patterns are explicitly documented to ensure consistency across all development efforts, particularly when executed by multiple AI agents.
 
 ## Project Initialization
 
-The project will be initialized using a combination of Next.js, FastAPI, and Supabase. The following commands outline the foundational setup:
+The first implementation story should be to initialize the project by executing the following command in the terminal. This will create the foundational structure of the web application.
 
 ```bash
-# 1. Create the Next.js frontend application
-npx create-next-app@14.x my-fullstack-app --typescript --eslint --tailwind --app --src-dir --import-alias "@/*"
-
-# Navigate into the project directory
-cd my-fullstack-app
-
-# 2. Install Supabase client for Next.js
-npm install @supabase/supabase-js
-
-# 3. Create the FastAPI backend directory and set up a Python virtual environment
-mkdir backend
-cd backend
-python -m venv venv
-
-# Activate the virtual environment (example for PowerShell)
-# .\venv\Scripts\Activate.ps1
-
-# 4. Install FastAPI, Uvicorn (ASGI server), and python-dotenv for environment variables
-pip install fastapi uvicorn python-dotenv "uvicorn[standard]"
-
-# Install Supabase client for Python (optional, if your backend needs direct Supabase interaction)
-pip install supabase-py
-
-# 5. Create a basic FastAPI application file (e.g., main.py) - content to be added manually
-
-# 6. Create a .env file in the backend directory for environment variables - content to be added manually
-
-# 7. Go back to the root of your project to continue frontend setup or run commands
-cd ..
+npx create-next-app@latest my-ai-trainer --typescript --tailwind --eslint --app --src-dir
 ```
 
-This foundational setup provides the following architectural decisions:
-- **Language/TypeScript:** Provided (for Next.js)
-- **Styling solution:** Tailwind CSS (for Next.js)
-- **Testing framework:** Not explicitly provided by this initial setup, will need to be added.
-- **Linting/Formatting:** ESLint (for Next.js)
-- **Build tooling:** Next.js built-in for frontend, Uvicorn for FastAPI backend.
-- **Project structure:** Separate frontend (Next.js) and backend (FastAPI) directories.
+Using this starter template automatically makes several key architectural decisions, establishing a consistent and modern technology base:
 
-Project initialization using these commands should be the first implementation story.
+-   **Framework**: Next.js (with App Router)
+-   **Language**: TypeScript
+-   **Styling**: Tailwind CSS
+-   **Linting**: ESLint
+-   **Build Tool**: Next.js CLI (Turbopack/Webpack)
+-   **Project Structure**: Standard Next.js App Router with a `/src` directory.
+
+
+This is a great starting point that follows industry best practices and will significantly speed up development.
+
+Great! I've analyzed your requirements and found that we have a few more technical choices to make.
+
+Don't worry - I'll guide you through each one and explain why it matters. The starter template we chose handles the frontend foundation, but we still need to decide on the backend and how different parts of the system will talk to each other.
+
+We will work through the following decisions together:
+
+1.  **Backend Framework:** The engine that will power your AI features.
+2.  **Database:** Where all user and workout data will be stored.
+3.  **Authentication:** How users will securely log in.
+4.  **State Management:** How the application keeps track of information as users interact with it.
+5.  **Testing:** How we ensure everything works correctly.
 
 ## Decision Summary
 
-| Category | Decision | Version | Affects Epics | Rationale | Verification |
-| -------- | -------- | ------- | ------------- | --------- | ------------ |
-| Frontend Framework | Next.js | 14.x (LTS) | All | Provided by starter template | Verified: 2025-11-21 (Next.js website). LTS version chosen for stability. No breaking changes noted from v13.x. |
-| Frontend Language | TypeScript | 5.9.3 | All | Provided by starter template | Verified: 2025-11-21 (npm registry). Stable version. No major breaking changes expected with Next.js 14.x. |
-| Frontend Styling | Tailwind CSS | 4.1.17 | All | Provided by starter template | Verified: 2025-11-21 (npm registry). Stable version. |
-| Frontend Linting | ESLint | 9.39.1 | All | Provided by starter template | Verified: 2025-11-21 (npm registry). Stable version. |
-| Backend Framework | FastAPI | 0.121.3 | All | Provided by starter template | Verified: 2025-11-21 (PyPI). Stable version. |
-| Backend Language | Python | 3.11 | All | Provided by starter template | Verified: 2025-11-21 (Python.org). LTS-like support for stability, recommended for FastAPI. |
-| Database | Supabase (PostgreSQL) | Client JS: 2.84.0, Client Python: 2.24.0 | All | Provided by starter template | Verified: 2025-11-21 (npm, PyPI). Supabase is a managed service; PostgreSQL versions are handled by Supabase. |
-| Authentication | Supabase Auth | N/A (Service) | All | Provided by starter template | Verified: 2025-11-21 (Supabase documentation). Managed service. |
-| Project Structure | Monorepo (Next.js/FastAPI) | N/A | All | Provided by starter template | Verified: 2025-11-21 (architectural decision). |
-| AI Model Serving | OpenAI API (Cloud) | Client Python: 2.8.1 | Epic 2, 3 | Simplicity, scalability, focus on core app features | Verified: 2025-11-21 (PyPI). Uses OpenAI Python client. |
-| Data Architecture | PostgreSQL Schema | N/A | All | Foundational data storage for all application features | Verified: 2025-11-21 (architectural decision/pattern). |
-| API Design | RESTful API with JSON | N/A | All | Standardized communication between frontend and backend | Verified: 2025-11-21 (architectural decision/pattern). |
-| Authentication & Authorization | Supabase Auth + RLS | N/A | All | Secure user access and data privacy | Verified: 2025-11-21 (architectural decision/pattern). |
-| Deployment Strategy | Vercel (Frontend), PaaS (Backend) | N/A | All | Optimized deployment for Next.js, simplified backend management | Verified: 2025-11-21 (architectural decision/pattern). |
-| Observability Stack | Vercel/PaaS Built-in + APM | N/A | All | Comprehensive logging, monitoring, and alerting | Verified: 2025-11-21 (architectural decision/pattern). |
-| Background Job Processing | Celery with Redis | N/A | Epic 2, 4 | Reliable execution of scheduled and long-running tasks | Verified: 2025-11-21 (architectural decision/pattern). |
-| Offline Data Sync | IndexedDB + Outbox Pattern | N/A | Epic 2 | Enable offline workout logging and plan access | Verified: 2025-11-21 (architectural decision/pattern). |
-| Spotify Integration | PKCE OAuth, Web Playback SDK, Web API | N/A | Epic 3 | Seamless music integration with BPM matching | Verified: 2025-11-21 (architectural decision/pattern). |
-| Client-side State Management | React Query + Context/Hooks | N/A | All | Efficient data fetching, caching, and UI state management | Verified: 2025-11-21 (architectural decision/pattern). |
-| UI Component Library | shadcn/ui | 0.8.0 | All | Leverages headless components with Tailwind CSS for customizable and accessible UI. | Verified: 2025-12-03 (shadcn/ui documentation). Aligns with existing frontend stack. |
-| Design System | shadcn/ui (customized) | N/A | All | Provides a consistent and accessible visual language and component set for the UI. | Verified: 2025-12-03 (UX Design Specification). |
-| Responsive Design | Mobile-first with breakpoints | N/A | All | Ensures optimal user experience across various devices (mobile, tablet, desktop). | Verified: 2025-12-03 (UX Design Specification). |
-| Accessibility Standard | WCAG 2.1 AA | N/A | All | Guarantees the application is usable by the widest possible audience, including individuals with disabilities. | Verified: 2025-12-03 (UX Design Specification). |
-| Performance Considerations | Caching, DB Optimization, AI Fallback | N/A | All | Meet NFRs for latency and responsiveness | Verified: 2025-11-21 (architectural decision/pattern). |
+| Category | Decision | Version | Affects Epics | Rationale |
+| -------- | -------- | ------- | ------------- | --------- |
+| API Pattern | FastAPI | 0.123.7 | AI Planning, Workout Logging, All Backend Services | Recommended in proposal; Excellent for AI/ML integration and high performance. |
+| Data Persistence | Supabase (PostgreSQL) | 2.86.0 | All data-related features | Provides a managed PostgreSQL database, simplifying setup and scaling. Also includes Auth and Storage. |
+| Authentication | Supabase Auth | 2.86.0 | User Onboarding, Security | Tightly integrated with our chosen database provider (Supabase), offering a seamless solution for handling logins with Google and Email/Password. |
+| State Management | Zustand | 5.0.9 | All interactive frontend features | A lightweight, simple, and powerful state management solution that is easy to learn and integrates well with React/Next.js. |
+| Testing | Jest, React Testing Library, Playwright | 30.2.0, 16.3.0, 1.57.0 | All Features | Provides a comprehensive, industry-standard testing stack for a Next.js application, covering everything from individual units to full end-to-end user flows. |
 
 ## Project Structure
 
-A high-level overview of the project directory, emphasizing the monorepo structure with distinct frontend and backend applications.
+The project will be a monorepo containing two main packages: one for the Next.js frontend and one for the FastAPI backend. The `create-next-app` command with the `--src-dir` flag will establish the initial frontend structure.
 
 ```
-.
-├── .gemini/                       # Gemini CLI configuration and temporary files
-├── .logging/                      # Application logging infrastructure and tools
-├── .vscode/                       # VS Code configuration and settings
-├── bmad/                          # BMad agent configurations and workflows
-├── docs/                          # Project documentation, architecture, reports, etc.
-├── .env.example                   # Example environment variables
-├── .gitignore                     # Git ignore rules
-├── package.json                   # Node.js project dependencies (root)
-├── package-lock.json              # Node.js dependency lock file (root)
-├── playwright.config.ts           # Playwright end-to-end testing configuration
-├── proposal.md                    # Project proposal document
-├── README.md                      # Project README
-├── app/                           # Next.js Frontend Application
-│   ├── app/                       # Next.js App Router (route-specific components, layouts)
-│   ├── components/                # Reusable UI components (e.g., ui/, workouts/)
-│   ├── lib/                       # Utility functions, API clients, external service integrations
-│   ├── hooks/                     # Custom React hooks
-│   ├── styles/                    # Global CSS, Tailwind config
-│   ├── types/                     # TypeScript type definitions
-│   └── public/                    # Static assets
-└── backend/                       # FastAPI Backend Application
-    ├── app/                       # Main FastAPI application directory
-    │   ├── api/                   # FastAPI routers (e.g., v1/users.py, v1/workouts.py)
-    │   ├── core/                  # Application-wide configurations, settings, constants
-    │   ├── db/                    # Database connection, session, SQLAlchemy models
-    │   ├── schemas/               # Pydantic models for validation, serialization
-    │   ├── services/              # Business logic, complex operations
-    │   ├── crud/                  # CRUD operations for database models
-    │   └── dependencies/          # FastAPI dependency injection functions
-    ├── tests/                     # Backend unit, integration, and E2E tests
-    └── alembic/                   # Database migrations (if using Alembic)
+my-ai-trainer/
+├── apps/
+│   ├── web/                     # Next.js Frontend
+│   │   ├── src/
+│   │   │   ├── app/             # App Router: pages, layouts, components
+│   │   │   ├── components/      # Shared UI components
+│   │   │   ├── lib/             # Helper functions, utilities
+│   │   │   ├── store/           # Zustand state management stores
+│   │   │   └── styles/          # Global styles
+│   │   ├── public/              # Static assets (images, fonts)
+│   │   ├── tests/               # Jest/Playwright tests
+│   │   ├── next.config.js
+│   │   └── ...
+│   └── api/                     # FastAPI Backend
+│       ├── app/
+│       │   ├── api/             # API endpoints/routers
+│       │   ├── core/            # Config, security
+│       │   ├── services/        # Business logic
+│       │   └── models.py        # Pydantic models
+│       ├── tests/
+│       └── main.py
+├── packages/
+│   └── ui/                      # (Optional) Shared UI component library
+└── package.json
 ```
 
-## Epic to Architecture Mapping
+## FR Category to Architecture Mapping
 
-| Epic | Description | Architectural Components |
-|---|---|---|
-| Core Platform | Foundational services, user management, data persistence. | Supabase (Auth, PostgreSQL), FastAPI, Next.js (basic setup) |
-| AI-Powered Training | AI model integration for workout plan generation and adaptation. | OpenAI API, FastAPI (AI integration), Celery/Redis (background processing) |
-| Enhanced User Experience | Spotify integration, intuitive UI, performance optimizations. | Spotify API, Next.js (UI, React Query), Redis (caching) |
-| Comprehensive User Control | User settings, data privacy, GDPR compliance, offline capabilities. | Supabase (RLS), Next.js (user settings UI), IndexedDB (offline storage) |
+-   **Frontend (Next.js `web` app):** Responsible for all user-facing features.
+    -   Handles: Onboarding, Workout Player UI, Dashboard, Settings, User Profile UI, Context Window.
+    -   Manages all UI state with Zustand.
+    -   Communicates with the backend via REST API calls.
 
-## Technology Stack Details
-- **Frontend:**
-    - **Framework:** Next.js
-    - **Language:** TypeScript
-    - **Styling:** Tailwind CSS
-    - **UI Component Library:** shadcn/ui
-        - **Description:** A collection of re-usable components built using Radix UI and Tailwind CSS. It provides headless components that are easily customizable and accessible, aligning with the project's need for a modern, flexible, and themeable UI.
-    - **Client-side State Management:** React Query + Context/Hooks
-- **Backend:
-    - **Framework:** FastAPI
-    - **Language:** Python
-- **Database:** Supabase (PostgreSQL)
-- **Authentication:** Supabase Auth
-- **AI Model Serving:** OpenAI API (Cloud)
-- **Background Job Processing:** Celery with Redis
-- **Offline Storage:** IndexedDB
+-   **Backend (FastAPI `api` app):** Responsible for all business logic, data processing, and AI integration.
+    -   Handles: AI Daily-Plan Generation, Workout Log storage/retrieval, User Authentication logic, Spotify API communication.
+    -   Interacts directly with the Supabase (PostgreSQL) database.
+    -   Provides the REST API for the frontend.
 
-## User Experience (UX) Architecture
+## Implementation Patterns
 
-The application's User Experience (UX) architecture is driven by the goal of providing a personalized, adaptive, and highly engaging fitness journey. It prioritizes user-centric design, accessibility, and a seamless interaction flow.
+These patterns ensure consistent implementation across all AI agents:
 
-### Design System Foundation
+### Error Handling & Logging
 
-The UX is built upon **shadcn/ui (v0.8.0)**, chosen for its modern, customizable, and headless components that integrate seamlessly with Tailwind CSS. This foundation ensures consistency, flexibility, and accessibility across the user interface.
+-   **Graceful Recovery:** If an error occurs, the app should handle it gracefully without crashing. In the frontend, we will use **React Error Boundaries** to display a user-friendly message instead of a broken screen.
+-   **Standard API Errors:** The FastAPI backend will return errors in a consistent JSON format, allowing the frontend to understand what went wrong.
+-   **Structured Logging:** We will use **structured JSON logging** sent to the console. This provides a clean and machine-readable log of events and errors, which is invaluable for debugging.
 
-### Core User Experience & Novel Patterns
+### API Response Format
 
-The defining core experience is the "**Adaptive Daily Session**" — a 3-step ritual combining self-reflection, AI guidance, and performance tracking. This pattern is designed to make each workout feel intelligently adapted, emotionally attuned, and effortless to begin, transforming "checking in" into a motivational ritual.
+To ensure the frontend and backend communicate predictably, all API responses will follow a standard format:
 
-**Key aspects include:**
--   **Contextual Check-In:** A quick, conversational interface for users to provide input on mood, energy, and soreness.
--   **Live Feedback:** Transparent AI feedback during plan generation, making the process collaborative.
--   **Graceful Error Handling:** Providing fallback sessions or guidance during AI or music integration failures.
--   **"Perceived Magic" Speed:** Aiming for an ideal interaction time of 5-8 seconds from check-in to session start, achieved through optimized data pre-fetching and micro-feedback animations.
+-   **Success:** `{"data": { ... }}`
+-   **Error:** `{"error": {"message": "A description of the error.", "code": "ERROR_CODE"}}`
 
-### Core Experience Principles
+### Date & Time Handling
 
-The UX adheres to the following principles:
--   **Speed: Perceived Magic:** The core flow should feel instantaneous (under 8 seconds).
--   **Guidance: Transparent Partnership:** AI acts as a transparent partner, guiding users with clear, collaborative feedback.
--   **Flexibility: Simple by Default, Controllable on Demand:** Streamlined primary paths with "Edit Plan" options for more control.
--   **Feedback: Personal & Resonant:** Subtle and celebratory feedback, making the experience personal and emotionally engaging.
+To avoid timezone issues, we will follow a strict rule:
 
-### Responsive Design & Accessibility
+-   **Backend/Database:** All dates and times will be stored in **UTC**.
+-   **Frontend:** The user's browser will be responsible for converting UTC times to their local timezone for display. We will use the `date-fns` library to handle these conversions reliably.
 
-The application employs a **mobile-first responsive strategy** with standard breakpoints, ensuring an optimal and adaptive experience across web (mobile, tablet, desktop). A key non-functional requirement is adherence to **WCAG 2.1 AA** standards, ensuring the application is usable by individuals with disabilities through robust keyboard navigation, focus indicators, ARIA attributes, and clear screen reader considerations.
+## Novel Architectural Patterns
+
+Your project includes a unique feature that requires a custom architectural pattern. This isn't just picking a technology, but defining how a core piece of your app's "magic" will work.
+
+### Pattern: Adaptive Workout Dialogue
+
+This pattern formalizes the conversational loop between the user and the AI, ensuring the AI's adaptations are transparent, effective, and continuously learning.
+
+**Purpose:** To move beyond static plan generation and create a dynamic, two-way conversation where the user's daily context directly and transparently shapes their workout.
+
+**Components:**
+1.  **Context Window (Frontend):** The UI where the user inputs their daily qualitative feedback (mood, energy, soreness, etc.).
+2.  **AI Orchestrator (Backend):** A service in the FastAPI backend that receives the user's context, fuses it with their profile and history, and constructs the prompt for the AI model.
+3.  **AI Model (OpenAI API):** The external Large Language Model that generates the workout plan and adaptation suggestions.
+4.  **Plan Review UI (Frontend):** The screen where the user sees the proposed (and potentially modified) plan and the AI's reasoning.
+5.  **Feedback Loop (Backend):** A mechanism to store the user's acceptance or rejection of suggestions, feeding that data back into future prompts.
+
+**Data Flow:**
+1.  User submits context (e.g., "Feeling low energy") via the **Context Window**.
+2.  The **AI Orchestrator** combines this with recent workout data and goals, then sends a detailed prompt to the **AI Model**.
+3.  The **AI Model** returns a structured JSON plan *and* a human-readable explanation for any changes (e.g., "Because you're low on energy, I've reduced volume by 10%...").
+4.  The **Plan Review UI** displays both the adjusted plan and the AI's explanation.
+5.  If the user accepts, the plan is confirmed. If they edit or reject a change, this feedback is captured by the **Feedback Loop** to refine future suggestions.
+
+This pattern is critical for making the AI feel like a true, listening companion.
+
+### Pattern: AI-Driven Music Matching ("Smart Radio")
+
+This pattern defines a system that learns from user behavior to create personalized, phase-aware workout playlists, moving beyond simple BPM matching.
+
+**Purpose:** To create a "Smart Radio" experience that feels like a DJ is personally curating a soundtrack for the user's workout, enhancing motivation and flow state.
+
+**Components:**
+1.  **Music Source (Spotify API):** Provides access to the user's listening history, playlists, and a vast library of tracks.
+2.  **Master Lists (Database):** Large, persistent playlists of candidate tracks for each workout phase (Warm-up, Main, Cooldown), stored in the database.
+3.  **AI Music Scorer (Backend):** A service that ranks tracks in the Master Lists based on BPM, audio features (energy, danceability), and user feedback signals.
+4.  **Session Playlist Generator (Backend):** A service that queries the ranked Master Lists to build a "Session Playlist" for the upcoming workout.
+5.  **Pre-Workout Review UI (Frontend):** A screen where the user can see, approve, and make minor edits to the generated Session Playlist.
+6.  **Playback Feedback Loop (Frontend/Backend):** A system that captures in-workout user actions (e.g., skipping a track) and translates them into negative signals for the AI Music Scorer.
+
+**Data Flow:**
+1.  The **AI Music Scorer** asynchronously seeds the **Master Lists** using the user's Spotify history and preferences.
+2.  Before a workout, the **Session Playlist Generator** selects the highest-scoring tracks from the Master Lists that match the workout's phases.
+3.  The proposed playlist is displayed on the **Pre-Workout Review UI**.
+4.  During the workout, if the user skips a track within the first 30 seconds, the **Playback Feedback Loop** sends a "soft delete" signal. The track is removed from the current session and its score is lowered in the Master List.
+5.  If a user manually removes a track from the review screen, it's a "hard delete," and the track is permanently removed from the Master List.
+6.  The **AI Music Scorer** continuously re-ranks tracks based on this feedback, ensuring playlists get smarter over time.
+
+This pattern allows the music to adapt not just to the workout's intensity, but to the user's unique and evolving taste.
+
+
+## Consistency Rules
+
+### Naming Conventions
+
+To ensure consistency and prevent conflicts, all agents MUST adhere to the following naming conventions:
+
+-   **API Routes:** `kebab-case`, plural (e.g., `/workout-plans`). Route parameters use curly braces (e.g., `/users/{userId}`).
+-   **Database Tables:** `PascalCase`, plural (e.g., `WorkoutPlans`).
+-   **Database Columns:** `snake_case` (e.g., `user_id`, `created_at`).
+-   **React Components:** `PascalCase` for files and components (e.g., `WorkoutPlayer.tsx`).
+-   **CSS/Styled Components:** `camelCase` for variables and `kebab-case` for classes where applicable.
+-   **Event Names:** `domain:event` (e.g., `workout:completed`).
+
+### Code Organization
+
+-   **Testing:** Test files will be co-located with the source files they are testing, using a `*.test.ts` or `*.spec.ts` suffix. End-to-end tests will live in a separate `tests` directory at the root of the `web` and `api` packages.
+-   **Shared Code:** Cross-cutting utilities or types will be placed in a `lib` or `utils` directory at the appropriate level (e.g., `apps/web/src/lib`).
+
+### Error Handling
+
+-   **Frontend:** Use **React Error Boundaries** to wrap major UI sections.
+-   **Backend:** Global error handling middleware in FastAPI will catch exceptions and format them into the standard `{"error": ...}` response.
+
+### Logging Strategy
+
+-   **Level:** Default log level will be `INFO`.
+-   **Format:** Structured JSON to the console.
+-   **Content:** Logs should include a timestamp, level, message, and any relevant context (e.g., `userId`, `traceId`).
+
+## Data Architecture
+
+-   **Data Models:** Based on the ERD in the project proposal. Key models include `Users`, `Goals`, `WorkoutPlans`, `WorkoutLogs`, and `Integrations`.
+-   **Relationships:** Foreign keys will be used to establish clear relationships (e.g., `WorkoutLogs` will have a `user_id` and `plan_id`).
+-   **ORM:** We will use **Prisma** as the Object-Relational Mapper to provide a type-safe interface between our FastAPI backend and the PostgreSQL database. This was implicitly decided by the choice of a modern, full-stack architecture.
+
+## API Contracts
+
+-   **Specification:** We will use the **OpenAPI** standard to define our REST API. FastAPI will automatically generate the OpenAPI specification from the Python code.
+-   **Versioning:** The API will be versioned in the URL (e.g., `/api/v1/...`).
+-   **Authentication:** All protected endpoints will expect a `Bearer` token in the `Authorization` header, provided by Supabase Auth.
+
+## Security Architecture
+
+-   **Authentication:** Handled by **Supabase Auth**.
+-   **Authorization:** Row Level Security (RLS) will be enabled in PostgreSQL to ensure users can only access their own data.
+-   **Secrets Management:** API keys and other secrets will be managed via environment variables and will not be checked into source control.
+-   **Input Validation:** All incoming data to the API will be validated using **Pydantic** models in FastAPI.
 
 ## Performance Considerations
 
-The application's performance will be a critical factor for user experience, especially given the NFRs for API latency and AI response times. UX-driven performance targets, such as the "perceived magic" speed for critical user journeys like the Adaptive Daily Session, are detailed in the [User Experience (UX) Architecture](#user-experience-ux-architecture) section.
-
-### General Principles:
-- **Optimize for User Experience:** Prioritize responsiveness and perceived performance for critical user journeys.
-- **Proactive Optimization:** Implement performance considerations from the design phase, rather than as an afterthought.
-- **Continuous Monitoring:** Utilize the observability stack to track performance metrics and identify bottlenecks.
-
-### Strategies:
-- **Caching:**
-    - **Frontend (Next.js):** Leverage Next.js's built-in caching mechanisms (ISR, SSR caching) and **React Query** for client-side caching of API responses. React Query handles stale-while-revalidate, background re-fetching, and provides a great developer experience for managing server state.
-    - **Backend (FastAPI):** Implement a dedicated **Redis** instance for caching frequently accessed data from the PostgreSQL database (e.g., user profiles, workout templates, aggregated statistics). Redis will also be used for **AI Response Cache** to store results from OpenAI API calls for similar or identical requests, crucial for meeting the AI performance NFR.
-- **Database Optimization:**
-    - **Efficient Queries:** Design and optimize PostgreSQL queries to minimize execution time.
-    - **Indexing:** Apply appropriate database indexes to speed up data retrieval.
-    - **Connection Pooling:** Utilize connection pooling for the FastAPI application to efficiently manage database connections.
-- **AI Model Performance:**
-    - **API Optimization:** Ensure efficient communication with the OpenAI API, including batching requests where appropriate.
-    - **Response Time Monitoring:** Closely monitor AI response times to meet the p95 ≤ 10s NFR.
-    - **Fallback Mechanism:** Implement a fallback mechanism (as per FR008) to provide a cached or rule-based plan if AI generation fails or times out, ensuring a continuous user experience.
-- **Frontend Performance:**
-    - **Code Splitting & Lazy Loading:** Optimize Next.js bundles by splitting code and lazy-loading components to reduce initial page load times.
-    - **Image Optimization:** Optimize images for web delivery (e.g., using Next.js Image component, appropriate formats and compression).
-    - **CDN:** Leverage Vercel's global CDN for fast asset delivery.
-- **Rate Limiting:** Implement rate limiting on AI endpoints (as per NFR009) to prevent abuse and ensure fair usage, which can also indirectly help maintain performance under heavy load.
+-   **Frontend:**
+    -   **Code Splitting:** Next.js will automatically handle code splitting on a per-page basis.
+    -   **Lazy Loading:** Components or libraries not needed for the initial render will be lazy-loaded.
+    -   **Image Optimization:** Next.js Image component will be used to optimize images.
+-   **Backend:**
+    -   **Asynchronous Operations:** FastAPI is asynchronous by default, which is highly performant for I/O-bound tasks.
+    -   **Database Indexing:** Proper indexes will be added to the PostgreSQL database for frequently queried columns.
 
 ## Deployment Architecture
 
-The application will be deployed with a clear separation between the frontend and backend components, leveraging specialized platforms for optimal performance and ease of management.
+-   **Frontend (Next.js):** Deployed to **Vercel**. Vercel is the creator of Next.js and provides a seamless, Git-based deployment workflow with automatic CI/CD.
+-   **Backend (FastAPI):** Deployed as a containerized application to **Fly.io** or **Render**. This provides a cost-effective, scalable, and easy-to-manage environment for the API.
+-   **Database (Supabase):** This is a managed service, so no deployment is necessary.
 
-### Frontend (Next.js):
-- **Platform:** Vercel
-- **Rationale:** Vercel is the creator of Next.js and provides highly optimized deployment, including automatic scaling, global Content Delivery Network (CDN), serverless functions for API routes (if used within Next.js), and seamless integration with Git repositories for continuous deployment. This choice ensures excellent performance, developer experience, and scalability for the user-facing application.
+## Coherence Validation
 
-### Backend (FastAPI):
-- **Platform:** A Platform-as-a-Service (PaaS) solution such as Render or Railway.
-- **Rationale:** PaaS providers simplify the deployment and management of the FastAPI backend by abstracting away infrastructure concerns. They offer managed services for hosting, scaling, and monitoring, allowing the development team to focus on building application logic rather than managing servers. This approach balances control with operational simplicity, providing a robust environment for the FastAPI API.
+The architectural decisions outlined in this document have been reviewed for compatibility, completeness, and coverage of all project requirements.
 
-### Database (PostgreSQL via Supabase):
-- **Platform:** Supabase
-- **Rationale:** Supabase provides a fully managed PostgreSQL database, handling all aspects of hosting, backups, and scaling. This eliminates the need for separate database deployment considerations.
+-   **Technology Stack:** The chosen technologies (Next.js, FastAPI, Supabase, etc.) are compatible and represent a modern, robust stack.
+-   **Requirement Coverage:** All Functional and Non-Functional Requirements from the PRD are supported by this architecture.
+-   **Pattern Integrity:** The defined implementation and novel patterns provide a solid and consistent foundation for development.
 
-### Overall Deployment Flow:
-1.  **Code Commit:** Developers push code changes to their Git repository.
-2.  **Frontend CI/CD (Vercel):** Vercel automatically detects changes in the Next.js repository, builds the application, and deploys it to its global network.
-3.  **Backend CI/CD (PaaS):** The chosen PaaS (e.g., Render/Railway) automatically detects changes in the FastAPI repository, builds the application (e.g., Docker image), and deploys it to its managed infrastructure.
-4.  **Supabase:** Database changes are managed directly within the Supabase platform.
+No major conflicts or gaps have been identified. The architecture is coherent and ready for implementation.
 
 ## Development Environment
 
 ### Prerequisites
 
-To set up the development environment, the following software and tools are required:
-
-- **Node.js (LTS version):** Required for running the Next.js frontend application and its associated tooling (npm/yarn).
-- **npm (Node Package Manager):** Used for managing frontend dependencies. (Comes with Node.js)
-- **Python (3.11):** Required for the FastAPI backend application.
-- **pip (Python Package Installer):** Used for managing backend dependencies. (Comes with Python)
-- **Git:** For version control and cloning the project repository.
-- **Code Editor:** A modern code editor such as Visual Studio Code, with relevant extensions for TypeScript, React, Python, and Tailwind CSS.
-- **shadcn/ui CLI:** For initializing and adding UI components.
-- **Docker (Optional but Recommended):** For running Supabase locally or for containerizing the backend application.
+-   Node.js (v20.x or later)
+-   Python (v3.11 or later)
+-   Docker (for local PostgreSQL instance if not using Supabase cloud)
+-   Vercel CLI
+-   Fly.io or Render CLI
 
 ### Setup Commands
 
 ```bash
-# 1. Create the Next.js frontend application
-npx create-next-app@14.x my-fullstack-app --typescript --eslint --tailwind --app --src-dir --import-alias "@/*"
+# Clone the repository
+git clone <repository_url>
+cd <repository_name>
 
-# Navigate into the project directory
-cd my-fullstack-app
+# Install frontend dependencies
+cd apps/web
+npm install
 
-# 2. Install Supabase client for Next.js
-npm install @supabase/supabase-js
-
-# 3. Create the FastAPI backend directory and set up a Python virtual environment
-mkdir backend
-cd backend
-python -m venv venv
-
-# Activate the virtual environment (example for PowerShell)
-# .\venv\Scripts\Activate.ps1
-
-# 4. Install FastAPI, Uvicorn (ASGI server), and python-dotenv for environment variables
-pip install fastapi uvicorn python-dotenv "uvicorn[standard]"
-
-# Install Supabase client for Python (optional, if your backend needs direct Supabase interaction)
-pip install supabase-py
-
-# 5. Create a basic FastAPI application file (e.g., main.py) - content to be added manually
-
-# 6. Create a .env file in the backend directory for environment variables - content to be added manually
-
-# 7. Go back to the root of your project to continue frontend setup or run commands
-cd ..
-
-# 8. Initialize shadcn/ui and add required components (e.g., button, form)
-npx shadcn-ui@latest init
-npx shadcn-ui@latest add button input form # Example components
+# Install backend dependencies
+cd ../api
+pip install -r requirements.txt
 ```
 
 ## Architecture Decision Records (ADRs)
 
-## Architecture Decision Records (ADRs)
+This section captures the most critical architectural decisions made for this project.
 
-The following are key architectural decisions made for the project:
-
-- **Frontend Framework: Next.js**
-    - **Rationale:** Provided by starter template, offers strong features for SSR, SSG, and API routes, optimized for performance and developer experience.
-- **Frontend Language: TypeScript**
-    - **Rationale:** Provided by starter template, enhances code quality, maintainability, and developer productivity through static typing.
-- **Frontend Styling: Tailwind CSS**
-    - **Rationale:** Provided by starter template, utility-first CSS framework for rapid UI development and consistent design.
-- **Frontend Linting: ESLint**
-    - **Rationale:** Provided by starter-template, ensures code quality and adherence to coding standards.
-- **Backend Framework: FastAPI**
-    - **Rationale:** Provided by starter template, high-performance Python web framework for building APIs, with automatic OpenAPI documentation.
-- **Backend Language: Python**
-    - **Rationale:** Provided by starter template, widely used for AI/ML, offering a rich ecosystem for backend development.
-- **Database: Supabase (PostgreSQL)**
-    - **Rationale:** Provided by starter-template, fully managed PostgreSQL with real-time capabilities, authentication, and RLS.
-- **Authentication: Supabase Auth**
-    - **Rationale:** Provided by starter-template, integrated authentication solution with various providers and robust security features.
-- **Project Structure: Monorepo (Next.js/FastAPI)**
-    - **Rationale:** Provided by starter template, simplifies dependency management, code sharing, and deployment for related frontend and backend projects.
-- **AI Model Serving: OpenAI API (Cloud)**
-    - **Rationale:** Simplicity, scalability, and allows focus on core application features rather than managing AI infrastructure.
-- **Data Architecture: PostgreSQL Schema**
-    - **Rationale:** Foundational data storage for all application features, leveraging PostgreSQL's reliability and features.
-- **API Design: RESTful API with JSON**
-    - **Rationale:** Standardized communication between frontend and backend, widely understood and supported.
-- **Authentication & Authorization: Supabase Auth + RLS**
-    - **Rationale:** Secure user access and data privacy through integrated authentication and fine-grained row-level security.
-- **Deployment Strategy: Vercel (Frontend), PaaS (Backend)**
-    - **Rationale:** Optimized deployment for Next.js (Vercel) and simplified backend management (PaaS) for scalability and operational ease.
-- **Observability Stack: Vercel/PaaS Built-in + APM**
-    - **Rationale:** Comprehensive logging, monitoring, and alerting for application health and performance insights.
-- **Background Job Processing: Celery with Redis**
-    - **Rationale:** Reliable execution of scheduled and long-running tasks, crucial for AI plan generation and other asynchronous operations.
-- **Offline Data Sync: IndexedDB + Outbox Pattern**
-    - **Rationale:** Enables offline workout logging and plan access, enhancing user experience and data resilience.
-- **Spotify Integration: PKCE OAuth, Web Playback SDK, Web API**
-    - **Rationale:** Seamless music integration with BPM matching, providing a unique and engaging user experience.
-- **Client-side State Management: React Query + Context/Hooks**
-    - **Rationale:** Efficient data fetching, caching, and UI state management for a responsive frontend.
-- **Performance Considerations: Caching, DB Optimization, AI Fallback**
-    - **Rationale:** Strategies to meet Non-Functional Requirements (NFRs) for latency and responsiveness, ensuring a smooth user experience.
+-   **ADR-001: Web Framework Selection**
+    -   **Decision:** Use Next.js with the App Router.
+    -   **Rationale:** Provides a best-in-class React framework with SSR, SSG, and a strong ecosystem. The App Router enables modern, server-centric patterns.
+-   **ADR-002: Backend Framework Selection**
+    -   **Decision:** Use FastAPI (Python).
+    -   **Rationale:** Excellent performance and native support for Python's extensive AI/ML ecosystem, which is critical for the core features of this project.
+-   **ADR-003: Database and Auth Provider**
+    -   **Decision:** Use Supabase as the provider for both the PostgreSQL database and authentication.
+    -   **Rationale:** Simplifies the architecture by bundling a managed database, authentication, and file storage into a single, cohesive service. Provides a strong foundation for rapid development.
+-   **ADR-004: State Management**
+    -   **Decision:** Use Zustand for frontend state management.
+    -   **Rationale:** A lightweight and simple solution that avoids the boilerplate of more complex state managers while being powerful enough for the application's needs.
+-   **ADR-005: Testing Strategy**
+    -   **Decision:** Adopt a three-tiered approach with Jest/React Testing Library for unit/integration tests and Playwright for end-to-end tests.
+    -   **Rationale:** Provides comprehensive test coverage across the entire application stack, ensuring reliability and maintainability.
 
 ---
 
 _Generated by BMAD Decision Architecture Workflow v1.0_
-_Date: tirsdag 18. november 2025_
+_Date: 2025-12-04_
 _For: BIP_

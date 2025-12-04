@@ -26,18 +26,18 @@
     - [x] File : ux-design-directions.html
   - [x] /run-agent-task ux-designer *validate-ux-design {prompt / user-input-file}
     - [x] File : validation-report-ux-design.md
-  - [] /run-agent-task tea *framework {prompt / user-input-file}
-  - [] /run-agent-task tea *ci {prompt / user-input-file}
+  - [x] /run-agent-task tea *framework {prompt / user-input-file}
+  - [x] /run-agent-task tea *ci {prompt / user-input-file}
   - [] /run-agent-task tea *test-design {prompt / user-input-file}
     - [] File : master-test-plan.md
 
 ## Fase 2
 
-- [] Solutioning
-  - [] /run-agent-task architect *architecture {prompt / user-input-file}
-    - [] File : architecture.md
-  - [] /run-agent-task architect *validate-architecture {prompt / user-input-file}
-    - [] File : validation-report-architecture.md
+- [x] Solutioning
+  - [x] /run-agent-task architect *architecture {prompt / user-input-file}
+    - [x] File : architecture.md
+  - [x] /run-agent-task architect *validate-architecture {prompt / user-input-file}
+    - [x] File : validation-report-architecture.md
 
 ## Fase 3
 

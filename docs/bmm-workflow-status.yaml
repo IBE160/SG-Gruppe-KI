@@ -44,7 +44,7 @@ workflow_status:
   create-architecture: required
   validate-architecture: optional
   solutioning-gate-check: docs/implementation-readiness-report-fredag 21. november 2025.md
-  implementation-readiness: docs/implementation-readiness-report-fredag 21. november 2025.md
+  implementation-readiness: docs/implementation-readiness-report-2025-12-04.md
 
   # Phase 3: Implementation
   sprint-planning: required

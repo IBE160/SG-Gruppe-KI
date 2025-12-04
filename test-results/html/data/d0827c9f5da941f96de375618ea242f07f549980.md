@@ -1,0 +1,174 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - heading "Index of /" [level=1] [ref=e2]
+  - table [ref=e3]:
+    - rowgroup [ref=e4]:
+      - row "Name Size Date Modified" [ref=e5]:
+        - columnheader "Name" [ref=e6]
+        - columnheader "Size" [ref=e7]
+        - columnheader "Date Modified" [ref=e8]
+      - row ".bmad/ 11/19/25, 15:35:51" [ref=e9]:
+        - cell ".bmad/" [ref=e10]:
+          - link ".bmad/" [ref=e11] [cursor=pointer]:
+            - /url: "%5C.bmad/"
+        - cell [ref=e12]
+        - cell "11/19/25, 15:35:51" [ref=e13]
+      - row ".bmad-ephemeral/ 11/21/25, 17:12:39" [ref=e14]:
+        - cell ".bmad-ephemeral/" [ref=e15]:
+          - link ".bmad-ephemeral/" [ref=e16] [cursor=pointer]:
+            - /url: "%5C.bmad-ephemeral/"
+        - cell [ref=e17]
+        - cell "11/21/25, 17:12:39" [ref=e18]
+      - row ".gemini/ 11/19/25, 15:35:51" [ref=e19]:
+        - cell ".gemini/" [ref=e20]:
+          - link ".gemini/" [ref=e21] [cursor=pointer]:
+            - /url: "%5C.gemini/"
+        - cell [ref=e22]
+        - cell "11/19/25, 15:35:51" [ref=e23]
+      - row ".git/ 12/04/25, 15:00:32" [ref=e24]:
+        - cell ".git/" [ref=e25]:
+          - link ".git/" [ref=e26] [cursor=pointer]:
+            - /url: "%5C.git/"
+        - cell [ref=e27]
+        - cell "12/04/25, 15:00:32" [ref=e28]
+      - row ".logging/ 12/03/25, 23:13:24" [ref=e29]:
+        - cell ".logging/" [ref=e30]:
+          - link ".logging/" [ref=e31] [cursor=pointer]:
+            - /url: "%5C.logging/"
+        - cell [ref=e32]
+        - cell "12/03/25, 23:13:24" [ref=e33]
+      - row ".next/ 11/28/25, 1:14:54" [ref=e34]:
+        - cell ".next/" [ref=e35]:
+          - link ".next/" [ref=e36] [cursor=pointer]:
+            - /url: "%5C.next/"
+        - cell [ref=e37]
+        - cell "11/28/25, 1:14:54" [ref=e38]
+      - row ".pytest_cache/ 11/28/25, 1:41:16" [ref=e39]:
+        - cell ".pytest_cache/" [ref=e40]:
+          - link ".pytest_cache/" [ref=e41] [cursor=pointer]:
+            - /url: "%5C.pytest_cache/"
+        - cell [ref=e42]
+        - cell "11/28/25, 1:41:16" [ref=e43]
+      - row ".swc/ 11/28/25, 1:50:08" [ref=e44]:
+        - cell ".swc/" [ref=e45]:
+          - link ".swc/" [ref=e46] [cursor=pointer]:
+            - /url: "%5C.swc/"
+        - cell [ref=e47]
+        - cell "11/28/25, 1:50:08" [ref=e48]
+      - row ".venv/ 12/01/25, 19:27:01" [ref=e49]:
+        - cell ".venv/" [ref=e50]:
+          - link ".venv/" [ref=e51] [cursor=pointer]:
+            - /url: "%5C.venv/"
+        - cell [ref=e52]
+        - cell "12/01/25, 19:27:01" [ref=e53]
+      - row ".vscode/ 10/30/25, 20:39:38" [ref=e54]:
+        - cell ".vscode/" [ref=e55]:
+          - link ".vscode/" [ref=e56] [cursor=pointer]:
+            - /url: "%5C.vscode/"
+        - cell [ref=e57]
+        - cell "10/30/25, 20:39:38" [ref=e58]
+      - row "docs/ 12/04/25, 14:37:07" [ref=e59]:
+        - cell "docs/" [ref=e60]:
+          - link "docs/" [ref=e61] [cursor=pointer]:
+            - /url: "%5Cdocs/"
+        - cell [ref=e62]
+        - cell "12/04/25, 14:37:07" [ref=e63]
+      - row "node_modules/ 12/04/25, 15:11:32" [ref=e64]:
+        - cell "node_modules/" [ref=e65]:
+          - link "node_modules/" [ref=e66] [cursor=pointer]:
+            - /url: "%5Cnode_modules/"
+        - cell [ref=e67]
+        - cell "12/04/25, 15:11:32" [ref=e68]
+      - row "test-results/ 12/04/25, 15:13:39" [ref=e69]:
+        - cell "test-results/" [ref=e70]:
+          - link "test-results/" [ref=e71] [cursor=pointer]:
+            - /url: "%5Ctest-results/"
+        - cell [ref=e72]
+        - cell "12/04/25, 15:13:39" [ref=e73]
+      - row "tests/ 12/04/25, 15:06:42" [ref=e74]:
+        - cell "tests/" [ref=e75]:
+          - link "tests/" [ref=e76] [cursor=pointer]:
+            - /url: "%5Ctests/"
+        - cell [ref=e77]
+        - cell "12/04/25, 15:06:42" [ref=e78]
+      - row ".env 3.3 kB 12/04/25, 15:08:28" [ref=e79]:
+        - cell ".env" [ref=e80]:
+          - link ".env" [ref=e81] [cursor=pointer]:
+            - /url: "%5C.env"
+        - cell "3.3 kB" [ref=e82]
+        - cell "12/04/25, 15:08:28" [ref=e83]
+      - row ".env.example 299.0 B 12/04/25, 15:05:54" [ref=e84]:
+        - cell ".env.example" [ref=e85]:
+          - link ".env.example" [ref=e86] [cursor=pointer]:
+            - /url: "%5C.env.example"
+        - cell "299.0 B" [ref=e87]
+        - cell "12/04/25, 15:05:54" [ref=e88]
+      - row ".env.local 3.2 kB 12/04/25, 15:08:38" [ref=e89]:
+        - cell ".env.local" [ref=e90]:
+          - link ".env.local" [ref=e91] [cursor=pointer]:
+            - /url: "%5C.env.local"
+        - cell "3.2 kB" [ref=e92]
+        - cell "12/04/25, 15:08:38" [ref=e93]
+      - row ".gitignore 558.0 B 11/28/25, 3:04:20" [ref=e94]:
+        - cell ".gitignore" [ref=e95]:
+          - link ".gitignore" [ref=e96] [cursor=pointer]:
+            - /url: "%5C.gitignore"
+        - cell "558.0 B" [ref=e97]
+        - cell "11/28/25, 3:04:20" [ref=e98]
+      - row ".nvmrc 9.0 B 11/19/25, 15:35:51" [ref=e99]:
+        - cell ".nvmrc" [ref=e100]:
+          - link ".nvmrc" [ref=e101] [cursor=pointer]:
+            - /url: "%5C.nvmrc"
+        - cell "9.0 B" [ref=e102]
+        - cell "11/19/25, 15:35:51" [ref=e103]
+      - row "package-lock.json 3.3 kB 12/04/25, 15:11:32" [ref=e104]:
+        - cell "package-lock.json" [ref=e105]:
+          - link "package-lock.json" [ref=e106] [cursor=pointer]:
+            - /url: "%5Cpackage-lock.json"
+        - cell "3.3 kB" [ref=e107]
+        - cell "12/04/25, 15:11:32" [ref=e108]
+      - row "package.json 838.0 B 12/04/25, 15:10:58" [ref=e109]:
+        - cell "package.json" [ref=e110]:
+          - link "package.json" [ref=e111] [cursor=pointer]:
+            - /url: "%5Cpackage.json"
+        - cell "838.0 B" [ref=e112]
+        - cell "12/04/25, 15:10:58" [ref=e113]
+      - row "playwright.config.ts 993.0 B 12/04/25, 15:05:51" [ref=e114]:
+        - cell "playwright.config.ts" [ref=e115]:
+          - link "playwright.config.ts" [ref=e116] [cursor=pointer]:
+            - /url: "%5Cplaywright.config.ts"
+        - cell "993.0 B" [ref=e117]
+        - cell "12/04/25, 15:05:51" [ref=e118]
+      - row "proposal.md 59.6 kB 11/21/25, 15:07:53" [ref=e119]:
+        - cell "proposal.md" [ref=e120]:
+          - link "proposal.md" [ref=e121] [cursor=pointer]:
+            - /url: "%5Cproposal.md"
+        - cell "59.6 kB" [ref=e122]
+        - cell "11/21/25, 15:07:53" [ref=e123]
+      - row "README.md 1.5 kB 11/28/25, 3:04:20" [ref=e124]:
+        - cell "README.md" [ref=e125]:
+          - link "README.md" [ref=e126] [cursor=pointer]:
+            - /url: "%5CREADME.md"
+        - cell "1.5 kB" [ref=e127]
+        - cell "11/28/25, 3:04:20" [ref=e128]
+      - row "supabase_project.json 4.5 kB 12/03/25, 19:04:30" [ref=e129]:
+        - cell "supabase_project.json" [ref=e130]:
+          - link "supabase_project.json" [ref=e131] [cursor=pointer]:
+            - /url: "%5Csupabase_project.json"
+        - cell "4.5 kB" [ref=e132]
+        - cell "12/03/25, 19:04:30" [ref=e133]
+      - row "supabase_project_rls.json 4.6 kB 12/03/25, 19:04:30" [ref=e134]:
+        - cell "supabase_project_rls.json" [ref=e135]:
+          - link "supabase_project_rls.json" [ref=e136] [cursor=pointer]:
+            - /url: "%5Csupabase_project_rls.json"
+        - cell "4.6 kB" [ref=e137]
+        - cell "12/03/25, 19:04:30" [ref=e138]
+      - row "supabase_project_servicerole.json 2.8 kB 12/03/25, 19:04:30" [ref=e139]:
+        - cell "supabase_project_servicerole.json" [ref=e140]:
+          - link "supabase_project_servicerole.json" [ref=e141] [cursor=pointer]:
+            - /url: "%5Csupabase_project_servicerole.json"
+        - cell "2.8 kB" [ref=e142]
+        - cell "12/03/25, 19:04:30" [ref=e143]
+```

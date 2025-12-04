@@ -1,0 +1,317 @@
+<testsuites id="" name="" tests="6" failures="6" skipped="0" errors="0" time="26.12402">
+<testsuite name="example.spec.ts" timestamp="2025-12-04T14:13:34.499Z" hostname="chromium" tests="2" failures="2" skipped="0" time="17.485" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="16.652">
+<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
+<![CDATA[  [chromium] › example.spec.ts:4:7 › Example Test Suite › should load homepage ─────────────────────
+
+    Error: expect(page).toHaveTitle(expected) failed
+
+    Expected pattern: /Home/i
+    Received string:  "Index of /"
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 15000ms
+        18 × unexpected value "Index of /"
+
+
+      4 |   test('should load homepage', async ({ page }) => {
+      5 |     await page.goto('/');
+    > 6 |     await expect(page).toHaveTitle(/Home/i);
+        |                        ^
+      7 |   });
+      8 |
+      9 |   test('should create user and login', async ({ page, userFactory }) => {
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\error-context.md]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="0.833">
+<failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
+<![CDATA[  [chromium] › example.spec.ts:9:7 › Example Test Suite › should create user and login ─────────────
+
+    TypeError: Failed to parse URL from undefined/users
+
+       at ..\support\fixtures\factories\user-factory.ts:15
+
+      13 |
+      14 |     // API call to create user
+    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
+         |                      ^
+      16 |       method: 'POST',
+      17 |       headers: { 'Content-Type': 'application/json' },
+      18 |       body: JSON.stringify(user),
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:22)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:18
+    [cause]: TypeError: Invalid URL
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:28)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-chromium\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-chromium\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="example.spec.ts" timestamp="2025-12-04T14:13:34.499Z" hostname="firefox" tests="2" failures="2" skipped="0" time="18.98" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="17.186">
+<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
+<![CDATA[  [firefox] › example.spec.ts:4:7 › Example Test Suite › should load homepage ──────────────────────
+
+    Error: expect(page).toHaveTitle(expected) failed
+
+    Expected pattern: /Home/i
+    Received string:  "Index of /"
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 15000ms
+        18 × unexpected value "Index of /"
+
+
+      4 |   test('should load homepage', async ({ page }) => {
+      5 |     await page.goto('/');
+    > 6 |     await expect(page).toHaveTitle(/Home/i);
+        |                        ^
+      7 |   });
+      8 |
+      9 |   test('should create user and login', async ({ page, userFactory }) => {
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\error-context.md]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-firefox\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="1.794">
+<failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
+<![CDATA[  [firefox] › example.spec.ts:9:7 › Example Test Suite › should create user and login ──────────────
+
+    TypeError: Failed to parse URL from undefined/users
+
+       at ..\support\fixtures\factories\user-factory.ts:15
+
+      13 |
+      14 |     // API call to create user
+    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
+         |                      ^
+      16 |       method: 'POST',
+      17 |       headers: { 'Content-Type': 'application/json' },
+      18 |       body: JSON.stringify(user),
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:22)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:18
+    [cause]: TypeError: Invalid URL
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:28)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-firefox\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-firefox\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-firefox\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-firefox\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="example.spec.ts" timestamp="2025-12-04T14:13:34.499Z" hostname="webkit" tests="2" failures="2" skipped="0" time="17.697" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="16.501">
+<failure message="example.spec.ts:4:7 should load homepage" type="FAILURE">
+<![CDATA[  [webkit] › example.spec.ts:4:7 › Example Test Suite › should load homepage ───────────────────────
+
+    Error: expect(page).toHaveTitle(expected) failed
+
+    Expected pattern: /Home/i
+    Received string:  "Index of /"
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 15000ms
+        18 × unexpected value "Index of /"
+
+
+      4 |   test('should load homepage', async ({ page }) => {
+      5 |     await page.goto('/');
+    > 6 |     await expect(page).toHaveTitle(/Home/i);
+        |                        ^
+      7 |   });
+      8 |
+      9 |   test('should create user and login', async ({ page, userFactory }) => {
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:6:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-load-homepage-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\error-context.md]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-load-homepage-webkit\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="1.196">
+<failure message="example.spec.ts:9:7 should create user and login" type="FAILURE">
+<![CDATA[  [webkit] › example.spec.ts:9:7 › Example Test Suite › should create user and login ───────────────
+
+    TypeError: Failed to parse URL from undefined/users
+
+       at ..\support\fixtures\factories\user-factory.ts:15
+
+      13 |
+      14 |     // API call to create user
+    > 15 |     const response = await fetch(`${process.env.API_URL}/users`, {
+         |                      ^
+      16 |       method: 'POST',
+      17 |       headers: { 'Content-Type': 'application/json' },
+      18 |       body: JSON.stringify(user),
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:22)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:18
+    [cause]: TypeError: Invalid URL
+        at UserFactory.createUser (C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\support\fixtures\factories\user-factory.ts:15:28)
+        at C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\tests\e2e\example.spec.ts:11:36
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\..\test-results\example-Example-Test-Suite-should-create-user-and-login-webkit\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-webkit\test-failed-1.png]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-webkit\video.webm]]
+
+[[ATTACHMENT|example-Example-Test-Suite-should-create-user-and-login-webkit\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>
