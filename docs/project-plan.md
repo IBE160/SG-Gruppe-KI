@@ -17,7 +17,7 @@
 - [x] Planning
   - [x] /run-agent-task pm *prd
     - [x] File : PRD.md
-    - [] File : epics.md
+    - [x] File : epics.md
   - [x] /run-agent-task pm *validate-prd
       - [x] File : validation-report-PRD.md
   - [x] /run-agent-task ux-designer *create-ux-design {prompt / user-input-file}
@@ -41,11 +41,11 @@
 
 ## Fase 3
 
-- [] Implementation
+- [x] Implementation
   - [] /run-agent-task sm *sprint-planning {prompt / user-input-file}
   - foreach epic in sprint planning:
-     - [] File : sprint-status.md
-  - [] /run-agent-task sm epic-tech-content {prompt / user-input-file}
+     - [x] File : sprint-status.yaml
+  - [x] /run-agent-task sm epic-tech-content {prompt / user-input-file}
      - [] File : tech-spec-epic-1.md
      - [] File : tech-spec-epic-2.md
      - [] File : tech-spec-epic-3.md
