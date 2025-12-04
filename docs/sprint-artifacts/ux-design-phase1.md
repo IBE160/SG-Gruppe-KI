@@ -1433,39 +1433,184 @@ This document details the User Experience (UX) design for all Phase 1 user flows
     *   **Bottom Navigation:** Allows quick navigation between main app sections.
 ---
 
-## **Visual Design Concepts - Color Palette**
+## **Visual Foundation**
 
-**Goal:** To establish a cohesive and accessible color system that supports the app's "Energetic & Motivating" mood, leveraging a dark base, a vibrant green primary accent, and carefully selected supporting colors.
+**Goal:** To define the core visual language of the application, including colors, typography, and spacing, ensuring a consistent and high-quality aesthetic.
 
-### **Refined Conceptual Color Palette**
+### 1. Color Palette
 
-**1. Primary Brand Colors (Inspired by Welcome Screen `code.html`):**
 *   **Concept:** A modern, dark-themed base with a high-energy green as the main accent, establishing a unique and dynamic brand identity.
 *   **Usage:** Defines the app's core look and feel for backgrounds, primary CTAs, and key branding elements.
 *   **Example Shades (Derived from `code.html` Tailwind config):**
-    *   **Primary Green (Accent/CTA):** `primary: "#13ec5b"` (Vibrant, high-energy green, replacing the previous yellow accent for primary CTAs)
+    *   **Primary Green (Accent/CTA):** `primary: "#13ec5b"` (Vibrant, high-energy green)
     *   **Dark Background:** `background-dark: "#102216"` (Deep, modern dark theme base)
-    *   **Light Background:** `background-light: "#f6f8f6"` (Very light, almost white for light theme or contrast sections)
+    *   **Light Background:** `background-light: "#f6f8f6"` (For light theme or contrast sections)
+*   **Secondary & Neutral Colors:** A range of grays and off-whites for text, borders, and card elements.
+*   **Semantic Colors:** Standardized colors for success (`#28A745`), warning (`#FFC107`), and error (`#DC3545`) states.
 
-**2. Secondary & Neutral Colors:**
-*   **Concept:** A range of grays, off-whites, and a vibrant blue to provide clean backgrounds, hierarchical text, and support the primary brand colors.
-*   **Usage:** Backgrounds, secondary text, borders, dividers, card elements, and informational elements.
-*   **Example Shades (Adapted/Re-contextualized from previous palette):**
-    *   **Gray-900 (Primary Text/Dark Mode Text):** `#212529` (Near-black for high contrast text on light backgrounds)
-    *   **Gray-600 (Secondary Text/Icons):** `#6C757D` (Medium gray for less prominent information)
-    *   **Gray-300 (Borders/Dividers):** `#CED4DA` (Light gray for subtle UI separation)
-    *   **Gray-100 (Subtle Backgrounds - Light Mode):** `#F8F9FA` (Very light gray for cards, sections in light theme)
-    *   **White:** `#FFFFFF` (For clean backgrounds, modal overlays, key content areas on dark theme)
-    *   **Vibrant Blue (Secondary Accent/Info):** `#007BFF` (Can be used for informational elements, links, or as a secondary accent if needed, maintaining "Energetic" feel. Previously a primary, now a strong secondary.)
+### 2. Typography
 
-**3. Semantic Colors (Functional):**
-*   **Concept:** Standardized colors to communicate status clearly and consistently.
-*   **Usage:** System messages for success, warnings, errors, and informational notes.
-*   **Example Shades:**
-    *   **Success (Green - *distinct from primary green*):** `#28A745` (A distinct, slightly muted green for system success messages to avoid confusion with primary accent)
-    *   **Warning (Orange-Yellow):** `#FFC107`
-    *   **Error (Red):** `#DC3545`
-    *   **Info (Cyan/Light Blue - *distinct from Vibrant Blue*):** `#17A2B8`
+*   **Font Family:** **Lexend**. Its clean, modern, and readable letterforms support the app's aesthetic.
+*   **Type Scale:** Based on Tailwind's default classes:
+    *   **Display:** `text-4xl` (36px), `text-3xl` (32px) - For major screen titles.
+    *   **Heading:** `text-2xl` (24px), `text-xl` (20px) - For section titles.
+    *   **Body:** `text-base` (16px) - For all standard paragraph text.
+    *   **Subtle/Meta:** `text-sm` (14px), `text-xs` (12px) - For secondary information.
+*   **Font Weights:**
+    *   **Bold (`font-bold`):** Used for all display and heading text.
+    *   **Normal (`font-normal`):** Used for all body copy.
+    *   **Medium (`font-medium`):** Used for button text and other emphasized UI elements.
 
-### **Accessibility Considerations:**
-*   All color combinations, especially text against backgrounds and primary green accent usage, will be rigorously tested to ensure they meet WCAG 2.1 AA (or higher) contrast ratio standards.
+### 3. Spacing & Layout
+
+*   **Spacing System:** We will use Tailwind's default **8-point grid system**. All spacing (padding, margins) should be in increments of 4px (e.g., `p-4` = 16px).
+*   **Layout Grid:** The primary layout is a **12-column grid** for desktop screens, providing flexibility. This collapses to a single-column layout on mobile, as defined in the Responsive Design Strategy.
+
+---
+
+## **Design System Foundation**
+
+**Goal:** To formally define the foundational tools that provide our core UI components and styling utilities.
+
+*   **Styling Framework:** **Tailwind CSS**.
+    *   **Rationale:** We are using Tailwind CSS for its utility-first approach, which allows for rapid development and customization while maintaining a consistent design language. It integrates seamlessly with our component-based strategy.
+*   **Iconography Library:** **Google Material Symbols (Outlined)**.
+    *   **Rationale:** This library provides a comprehensive, modern, and universally understood set of icons that align with our app's clean aesthetic.
+
+
+---
+
+## **Responsive Design Strategy (Web-First)**
+
+**Goal:** To ensure a seamless and optimized experience across all screen sizes, from mobile phones to desktop monitors, with a web-first approach for Phase 1.
+
+### **1. Breakpoints**
+
+We will adopt a standard, mobile-first breakpoint system consistent with modern web frameworks like Tailwind CSS:
+
+*   **Default (Mobile):** `<640px`
+*   **sm (Tablet Portrait):** `≥640px`
+*   **md (Tablet Landscape/Small Laptop):** `≥768px`
+*   **lg (Laptop/Desktop):** `≥1024px`
+*   **xl (Large Desktop):** `≥1280px`
+
+### **2. Adaptation Patterns**
+
+*   **Layout:**
+    *   **Mobile:** A single-column layout is the default. Content will stack vertically to ensure readability and ease of scrolling.
+    *   **Tablet & Desktop:** Multi-column grids (2-3 columns) will be used for content like dashboards and lists to make effective use of the increased horizontal space.
+
+*   **Navigation:**
+    *   **Mobile:** The primary navigation will be the **Fixed Bottom Navigation Bar** as detailed in the mockups, providing easy thumb access to core app sections.
+    *   **Desktop (`lg` and up):** The Bottom Navigation Bar will be hidden, replaced by a **persistent Vertical Sidebar Navigation** on the left. This provides a more traditional and efficient desktop experience.
+
+*   **Cards & Grids:**
+    *   On mobile, cards will stack in a single column.
+    *   On larger screens (`md` and up), cards will arrange into a grid (e.g., 2 or 3 columns) to display more information at a glance.
+
+*   **Modals & Dialogs:**
+    *   On mobile, modals will take up the full screen to maximize space and focus.
+    *   On desktop, modals will appear as centered dialog boxes with a backdrop, retaining the context of the page behind them.
+
+*   **Touch Targets:**
+    *   All interactive elements (buttons, links, form inputs) must have a minimum touch target size of **44x44 pixels** on mobile screens to ensure ease of use.
+
+---
+
+## **Accessibility (a11y) Strategy**
+
+**Goal:** To ensure the application is usable by everyone, including people with disabilities, by adhering to established web standards.
+
+### **1. Compliance Target**
+
+We will target **WCAG 2.1 Level AA** compliance. This is the industry standard for accessible web applications and ensures a robust experience for most users.
+
+### **2. Core Requirements**
+
+*   **Color Contrast:** All text must have a minimum contrast ratio of **4.5:1** against its background (WCAG AA). Large text (18pt or 14pt bold) must have a ratio of **3:1**. The vibrant primary green (`#13ec5b`) must be used carefully, especially with white text, and tested to ensure it meets these standards.
+
+*   **Keyboard Navigation:** All interactive elements—including links, buttons, form inputs, and custom components—must be navigable and operable using only a keyboard. The tab order must be logical and predictable.
+
+*   **Focus Indicators:** All interactive elements must have a clear and visible focus indicator when they are selected via keyboard. We will use the browser's default indicator and enhance it with a custom outline (e.g., `focus:ring-2 focus:ring-offset-2 focus:ring-primary`) to ensure visibility against all backgrounds.
+
+*   **Screen Reader Support & Semantic HTML:**
+    *   We will use semantic HTML5 elements (`<nav>`, `<main>`, `<footer>`, `<button>`, etc.) wherever possible to provide inherent meaning to screen readers.
+    *   For custom components, we will use ARIA (Accessible Rich Internet Applications) roles, states, and properties to communicate their purpose and state (e.g., `role="dialog"`, `aria-label="..."`, `aria-expanded="true"`).
+
+*   **Images:** All images that convey meaningful information must have descriptive `alt` text. Decorative images should have an empty `alt=""` attribute to be ignored by screen readers.
+
+*   **Forms:** All form inputs must be associated with a `<label>` element. Required fields and error messages must be programmatically associated with their respective inputs.
+
+---
+
+## **Component Library Strategy**
+
+**Goal:** To establish a library of reusable, well-defined UI components that will ensure consistency, improve development efficiency, and strengthen the design system.
+
+**Principle:** Every component listed below should be developed as a self-contained, reusable element with clearly defined properties (props) and states (default, hover, focus, active, disabled, etc.). The design for each component is derived from the screen mockups detailed in this document.
+
+### **1. Core Components**
+
+*   **Buttons:**
+    *   **Primary Action Button:** Full-width, rounded, `bg-primary` green. Used for the main confirmation action on a screen (e.g., "Log In", "Start Set").
+    *   **Secondary Action Button:** Full-width or inline, rounded, with a transparent background and a border (`border-primary` or `border-white`). Used for less critical actions (e.g., "Edit Plan").
+    *   **Icon Button:** A small, circular, or square button containing only a Material Symbol. Used for actions like back navigation, more options, or social login.
+
+*   **Input Fields:**
+    *   **Text Input:** A rounded input field, often with a Material Symbol inside. Includes states for focus (`focus:ring-primary`) and placeholder text.
+    *   **Slider:** A horizontal slider for selecting a value from a range (e.g., RPE, time). Includes a track, a fill, and a thumb.
+    *   **Toggle Switch:** A switch for binary on/off states (e.g., in Settings).
+
+*   **Selection Controls:**
+    *   **Segmented Buttons:** A container holding multiple text or icon-based options where only one can be selected (e.g., Mood, Units). The selected item has a distinct background.
+    *   **Chips:** Rounded, pill-shaped tags for selecting multiple options (e.g., Injuries/Limitations). Have selected and unselected states.
+
+*   **Cards:**
+    *   **Info/Context Card:** A card with a distinct background (`bg-white/5` or similar) used to display contextual AI messages or sectioned information.
+    *   **Stat Card:** A card used in post-workout summaries and dashboards to display a single metric (e.g., "Total Volume") with a label and a large value.
+    *   **Workout/Exercise Card:** A card representing an exercise, containing a thumbnail image, name, sets/reps, and other details.
+
+*   **Indicators:**
+    *   **Progress Dots:** A series of small circles used in onboarding to indicate the user's step in a flow. Active, completed, and upcoming states are visually distinct.
+    *   **Progress Bar:** A horizontal bar used to show overall workout progress or loading status, with a track and a fill element.
+
+*   **Conversational UI:**
+    *   **AI Chat Bubble:** A speech bubble associated with an AI avatar, used to deliver messages to the user in a conversational context.
+
+*   **Navigation:**
+    *   **Top App Bar:** A bar at the top of the screen, typically containing the screen title, a back button, and/or other context-specific actions.
+    *   **Bottom Navigation Bar:** A fixed bar at the bottom of the screen with icons for primary navigation (Dashboard, Workout, etc.). The active icon is highlighted.
+
+---
+
+## **UX Pattern Rules**
+
+**Goal:** To codify behavioral rules for common UX patterns across the application, ensuring a predictable and consistent user experience.
+
+### **1. Feedback Patterns**
+
+*   **Success:** For actions that complete successfully, provide brief, non-intrusive feedback.
+    *   **Rule:** Use a temporary "Toast" notification (e.g., "Offline changes synced successfully!") for background successes. For major successes (e.g., "Workout Complete!"), use a dedicated screen with celebratory messaging.
+*   **Error:** When an action fails, provide clear, inline feedback whenever possible.
+    *   **Rule:** For form validation errors, display the error message directly below the problematic field. For system-level errors (e.g., failed connection), a banner or modal can be used.
+*   **Loading:** Indicate when the system is busy.
+    *   **Rule:** For page or large section loads, use a full-screen loading indicator with a progress bar or animation (e.g., "Preparing your workout..."). For smaller, component-level actions, use inline spinners or skeleton loaders.
+
+### **2. Form Patterns**
+
+*   **Labels:** Every input must have a clear, visible label.
+    *   **Rule:** Labels should be positioned above the input field.
+*   **Validation:** Provide real-time feedback on input.
+    *   **Rule:** Validate user input `onBlur` (when the user leaves the field) or `onSubmit`. Display a clear, helpful error message directly below the field if validation fails. Show a success indicator (e.g., a checkmark) for complex fields like password confirmation.
+
+### **3. Navigation Patterns**
+
+*   **Active State:** The user's current location in the app must be clear.
+    *   **Rule:** In the Bottom Navigation Bar, the icon for the active screen will be filled and colored with the `primary` green accent.
+*   **Back Navigation:** The back button behavior should be predictable.
+    *   **Rule:** The `arrow_back_ios_new` icon in the Top App Bar will always navigate the user one step back within the app's hierarchy.
+
+### **4. Confirmation Patterns**
+
+*   **Destructive Actions:** Protect users from accidental data loss.
+    *   **Rule:** For irreversible destructive actions (e.g., "Delete Account"), require the user to confirm their intent in a modal dialog, often by typing a confirmation word (e.g., "DELETE").
