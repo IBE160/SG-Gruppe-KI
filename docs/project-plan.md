@@ -46,13 +46,17 @@
   - foreach epic in sprint planning:
      - [x] File : sprint-status.yaml
   - [x] /run-agent-task sm epic-tech-content {prompt / user-input-file}
-     - [] File : tech-spec-epic-1.md
-     - [] File : tech-spec-epic-2.md
-     - [] File : tech-spec-epic-3.md
+     - [x] File : tech-spec-epic-1.md
+     - [x] File : tech-spec-epic-2.md
+     - [x] File : tech-spec-epic-3.md
+     - [x] File : tech-spec-epic-4.md
+
   - [] /run-agent-task sm validate-epic-tech-content {prompt / user-input-file}
      - [] File : validation-report-tech-spec-epic-1.md
      - [] File : validation-report-tech-spec-epic-2.md
      - [] File : validation-report-tech-spec-epic-3.md
+     - [] File : validation-report-tech-spec-epic-4.md
+
 
     - foreach story in epic:
       - [] /run-agent-task sm *create-story {prompt / user-input-file}

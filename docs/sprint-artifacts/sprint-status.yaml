@@ -42,7 +42,7 @@ development_status:
   1-3-conversational-onboarding---goals-preferences: backlog
   1-4-user-profile-management: backlog
   epic-1-retrospective: optional
-  epic-2: backlog
+  epic-2: contexted
   2-1-ai-daily-plan-generation-api: backlog
   2-2-daily-plan-context-window: backlog
   2-3-display-review-daily-plan: backlog
@@ -50,12 +50,12 @@ development_status:
   2-5-progress-dashboard-display: backlog
   2-6-in-app-reminders-nudges: backlog
   epic-2-retrospective: optional
-  epic-3: backlog
+  epic-3: contexted
   3-1-spotify-integration-oauth: backlog
   3-2-ai-driven-session-mix-generation: backlog
   3-3-in-workout-music-playback-controls: backlog
   epic-3-retrospective: optional
-  epic-4: backlog
+  epic-4: contexted
   4-1-main-settings-menu-navigation: backlog
   4-2-performance-data-settings: backlog
   4-3-privacy-account-management: backlog
