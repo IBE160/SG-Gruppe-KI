@@ -8,28 +8,31 @@ This document details the User Experience (UX) design for all Phase 1 user flows
 
 **Goal:** To provide a clear, secure, and streamlined entry point for both new and returning users, minimizing friction and leveraging preferred authentication methods.
 
-### **Screen 1: Welcome / Authentication Gateway**
+### **Screen 1: Welcome / Authentication Gateway (Implemented by `docs/stich_design/Flow_1/welcome_screen/code.html`)**
 
-*   **Description:** This is the app's initial entry screen, featuring a compelling visual, main app title, and primary account actions. It sets an energetic and modern tone with its dark theme and vibrant green accent.
-*   **Visual Elements:**
-    *   **Background Image:** Full-screen background image (e.g., "A person in athletic gear using a rowing machine").
-    *   **Dark Overlay/Gradient:** A subtle gradient over the image to ensure text readability.
-    *   **App Icon/Logo:** A distinct icon (e.g., `neurology` Material Symbol) with a rounded background, followed by:
-    *   **Main Heading:** "Your Personal AI Trainer" (Large, bold, white text).
-    *   **Sub-heading:** "Smart, personalized workouts that adapt to you." (White/muted text).
-    *   **Primary Action Buttons (Stacked):**
-        *   `[ Create Account ]` (Prominent, large, full-width, vibrant green background, dark text).
-        *   `[ Log In ]` (Secondary, large, full-width, dark background, white text).
-    *   **"Or continue with" Separator:** "Or continue with" (muted white text).
-    *   **Social Login Buttons (Horizontal):**
-        *   `[ Google Icon ]` button (Rounded, dark background, white icon).
-        *   `[ Apple Icon ]` button (Rounded, dark background, white icon).
-    *   **Legal Text:** Small text: "By continuing, you agree to our Terms of Service and Privacy Policy." (Muted white text, with underlined links).
+*   **Description:** This is the app's initial entry screen, featuring a compelling visual, app title, and primary account actions. It sets an energetic and modern tone with its dark theme and vibrant green accent, as laid out in the `code.html`.
+*   **Visual Elements (Referencing `code.html`):**
+    *   **Overall Layout:** `h-auto min-h-screen w-full flex-col dark overflow-x-hidden bg-background-dark`, `font-display`.
+    *   **Background Image Section:** `w-full bg-center bg-no-repeat bg-cover min-h-80` with a background image of "A person in athletic gear using a rowing machine".
+        *   Dark Overlay/Gradient: `w-full h-32 bg-gradient-to-t from-background-dark to-transparent`.
+    *   **Central Content (`px-4 text-center -mt-24`):**
+        *   App Icon/Logo: `inline-flex items-center justify-center p-3 rounded-full bg-background-dark/80 backdrop-blur-sm mb-4`, with `neurology` Material Symbol (`text-primary text-4xl`).
+        *   Main Heading: "Your Personal AI Trainer" (`text-white tracking-light text-[32px] font-bold`).
+        *   Sub-heading: "Smart, personalized workouts that adapt to you." (`text-white/80 text-base font-normal`).
+    *   **Primary Action Buttons (`flex flex-col gap-y-4 px-4 pb-8 pt-8`):**
+        *   `[ Create Account ]`: Prominent, full-width `h-12 bg-primary text-[#112217] text-base font-bold rounded-full`.
+        *   `[ Log In ]`: Secondary, full-width `h-12 bg-[#23482f] text-white text-base font-bold rounded-full`.
+    *   **"Or continue with" Separator:** `text-sm text-white/60 mb-4`.
+    *   **Social Login Buttons (Horizontal):** `flex gap-x-6`.
+        *   `[ Google Icon ]` button: `h-12 w-12 rounded-full bg-[#23482f]`, contains Google SVG icon.
+        *   `[ Apple Icon ]` button: `h-12 w-12 rounded-full bg-[#23482f]`, contains Apple SVG icon (Note: current HTML has Apple icon for this placeholder, but the previous doc noted Phase 2).
+    *   **Legal Text:** `text-xs text-white/50`. "By continuing, you agree to our `[ Terms of Service ]` and `[ Privacy Policy ]`." (Underlined links).
 *   **Interactions:**
     *   **Tap `Create Account`:** Navigates to **Screen 2: Email Authentication** (for sign-up flow).
     *   **Tap `Log In`:** Navigates to **Screen 2: Email Authentication** (for sign-in flow).
     *   **Tap `Google Icon`:** Initiates Google OAuth flow (redirects externally, then returns).
-    *   **Tap `Apple Icon`:** Initiates Apple OAuth flow (redirects externally, then returns - Phase 2).
+    *   **Tap `Apple Icon`:** Initiates Apple OAuth flow (redirects externally, then returns - noted as Phase 2).
+    *   **Tap `Terms of Service` / `Privacy Policy` links:** Navigates to respective legal documents.
 
 ### **Screen 2: Email Authentication (now split into 2A and 2B)**
 
@@ -42,36 +45,50 @@ This document details the User Experience (UX) design for all Phase 1 user flows
         *   On **Screen 2A: Email Sign-up**, tapping "Already have an account? [Log in]" navigates to **Screen 2B: Email Login**.
         *   On **Screen 2B: Email Login**, tapping "Don't have an account? [Sign up]" navigates to **Screen 2A: Email Sign-up**.
 
-#### **Screen 2A: Email Sign-up (Inspired by `email_signup/code.html`)**
+#### **Screen 2A: Email Sign-up (Implemented by `docs/stich_design/Flow_1/email_signup/code.html`)**
 
-*   **Description:** The screen for new users to create an account with email and password. It maintains the dark theme with vibrant green accents.
-*   **Visual Elements:**
-    *   **Header:** `[ Back Button ]` (Material Symbols Outlined: `arrow_back_ios_new`, rounded, white/10 background).
-    *   **Main Heading:** "Create your account" (Large, bold, `text-[32px]`).
-    *   **Sub-heading:** "Join us to unlock your potential." (text-zinc-400).
-    *   **Email Input Field:** Label "Email address", `[ mail ]` icon inside, `placeholder="you@example.com"`. Dark background (`bg-white/10`), rounded, focus ring in primary green.
-    *   **Password Input Field:** Label "Password", `[ lock ]` icon inside, `placeholder="Enter your password"`. Visibility toggle button (`visibility_off` icon). **Password Strength Indicator:** Below password, "Password strength" label, "Strong" text in primary green, visual bar.
-    *   **Confirm Password Input Field:** Label "Confirm Password", `[ lock ]` icon inside, `placeholder="Confirm your password"`. Checkmark icon (`check_circle`) in primary green.
-    *   **Primary Action Button:** `[ Create Account ]` (Large, full-width, vibrant green background, dark text).
-    *   **Secondary Link:** "Already have an account? [Log in]" (text-zinc-400, "Log in" in primary green).
+*   **Description:** This screen facilitates the creation of a new user account via email and password, adhering to the app's dark theme and vibrant green accents. The design is based on the provided `code.html`.
+*   **Visual Elements (Referencing `code.html`):**
+    *   **Overall Layout:** `min-h-screen w-full flex-col`. `bg-background-dark text-white`.
+    *   **Header:** `sticky top-0 z-10 p-4`.
+        *   `[ Back Button ]`: `absolute left-0 flex h-10 w-10 items-center justify-center rounded-full bg-white/10`, with `arrow_back_ios_new` Material Symbol.
+    *   **Main Heading:** "Create your account" (`text-[32px] font-bold`).
+    *   **Sub-heading:** "Join us to unlock your potential." (`pt-2 text-base text-zinc-400`).
+    *   **Form (`space-y-4`):**
+        *   **Email Input Field:** Label "Email address" (`text-sm font-medium text-zinc-300`). Input (`w-full rounded-lg border-0 bg-white/10 py-3.5 pl-10 pr-4 text-white placeholder:text-zinc-500 focus:ring-2 focus:ring-inset focus:ring-primary`) with `mail` Material Symbol.
+        *   **Password Input Field:** Label "Password" (`text-sm font-medium text-zinc-300`). Input (`w-full rounded-lg border-0 bg-white/10 py-3.5 pl-10 pr-10 text-white placeholder:text-zinc-500 focus:ring-2 focus:ring-inset focus:ring-primary`) with `lock` Material Symbol and `visibility_off` Material Symbol for toggle.
+        *   **Password Strength Indicator:** `pt-1`.
+            *   Label: "Password strength" (`text-sm font-medium text-zinc-300`).
+            *   Status: "Strong" (`text-sm font-bold text-primary`).
+            *   Visual Bar: `mt-2 grid grid-cols-4 gap-2`. Uses `h-1.5 rounded-full bg-primary` for strength and `bg-white/20` for remaining.
+        *   **Confirm Password Input Field:** Label "Confirm Password" (`text-sm font-medium text-zinc-300`). Input (`w-full rounded-lg border-0 bg-white/10 py-3.5 pl-10 pr-10 text-white placeholder:text-zinc-500 focus:ring-2 focus:ring-inset focus:ring-primary`) with `lock` Material Symbol and `check_circle` Material Symbol (`text-primary`) for confirmation.
+    *   **Primary Action Button:** `[ Create Account ]` (`h-14 w-full rounded-full bg-primary text-base font-bold text-background-dark`).
+    *   **Secondary Link:** "Already have an account? `[ Log in ]`" (`mt-4 text-center text-sm text-zinc-400`, link `font-bold text-primary`).
 *   **Interactions:**
     *   **Tap `Back Button`:** Returns to **Screen 1: Welcome / Authentication Gateway**.
+    *   **Input in fields:** User enters email and password.
+    *   **Tap `visibility_off`:** Toggles password visibility.
     *   **Tap `Create Account`:** Submits form. On success, moves to **Screen 4**. On failure, displays inline error.
     *   **Tap `Log in` link:** Navigates to **Screen 2B: Email Login**.
 
-#### **Screen 2B: Email Login (Inspired by `email_authentication/code.html`)**
+#### **Screen 2B: Email Login (Implemented by `docs/stich_design/Flow_1/email_authentication/code.html`)**
 
-*   **Description:** The screen for existing users to log in with email and password. It maintains the dark theme with vibrant green accents.
-*   **Visual Elements:**
-    *   **Header:** `[ Back Button ]` (Material Symbols Outlined: `arrow_back_ios_new`, rounded, white/10 background).
-    *   **Main Heading:** "Welcome back!" (Large, bold, `text-[32px]`).
-    *   **Email Input Field:** Label "Email address", `[ mail ]` icon inside, `placeholder="Enter your email"`. Input field uses `bg-[#23482f]` (darker green-gray shade), rounded, focus ring in primary green.
-    *   **Password Input Field:** Label "Password", `[ lock ]` icon inside, `placeholder="Enter your password"`. Visibility toggle (`visibility_off` icon). Input field uses `bg-[#23482f]`.
-    *   **`[ Forgot Password? ]` Link:** (font-bold text-primary green, clearly visible below password field - **Improvement: Prominently Display a "Forgot Password" Option**).
-    *   **Primary Action Button:** `[ Log In ]` (Large, full-width, vibrant green background, dark text).
-    *   **Secondary Link:** "Don't have an account? [Sign up]" (text-zinc-400, "Sign up" in primary green).
+*   **Description:** This screen enables existing users to log in using their email and password, maintaining the dark theme with vibrant green accents. The design is based on the provided `code.html`.
+*   **Visual Elements (Referencing `code.html`):**
+    *   **Overall Layout:** `h-auto min-h-screen w-full flex-col overflow-x-hidden`. `bg-background-dark`.
+    *   **Top App Bar:** `flex items-center p-4 pb-2 justify-between`.
+        *   `[ Back Button ]`: `arrow_back_ios_new` Material Symbol (`text-white`).
+    *   **Main Heading:** "Welcome back!" (`text-white tracking-light text-[32px] font-bold pb-8 pt-6`).
+    *   **Form (`flex flex-col space-y-4`):**
+        *   **Email Input Field:** Label "Email address" (`text-white text-base font-medium`). Input (`form-input w-full resize-none overflow-hidden rounded-full text-white focus:ring-2 focus:ring-primary bg-[#23482f] h-14 placeholder:text-[#92c9a4] pl-12 pr-4`) with `mail` Material Symbol.
+        *   **Password Input Field:** Label "Password" (`text-white text-base font-medium`). Input (`form-input w-full resize-none overflow-hidden rounded-full text-white focus:ring-2 focus:ring-primary bg-[#23482f] h-14 placeholder:text-[#92c9a4] pl-12 pr-12`) with `lock` Material Symbol and `visibility_off` Material Symbol for toggle.
+    *   **`[ Forgot Password? ]` Link (Improvement: Prominently Display a "Forgot Password" Option):** `flex justify-end pt-3`. Link `text-primary text-sm font-medium underline`.
+    *   **Primary Action Button:** `[ Log In ]` (`w-full rounded-full bg-primary py-4 text-center font-bold text-background-dark text-lg`).
+    *   **Secondary Link:** "Don't have an account? `[ Sign up ]`" (`text-white text-base font-normal`, link `font-bold text-primary underline`).
 *   **Interactions:**
     *   **Tap `Back Button`:** Returns to **Screen 1: Welcome / Authentication Gateway**.
+    *   **Input in fields:** User enters email and password.
+    *   **Tap `visibility_off`:** Toggles password visibility.
     *   **Tap `Log In`:** Submits form. On success, moves to **Screen 4**. On failure, displays inline error.
     *   **Tap `Forgot Password?` link:** Initiates password reset flow.
     *   **Tap `Sign up` link:** Navigates to **Screen 2A: Email Sign-up**.
