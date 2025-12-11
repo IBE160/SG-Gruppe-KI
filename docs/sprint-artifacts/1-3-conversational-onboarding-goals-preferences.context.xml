@@ -1,0 +1,116 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>3</storyId>
+    <title>conversational-onboarding-goals-preferences</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-08</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/1-3-conversational-onboarding-goals-preferences.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a new user</asA>
+    <iWant>to be guided through a conversational setup to define my fitness goals, preferences, and limitations</iWant>
+    <soThat>the AI can generate a personalized plan for me</soThat>
+    <tasks>
+      - Task 1: Implement Conversational UI Shell & Navigation (AC: 1, 5)
+      - Task 2: Implement Goal & Preferences Step (AC: 2)
+      - Task 3: Implement Equipment Step (AC: 2, 6)
+      - Task 4: Implement Injuries & Limitations Step (AC: 3)
+      - Task 5: Implement Units Step (AC: 4)
+      - Task 6: Implement Backend Onboarding Endpoint (AC: 7)
+      - Task 7: Finalize Flow & Data Submission (AC: 7)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    1. After first authentication, new users are guided through a multi-step conversational UI (Flow 2).
+    2. The UI allows users to select their primary fitness goal, training frequency, duration, and available equipment.
+    3. The UI allows users to specify any injuries or limitations.
+    4. The UI allows users to select their preferred measurement units (kg/lbs).
+    5. A visual progress indicator is present in the header throughout the flow.
+    6. The system provides an option for custom text entry for goals and equipment.
+    7. All collected data is correctly stored in the Supabase `Goals` and `Users` tables upon completion.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction</title>
+        <section>Flow 2: Goal & Preference Setup (Conversational Onboarding)</section>
+        <snippet>Engage new users in a low-friction process to gather essential data for AI personalization. A step-by-step, visually engaging conversational interaction (chat bubbles with AI avatar) set against the app's dark theme with green accents.</snippet>
+      </doc>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>Epic Breakdown</title>
+        <section>Story 1.3: Conversational Onboarding - Goals & Preferences</section>
+        <snippet>As a new user, I want to be guided through a conversational setup to define my fitness goals, preferences, and limitations, so that the AI can generate a personalized plan for me.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Architecture</section>
+        <snippet>Data Models are based on the ERD in the project proposal. Key models include Users, Goals, WorkoutPlans, WorkoutLogs, and Integrations. Foreign keys will be used to establish clear relationships.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>API Contracts</section>
+        <snippet>The API will be versioned in the URL (e.g., /api/v1/...). All protected endpoints will expect a Bearer token in the Authorization header.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>apps/web/src/app/auth/</path>
+        <kind>directory</kind>
+        <symbol>Authentication Components</symbol>
+        <reason>This directory contains the existing authentication components. The new onboarding flow will be initiated after a user successfully signs up or logs in through these components.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <dependency ecosystem="Node">
+        <package name="next" version="16.0.7" />
+        <package name="react" version="19.2.0" />
+        <package name="@supabase/supabase-js" version="^2.87.0" />
+        <package name="zustand" version="^4.x" />
+      </dependency>
+      <dependency ecosystem="Python">
+        <package name="fastapi" version="^0.104.x" />
+        <package name="pydantic" version="^2.x" />
+        <package name="supabase-py" version="^2.x" />
+      </dependency>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - The UI must adhere to the dark theme and conversational patterns defined in `ux-design-direction.md`.
+    - Backend API endpoints must be created in the FastAPI application (`apps/api`).
+    - Client-side state for the multi-step flow should be managed with Zustand.
+    - User and goal data must be stored in the Supabase PostgreSQL database.
+    - Be aware of the existing `ModuleNotFoundError` in the Pytest setup when writing backend tests.
+  </constraints>
+  <interfaces>
+      <interface>
+        <name>POST /api/v1/onboarding</name>
+        <kind>REST endpoint</kind>
+        <signature>Receives onboarding data (goals, preferences, equipment, etc.) and saves it to the database.</signature>
+        <path>apps/api/app/api/onboarding.py (to be created)</path>
+      </interface>
+  </interfaces>
+  <tests>
+    <standards>The project uses a three-tiered testing strategy: Jest/React Testing Library for frontend unit tests, Pytest for backend integration tests, and Playwright for E2E tests. Unit tests are co-located with the source files.
+    </standards>
+    <locations>
+        - Unit Tests: `*.test.tsx` alongside components in `apps/web/src/app/onboarding/`
+        - Integration Tests: `apps/api/tests/`
+        - E2E Tests: `tests/e2e/`
+    </locations>
+    <ideas>
+        - (Unit) Test each step of the onboarding UI to verify that user input is correctly handled and saved to the state store.
+        - (Integration) Test the `POST /onboarding` endpoint to ensure data validation and correct persistence to the Supabase database.
+        - (E2E) Simulate a full user journey: sign up, complete all steps of the onboarding flow, and verify redirection to the dashboard.
+    </ideas>
+  </tests>
+</story-context>

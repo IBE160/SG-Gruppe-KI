@@ -1,0 +1,184 @@
+[
+  {
+    "request": null,
+    "response": {
+      "session.id": "65aa11c4-9c93-4a3f-ab51-773fd0c2103d",
+      "installation.id": "f98f4630-87e0-46ca-ab5f-6a5800f2bead",
+      "interactive": true,
+      "user.email": "thebrave69@gmail.com",
+      "event.name": "gemini_cli.api_response",
+      "event.timestamp": "2025-12-03T11:20:14.287Z",
+      "model": "gemini-2.5-pro",
+      "duration_ms": 6283,
+      "input_token_count": 82053,
+      "output_token_count": 179,
+      "cached_content_token_count": 6331,
+      "thoughts_token_count": 0,
+      "tool_token_count": 0,
+      "total_token_count": 82232,
+      "prompt_id": "65aa11c4-9c93-4a3f-ab51-773fd0c2103d########41",
+      "auth_type": "oauth-personal",
+      "status_code": 200,
+      "response_text": [
+        {
+          "candidates": [
+            {
+              "content": {
+                "role": "model",
+                "parts": [
+                  {
+                    "text": "Validation of"
+                  }
+                ]
+              }
+            }
+          ],
+          "usageMetadata": {
+            "trafficType": "ON_DEMAND"
+          },
+          "modelVersion": "gemini-2.5-pro",
+          "responseId": "4ffd8fa38a4a4c65"
+        },
+        {
+          "candidates": [
+            {
+              "content": {
+                "role": "model",
+                "parts": [
+                  {
+                    "text": " story `1-4-conversational-onboarding-for-goal-"
+                  }
+                ]
+              }
+            }
+          ],
+          "usageMetadata": {
+            "trafficType": "ON_DEMAND"
+          },
+          "modelVersion": "gemini-2.5-pro",
+          "responseId": "4ffd8fa38a4a4c65"
+        },
+        {
+          "candidates": [
+            {
+              "content": {
+                "role": "model",
+                "parts": [
+                  {
+                    "text": "setting.md` (Status: review) is complete.\n\nThe story is"
+                  }
+                ]
+              }
+            }
+          ],
+          "usageMetadata": {
+            "trafficType": "ON_DEMAND"
+          },
+          "modelVersion": "gemini-2.5-pro",
+          "responseId": "4ffd8fa38a4a4c65"
+        },
+        {
+          "candidates": [
+            {
+              "content": {
+                "role": "model",
+                "parts": [
+                  {
+                    "text": " well-documented, and the implementation details align with the acceptance criteria. All sub-tasks are marked as complete.\n\nHowever, successful completion is critically dependent on manual"
+                  }
+                ]
+              }
+            }
+          ],
+          "usageMetadata": {
+            "trafficType": "ON_DEMAND"
+          },
+          "modelVersion": "gemini-2.5-pro",
+          "responseId": "4ffd8fa38a4a4c65"
+        },
+        {
+          "candidates": [
+            {
+              "content": {
+                "role": "model",
+                "parts": [
+                  {
+                    "text": " database schema changes, as noted in the story's \"Dev Agent Record.\"\n\nBefore this story can be marked \"done,\" please:\n\n1.  **Verify:** Confirm the"
+                  }
+                ]
+              }
+            }
+          ],
+          "usageMetadata": {
+            "trafficType": "ON_DEMAND"
+          },
+          "modelVersion": "gemini-2.5-pro",
+          "responseId": "4ffd8fa38a4a4c65"
+        },
+        {
+          "candidates": [
+            {
+              "content": {
+                "role": "model",
+                "parts": [
+                  {
+                    "text": " `users` table in your Supabase project has been updated with the `goals`, `preferences`, `equipment`, `injuries`, and `units` columns, and that Row-Level Security (RLS) policies are correctly configured.\n2.  "
+                  }
+                ]
+              }
+            }
+          ],
+          "usageMetadata": {
+            "trafficType": "ON_DEMAND"
+          },
+          "modelVersion": "gemini-2.5-pro",
+          "responseId": "4ffd8fa38a4a4c65"
+        },
+        {
+          "candidates": [
+            {
+              "content": {
+                "role": "model",
+                "parts": [
+                  {
+                    "text": "**Test:** Perform an end-to-end test of the onboarding flow to ensure user data is saved correctly."
+                  }
+                ]
+              },
+              "finishReason": "STOP"
+            }
+          ],
+          "usageMetadata": {
+            "promptTokenCount": 82053,
+            "candidatesTokenCount": 179,
+            "totalTokenCount": 82232,
+            "cachedContentTokenCount": 6331,
+            "trafficType": "ON_DEMAND",
+            "promptTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 82053
+              }
+            ],
+            "cacheTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 6331
+              }
+            ],
+            "candidatesTokensDetails": [
+              {
+                "modality": "TEXT",
+                "tokenCount": 179
+              }
+            ]
+          },
+          "modelVersion": "gemini-2.5-pro",
+          "responseId": "4ffd8fa38a4a4c65"
+        }
+      ],
+      "http.status_code": 200
+    },
+    "error": null
+  }
+]

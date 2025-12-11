@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Remove custom CSS variables, as components use Tailwind config directly */
+/* Remove explicit body styling, let next/font and Tailwind utility classes handle it */

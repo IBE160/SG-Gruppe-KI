@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workout Version History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0..200" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+              "accent-green": "#30D5C8",
+              "accent-red": "#FF5252"
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "1.5rem", "xl": "2rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-dark group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="text-white flex size-12 shrink-0 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
+</div>
+<h1 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Workout Version History</h1>
+<div class="flex size-12 shrink-0 items-center"></div>
+</div>
+<div class="flex flex-col flex-grow px-4">
+<!-- Radio List for Versions -->
+<div class="flex flex-col gap-3 py-4">
+<label class="flex items-center gap-4 rounded-lg border border-solid border-[#326744] bg-[#1a3824]/50 p-4 flex-row-reverse cursor-pointer has-[:checked]:border-primary has-[:checked]:bg-primary/20">
+<input checked="" class="h-5 w-5 appearance-none rounded-full border-2 border-[#326744] bg-transparent checked:border-primary checked:bg-primary focus:outline-none focus:ring-0 focus:ring-offset-0" name="version-history" type="radio"/>
+<div class="flex grow flex-col">
+<p class="text-white text-sm font-medium leading-normal">Jan 15, 2024, 11:45 AM</p>
+<p class="text-primary text-sm font-normal leading-normal">Current Version</p>
+</div>
+</label>
+<label class="flex items-center gap-4 rounded-lg border border-solid border-[#326744] p-4 flex-row-reverse cursor-pointer has-[:checked]:border-primary has-[:checked]:bg-primary/20">
+<input class="h-5 w-5 appearance-none rounded-full border-2 border-[#326744] bg-transparent checked:border-primary checked:bg-primary focus:outline-none focus:ring-0 focus:ring-offset-0" name="version-history" type="radio"/>
+<div class="flex grow flex-col">
+<p class="text-white text-sm font-medium leading-normal">Jan 15, 2024, 10:30 AM</p>
+<p class="text-gray-400 text-sm font-normal leading-normal">Edited Sets</p>
+</div>
+</label>
+<label class="flex items-center gap-4 rounded-lg border border-solid border-[#326744] p-4 flex-row-reverse cursor-pointer has-[:checked]:border-primary has-[:checked]:bg-primary/20">
+<input class="h-5 w-5 appearance-none rounded-full border-2 border-[#326744] bg-transparent checked:border-primary checked:bg-primary focus:outline-none focus:ring-0 focus:ring-offset-0" name="version-history" type="radio"/>
+<div class="flex grow flex-col">
+<p class="text-white text-sm font-medium leading-normal">Jan 15, 2024, 09:00 AM</p>
+<p class="text-gray-400 text-sm font-normal leading-normal">Original Import</p>
+</div>
+</label>
+</div>
+<!-- Section Header for Comparison -->
+<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] pt-6 pb-2">Comparison</h2>
+<p class="text-gray-400 text-sm pb-4">Comparing 'Jan 15, 10:30 AM' with 'Current Version'</p>
+<!-- Comparison Details -->
+<div class="text-white text-base font-normal leading-relaxed pb-3 pt-1 space-y-4 rounded-lg bg-[#1a3824]/50 p-4">
+<div>
+<p class="font-semibold text-lg pb-1">Bench Press</p>
+<p>Set 1: 135 lbs x 8 reps</p>
+<p>Set 2: 135 lbs x 8 reps</p>
+<p>Set 3: 145 lbs x 6 reps <span class="font-semibold" style="color: #30D5C8;">(+10 lbs)</span></p>
+</div>
+<div>
+<p class="font-semibold text-lg pb-1">Squats</p>
+<p>Set 1: 225 lbs x 5 reps</p>
+<p>Set 2: 225 lbs x 5 reps</p>
+<p>Set 3: 225 lbs x 5 reps</p>
+</div>
+<div>
+<p class="font-semibold text-lg pb-1">Deadlift</p>
+<p style="color: #FF5252;"><del>Set 1: 275 lbs x 5 reps</del></p>
+</div>
+<div>
+<p class="font-semibold text-lg pb-1" style="color: #30D5C8;">Overhead Press</p>
+<p style="color: #30D5C8;">Set 1: 95 lbs x 8 reps</p>
+<p style="color: #30D5C8;">Set 2: 95 lbs x 8 reps</p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="sticky bottom-0 z-10 mt-auto bg-gradient-to-t from-background-dark to-transparent pt-8">
+<div class="flex flex-col gap-3 items-stretch px-4 pb-4">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-primary text-background-dark text-base font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">Restore this Version</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-transparent border-2 border-[#23482f] text-white text-base font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">Compare with Current</span>
+</button>
+</div>
+<!-- Bottom Navigation -->
+<div class="flex justify-around items-center bg-black/50 backdrop-blur-sm border-t border-gray-800 p-2">
+<div class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs">Dashboard</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="text-xs">Workout</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">history</span>
+<span class="text-xs font-bold">History</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-xs">Settings</span>
+</div>
+</div>
+</div>
+</div>
+</body></html>

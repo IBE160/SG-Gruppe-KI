@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Delete Account Warning</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#39FF14", /* Vibrant Green */
+              "background-light": "#f6f8f6",
+              "background-dark": "#121212", /* Near Black */
+              "destructive": "#FF3B30" /* Bright Red */
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-screen w-full flex-col">
+<!-- Main Content -->
+<main class="flex flex-1 flex-col justify-center px-4 sm:px-6">
+<div class="flex flex-col items-center text-center">
+<!-- Warning Icon -->
+<div class="flex size-16 items-center justify-center rounded-full bg-destructive/10 text-destructive mb-6">
+<span class="material-symbols-outlined !text-4xl">warning</span>
+</div>
+<!-- Headline -->
+<h1 class="text-destructive text-[32px] font-bold leading-tight tracking-tight">Permanently Delete Your Account?</h1>
+<!-- Sub-headline -->
+<h2 class="text-[#F5F5F5] text-[22px] font-bold leading-tight tracking-[-0.015em] pt-5">This action cannot be undone.</h2>
+<!-- Body Text -->
+<div class="pt-4 pb-3 text-left max-w-md mx-auto">
+<p class="text-[#F5F5F5] text-base font-normal leading-normal text-center">You will permanently lose all of your data, including:</p>
+<ul class="list-disc list-inside text-[#F5F5F5] text-base font-normal leading-normal mt-3 space-y-1">
+<li>Personal Profile &amp; Settings</li>
+<li>Complete Workout History &amp; Progress</li>
+<li>Personal Bests &amp; Achievements</li>
+<li>Custom Generated Workout Plans</li>
+</ul>
+</div>
+<!-- GDPR Note -->
+<p class="text-[#8A8A8E] text-sm font-normal leading-normal px-4 pt-4">This action complies with your right to be forgotten under GDPR.</p>
+<!-- Export Data CTA -->
+<div class="mt-8 text-center text-[#F5F5F5] text-base">
+<p>Want to keep a copy of your progress? <a class="font-bold text-primary hover:underline" href="#">Export your data</a> before you go.</p>
+</div>
+</div>
+</main>
+<!-- Action Buttons -->
+<div class="w-full px-4 sm:px-6 pb-6 pt-4 space-y-3">
+<button class="flex h-14 w-full items-center justify-center rounded-full bg-destructive px-6 text-base font-bold text-white transition-colors hover:bg-destructive/90">
+                Continue to Delete
+            </button>
+<button class="flex h-14 w-full items-center justify-center rounded-full bg-transparent px-6 text-base font-bold text-[#F5F5F5] ring-1 ring-inset ring-white/20 transition-colors hover:bg-white/10">
+                Cancel / Go Back
+            </button>
+</div>
+<!-- Bottom Navigation Bar -->
+<nav class="sticky bottom-0 left-0 right-0 border-t border-white/10 bg-background-dark/80 backdrop-blur-lg">
+<div class="flex h-20 w-full items-center justify-around px-4">
+<div class="flex flex-col items-center gap-1 text-[#8A8A8E]">
+<span class="material-symbols-outlined !text-2xl">dashboard</span>
+<span class="text-xs font-medium">Dashboard</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-[#8A8A8E]">
+<span class="material-symbols-outlined !text-2xl">play_circle</span>
+<span class="text-xs font-medium">Workout</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-[#8A8A8E]">
+<span class="material-symbols-outlined !text-2xl">history</span>
+<span class="text-xs font-medium">History</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined !text-2xl">settings</span>
+<span class="text-xs font-bold">Settings</span>
+</div>
+</div>
+</nav>
+</div>
+</body></html>

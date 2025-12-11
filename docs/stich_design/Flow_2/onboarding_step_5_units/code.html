@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding - Step 5: Units</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+              "component-dark": "#23482f",
+              "component-light": "#eef2ed",
+              "text-light": "#102216",
+              "text-dark": "#ffffff",
+              "text-muted-light": "#5a685e",
+              "text-muted-dark": "#92c9a4",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-[100dvh] w-full flex-col group/design-root overflow-hidden">
+<!-- Header with Progress Indicator -->
+<header class="fixed top-0 left-0 right-0 z-10 w-full bg-background-light dark:bg-background-dark">
+<div class="flex w-full flex-row items-center justify-center gap-2 py-5 px-4">
+<div class="h-1.5 w-1.5 rounded-full bg-primary"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-primary"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-primary"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-primary"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-primary"></div>
+<div class="h-1.5 w-1.5 rounded-full bg-component-dark dark:bg-component-dark/50"></div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto pt-20 pb-28 px-4">
+<div class="flex flex-col gap-4">
+<!-- SingleMessage Component -->
+<div class="flex items-end gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 h-10 shrink-0" data-alt="AI Trainer circular avatar with a green and dark green abstract pattern" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuABhMrVWXBiVIq3Ph4WTqXwA8n2C3ibVo-NzJiUPqknTYzDAPqc98L3wYcSA0XHh-MHMFF7h6XaiW_dxs1U8qJLQFt-xEgXPBbuxEUtHpxkCqxUcGvyqOJzLplvqx_nxDLpJ-tErIjOBQYjpYmnLRQLttZZ2imKsf2cddX37n_J-8kPnzGa5PQdHnR6K1o7ZCpLv7Es8mma41Hs_T075wqQRFoYDawBHJMpRlFBifgJ-gHevv2IDmKQq2PdHp4Ea6HmBoEr9DsZx3a1");'></div>
+<div class="flex flex-1 flex-col gap-2 items-start">
+<p class="text-text-muted-light dark:text-text-muted-dark text-sm font-medium">AI Trainer</p>
+<p class="text-base font-normal leading-relaxed flex max-w-[360px] rounded-2xl rounded-bl-sm px-4 py-3 bg-component-light dark:bg-component-dark text-text-light dark:text-text-dark">
+                            Last question. Do you prefer to work with kilograms or pounds?
+                        </p>
+</div>
+</div>
+<!-- SegmentedButtons Component -->
+<div class="flex py-3">
+<div class="flex h-12 flex-1 items-center justify-center rounded-full bg-component-light dark:bg-component-dark p-1.5">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-md has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark text-text-muted-light dark:text-text-muted-dark text-sm font-semibold leading-normal">
+<span class="truncate">kg</span>
+<input checked="" class="invisible w-0" name="units" type="radio" value="kg"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-background-light has-[:checked]:dark:bg-background-dark has-[:checked]:shadow-md has-[:checked]:text-text-light has-[:checked]:dark:text-text-dark text-text-muted-light dark:text-text-muted-dark text-sm font-semibold leading-normal">
+<span class="truncate">lbs</span>
+<input class="invisible w-0" name="units" type="radio" value="lbs"/>
+</label>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Footer -->
+<footer class="fixed bottom-0 left-0 right-0 z-10 w-full bg-gradient-to-t from-background-light dark:from-background-dark to-transparent">
+<!-- SingleButton Component -->
+<div class="flex p-4 pt-6">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-5 flex-1 bg-primary text-background-dark gap-2 text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/30">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</footer>
+</div>
+</body></html>

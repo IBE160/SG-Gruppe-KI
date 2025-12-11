@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Design Directions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .swatch {
+            height: 80px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 0.75rem;
+            color: white;
+            font-weight: 500;
+        }
+        .swatch-light { border: 1px solid #e2e8f0; }
+        .text-shadow { text-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+        .swatch-info { display: flex; flex-direction: column; align-items: flex-end; }
+    </style>
+</head>
+<body class="bg-[#102216] text-gray-200 p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#13ec5b]">UX Design Directions</h1>
+            <p class="text-lg text-gray-300 mt-2">Distilled from the Phase 1 UX Design Specification, this document provides a high-level guide for our design and development.</p>
+        </header>
+
+        <!-- Core Vision -->
+        <section class="mb-12 bg-[#193322]/50 rounded-lg p-6">
+            <h2 class="text-3xl font-bold mb-4 flex items-center gap-3"><span class="material-symbols-outlined text-[#13ec5b] text-4xl">neurology</span> Core Vision & Emotional Goal</h2>
+            <p class="text-lg text-gray-300">
+                To create a <strong class="text-white">personal AI trainer</strong> that feels smart, adaptive, and motivating. The user should feel <strong class="text-[#13ec5b]">empowered, guided, and confident</strong> on their fitness journey. The experience must be streamlined, modern, and engaging, minimizing friction from onboarding to workout completion.
+            </p>
+        </section>
+
+        <!-- Visual Foundation -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6">Visual Foundation</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Typography -->
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined">title</span> Typography</h3>
+                    <p class="mb-4">The primary font is <strong class="text-white">Lexend</strong>. Its clean, modern, and readable letterforms support the app's aesthetic and ensure clarity across all devices.</p>
+                    <div class="p-4 bg-[#102216] rounded-lg">
+                        <p class="text-4xl font-bold text-white">Display Heading</p>
+                        <p class="text-2xl font-bold text-gray-200 mt-1">Section Heading</p>
+                        <p class="text-base text-gray-300 mt-2">This is standard body copy. It's used for descriptions and instructions throughout the application.</p>
+                    </div>
+                </div>
+                <!-- Iconography -->
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined">emoji_events</span> Iconography</h3>
+                    <p class="mb-4">We will use <strong class="text-white">Google Material Symbols (Outlined)</strong> for consistent, clean, and universally understood iconography. Icons should be clear and support the action or information they represent.</p>
+                    <div class="p-4 bg-[#102216] rounded-lg flex justify-around items-center">
+                        <span class="material-symbols-outlined text-4xl text-gray-300" title="arrow_back_ios_new">arrow_back_ios_new</span>
+                        <span class="material-symbols-outlined text-4xl text-gray-300" title="fitness_center">fitness_center</span>
+                        <span class="material-symbols-outlined text-4xl text-[#13ec5b]" title="check_circle">check_circle</span>
+                        <span class="material-symbols-outlined text-4xl text-gray-300" title="settings">settings</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Color Palette -->
+        <section class="mb-12">
+            <h3 class="text-3xl font-bold mb-4">Color Palette</h3>
+            <p class="text-gray-400 mb-6 text-center">The palette is built on a dark, energetic base with a vibrant green primary accent to motivate and guide the user.</p>
+            <div class="bg-[#193322]/50 rounded-lg p-6">
+                <h4 class="text-xl font-bold mb-4">Primary Brand Colors</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div><div class="swatch text-shadow" style="background-color: #13ec5b;"><span class="text-black">Primary</span><div class="swatch-info text-black"><span>#13ec5b</span><span class="text-xs">primary</span></div></div></div>
+                    <div><div class="swatch text-shadow" style="background-color: #102216;"><span>Background Dark</span><div class="swatch-info"><span>#102216</span><span class="text-xs">background-dark</span></div></div></div>
+                    <div><div class="swatch swatch-light" style="background-color: #f6f8f6;"><span class="text-black">Background Light</span><div class="swatch-info text-black"><span>#f6f8f6</span><span class="text-xs">background-light</span></div></div></div>
+                </div>
+                <h4 class="text-xl font-bold mb-4">Semantic Colors</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div><div class="swatch text-shadow" style="background-color: #28A745;"><span>Success</span><span>#28A745</span></div></div>
+                    <div><div class="swatch text-shadow" style="background-color: #FFC107;"><span class="text-black">Warning</span><span class="text-black">#FFC107</span></div></div>
+                    <div><div class="swatch text-shadow" style="background-color: #DC3545;"><span>Error</span><span>#DC3545</span></div></div>
+                    <div><div class="swatch text-shadow" style="background-color: #17A2B8;"><span>Info</span><span>#17A2B8</span></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Design Principles -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold mb-6">Core Design Principles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h4 class="text-xl font-bold mb-2">Dark First, Energetic Accents</h4>
+                    <p>Employ a dark, modern theme as the default to create a focused, immersive experience. Use the primary vibrant green to draw attention to key actions and successes.</p>
+                </div>
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h4 class="text-xl font-bold mb-2">Conversational & Guided</h4>
+                    <p>Utilize a conversational UI (chat bubbles, AI avatar) for onboarding and feedback to make the experience feel personal and supportive. Guide users with clear progress indicators.</p>
+                </div>
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h4 class="text-xl font-bold mb-2">Clear Visual Hierarchy</h4>
+                    <p>Use typography, spacing, and color to create a clear hierarchy. Large, bold headlines for screens, and clear separation for interactive components.</p>
+                </div>
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h4 class="text-xl font-bold mb-2">Sticky Actions & Navigation</h4>
+                    <p>Keep primary actions and navigation persistent at the bottom of the screen for easy, one-handed access, especially in key flows like onboarding and workouts.</p>
+                </div>
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h4 class="text-xl font-bold mb-2">Interactive & Tappable</h4>
+                    <p>Present choices as large, rounded, tappable buttons or chips. Use clear visual states (selected, unselected, disabled) to provide immediate feedback.</p>
+                </div>
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h4 class="text-xl font-bold mb-2">Celebrate & Reinforce</h4>
+                    <p>Use positive reinforcement through AI messages, celebratory screens ("Workout Complete!"), and highlighting achievements ("New PR!") to keep users motivated.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Key UI Patterns -->
+        <section>
+            <h2 class="text-3xl font-bold mb-6">Key UI Patterns</h2>
+            <div class="space-y-6">
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h4 class="text-xl font-bold mb-2">AI Conversational Bubbles</h4>
+                    <p>Used for onboarding, AI feedback, and contextual messages. Typically includes an AI avatar, a label, and a speech bubble with a distinct background color.</p>
+                </div>
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h4 class="text-xl font-bold mb-2">Full-Width, Rounded Buttons</h4>
+                    <p>The primary call-to-action is a full-width, rounded button with a background of `primary` green and dark text, ensuring it is the most prominent element.</p>
+                </div>
+                <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h4 class="text-xl font-bold mb-2">Segmented Controls</h4>
+                    <p>Used for mutually exclusive choices like 'kg/lbs' or mood selection. A container holds options, with the selected item having a distinct background to indicate its state.</p>
+                </div>
+                 <div class="bg-[#193322]/50 rounded-lg p-6">
+                    <h4 class="text-xl font-bold mb-2">Fixed Bottom Navigation</h4>
+                    <p>A consistent, semi-transparent navigation bar is fixed to the bottom, providing access to the app's main sections: Dashboard, Workout, History, and Settings.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

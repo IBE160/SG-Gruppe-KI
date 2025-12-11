@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Post-Workout Summary &amp; Feedback</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+            },
+            fontFamily: {
+              "display": ["Lexend"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-dark dark group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center p-4 pb-2 justify-between sticky top-0 bg-background-dark z-10">
+<div class="flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-white text-2xl">close</span>
+</div>
+<h1 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Workout Complete!</h1>
+<div class="flex size-12 shrink-0 items-center justify-end">
+<span class="material-symbols-outlined text-white text-2xl">trophy</span>
+</div>
+</div>
+<div class="flex-grow px-4 pb-32">
+<!-- Stats Section -->
+<div class="flex flex-wrap gap-4 pt-4">
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#1A2D20]">
+<p class="text-gray-300 text-base font-medium leading-normal">Duration</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">45:32</p>
+</div>
+<div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#1A2D20]">
+<p class="text-gray-300 text-base font-medium leading-normal">Total Volume</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">10,500 lbs</p>
+</div>
+<div class="flex w-full flex-col gap-2 rounded-xl p-6 bg-[#1A2D20]">
+<p class="text-gray-300 text-base font-medium leading-normal">Sets / Reps</p>
+<p class="text-white tracking-light text-2xl font-bold leading-tight">24 Sets / 210 Reps</p>
+</div>
+</div>
+<!-- Feedback Section Header -->
+<h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] pt-8 pb-3">How did that feel?</h2>
+<!-- RPE Slider -->
+<div class="@container bg-[#1A2D20] rounded-xl mb-4">
+<div class="relative flex w-full flex-col items-start justify-between gap-3 p-4 @[480px]:flex-row @[480px]:items-center">
+<div class="flex w-full shrink-[3] items-center justify-between">
+<p class="text-white text-base font-medium leading-normal">Rate of Perceived Exertion</p>
+<p class="text-white text-lg font-bold leading-normal">7</p>
+</div>
+<div class="flex h-4 w-full items-center gap-4">
+<div class="flex h-1.5 flex-1 rounded-full bg-[#2F4738]">
+<div class="h-full w-[70%] rounded-full bg-primary"></div>
+<div class="relative"><div class="absolute -left-2.5 -top-2 size-5 rounded-full bg-white border-2 border-primary"></div></div>
+</div>
+</div>
+<div class="flex w-full justify-between text-gray-400 text-xs mt-1">
+<span>Easy</span>
+<span>Moderate</span>
+<span>Hard</span>
+<span>Max</span>
+</div>
+</div>
+</div>
+<!-- Fatigue Segmented Buttons -->
+<div class="flex flex-col gap-2 bg-[#1A2D20] rounded-xl p-4">
+<p class="text-white text-base font-medium leading-normal mb-2">Perceived Fatigue</p>
+<div class="flex h-10 flex-1 items-center justify-center rounded-full bg-[#102216] p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-[#1A2D20] has-[:checked]:text-white text-gray-300 text-sm font-medium leading-normal">
+<span class="truncate">Low</span>
+<input class="invisible w-0" name="fatigue" type="radio" value="Low"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-[#1A2D20] has-[:checked]:text-white text-gray-300 text-sm font-medium leading-normal">
+<span class="truncate">Medium</span>
+<input checked="" class="invisible w-0" name="fatigue" type="radio" value="Medium"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-[#1A2D20] has-[:checked]:text-white text-gray-300 text-sm font-medium leading-normal">
+<span class="truncate">High</span>
+<input class="invisible w-0" name="fatigue" type="radio" value="High"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-[#1A2D20] has-[:checked]:text-white text-gray-300 text-sm font-medium leading-normal">
+<span class="truncate">Max</span>
+<input class="invisible w-0" name="fatigue" type="radio" value="Max"/>
+</label>
+</div>
+</div>
+<!-- Quick Notes Text Area -->
+<div class="mt-4">
+<textarea class="w-full rounded-xl border-none bg-[#1A2D20] p-4 text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:ring-opacity-50" placeholder="Add Quick Notes (optional)" rows="4"></textarea>
+</div>
+<!-- Primary Action Button -->
+<div class="pt-8">
+<button class="flex h-14 w-full items-center justify-center rounded-xl bg-primary px-6 text-center">
+<span class="text-background-dark text-lg font-bold leading-normal">Get AI Feedback</span>
+</button>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="fixed bottom-0 left-0 right-0 border-t border-gray-700/50 bg-background-dark/80 backdrop-blur-lg">
+<div class="flex h-20 items-center justify-around px-2 pb-4 pt-2">
+<a class="flex flex-col items-center gap-1.5 text-gray-400" href="#">
+<span class="material-symbols-outlined text-2xl">dashboard</span>
+<span class="text-xs font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<span class="text-xs font-medium">Workout</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 text-gray-400" href="#">
+<span class="material-symbols-outlined text-2xl">history</span>
+<span class="text-xs font-medium">History</span>
+</a>
+<a class="flex flex-col items-center gap-1.5 text-gray-400" href="#">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<span class="text-xs font-medium">Settings</span>
+</a>
+</div>
+</div>
+</div>
+</body></html>

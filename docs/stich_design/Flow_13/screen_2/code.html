@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Granular Editing Interface</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+              "surface-dark": "#1C1C1E",
+              "secondary-text-dark": "#8E8E93",
+              "primary-text-dark": "#F2F2F7",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display">
+<div class="relative flex min-h-screen w-full flex-col">
+<!-- Main Content -->
+<div class="flex-1 pb-24">
+<!-- Top App Bar -->
+<div class="sticky top-0 z-10 bg-background-dark/80 pt-safe backdrop-blur-lg">
+<div class="flex items-center p-4">
+<h1 class="flex-1 text-center text-lg font-bold leading-tight tracking-[-0.015em] text-primary-text-dark">Edit Workout</h1>
+</div>
+<!-- Save/Cancel Bar -->
+<div class="flex items-center gap-4 px-4 pb-4">
+<button class="flex h-12 flex-1 items-center justify-center rounded-full bg-surface-dark text-center text-base font-bold text-primary-text-dark">Cancel</button>
+<button class="flex h-12 flex-1 items-center justify-center rounded-full bg-primary text-center text-base font-bold text-background-dark">Save Changes</button>
+</div>
+</div>
+<!-- Workout Details Card -->
+<div class="flex flex-col gap-4 px-4 py-3">
+<div class="rounded-lg bg-surface-dark p-4">
+<label class="flex flex-col">
+<p class="pb-2 text-sm font-medium leading-normal text-secondary-text-dark">Workout Name</p>
+<input class="form-input h-12 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border-none bg-background-dark p-3 text-base font-normal leading-normal text-primary-text-dark placeholder:text-secondary-text-dark focus:border-primary focus:ring-2 focus:ring-primary" value="Push Day A"/>
+</label>
+<div class="mt-4 flex flex-wrap items-end gap-4">
+<label class="flex min-w-40 flex-1 flex-col">
+<p class="pb-2 text-sm font-medium leading-normal text-secondary-text-dark">Date</p>
+<input class="form-input h-12 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border-none bg-background-dark p-3 text-base font-normal leading-normal text-primary-text-dark placeholder:text-secondary-text-dark focus:border-primary focus:ring-2 focus:ring-primary" value="Oct 26, 2023"/>
+</label>
+<label class="flex min-w-40 flex-1 flex-col">
+<p class="pb-2 text-sm font-medium leading-normal text-secondary-text-dark">Duration</p>
+<input class="form-input h-12 w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg border-none bg-background-dark p-3 text-base font-normal leading-normal text-primary-text-dark placeholder:text-secondary-text-dark focus:border-primary focus:ring-2 focus:ring-primary" value="1h 15m"/>
+</label>
+</div>
+<p class="mt-4 text-center text-sm font-normal leading-normal text-primary underline">Version History</p>
+</div>
+</div>
+<!-- Exercises List -->
+<div class="flex flex-col gap-3 p-4">
+<!-- Collapsible Exercise Card: Bench Press -->
+<details class="group flex flex-col overflow-hidden rounded-lg bg-surface-dark" open="">
+<summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
+<div class="flex flex-col">
+<p class="text-base font-medium leading-normal text-primary-text-dark">Bench Press</p>
+<p class="text-sm font-normal text-secondary-text-dark">3 sets</p>
+</div>
+<span class="material-symbols-outlined text-primary-text-dark transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="flex flex-col gap-2 border-t border-background-dark/50 p-4">
+<!-- Set 1 -->
+<div class="flex items-center gap-2">
+<p class="w-12 text-sm text-secondary-text-dark">Set 1</p>
+<div class="flex flex-1 items-center gap-1 rounded-md bg-background-dark p-2">
+<input class="form-input w-full flex-1 border-none bg-transparent text-center text-primary-text-dark focus:ring-0" value="10"/><span class="text-xs text-secondary-text-dark">Reps</span>
+</div>
+<div class="flex flex-1 items-center gap-1 rounded-md bg-background-dark p-2">
+<input class="form-input w-full flex-1 border-none bg-transparent text-center text-primary-text-dark focus:ring-0" value="135"/><span class="text-xs text-secondary-text-dark">lbs</span>
+</div>
+<div class="flex flex-1 items-center gap-1 rounded-md bg-background-dark p-2">
+<span class="text-xs text-secondary-text-dark">RPE</span><input class="form-input w-full flex-1 border-none bg-transparent text-center text-primary-text-dark focus:ring-0" value="8"/>
+</div>
+</div>
+<!-- Set 2 -->
+<div class="flex items-center gap-2">
+<p class="w-12 text-sm text-secondary-text-dark">Set 2</p>
+<div class="flex flex-1 items-center gap-1 rounded-md bg-background-dark p-2">
+<input class="form-input w-full flex-1 border-none bg-transparent text-center text-primary-text-dark focus:ring-0" value="10"/><span class="text-xs text-secondary-text-dark">Reps</span>
+</div>
+<div class="flex flex-1 items-center gap-1 rounded-md bg-background-dark p-2">
+<input class="form-input w-full flex-1 border-none bg-transparent text-center text-primary-text-dark focus:ring-0" value="135"/><span class="text-xs text-secondary-text-dark">lbs</span>
+</div>
+<div class="flex flex-1 items-center gap-1 rounded-md bg-background-dark p-2">
+<span class="text-xs text-secondary-text-dark">RPE</span><input class="form-input w-full flex-1 border-none bg-transparent text-center text-primary-text-dark focus:ring-0" value="8"/>
+</div>
+</div>
+<!-- Set 3 -->
+<div class="flex items-center gap-2">
+<p class="w-12 text-sm text-secondary-text-dark">Set 3</p>
+<div class="flex flex-1 items-center gap-1 rounded-md bg-background-dark p-2">
+<input class="form-input w-full flex-1 border-none bg-transparent text-center text-primary-text-dark focus:ring-0" value="8"/><span class="text-xs text-secondary-text-dark">Reps</span>
+</div>
+<div class="flex flex-1 items-center gap-1 rounded-md bg-background-dark p-2">
+<input class="form-input w-full flex-1 border-none bg-transparent text-center text-primary-text-dark focus:ring-0" value="145"/><span class="text-xs text-secondary-text-dark">lbs</span>
+</div>
+<div class="flex flex-1 items-center gap-1 rounded-md bg-background-dark p-2">
+<span class="text-xs text-secondary-text-dark">RPE</span><input class="form-input w-full flex-1 border-none bg-transparent text-center text-primary-text-dark focus:ring-0" value="9"/>
+</div>
+</div>
+</div>
+</details>
+<!-- Collapsible Exercise Card: Overhead Press -->
+<details class="group flex flex-col overflow-hidden rounded-lg bg-surface-dark">
+<summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
+<div class="flex flex-col">
+<p class="text-base font-medium leading-normal text-primary-text-dark">Overhead Press</p>
+<p class="text-sm font-normal text-secondary-text-dark">3 sets</p>
+</div>
+<span class="material-symbols-outlined text-primary-text-dark transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="flex flex-col gap-2 border-t border-background-dark/50 p-4">
+<!-- Set details would be here -->
+</div>
+</details>
+<!-- Collapsible Exercise Card: Tricep Pushdowns -->
+<details class="group flex flex-col overflow-hidden rounded-lg bg-surface-dark">
+<summary class="flex cursor-pointer list-none items-center justify-between gap-6 p-4">
+<div class="flex flex-col">
+<p class="text-base font-medium leading-normal text-primary-text-dark">Tricep Pushdowns</p>
+<p class="text-sm font-normal text-secondary-text-dark">3 sets</p>
+</div>
+<span class="material-symbols-outlined text-primary-text-dark transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="flex flex-col gap-2 border-t border-background-dark/50 p-4">
+<!-- Set details would be here -->
+</div>
+</details>
+</div>
+</div>
+<!-- Floating Action Button -->
+<div class="fixed bottom-28 left-4 z-20">
+<button class="flex h-14 w-14 items-center justify-center rounded-full bg-primary shadow-lg">
+<span class="material-symbols-outlined text-background-dark !text-3xl">undo</span>
+</button>
+</div>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 z-20 border-t border-surface-dark/50 bg-background-dark/80 pb-safe backdrop-blur-lg">
+<div class="mx-auto flex h-20 max-w-md items-center justify-around px-4">
+<a class="flex flex-col items-center gap-1 text-secondary-text-dark" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-secondary-text-dark" href="#">
+<span class="material-symbols-outlined">play_circle</span>
+<span class="text-xs">Workout</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+<span class="text-xs">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-secondary-text-dark" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-xs">Settings</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding - Step 2: Time &amp; Frequency</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-[100dvh] w-full flex-col overflow-hidden">
+<!-- Header with Page Indicators -->
+<header class="fixed top-0 left-0 right-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="flex w-full flex-row items-center justify-center gap-3 py-5">
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<div class="h-2 w-2 rounded-full bg-primary/20"></div>
+<div class="h-2 w-2 rounded-full bg-primary/20"></div>
+<div class="h-2 w-2 rounded-full bg-primary/20"></div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex flex-1 flex-col justify-end pt-20 pb-28">
+<div class="flex flex-col gap-8 px-4">
+<!-- AI Chat Message -->
+<div class="flex items-end gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" data-alt="AI Trainer avatar with a green gradient" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCOb7tQ11MpWso2NVMNBqF-Gkrp7r5LeVAQdoIjKyZywWm826v8_yNfOJTAjqakGmic6a_Myye24CDcfTGLYjCgv_MDSGxN1aT3QdMDrdM_1Mcd0WR24bflWUoLZSdc6I_nMrS3PFG8xTvMVNNULY4EH3xlig3eth6nvOfrRwmkNfHtLFSFlQP8FV0aG6Xga2efSy2ELY4kthZrWX30ocZjpyVSnm3A-VEZEHOJnZB9BtFROqnXeiRuoPUghJw4fe2rdEZqBTd5-3-F");'></div>
+<div class="flex flex-1 flex-col gap-1 items-start">
+<p class="text-[#92c9a4] text-[13px] font-normal leading-normal max-w-[360px]">AI Trainer</p>
+<p class="text-base font-normal leading-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#23482f] text-white">
+                            Great! How many days a week do you want to train, and for how long per session?
+                        </p>
+</div>
+</div>
+<!-- Sliders -->
+<div class="flex flex-col gap-6">
+<!-- Days per week Slider -->
+<div class="@container">
+<div class="relative flex w-full flex-col items-start justify-between gap-3 p-4">
+<div class="flex w-full shrink-[3] items-center justify-between">
+<p class="text-white text-base font-medium leading-normal">Days per week</p>
+<p class="text-white text-sm font-normal leading-normal">4 days</p>
+</div>
+<div class="flex h-4 w-full items-center gap-4">
+<div class="flex h-1 flex-1 rounded-sm bg-primary/20">
+<div class="h-full w-[50%] rounded-sm bg-primary"></div>
+<div class="relative"><div class="absolute -left-2 -top-1.5 size-4 rounded-full bg-primary"></div></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Minutes per session Slider -->
+<div class="@container">
+<div class="relative flex w-full flex-col items-start justify-between gap-3 p-4">
+<div class="flex w-full shrink-[3] items-center justify-between">
+<p class="text-white text-base font-medium leading-normal">Minutes per session</p>
+<p class="text-white text-sm font-normal leading-normal">45 min</p>
+</div>
+<div class="flex h-4 w-full items-center gap-4">
+<div class="flex h-1 flex-1 rounded-sm bg-primary/20">
+<div class="h-full w-[40%] rounded-sm bg-primary"></div>
+<div class="relative"><div class="absolute -left-2 -top-1.5 size-4 rounded-full bg-primary"></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Footer with Button -->
+<footer class="fixed bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-background-dark to-transparent">
+<div class="flex px-4 py-3 pb-8">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-5 flex-1 bg-primary text-background-dark gap-2 pl-5 text-base font-bold leading-normal tracking-[0.015em]">
+<span class="material-symbols-outlined text-background-dark !text-3xl">arrow_forward</span>
+</button>
+</div>
+</footer>
+</div>
+</body></html>

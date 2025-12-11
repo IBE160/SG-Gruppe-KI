@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Generate Plan - Review Proposed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-dark dark group/design-root overflow-x-hidden pb-40">
+<!-- Top App Bar -->
+<div class="sticky top-0 z-10 flex items-center bg-background-dark/80 p-4 pb-2 justify-between backdrop-blur-md">
+<div class="flex size-12 shrink-0 items-center justify-start text-white">
+<span class="material-symbols-outlined text-3xl">arrow_back_ios_new</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Your Daily Plan</h2>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-transparent text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+<span class="material-symbols-outlined text-3xl">more_vert</span>
+</button>
+</div>
+</div>
+<div class="px-4">
+<!-- Headline Text -->
+<h1 class="text-white tracking-tight text-[32px] font-bold leading-tight text-left pb-3 pt-6">Review &amp; Adjust</h1>
+<!-- AI Context Card -->
+<div class="mb-6 @container">
+<div class="flex flex-col items-stretch justify-start rounded-xl @xl:flex-row @xl:items-start bg-white/5 p-4">
+<div class="flex w-full min-w-72 grow flex-col items-stretch justify-center gap-2">
+<p class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Heard you were feeling a bit low on energy.</p>
+<p class="text-gray-300 text-base font-normal leading-normal">
+                            I've reduced your volume by 10% and lowered the intensity to focus on active recovery while still making progress. Let's get it!
+                        </p>
+</div>
+</div>
+</div>
+<!-- Workout Section -->
+<div class="space-y-2">
+<!-- List Item 1 -->
+<div class="flex gap-4 bg-white/5 rounded-lg px-4 py-3 justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-[70px]" data-alt="Illustration of a person doing a barbell squat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAtMv5CFp9QI7ByF8zz4NxTlABngsOpdSi6g45LbBclv7047g_4FHY8NmLCuh7-HIi4CP7rhhSi8V_BjzhQZYF2IX4onNlp6_ExyrQ93zfnKy_89ZSc9rKamNMWNxqzqNlJQnuEfg44ajzcoGPjUKdduxjO9i-ie4_wYFYQCpfTbHgTf7s8G3yntkDe8-aNcKHtJPlO5OjM14EK1DERWaosi1EdrPU4fuPhEiggsUV51NZVQVoKGj5lKvqUh6dt9h-li7N6hAMYKsMY");'></div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-white text-base font-medium leading-normal">Barbell Squat</p>
+<div class="flex items-center gap-2">
+<span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
+<p class="text-gray-300 text-sm font-normal leading-normal">RPE 7</p>
+</div>
+<p class="text-gray-300 text-sm font-normal leading-normal">3 Sets, 8 Reps</p>
+</div>
+</div>
+<div class="shrink-0">
+<div class="text-white flex size-7 items-center justify-center cursor-pointer" title="Intensity lowered for active recovery">
+<span class="material-symbols-outlined text-primary">info</span>
+</div>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="flex gap-4 bg-white/5 rounded-lg px-4 py-3 justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-[70px]" data-alt="Illustration of a person doing a dumbbell bench press" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBSBlmWlL0T6ERLVkGypt-HHoJBItZvlvcj2qZfcUKhBK5Q6mm55BAo09OXR5b7_yAIVhO3rF7fvMbiyZ2yA_EBH5GUGR61dTqSfEIdcIDRlDAo8zncBIJzDrFEtG6X29WNwhfGZbQu9pB9Mros4fxBe_NT4UsYcFDC5g5nBz9nqOFYuKRiZFD4TvvMC28DUCBvku5jeJCxXS5umzC7Xx7MOURlzDPpNprOYoWVY6wHTM65hgPw2j3X1sP3UXnX7_7wTF6RJ3XRgehF");'></div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-white text-base font-medium leading-normal">Dumbbell Bench Press</p>
+<p class="text-gray-300 text-sm font-normal leading-normal">RPE 6</p>
+<div class="flex items-center gap-2">
+<span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
+<p class="text-gray-300 text-sm font-normal leading-normal">3 Sets, 10 Reps</p>
+</div>
+</div>
+</div>
+<div class="shrink-0">
+<div class="text-white flex size-7 items-center justify-center cursor-pointer" title="Reps reduced by 2 from last session">
+<span class="material-symbols-outlined text-primary">info</span>
+</div>
+</div>
+</div>
+<!-- List Item 3 -->
+<div class="flex gap-4 bg-white/5 rounded-lg px-4 py-3 justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-[70px]" data-alt="Illustration of a person doing leg press" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuADh8v5tSLKW_lVENiAZ-zanrkOVGK3I7llLSZJS8blylMDJoM_a30ZSw49ZQJDAVA3nljOViepPzZFRw5KzscUoRbFGb1mbhhyHAHcf33POk8jPrxrQh63FhboP4rWhCbgsqqBArFVZtgSioaqI4jyYE6563QsmNe9L0JViE1yoR53DkWnWY0L-SfTo8sPm8agqUTMW7OXdospszvqB_aAjccequM_3jKSRd6qevxvysNovRIBIoJ0j1naGPHssckIePm-iTnvshWm");'></div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-white text-base font-medium leading-normal">Leg Press</p>
+<p class="text-gray-300 text-sm font-normal leading-normal">RPE 7</p>
+<p class="text-gray-300 text-sm font-normal leading-normal">3 Sets, 10 Reps</p>
+</div>
+</div>
+<div class="shrink-0">
+<div class="flex size-7 items-center justify-center"></div>
+</div>
+</div>
+<!-- List Item 4 -->
+<div class="flex gap-4 bg-white/5 rounded-lg px-4 py-3 justify-between items-center">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-[70px]" data-alt="Illustration of a person doing a bicep curl" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCGobrHoIj8jtHS-V55UrN2u0gv3dioN-WZRCeXKVL4NMFmxv_aOpggyWTczYzTbZoIDoEAUR9W3k5hBENVeJU2MFnj7PNZq2MhDvbSVF2OtjcVxLMRDMyIW93poZg_AfUzoypykZly5-IuOgLlViuAUp7GWK1PX9q9FaucA5PbFnTzPJvbMYCsR6MxUjZQ4r8ZseeTjCvsdqt9RSsjvDZXyGSxGzVFLCavtRk-ieJz0FijR6awGwu---UQ42Yk7SnAU-NgjC9fZYKK");'></div>
+<div class="flex flex-1 flex-col justify-center">
+<p class="text-white text-base font-medium leading-normal">Bicep Curls</p>
+<p class="text-gray-300 text-sm font-normal leading-normal">RPE 8</p>
+<p class="text-gray-300 text-sm font-normal leading-normal">3 Sets, 12 Reps</p>
+</div>
+</div>
+<div class="shrink-0">
+<div class="flex size-7 items-center justify-center"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons & Bottom Nav -->
+<div class="fixed bottom-0 left-0 right-0 w-full bg-background-dark">
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3 p-4">
+<button class="flex w-full items-center justify-center rounded-full bg-primary py-4 text-center text-base font-bold text-background-dark">Confirm Plan</button>
+<button class="flex w-full items-center justify-center rounded-full border border-white/20 bg-transparent py-4 text-center text-base font-bold text-white">Edit Plan</button>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="flex w-full justify-around border-t border-white/10 bg-background-dark/80 px-2 pb-6 pt-2 backdrop-blur-md">
+<div class="flex flex-col items-center justify-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-xs">Dashboard</p>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<p class="text-xs">Workout</p>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">history</span>
+<p class="text-xs">History</p>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 text-gray-400">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-xs">Settings</p>
+</div>
+</div>
+</div>
+</div>
+</body></html>

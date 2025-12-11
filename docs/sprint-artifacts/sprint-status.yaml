@@ -1,0 +1,63 @@
+# generated: 2025-12-05
+# project: ibe160
+# project_key: project_key
+# tracking_system: file-system
+# story_location: C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\docs\sprint-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic exists in epic file but not contexted
+#   - contexted: Next epic tech context created by *epic-tech-context (required)
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - drafted: Story file created in stories folder by *create-story
+#   - ready-for-dev: Draft approved and story context created by *story-ready
+#   - in-progress: Developer actively working on implementation by *dev-story
+#   - review: Under SM review (via code-review workflow)
+#   - done: Story completed by *story-done
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - completed: Retrospective has been done by *retrospective
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epics should be 'contexted' before stories can be 'drafted'
+# - SM typically drafts next story ONLY after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', dev reviews, then Dev moves to 'done'
+
+generated: 2025-12-05
+project: ibe160
+project_key: project_key
+tracking_system: file-system
+story_location: C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\docs\sprint-artifacts
+
+development_status:
+  epic-1: backlog
+  1-1-project-setup-core-infrastructure: done
+  1-2-user-authentication---email-google-oauth: in-progress
+  1-3-conversational-onboarding-goals-preferences: review
+  1-4-user-profile-management: in-progress
+  epic-1-retrospective: optional
+  epic-2: backlog
+  2-1-ai-daily-plan-generation-api: backlog
+  2-2-daily-plan-context-window: backlog
+  2-3-display-review-daily-plan: backlog
+  2-4-workout-player-core-ui-logging: backlog
+  2-5-progress-dashboard-display: backlog
+  2-6-in-app-reminders-nudges: backlog
+  epic-2-retrospective: optional
+  epic-3: backlog
+  3-1-spotify-integration-oauth: backlog
+  3-2-ai-driven-session-mix-generation: backlog
+  3-3-in-workout-music-playback-controls: backlog
+  epic-3-retrospective: optional
+  epic-4: backlog
+  4-1-main-settings-menu-navigation: backlog
+  4-2-performance-data-settings: backlog
+  4-3-privacy-account-management: backlog
+  4-4-general-appearance-settings: backlog
+  4-5-ai-personalization-settings: backlog
+  epic-4-retrospective: optional

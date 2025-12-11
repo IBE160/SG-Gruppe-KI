@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding - Step 3: Equipment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#13ec5b",
+            "background-light": "#f6f8f6",
+            "background-dark": "#102216",
+          },
+          fontFamily: {
+            "display": ["Lexend", "sans-serif"]
+          },
+          borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      overflow: hidden; /* Prevent scrolling on the body */
+    }
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh; /* Full viewport height */
+    }
+    .header, .footer {
+      flex-shrink: 0; /* Prevent header and footer from shrinking */
+    }
+    .content-area {
+      flex-grow: 1; /* Allow content to fill remaining space */
+      overflow-y: auto; /* Enable scrolling for content area only */
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white">
+<div class="main-container">
+<!-- Header -->
+<header class="header bg-background-light dark:bg-background-dark sticky top-0 z-10">
+<div class="relative flex w-full flex-row items-center justify-center gap-3 py-5">
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<div class="h-2 w-2 rounded-full bg-primary/20"></div>
+<div class="h-2 w-2 rounded-full bg-primary/20"></div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="content-area p-4">
+<div class="flex items-end gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" data-alt="Abstract green and dark circular AI avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVyCTU0c4dz6DkaewhPtMTx5b8zbCImj7mP_LVv3Ketm48IPBZ1SNqI59xEsSj09IzpSICIYrP7MtMsziaPMpSFhkyWTgc61lj1w4Ka6xoCr2kG2uO4ZZuAf9B_9jGU61Ni2HOX18nCZK3G-gbFhALP0n6DKXJzsPk-i6MsKIje7o7b7n7lmS6HgfCFUmmaUYI1GSDqVlkrhOi0JFx64j69ieVjkkKVrDZ-OfhHXH8OlBLcMqrQfiNHyBKEcORHEHQUdJaEVT7hXU8");'></div>
+<div class="flex flex-1 flex-col gap-1 items-start">
+<p class="text-primary/70 text-[13px] font-normal leading-normal max-w-[360px]">AI Trainer</p>
+<p class="text-base font-normal leading-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#23482f] text-white">Got it. What equipment do you have access to?</p>
+</div>
+</div>
+<div class="flex justify-center mt-6">
+<div class="flex flex-1 gap-3 max-w-[480px] flex-col items-stretch">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-primary text-background-dark text-base font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">No Equipment</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 border border-primary/50 bg-transparent text-white text-base font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">Basic (Dumbbells, Bands)</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 border border-primary/50 bg-transparent text-white text-base font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">Full Gym</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 border border-primary/50 bg-transparent text-white text-base font-bold leading-normal tracking-[0.015em] w-full">
+<span class="truncate">Specify...</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="footer bg-background-light dark:bg-background-dark sticky bottom-0 z-10 py-3 px-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 w-full bg-primary text-background-dark gap-2 text-base font-bold leading-normal tracking-[0.015em]">
+<span class="material-symbols-outlined text-background-dark">arrow_forward</span>
+</button>
+</footer>
+</div>
+</body></html>

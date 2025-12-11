@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Email Authentication - Sign-In</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- TopAppBar -->
+<div class="flex items-center p-4 pb-2 justify-between">
+<button class="text-white flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-white/10 active:bg-white/20 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back_ios_new</span>
+</button>
+</div>
+<div class="flex flex-col h-full flex-grow px-4">
+<!-- HeadlineText -->
+<h1 class="text-white tracking-light text-[32px] font-bold leading-tight text-left pb-8 pt-6">Welcome back!</h1>
+<!-- Form -->
+<div class="flex flex-col space-y-4">
+<!-- TextField: Email -->
+<div class="flex flex-col">
+<label class="text-white text-base font-medium leading-normal pb-2" for="email">Email address</label>
+<div class="relative flex w-full flex-1 items-stretch">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#92c9a4]">mail</span>
+<input class="form-input w-full resize-none overflow-hidden rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-[#23482f] h-14 placeholder:text-[#92c9a4] pl-12 pr-4 text-base font-normal leading-normal" id="email" placeholder="Enter your email" type="email" value=""/>
+</div>
+</div>
+<!-- TextField: Password -->
+<div class="flex flex-col">
+<label class="text-white text-base font-medium leading-normal pb-2" for="password">Password</label>
+<div class="relative flex w-full flex-1 items-stretch">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[#92c9a4]">lock</span>
+<input class="form-input w-full resize-none overflow-hidden rounded-full text-white focus:outline-0 focus:ring-2 focus:ring-primary border-none bg-[#23482f] h-14 placeholder:text-[#92c9a4] pl-12 pr-12 text-base font-normal leading-normal" id="password" placeholder="Enter your password" type="password" value=""/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-[#92c9a4]">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+</div>
+</div>
+<!-- MetaText: Forgot Password? -->
+<div class="flex justify-end pt-3">
+<a class="text-primary text-sm font-medium leading-normal underline" href="#">Forgot Password?</a>
+</div>
+<!-- Spacer -->
+<div class="flex-grow"></div>
+<!-- Actions -->
+<div class="flex flex-col items-center gap-6 py-8">
+<!-- Primary Button -->
+<button class="w-full rounded-full bg-primary py-4 text-center font-bold text-background-dark text-lg leading-snug hover:opacity-90 active:opacity-80 transition-opacity">Log In</button>
+<!-- Secondary Link -->
+<p class="text-white text-base font-normal leading-normal">
+                    Don't have an account? <a class="font-bold text-primary underline" href="#">Sign up</a>
+</p>
+</div>
+</div>
+</div>
+</body></html>

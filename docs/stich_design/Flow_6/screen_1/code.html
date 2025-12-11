@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Generate AI Daily Plan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-dark group/design-root overflow-x-hidden" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+<!-- Top App Bar -->
+<div class="flex items-center bg-[#102216] p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="text-white flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-3xl">arrow_back_ios_new</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Your Daily Plan</h2>
+<div class="flex size-12 shrink-0 items-center"></div>
+</div>
+<!-- Smart Context Window -->
+<div class="p-4 @container">
+<div class="flex flex-col items-stretch justify-start rounded-xl bg-[#193322] p-4">
+<p class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">How are you feeling today?</p>
+<p class="text-[#92c9a4] text-base font-normal leading-normal mt-1">Select your mood and energy level to generate a plan.</p>
+<!-- Mood Selection -->
+<h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] pt-6 pb-2">Mood</h3>
+<div class="flex">
+<div class="flex h-12 flex-1 items-center justify-center rounded-full bg-[#23482f] p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-[#102216] has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-white text-[#92c9a4] text-sm font-medium leading-normal transition-colors">
+<span class="truncate text-lg">😫</span><span class="ml-2 hidden sm:inline">Stressed</span>
+<input class="invisible w-0" name="mood_selector" type="radio" value="Stressed"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-[#102216] has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-white text-[#92c9a4] text-sm font-medium leading-normal transition-colors">
+<span class="truncate text-lg">😐</span><span class="ml-2 hidden sm:inline">Neutral</span>
+<input checked="" class="invisible w-0" name="mood_selector" type="radio" value="Neutral"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-[#102216] has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-white text-[#92c9a4] text-sm font-medium leading-normal transition-colors">
+<span class="truncate text-lg">🤩</span><span class="ml-2 hidden sm:inline">Motivated</span>
+<input class="invisible w-0" name="mood_selector" type="radio" value="Motivated"/>
+</label>
+</div>
+</div>
+<!-- Energy Level Selection -->
+<h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] pt-6 pb-2">Energy Level</h3>
+<div class="flex">
+<div class="flex h-12 flex-1 items-center justify-center rounded-full bg-[#23482f] p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center gap-2 overflow-hidden rounded-full px-2 has-[:checked]:bg-[#102216] has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-white text-[#92c9a4] text-sm font-medium leading-normal transition-colors">
+<span class="material-symbols-outlined !text-xl text-yellow-400">battery_low</span><span class="hidden sm:inline">Low</span>
+<input class="invisible w-0" name="energy_selector" type="radio" value="Low"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center gap-2 overflow-hidden rounded-full px-2 has-[:checked]:bg-[#102216] has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-white text-[#92c9a4] text-sm font-medium leading-normal transition-colors">
+<span class="material-symbols-outlined !text-xl text-yellow-400">battery_horiz_050</span><span class="hidden sm:inline">Medium</span>
+<input checked="" class="invisible w-0" name="energy_selector" type="radio" value="Medium"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center gap-2 overflow-hidden rounded-full px-2 has-[:checked]:bg-[#102216] has-[:checked]:shadow-[0_0_4px_rgba(0,0,0,0.1)] has-[:checked]:text-white text-[#92c9a4] text-sm font-medium leading-normal transition-colors">
+<span class="material-symbols-outlined !text-xl text-primary">battery_full</span><span class="hidden sm:inline">High</span>
+<input class="invisible w-0" name="energy_selector" type="radio" value="High"/>
+</label>
+</div>
+</div>
+<!-- Generate Plan Button -->
+<button class="mt-8 flex h-14 w-full items-center justify-center rounded-full bg-primary text-background-dark text-lg font-bold transition-transform active:scale-95">Generate Today's Plan</button>
+</div>
+</div>
+<!-- AI-Generated Plan Section -->
+<div class="flex flex-col gap-4 px-4 pb-28 pt-4">
+<!-- Change Highlight Card -->
+<div class="flex items-start gap-3 rounded-xl bg-primary/20 p-4">
+<span class="material-symbols-outlined text-primary mt-1">auto_awesome</span>
+<div class="flex flex-col">
+<p class="font-bold text-primary">Plan Adjusted!</p>
+<p class="text-white/80">We've added a challenge because you're feeling motivated and energetic today. Let's do this!</p>
+</div>
+</div>
+<!-- Exercise List -->
+<!-- Exercise Item 1: Modified -->
+<div class="flex items-center gap-4 rounded-xl bg-[#193322] p-4 border border-yellow-500/50">
+<img class="h-20 w-20 shrink-0 rounded-lg object-cover" data-alt="A person performing a barbell squat in a gym." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGvcSr49WSO6zJt6P8X_xIqu9dFcG-ivHxE17bCZRrdeRhh9H1cgY4v3fsHdky4DmIIdPE3tDyrID_qSBf4V1nwqYlEPLco9ADrvDyIPpSKx7WsH_KzZVI7S0KPOSx7JzMoZl7MoqwKd2UaNMKyEChw6QEh2nS5c3QtHUid7mcPHkPs7NQ4b4p5zW6W4v5Q3nHAJkcS3eRCNF0fhT1KPGvv3FouRjLmJXBddJyDuFmxGIxzpZC5cpEo6ecHdl85O2i2ShbID4WIw"/>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<p class="text-white font-bold">Barbell Squats</p>
+<div class="flex items-center gap-1 rounded-full bg-yellow-500/20 px-2 py-0.5 text-xs font-medium text-yellow-400">
+<span class="material-symbols-outlined !text-sm">edit</span>
+<span>MODIFIED</span>
+</div>
+</div>
+<p class="text-white/70">4 sets x 8 reps</p>
+</div>
+<button class="text-white/70 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">swap_horiz</span>
+</button>
+</div>
+<!-- Exercise Item 2: Unchanged -->
+<div class="flex items-center gap-4 rounded-xl bg-[#193322] p-4">
+<img class="h-20 w-20 shrink-0 rounded-lg object-cover" data-alt="A person doing push-ups on a yoga mat." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCilTCOveRyAAdqG6F8XIDzzv4yqKXMleiuRhEKU_hw-DNEsh2xZeBJ-0qdQAqp6cPCGJcRZ6yGJFGhD3ypc13ZG5ox23aNGZEVbfPEpP15a-GtJuIqjQ8xT6xvHuwWp2SfoMljK4al9YaGpWBEaZEZJCCRmOui2fs8mRzYyIrEVesgudxkkd9CZve3WFxkQYD92EoMDVPJqYueSgp6i0foBuU-7vMBVwoevk61pZclR0g3vjMU2UqPo6ndIGg4TVpP5QoqFdVRlg"/>
+<div class="flex-grow">
+<p class="text-white font-bold">Push-ups</p>
+<p class="text-white/70">3 sets x 15 reps</p>
+</div>
+<button class="text-white/70 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">swap_horiz</span>
+</button>
+</div>
+<!-- Exercise Item 3: New -->
+<div class="flex items-center gap-4 rounded-xl bg-[#193322] p-4 border border-primary/50">
+<img class="h-20 w-20 shrink-0 rounded-lg object-cover" data-alt="A person lifting a kettlebell." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR8sa9LjUTzRFeVDcs0r6pONJWwxfjjrmCSWNEPVKjDnk1-F7124sXZBICLrwgTWe4EkIXqovpZC4XMcT4Yb71xABQVaTUACLhIITH88sQk8dlm7jfnPFIHfuvLV-TXZmWIbfOIEBHc_Otuog7e8yS6FXSzLlCYSWvhuj7j8S1uaiLXWeN9KTLZwyElRMjp5pPiw4xYacCVuVWz0NGXiZ3nAj-ymXzVcSX7TMeXHrBOgx0DBJlMq4zQ38-ljbeQINnDGC_uvskfg"/>
+<div class="flex-grow">
+<div class="flex justify-between items-start">
+<p class="text-white font-bold">Kettlebell Swings</p>
+<div class="flex items-center gap-1 rounded-full bg-primary/20 px-2 py-0.5 text-xs font-medium text-primary">
+<span class="material-symbols-outlined !text-sm">add</span>
+<span>NEW</span>
+</div>
+</div>
+<p class="text-white/70">3 sets x 12 reps</p>
+</div>
+<button class="text-white/70 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">swap_horiz</span>
+</button>
+</div>
+<!-- Exercise Item 4: Unchanged -->
+<div class="flex items-center gap-4 rounded-xl bg-[#193322] p-4">
+<img class="h-20 w-20 shrink-0 rounded-lg object-cover" data-alt="Dark gym interior with various workout equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBT2pdq26LOLU6f5TKGLqQpvH6Jd0HWdR592kgkPdjMqX4RUNleIO-gm8OWxcG2hcuqSHn6S8YnmhCUtIhzYhi1OdRcaBnsKVRsLqCdqMPYeBbjIg_55uhaWnEThGKnE1zleJfb16UBnq3E_jpi-bL4GjVxrM3EN3t_FxWPVChHinC-r1Xl7tZ-7QvlXhZ_48pm9phiZJk-ehL_XF6_5ZzgA4PdQx5u6naTS3M_1irBF1tpQy3-U8ljULCN2YFyil1911l_i4sNyg"/>
+<div class="flex-grow">
+<p class="text-white font-bold">Plank</p>
+<p class="text-white/70">3 sets x 45 sec</p>
+</div>
+<button class="text-white/70 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-3xl">swap_horiz</span>
+</button>
+</div>
+</div>
+<!-- Confirmation Footer -->
+<div class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#102216] to-transparent p-4 pt-8">
+<button class="flex h-16 w-full items-center justify-center rounded-full bg-primary text-background-dark text-xl font-bold transition-transform active:scale-95">
+                Start Workout
+            </button>
+</div>
+</div>
+</body></html>

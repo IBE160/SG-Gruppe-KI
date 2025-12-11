@@ -1,0 +1,180 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>4</storyId>
+    <title>User Profile Management</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/1-4-user-profile-management.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a user</asA>
+    <iWant>to view and edit my profile information, goals, and equipment settings</iWant>
+    <soThat>I can keep my personal data up-to-date and influence AI plan generation</soThat>
+    <tasks>
+- [ ] **Task 1: Implement Profile UI Shell & Navigation (AC: 1)**
+  - [ ] Subtask 1.1: Create a main layout component for the User Profile Management section (e.g., `apps/web/src/app/profile/layout.tsx` or `apps/web/src/app/settings/profile/layout.tsx`).
+  - [ ] Subtask 1.2: Implement navigation to this section from the main app (e.g., via Settings menu or dedicated profile icon).
+  - [ ] Subtask 1.3: Define a new Zustand store (`profileStore.ts` in `apps/web/src/store/`) to manage the profile editing state (e.g., `isEditing`, `tempUserData`).
+  - [ ] Subtask 1.4: Write unit tests (Jest/RTL) for the layout and navigation logic (Covers AC: 1).
+
+- [ ] **Task 2: Implement User Profile View (AC: 2)**
+  - [ ] Subtask 2.1: Create frontend components to display user information (email, unit preference), primary goal, training frequency/duration, injuries/limitations, and equipment (e.g., `apps/web/src/app/profile/view-profile.tsx`).
+  - [ ] Subtask 2.2: Implement data fetching logic using `GET /users/me` API endpoint.
+  - [ ] Subtask 2.3: Connect components to `profileStore` to display data.
+  - [ ] Subtask 2.4: Write unit tests (Jest/RTL) for profile display components and data fetching (Covers AC: 2).
+
+- [ ] **Task 3: Implement User Profile Edit Functionality (AC: 3, 5)**
+  - [ ] Subtask 3.1: Create frontend components for editable fields (e.g., input fields for `unit_preference`, selectors for goals/equipment, text areas for limitations - mirroring Flow 2 components where applicable).
+  - [ ] Subtask 3.2: Implement client-side validation logic for all editable fields.
+  - [ ] Subtask 3.3: Integrate `profileStore` to manage changes made by the user before saving.
+  - [ ] Subtask 3.4: Implement a "Save" button that triggers data submission.
+  - [ ] Subtask 3.5: Write unit tests (Jest/RTL) for editing components and validation (Covers AC: 3, 5).
+
+- [ ] **Task 4: Implement Backend API for User Profile Management (AC: 4, 5)**
+  - [ ] Subtask 4.1: (Address Technical Debt) Investigate and resolve `ModuleNotFoundError` in `apps/api` Pytest setup to enable integration testing.
+  - [ ] Subtask 4.2: In `apps/api/app/models/`, create Pydantic models for user profile update requests (e.g., `UserProfileUpdate`, `GoalUpdate`, `EquipmentUpdate`).
+  - [ ] Subtask 4.3: In `apps/api/app/api/`, create a new FastAPI router (e.g., `user.py`) with `GET /users/me` and `PUT /users/me` endpoints. Ensure these endpoints are protected by authentication and authorize that the user ID in the token matches the requested resource.
+  - [ ] Subtask 4.4: In `apps/api/app/services/`, implement `user_service.py` to handle CRUD operations with Supabase `Users`, `Goals`, and `Equipment` tables. Ensure data is correctly persisted, including updates to `unit_preference` in the `Users` table and modifications to `Goals` and `Equipment` entries.
+  - [ ] Subtask 4.5: Update `apps/api/main.py` to include the new `user` router.
+  - [ ] Subtask 4.6: Write integration tests (Pytest) for `GET /users/me` and `PUT /users/me` endpoints, covering data retrieval, update, and validation (Covers AC: 4, 5).
+
+- [ ] **Task 5: Finalize Data Submission & Redirection (AC: 4, 7)**
+  - [ ] Subtask 5.1: Implement logic to send updated data from `profileStore` to the `PUT /users/me` endpoint upon clicking "Save".
+  - [ ] Subtask 5.2: Handle success and error responses from the API, providing user feedback.
+  - [ ] Subtask 5.3: On successful update, refresh the displayed profile data and optionally show a success notification.
+  - [ ] Subtask 5.4: Write an E2E test (Playwright) covering the full profile management flow (Covers AC: 4, 7).
+
+- [ ] **Task 6: Ensure full testing coverage for all ACs**
+    - [ ] Subtask 6.1: Write unit test for custom text entry for goals and equipment (Covers AC: 6)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+*   Logged-in users can navigate to a User Profile Management section.
+*   Users can view their current goals, equipment, and personal information.
+*   Users can modify these details.
+*   Changes are persisted in the Supabase `Users` and `Goals` tables.
+*   Validation is applied to updated fields.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>ibe160 - Epic Breakdown</title>
+        <section>Story 1.4: User Profile Management</section>
+        <snippet>As a user, I want to view and edit my profile information, goals, and equipment settings, so that I can keep my personal data up-to-date and influence AI plan generation.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>AI-Powered Personal Training Advisor Architecture</title>
+        <section>APIs and Interfaces</section>
+        <snippet>GET /users/me and PUT /users/me for fetching and updating user profiles.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>AI-Powered Personal Training Advisor Architecture</title>
+        <section>Data Models</section>
+        <snippet>Users table (id, email, unit_preference, updated_at), Goals table (id, user_id, primary_goal, training_frequency, training_duration, injuries_limitations, created_at), Equipment table (id, user_id, name).</snippet>
+      </doc>
+      <doc>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction - Phase 1</title>
+        <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
+        <snippet>The User Profile Management is expected to be part of the settings section, likely under Privacy & Account Settings.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>apps/web/src/store/auth.ts</path>
+        <kind>State Management</kind>
+        <symbol>useAuthStore</symbol>
+        <reason>Manages the global authentication state, including the current user object.</reason>
+      </artifact>
+      <artifact>
+        <path>apps/web/src/app/onboarding/goal-selection.tsx</path>
+        <kind>Component</kind>
+        <symbol>GoalSelection</symbol>
+        <reason>Contains UI for selecting and editing user goals, which can be reused or adapted for the profile page.</reason>
+      </artifact>
+      <artifact>
+        <path>apps/web/src/app/onboarding/equipment-selection.tsx</path>
+        <kind>Component</kind>
+        <symbol>EquipmentSelection</symbol>
+        <reason>Contains UI for selecting and editing user equipment, which can be reused or adapted for the profile page.</reason>
+      </artifact>
+      <artifact>
+        <path>apps/api/app/services/onboarding_service.py</path>
+        <kind>Service</kind>
+        <symbol>OnboardingService</symbol>
+        <reason>Provides a pattern for how backend services should interact with Supabase to save user-related data.</reason>
+      </artifact>
+      <artifact>
+        <path>apps/api/app/api/onboarding.py</path>
+        <kind>API Endpoint</kind>
+        <symbol>POST /onboarding</symbol>
+        <reason>Demonstrates the structure for creating new FastAPI endpoints for user data.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <dependency name="next" version="^14.2.5"/>
+        <dependency name="react" version="^18.2.0"/>
+        <dependency name="zustand" version="^5.0.9"/>
+        <dependency name="@supabase/supabase-js" version="^2.87.0"/>
+        <dependency name="tailwindcss" version="^3.4.4"/>
+      </ecosystem>
+      <ecosystem name="Python">
+        <dependency name="fastapi" version="0.124.0"/>
+        <dependency name="pydantic" version="2.12.5"/>
+        <dependency name="uvicorn" version="0.38.0"/>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>All profile management API endpoints must be protected by JWT authentication.</constraint>
+    <constraint>A user must only be able to view and edit their own profile data. This is enforced by Row-Level Security (RLS) in Supabase.</constraint>
+    <constraint>The backend must use Pydantic models for validating all incoming request data.</constraint>
+    <constraint>All user data must be stored in the Supabase PostgreSQL database, adhering to the `Users`, `Goals`, and `Equipment` table schemas.</constraint>
+    <constraint>Frontend state should be managed using Zustand.</constraint>
+    <constraint>The UI must follow the dark theme and design principles from `ux-design-direction.md`.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Get User Profile</name>
+      <kind>REST Endpoint</kind>
+      <signature>GET /api/v1/users/me</signature>
+      <path>apps/api/app/api/user.py</path>
+    </interface>
+    <interface>
+      <name>Update User Profile</name>
+      <kind>REST Endpoint</kind>
+      <signature>PUT /api/v1/users/me</signature>
+      <path>apps/api/app/api/user.py</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>The project uses a three-tiered testing strategy:
+1.  **Unit Tests:** Jest and React Testing Library for frontend components and Zustand stores.
+2.  **Integration Tests:** Pytest for backend FastAPI endpoints and services.
+3.  **End-to-End Tests:** Playwright for full user journeys.
+</standards>
+    <locations>
+- `apps/web/tests/e2e/` for frontend E2E tests.
+- `apps/api/tests/` for backend integration tests.
+- Component-level tests are co-located with the components they test (e.g., `apps/web/src/app/profile/view-profile.test.tsx`).
+</locations>
+    <ideas>
+      <idea acId="1">E2E test: User can navigate to the profile management page from the settings menu.</idea>
+      <idea acId="2">Integration test: `GET /api/v1/users/me` returns the correct profile data for the authenticated user.</idea>
+      <idea acId="3">Unit test: The profile editing form correctly updates its state when the user modifies input fields.</idea>
+      <idea acId="4">Integration test: `PUT /api/v1/users/me` successfully updates the user's data in the `Users`, `Goals`, and `Equipment` tables in the database.</idea>
+      <idea acId="5">Unit test: The frontend form correctly validates user input (e.g., email format, required fields).</idea>
+      <idea acId="6">E2E test: The entire user flow of viewing, editing, and saving profile information is successful, and the updated information is correctly displayed.</idea>
+    </ideas>
+  </tests>
+</story-context>

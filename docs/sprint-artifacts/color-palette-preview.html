@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Color Theme Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        .swatch {
+            height: 100px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 0.75rem;
+            color: white;
+            font-weight: 500;
+        }
+        .swatch-light {
+            border: 1px solid #e2e8f0;
+        }
+        .text-shadow {
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+        .swatch-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+    </style>
+</head>
+<body class="bg-[#102216] text-white p-8">
+
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-2 text-[#13ec5b]">UX Color Themes</h1>
+        <p class="text-center text-gray-300 mb-10">A visual preview of the color palette defined in the UX Design Specification.</p>
+
+        <!-- Primary Brand Colors -->
+        <h2 class="text-2xl font-bold mb-4">Primary Brand Colors</h2>
+        <p class="text-gray-400 mb-6">Core look and feel for backgrounds, primary CTAs, and key branding elements.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div>
+                <div class="swatch text-shadow" style="background-color: #13ec5b;">
+                    <span class="text-black">Primary</span>
+                    <div class="swatch-info text-black"><span>#13ec5b</span><span class="text-xs">primary</span></div>
+                </div>
+            </div>
+            <div>
+                <div class="swatch text-shadow" style="background-color: #102216;">
+                    <span>Background Dark</span>
+                    <div class="swatch-info"><span>#102216</span><span class="text-xs">background-dark</span></div>
+                </div>
+            </div>
+            <div>
+                <div class="swatch swatch-light" style="background-color: #f6f8f6;">
+                    <span class="text-black">Background Light</span>
+                    <div class="swatch-info text-black"><span>#f6f8f6</span><span class="text-xs">background-light</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary & Neutral Colors -->
+        <h2 class="text-2xl font-bold mb-4">Secondary & Neutral Colors</h2>
+        <p class="text-gray-400 mb-6">For text, borders, dividers, card elements, and informational elements.</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+            <div>
+                <div class="swatch text-shadow" style="background-color: #212529;"><span>Gray-900</span><span>#212529</span></div>
+            </div>
+            <div>
+                <div class="swatch text-shadow" style="background-color: #6C757D;"><span>Gray-600</span><span>#6C757D</span></div>
+            </div>
+            <div>
+                <div class="swatch swatch-light text-shadow" style="background-color: #CED4DA;">
+                    <span class="text-black">Gray-300</span>
+                    <span class="text-black">#CED4DA</span>
+                </div>
+            </div>
+            <div>
+                <div class="swatch swatch-light" style="background-color: #F8F9FA;">
+                    <span class="text-black">Gray-100</span>
+                    <span class="text-black">#F8F9FA</span>
+                </div>
+            </div>
+             <div>
+                <div class="swatch swatch-light" style="background-color: #FFFFFF;">
+                    <span class="text-black">White</span>
+                    <span class="text-black">#FFFFFF</span>
+                </div>
+            </div>
+            <div>
+                <div class="swatch text-shadow" style="background-color: #007BFF;"><span>Vibrant Blue</span><span>#007BFF</span></div>
+            </div>
+        </div>
+
+        <!-- Semantic Colors -->
+        <h2 class="text-2xl font-bold mb-4">Semantic (Functional) Colors</h2>
+        <p class="text-gray-400 mb-6">To communicate status clearly and consistently for success, warnings, and errors.</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div>
+                <div class="swatch text-shadow" style="background-color: #28A745;"><span>Success</span><span>#28A745</span></div>
+            </div>
+            <div>
+                <div class="swatch text-shadow" style="background-color: #FFC107;">
+                    <span class="text-black">Warning</span>
+                    <span class="text-black">#FFC107</span>
+                </div>
+            </div>
+            <div>
+                <div class="swatch text-shadow" style="background-color: #DC3545;"><span>Error</span><span>#DC3545</span></div>
+            </div>
+            <div>
+                <div class="swatch text-shadow" style="background-color: #17A2B8;"><span>Info</span><span>#17A2B8</span></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Active Workout Player - Main Ready</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+              "surface-dark": "#1a2c1f",
+              "text-primary-dark": "#EAEAEA",
+              "text-secondary-dark": "#888888",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+      .material-symbols-outlined.fill {
+        font-variation-settings: 'FILL' 1;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-hidden">
+<main class="flex-grow flex flex-col px-4 pt-4 pb-28">
+<!-- Header -->
+<header class="flex flex-col items-center justify-center pt-8 pb-4">
+<h1 class="text-text-primary-dark tracking-light text-[32px] font-bold leading-tight text-center">MAIN WORKOUT</h1>
+</header>
+<!-- Progress Bar -->
+<div class="flex flex-col gap-2 mb-6">
+<div class="flex justify-between items-center">
+<p class="text-text-secondary-dark text-sm font-medium leading-normal">Exercises</p>
+<p class="text-text-primary-dark text-sm font-normal leading-normal">1/5</p>
+</div>
+<div class="rounded-full bg-surface-dark h-2">
+<div class="h-2 rounded-full bg-primary" style="width: 20%;"></div>
+</div>
+</div>
+<!-- Exercise Card -->
+<div class="flex flex-col gap-4 bg-surface-dark p-4 rounded-lg">
+<div class="flex justify-between items-start">
+<h2 class="text-text-primary-dark text-2xl font-bold leading-tight tracking-[-0.015em]">Barbell Squat</h2>
+<div class="flex gap-3">
+<button class="text-text-secondary-dark"><span class="material-symbols-outlined text-2xl">swap_horiz</span></button>
+<button class="text-text-secondary-dark"><span class="material-symbols-outlined text-2xl">info</span></button>
+</div>
+</div>
+<!-- Media Player -->
+<div class="relative flex items-center justify-center bg-cover bg-center aspect-video rounded-lg" data-alt="Video demonstration of a barbell squat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC_fGSMg234AEpaN53JX0Gofb6tmBzZDRQ9yK_Rh0xePGt43wMcFxxzBmIHneppN5gp26OxxBtMkIKRNJJ581lsiLVIlJFiq3Q96k3f3L78Ov9jsdpmmyV2_LX8CaxuG-fOfDIyoOssqcPKifKktHAC1RLq3J-YiPFZ6dmGsEY9Im0WUkm9DpR6yeDIhBe4DDuYLW7wg7vSFORTcvgkNSlgYbo-iPU1EPq2bz_hcaGgImPhKF5gW9QWAS4DG9WcKrXn_sM4lLjGOHLo");'>
+<button class="flex shrink-0 items-center justify-center rounded-full size-14 bg-black/50 text-white backdrop-blur-sm">
+<span class="material-symbols-outlined fill text-4xl pl-1">play_arrow</span>
+</button>
+</div>
+<!-- Target Metrics -->
+<div class="grid grid-cols-3 gap-2 text-center">
+<div class="flex flex-col items-center justify-center bg-background-dark py-3 rounded">
+<p class="text-text-secondary-dark text-xs font-medium uppercase tracking-wider">SETS</p>
+<p class="text-text-primary-dark text-lg font-bold">3</p>
+</div>
+<div class="flex flex-col items-center justify-center bg-background-dark py-3 rounded">
+<p class="text-text-secondary-dark text-xs font-medium uppercase tracking-wider">REPS</p>
+<p class="text-text-primary-dark text-lg font-bold">8-10</p>
+</div>
+<div class="flex flex-col items-center justify-center bg-background-dark py-3 rounded">
+<p class="text-text-secondary-dark text-xs font-medium uppercase tracking-wider">RPE</p>
+<p class="text-text-primary-dark text-lg font-bold">7</p>
+</div>
+</div>
+</div>
+<div class="flex-grow"></div>
+<!-- CTA Button -->
+<div class="w-full pt-6">
+<button class="w-full bg-primary text-background-dark h-14 rounded-full flex items-center justify-center text-lg font-bold">
+                    START SET 1
+                </button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-surface-dark/80 backdrop-blur-lg border-t border-white/10">
+<div class="flex justify-around items-center h-20 max-w-md mx-auto">
+<a class="flex flex-col items-center justify-center text-text-secondary-dark w-16" href="#">
+<span class="material-symbols-outlined text-2xl">dashboard</span>
+<span class="text-xs mt-1">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary w-16" href="#">
+<span class="material-symbols-outlined fill text-2xl">fitness_center</span>
+<span class="text-xs mt-1 font-bold">Workout</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary-dark w-16" href="#">
+<span class="material-symbols-outlined text-2xl">history</span>
+<span class="text-xs mt-1">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary-dark w-16" href="#">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<span class="text-xs mt-1">Settings</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

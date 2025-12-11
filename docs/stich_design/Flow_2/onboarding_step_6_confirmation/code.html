@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding - Step 6: Confirmation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 1,
+            'wght' 700,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative mx-auto flex h-screen min-h-[600px] w-full max-w-md flex-col overflow-hidden">
+<!-- Header with Page Indicators -->
+<header class="fixed top-0 left-1/2 z-10 w-full max-w-md -translate-x-1/2 bg-background-light/80 pt-5 pb-3 backdrop-blur-sm dark:bg-background-dark/80">
+<div class="flex w-full flex-row items-center justify-center gap-3 px-4">
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex flex-1 flex-col items-center justify-center px-4 pb-28 pt-20">
+<div class="flex w-full max-w-sm flex-col items-start gap-3">
+<div class="flex items-end gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" data-alt="Stylized AI coach avatar with a friendly expression" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCbmaT9lIHgZoGa_qtbBxVNgYFMeFS2djijDs_RY-v37qVtkTPcQvRRHC7rqESKxRFLvfJFrnB_F_KcEbFyAqZXTY6TxU67iggN655enj8gHkqscQ4_1O0AvdwDjYf5doFDohd5RLH9aWndE9pn4FeV--Uc9950U2qvpUdr2lZD7579hIYTEVV7ImUxW7qHzvYDGGFfC5qEUe1lChZH2Y5Wjm7exbvLrh2946JJ3LnQ8RXTmobe0iU9DbHJ0mCs7th0F6KJEFSzXGsp");'></div>
+<div class="flex flex-1 flex-col gap-1 items-start">
+<p class="text-primary/80 text-sm font-medium leading-normal dark:text-primary/70">AI Coach</p>
+<p class="text-base font-normal leading-relaxed flex max-w-[360px] rounded-2xl rounded-bl-sm px-4 py-3 bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-100">
+                            Perfect! I have everything I need to create your first workout plan.
+                        </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Footer with CTA Button -->
+<footer class="fixed bottom-0 left-1/2 z-10 w-full max-w-md -translate-x-1/2 bg-background-light/80 pb-6 pt-4 backdrop-blur-sm dark:bg-background-dark/80">
+<div class="flex px-4">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-5 flex-1 bg-primary text-background-dark gap-2 text-base font-bold leading-normal tracking-[0.015em]">
+<span class="material-symbols-outlined text-3xl text-background-dark">arrow_forward</span>
+</button>
+</div>
+</footer>
+</div>
+</body></html>

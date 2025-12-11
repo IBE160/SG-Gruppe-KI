@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Weekly Review</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+            },
+            fontFamily: {
+              "display": ["Lexend", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-dark dark group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex flex-col gap-2 bg-background-dark p-4 pb-2 sticky top-0 z-10">
+<div class="flex items-center h-12 justify-between">
+<div class="text-white flex size-12 shrink-0 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
+</div>
+<div class="text-white flex size-12 shrink-0 items-center justify-center">
+<span class="material-symbols-outlined text-2xl">more_horiz</span>
+</div>
+</div>
+<p class="text-white tracking-light text-[28px] font-bold leading-tight px-2">Weekly Review</p>
+</div>
+<!-- Segmented Buttons -->
+<div class="flex px-4 py-3">
+<div class="flex h-10 flex-1 items-center justify-center rounded-full bg-[#23482f] p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-[#13ec5b] has-[:checked]:shadow-[0_0_10px_rgba(19,236,91,0.4)] has-[:checked]:text-background-dark text-white text-sm font-medium leading-normal">
+<span class="truncate">Week</span>
+<input checked="" class="invisible w-0" name="timeframe-selector" type="radio" value="Week"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-[#13ec5b] has-[:checked]:shadow-[0_0_10px_rgba(19,236,91,0.4)] has-[:checked]:text-background-dark text-white text-sm font-medium leading-normal">
+<span class="truncate">Month</span>
+<input class="invisible w-0" name="timeframe-selector" type="radio" value="Month"/>
+</label>
+</div>
+</div>
+<!-- Charts -->
+<div class="flex flex-col gap-4 px-4 py-6">
+<!-- Volume Chart -->
+<div class="flex flex-col gap-2 rounded-xl border border-[#326744] bg-[#1a3323]/50 p-6">
+<p class="text-white text-base font-medium leading-normal">Volume</p>
+<p class="text-white tracking-light text-[32px] font-bold leading-tight truncate">5,450 lbs</p>
+<div class="flex gap-1 items-center">
+<p class="text-[#92c9a4] text-base font-normal leading-normal">This Week</p>
+<span class="material-symbols-outlined text-primary text-lg">arrow_drop_up</span>
+<p class="text-primary text-base font-medium leading-normal">15%</p>
+</div>
+<div class="flex min-h-[180px] flex-1 flex-col gap-8 py-4">
+<svg fill="none" height="148" preserveaspectratio="none" viewbox="-3 0 478 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="chartGradient" x1="236" x2="236" y1="1" y2="149">
+<stop stop-color="#13ec5b" stop-opacity="0.3"></stop>
+<stop offset="1" stop-color="#13ec5b" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H0V109Z" fill="url(#chartGradient)"></path>
+<path d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25" stroke="#13ec5b" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="flex justify-around">
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Mon</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Tue</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Wed</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Thu</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Fri</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Sat</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Sun</p>
+</div>
+</div>
+</div>
+<!-- Intensity Chart -->
+<div class="flex flex-col gap-2 rounded-xl border border-[#326744] bg-[#1a3323]/50 p-6">
+<p class="text-white text-base font-medium leading-normal">Intensity</p>
+<p class="text-white tracking-light text-[32px] font-bold leading-tight truncate">85% 1RM</p>
+<div class="flex gap-1 items-center">
+<p class="text-[#92c9a4] text-base font-normal leading-normal">This Week</p>
+<span class="material-symbols-outlined text-[#fa5538] text-lg">arrow_drop_down</span>
+<p class="text-[#fa5538] text-base font-medium leading-normal">2%</p>
+</div>
+<div class="flex min-h-[180px] flex-1 flex-col gap-8 py-4">
+<svg fill="none" height="148" preserveaspectratio="none" viewbox="-3 0 478 150" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="chartGradient2" x1="236" x2="236" y1="1" y2="149">
+<stop stop-color="#13ec5b" stop-opacity="0.3"></stop>
+<stop offset="1" stop-color="#13ec5b" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0 25C18.1538 25 18.1538 129 36.3077 129C54.4615 129 54.4615 81 72.6154 81C90.7692 81 90.7692 1 108.923 1C127.077 1 127.077 149 145.231 149C163.385 149 163.385 121 181.538 121C199.692 121 199.692 45 217.846 45C236 45 236 61 254.154 61C272.308 61 272.308 101 290.462 101C308.615 101 308.615 33 326.769 33C344.923 33 344.923 93 363.077 93C381.231 93 381.231 41 399.385 41C417.538 41 417.538 21 435.692 21C453.846 21 453.846 109 472 109V149H0V25Z" fill="url(#chartGradient2)"></path>
+<path d="M0 25C18.1538 25 18.1538 129 36.3077 129C54.4615 129 54.4615 81 72.6154 81C90.7692 81 90.7692 1 108.923 1C127.077 1 127.077 149 145.231 149C163.385 149 163.385 121 181.538 121C199.692 121 199.692 45 217.846 45C236 45 236 61 254.154 61C272.308 61 272.308 101 290.462 101C308.615 101 308.615 33 326.769 33C344.923 33 344.923 93 363.077 93C381.231 93 381.231 41 399.385 41C417.538 41 417.538 21 435.692 21C453.846 21 453.846 109 472 109" stroke="#13ec5b" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="flex justify-around">
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Mon</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Tue</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Wed</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Thu</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Fri</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Sat</p>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Sun</p>
+</div>
+</div>
+</div>
+<!-- Consistency Chart -->
+<div class="flex flex-col gap-2 rounded-xl border border-[#326744] bg-[#1a3323]/50 p-6">
+<p class="text-white text-base font-medium leading-normal">Consistency</p>
+<p class="text-white tracking-light text-[32px] font-bold leading-tight truncate">4/5 Days</p>
+<div class="flex gap-1 items-center">
+<p class="text-[#92c9a4] text-base font-normal leading-normal">This Week</p>
+<span class="material-symbols-outlined text-primary text-lg">arrow_drop_up</span>
+<p class="text-primary text-base font-medium leading-normal">20%</p>
+</div>
+<div class="grid min-h-[180px] grid-cols-7 gap-3 items-end justify-items-center py-4 px-3">
+<div class="flex flex-col items-center gap-2 w-full h-full justify-end">
+<div class="bg-primary rounded-t-full w-2/3" style="height: 75%;"></div>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Mon</p>
+</div>
+<div class="flex flex-col items-center gap-2 w-full h-full justify-end">
+<div class="bg-primary/30 rounded-t-full w-2/3" style="height: 100%;"></div>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Tue</p>
+</div>
+<div class="flex flex-col items-center gap-2 w-full h-full justify-end">
+<div class="bg-primary rounded-t-full w-2/3" style="height: 80%;"></div>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Wed</p>
+</div>
+<div class="flex flex-col items-center gap-2 w-full h-full justify-end">
+<div class="bg-primary rounded-t-full w-2/3" style="height: 90%;"></div>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Thu</p>
+</div>
+<div class="flex flex-col items-center gap-2 w-full h-full justify-end">
+<div class="bg-primary/30 rounded-t-full w-2/3" style="height: 100%;"></div>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Fri</p>
+</div>
+<div class="flex flex-col items-center gap-2 w-full h-full justify-end">
+<div class="bg-primary rounded-t-full w-2/3" style="height: 60%;"></div>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Sat</p>
+</div>
+<div class="flex flex-col items-center gap-2 w-full h-full justify-end">
+<div class="bg-primary/30 rounded-t-full w-2/3" style="height: 100%;"></div>
+<p class="text-[#92c9a4] text-[13px] font-bold leading-normal tracking-[0.015em]">Sun</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Coach's Corner -->
+<div class="flex flex-col px-4 pb-2 pt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">smart_toy</span>
+<h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Coach's Corner</h3>
+</div>
+<p class="text-[#e0e0e0] text-base font-normal leading-normal pb-3 pt-3">
+                Your intensity has been trending down over the last 3 sessions. To prevent overtraining and promote recovery, consider a deload week.
+            </p>
+<button class="flex items-center justify-center h-12 px-6 rounded-full bg-primary text-background-dark font-bold text-base leading-normal w-full mt-2">
+                Implement Suggestion
+            </button>
+</div>
+<div class="h-24"></div> <!-- Spacer for bottom nav -->
+<!-- Bottom Navigation Bar -->
+<div class="fixed bottom-0 left-0 right-0 h-24 bg-background-dark/80 backdrop-blur-lg border-t border-[#326744]">
+<div class="flex justify-around items-center h-full px-4 pt-2">
+<a class="flex flex-col items-center gap-1 text-[#92c9a4]" href="#">
+<span class="material-symbols-outlined text-2xl">dashboard</span>
+<span class="text-xs">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#92c9a4]" href="#">
+<span class="material-symbols-outlined text-2xl">play_circle</span>
+<span class="text-xs">Workout</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="text-xs font-bold">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#92c9a4]" href="#">
+<span class="material-symbols-outlined text-2xl">settings</span>
+<span class="text-xs">Settings</span>
+</a>
+</div>
+</div>
+</div>
+</body></html>

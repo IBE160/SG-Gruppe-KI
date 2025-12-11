@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Generate Session Mix: Preview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#13ec5b",
+              "background-light": "#f6f8f6",
+              "background-dark": "#102216",
+            },
+            fontFamily: {
+              "display": ["Spline Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col dark group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10">
+<div class="text-black dark:text-white flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-3xl">close</span>
+</div>
+<h2 class="text-black dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Generate Session Mix</h2>
+<div class="flex size-12 shrink-0 items-center"></div>
+</div>
+<div class="flex flex-col flex-grow px-4">
+<!-- Select a Mode -->
+<h3 class="text-black dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] pt-4 pb-2">Select a Mode</h3>
+<div class="flex py-3">
+<div class="flex h-10 flex-1 items-center justify-center rounded-full bg-black/5 dark:bg-white/5 p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(19,236,91,0.5)] has-[:checked]:text-black text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal transition-colors">
+<span class="truncate">AI Smart Mix</span>
+<input checked="" class="invisible w-0" name="playlist-mode" type="radio" value="AI Smart Mix"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(19,236,91,0.5)] has-[:checked]:text-black text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal transition-colors">
+<span class="truncate">Endurance</span>
+<input class="invisible w-0" name="playlist-mode" type="radio" value="Endurance Flow"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-full px-2 has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(19,236,91,0.5)] has-[:checked]:text-black text-gray-700 dark:text-gray-300 text-sm font-medium leading-normal transition-colors">
+<span class="truncate">Power Bursts</span>
+<input class="invisible w-0" name="playlist-mode" type="radio" value="Power Bursts"/>
+</label>
+</div>
+</div>
+<!-- Seed Your Mix -->
+<h3 class="text-black dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] pt-4 pb-2">Seed Your Mix</h3>
+<div class="py-3">
+<label class="flex flex-col min-w-40 h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded h-full">
+<div class="text-gray-600 dark:text-gray-400 flex border-none bg-black/5 dark:bg-white/5 items-center justify-center pl-4 rounded-l border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-black dark:text-white focus:outline-0 focus:ring-0 border-none bg-black/5 dark:bg-white/5 focus:border-none h-full placeholder:text-gray-600 dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Add artists or genres..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-wrap gap-2 pt-1 pb-4">
+<div class="flex items-center gap-2 rounded-full bg-primary/20 px-3 py-1.5">
+<span class="text-sm font-medium text-primary">Daft Punk</span>
+<button class="text-primary/70 hover:text-primary">
+<span class="material-symbols-outlined !text-base">close</span>
+</button>
+</div>
+<div class="flex items-center gap-2 rounded-full bg-primary/20 px-3 py-1.5">
+<span class="text-sm font-medium text-primary">House</span>
+<button class="text-primary/70 hover:text-primary">
+<span class="material-symbols-outlined !text-base">close</span>
+</button>
+</div>
+</div>
+<!-- Session Preview -->
+<div class="flex justify-between items-baseline pt-6">
+<h3 class="text-black dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] pb-2">Your Session Preview</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">Remove or replace tracks to perfect your mix.</p>
+</div>
+<div class="flex items-center gap-6 rounded-lg bg-black/5 dark:bg-white/5 p-4 my-2">
+<div class="flex flex-col items-center">
+<span class="text-xl font-bold text-black dark:text-white">42:15</span>
+<span class="text-xs text-gray-500 dark:text-gray-400">Total Duration</span>
+</div>
+<div class="w-px h-8 bg-gray-300 dark:bg-gray-600"></div>
+<div class="flex flex-col items-center">
+<span class="text-xl font-bold text-black dark:text-white">12</span>
+<span class="text-xs text-gray-500 dark:text-gray-400">Track Count</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 py-4">
+<!-- Track Item 1 -->
+<div class="flex items-center gap-4 rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/5">
+<img class="h-14 w-14 rounded object-cover" data-alt="Abstract album art with flowing pink and blue gradients." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf2HdwEimiUBzGhf9yNfU38oLUJotU5QyeeOXkJ_gtsr4_2WkNf3RD85Q4duR3Df9v3BtVAAfbahKlw74iEY9cs3v7WX99iZKOmdmJIVDMjZxjolpQ33VTreZ686gIUJQHHh5SqUIZ_1N7ILutOwdLS3DxNRcbgo552thBJzJxRzSxiFZMzT2msM8WOIdtVeUhn9PbqdiSDU26Bba5FbK3HKJhtGakVsDndytintnFgL_3dfNF3uTPncCsfVKLopqkW9dG8n_ORQ"/>
+<div class="flex-1">
+<p class="font-semibold text-black dark:text-white">Solar Sailer</p>
+<p class="text-sm text-gray-600 dark:text-gray-400">Daft Punk</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-yellow-400">local_fire_department</span>
+<span class="text-sm text-gray-600 dark:text-gray-400">Warm-up</span>
+</div>
+<button class="text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Track Item 2 -->
+<div class="flex items-center gap-4 rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/5">
+<img class="h-14 w-14 rounded object-cover" data-alt="Album art showing a lone figure on a neon-lit futuristic street." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlQKtvlkWW2RFSn1MrR2wBA0BaQ9V_G6WC9sujzBLjpIV8cw_DMWUY2lQ6jhEGuqMhcAQ5tjZTJb-W6w5_FWBFvK-TGiS6VGWD0rsQ4yyt83ihi9ItSp-qQjmIZ-wP6uZyiTI3Hy5KPM9e_0R3TLT2NRd1ukH9zd-l7_lwQv2dGhTqwVe5zIInGz42COoPVcxZTP8a1YkWa7bmmOfVIq7Yhwf1KCmGsv5rSCNGTFFGfGCpPk6oEXCT-5b1SaIiNjlydHLlkCgksg"/>
+<div class="flex-1">
+<p class="font-semibold text-black dark:text-white">Genesis</p>
+<p class="text-sm text-gray-600 dark:text-gray-400">Justice</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-red-500">trending_up</span>
+<span class="text-sm text-gray-600 dark:text-gray-400">Peak</span>
+</div>
+<button class="text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Track Item 3 -->
+<div class="flex items-center gap-4 rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/5">
+<img class="h-14 w-14 rounded object-cover" data-alt="Monochromatic image of sound waves on a dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4ySwzooACgs2FlggpBAtz92jLOrFqeaFIoNKstAiu0eKTu4m9Lyh_6t5C8mVPNB9RAqkFN77_6kWw6oPEHseed1XWOHottjRH4kuodynrdXpoytYkRioxxsK53A1fI2wO0GF_tsAj7aKHRYThR6KA6kmKC5_heUOLp1sWEkW-N_BFcx49W5DdQ-5xtUVOc6XgolAuPAQqrBVllFRO7LByzu9eEpTR-hxGb-ZJuKbxxwZdlfW6FhhgdhBOhTc_Hm7nWp2kfdlYBg"/>
+<div class="flex-1">
+<p class="font-semibold text-black dark:text-white">Midnight City</p>
+<p class="text-sm text-gray-600 dark:text-gray-400">M83</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-red-500">trending_up</span>
+<span class="text-sm text-gray-600 dark:text-gray-400">Peak</span>
+</div>
+<button class="text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Track Item 4 -->
+<div class="flex items-center gap-4 rounded-lg p-2 hover:bg-black/5 dark:hover:bg-white/5">
+<img class="h-14 w-14 rounded object-cover" data-alt="Abstract artwork with geometric shapes in purple and blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACZ5pqHDsi6JUMcc_tMmVIb81Tc4W7p6Ur5oPkVaccxneZVGrLdquO4wT4zA_5z56QpV0aAeR7cqV_lz_b08tbHbGnOgAJv_XwFe9sVpB0OF43ye9PHF-ar3LBr9neuFXbAqPNMTLWJ5czFX4A22trJwp_O92Bw0lD7fCOJYxfjvtdsbGoQqBmJUd5QDEP8XUJVnObp03EX8NU1RMmctV_6nyNvUbgJG8Aev4WNqbsOmemODpl4RiedtGPCv7oZaPJd6xvS0_TPg"/>
+<div class="flex-1">
+<p class="font-semibold text-black dark:text-white">Adrenaline</p>
+<p class="text-sm text-gray-600 dark:text-gray-400">Zeds Dead, Griz</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-cyan-400">battery_horiz_075</span>
+<span class="text-sm text-gray-600 dark:text-gray-400">Cool-down</span>
+</div>
+<button class="text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- CTA Button -->
+<div class="sticky bottom-0 bg-gradient-to-t from-background-light via-background-light dark:from-background-dark dark:via-background-dark to-transparent px-4 pb-6 pt-4">
+<button class="flex h-14 w-full items-center justify-center rounded-full bg-primary text-black text-lg font-bold leading-tight tracking-[-0.015em] shadow-[0_4px_12px_rgba(19,236,91,0.3)] transition-transform active:scale-95">Start Session</button>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,188 @@
+<story-context id="1-1-project-setup-core-infrastructure" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1</storyId>
+    <title>Project Setup & Core Infrastructure</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-05</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/1-1-project-setup-core-infrastructure.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>to initialize the project with the specified tech stack</iWant>
+    <soThat>I can begin developing features on a solid foundation</soThat>
+    <tasks>
+        -   [ ] **Task 1: Initialize Next.js Project (AC: 1)**
+            -   [ ] Subtask 1.1: Execute `npx create-next-app@latest my-ai-trainer --typescript --tailwind --eslint --app --src-dir --yes` in the project root.
+            -   [ ] Subtask 1.2: Verify `apps/web` directory is created with Next.js project structure.
+            -   [ ] Subtask 1.3: Update `package.json` to reflect monorepo setup (e.g., workspaces if applicable, or just moving `my-ai-trainer` content into `apps/web` and adapting the root `package.json`).
+        -   [ ] **Task 2: Setup FastAPI Backend (AC: 1)**
+            -   [ ] Subtask 2.1: Create `apps/api` directory as a peer to `apps/web`.
+            -   [ ] Subtask 2.2: Initialize a basic FastAPI application within `apps/api`.
+            -   [ ] Subtask 2.3: Install FastAPI dependencies (e.g., `pip install "fastapi[all]" uvicorn`).
+            -   [ ] Subtask 2.4: Create initial `main.py` for FastAPI.
+        -   [ ] **Task 3: Basic File Setup (AC: 1)**
+            -   [ ] Subtask 3.1: Create a root `.gitignore` file, including entries for `node_modules`, `.next`, `.venv`, and other common build/temp files.
+            -   [ ] Subtask 3.2: Create a root `README.md` file.
+        -   [ ] **Task 4: Verify Monorepo Structure (AC: 1)**
+            -   [ ] Subtask 4.1: Ensure `package.json` at the project root properly manages both `apps/web` and `apps/api` dependencies (if using a monorepo tool like Lerna or npm/yarn workspaces, otherwise ensure a logical structure).
+            -   [ ] Subtask 4.2: Verify basic dependencies are installed for both frontend and backend.
+        -   [ ] **Task 5: Testing Setup (AC: 1)**
+            -   [ ] Subtask 5.1: Install Jest/React Testing Library in `apps/web`.
+            -   [ ] Subtask 5.2: Install Pytest in `apps/api`.
+            -   [ ] Subtask 5.3: Ensure Playwright is configured at the project root or in `apps/web`.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion>
+      Given the project is new and empty
+      When I execute the `npx create-next-app@latest my-ai-trainer --typescript --tailwind --eslint --app --src-dir --yes` command
+      Then a Next.js project structure is created in `apps/web`
+      And `apps/api` (FastAPI) directory is created as a peer to `apps/web`
+      And basic `.gitignore` and `README.md` files are present
+      And `package.json` reflects a monorepo setup
+    </criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Project Initialization</section>
+        <snippet>The first implementation story should be to initialize the project by executing the following command in the terminal. This will create the foundational structure of the web application. `npx create-next-app@latest my-ai-trainer --typescript --tailwind --eslint --app --src-dir`</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Decision Summary</section>
+        <snippet>Key decisions: API Pattern: FastAPI, Data Persistence: Supabase, Authentication: Supabase Auth, State Management: Zustand, Testing: Jest, React Testing Library, Playwright.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Project Structure</section>
+        <snippet>The project will be a monorepo containing two main packages: one for the Next.js frontend and one for the FastAPI backend. The `create-next-app` command with the `--src-dir` flag will establish the initial frontend structure.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Development Environment</section>
+        <snippet>Prerequisites: Node.js (v20.x or later), Python (v3.11 or later), Docker. Setup Commands: `git clone <repository_url>`, `cd <repository_name>`, `cd apps/web`, `npm install`, `cd ../api`, `pip install -r requirements.txt`.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/ux-design-phase1.md</path>
+        <title>Phase 1 UX Design Specification</title>
+        <section>Visual Foundation</section>
+        <snippet>Defines the core visual language including colors (dark theme, green accent), typography (Lexend font), and spacing (8-point grid).</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/ux-design-phase1.md</path>
+        <title>Phase 1 UX Design Specification</title>
+        <section>Design System Foundation</section>
+        <snippet>Styling Framework: Tailwind CSS. Iconography Library: Google Material Symbols (Outlined).</snippet>
+      </doc>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>ibe160 - Epic Breakdown</title>
+        <section>Story 1.1: Project Setup & Core Infrastructure</section>
+        <snippet>As a developer, I want to initialize the project with the specified tech stack, So that I can begin developing features on a solid foundation. Details ACs and Technical Notes.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>package.json</path>
+        <kind>config</kind>
+        <symbol>N/A</symbol>
+        <lines>N/A</lines>
+        <reason>Root package.json already exists and defines monorepo workspaces.</reason>
+      </artifact>
+      <artifact>
+        <path>my-ai-trainer/package.json</path>
+        <kind>config</kind>
+        <symbol>N/A</symbol>
+        <lines>N/A</lines>
+        <reason>Existing package.json in my-ai-trainer defines Next.js setup and monorepo structure.</reason>
+      </artifact>
+      <artifact>
+        <path>apps/web</path>
+        <kind>directory</kind>
+        <symbol>N/A</symbol>
+        <lines>N/A</lines>
+        <reason>Directory for Next.js frontend application (already exists).</reason>
+      </artifact>
+      <artifact>
+        <path>apps/api</path>
+        <kind>directory</kind>
+        <symbol>N/A</symbol>
+        <lines>N/A</lines>
+        <reason>Directory for FastAPI backend application (already exists).</reason>
+      </artifact>
+      <artifact>
+        <path>.gitignore</path>
+        <kind>config</kind>
+        <symbol>N/A</symbol>
+        <lines>N/A</lines>
+        <reason>Root .gitignore file (already exists).</reason>
+      </artifact>
+      <artifact>
+        <path>README.md</path>
+        <kind>documentation</kind>
+        <symbol>N/A</symbol>
+        <lines>N/A</lines>
+        <reason>Root README.md file (needs to be created).</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <package name="next" version="^16.0.7" />
+        <package name="react" version="^19.2.1" />
+        <package name="react-dom" version="^19.2.1" />
+        <package name="@faker-js/faker" version="^8.0.0" />
+        <package name="@playwright/test" version="^1.40.0" />
+        <package name="typescript" version="^5.0.0" />
+      </ecosystem>
+      <ecosystem name="Python">
+        <package name="fastapi" version="0.123.7" />
+        <package name="uvicorn" version="0.38.0" />
+        <package name="pytest" version="9.0.1" />
+        <!-- ... other dependencies from requirements.txt ... -->
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Monorepo structure must be maintained (apps/web for Next.js, apps/api for FastAPI).</constraint>
+    <constraint>Use TypeScript for frontend.</constraint>
+    <constraint>Use Tailwind CSS for styling.</constraint>
+    <constraint>Use ESLint for linting.</constraint>
+    <constraint>Testing frameworks: Jest/React Testing Library (frontend), Pytest (backend), Playwright (E2E).</constraint>
+    <constraint>Iconography: Google Material Symbols (Outlined).</constraint>
+    <constraint>Next.js project should be initialized with `--app --src-dir` flags.</constraint>
+  </constraints>
+  <interfaces></interfaces>
+  <tests>
+    <standards>
+      Frontend unit/integration tests: Jest and React Testing Library.
+      Backend unit/integration tests: Pytest.
+      End-to-end tests: Playwright.
+      Test files should be co-located with the source files.
+    </standards>
+    <locations>
+      <location>apps/web/**/*.test.ts</location>
+      <location>apps/web/**/*.spec.ts</location>
+      <location>apps/api/tests/</location>
+      <location>tests/e2e/</location>
+    </locations>
+    <ideas>
+      <idea>Verify `npx create-next-app` command executes successfully and creates the expected Next.js project structure in `apps/web`.</idea>
+      <idea>Verify `apps/api` directory is created and contains a basic, runnable FastAPI application.</idea>
+      <idea>Confirm existence of `.gitignore` and `README.md` at the project root.</idea>
+      <idea>Validate that the root `package.json` correctly defines the monorepo structure and manages dependencies.</idea>
+      <idea>Ensure all specified testing frameworks (Jest, Pytest, Playwright) are correctly installed and configured in their respective locations.</idea>
+    </ideas>
+  </tests>
+</story-context>
