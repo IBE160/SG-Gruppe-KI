@@ -1,18 +1,42 @@
-// apps/web/src/app/auth/WelcomeScreen.test.tsx
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import WelcomeScreen from './WelcomeScreen';
+import '@testing-library/jest-dom';
+import { useRouter } from 'next/navigation';
 
-// Mock the next/link component as it's used in WelcomeScreen
-jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
-    return <a href={href}>{children}</a>;
-  };
-});
+// Mock the useRouter hook
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+}));
 
 describe('WelcomeScreen', () => {
-  it('renders correctly with main elements', () => {
+  const mockPush = jest.fn();
+  const mockOnCreateAccount = jest.fn();
+  const mockOnLogin = jest.fn();
+  const mockOnGoogleAuth = jest.fn();
+  const mockOnAppleAuth = jest.fn();
+  const mockOnTermsOfService = jest.fn();
+  const mockOnPrivacyPolicy = jest.fn();
+
+  beforeEach(() => {
+    (useRouter as jest.Mock).mockReturnValue({
+      push: mockPush,
+    });
+    // Manually assign the mocked functions to the component's internal handlers
+    // This is a workaround since directly mocking component methods isn't straightforward with default exports
+    // In a real scenario, these handlers would be passed as props or directly testable via their effects.
+    // For now, we'll test the button clicks and ensure console logs are called.
+    global.console = {
+        ...global.console,
+        log: jest.fn(),
+    };
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders correctly with all main elements', () => {
     render(<WelcomeScreen />);
 
     expect(screen.getByText('Your Personal AI Trainer')).toBeInTheDocument();
@@ -20,50 +44,46 @@ describe('WelcomeScreen', () => {
     expect(screen.getByRole('button', { name: /Create Account/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Log In/i })).toBeInTheDocument();
     expect(screen.getByText('Or continue with')).toBeInTheDocument();
-    expect(screen.getByText(/Terms of Service/i)).toBeInTheDocument();
-    expect(screen.getByText(/Privacy Policy/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Google/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Apple/i)).toBeInTheDocument();
+    expect(screen.getByText(/By continuing, you agree to our/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Terms of Service/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Privacy Policy/i })).toBeInTheDocument();
   });
 
-  it('calls handleCreateAccount when "Create Account" button is clicked', () => {
-    const consoleSpy = jest.spyOn(console, 'log');
+  it('calls onCreateAccount when "Create Account" button is clicked', () => {
     render(<WelcomeScreen />);
-
     fireEvent.click(screen.getByRole('button', { name: /Create Account/i }));
-    expect(consoleSpy).toHaveBeenCalledWith('Create Account clicked');
-    consoleSpy.mockRestore();
+    expect(mockPush).toHaveBeenCalledWith('/auth/signup');
   });
 
-  it('calls handleLogIn when "Log In" button is clicked', () => {
-    const consoleSpy = jest.spyOn(console, 'log');
+  it('calls onLogin when "Log In" button is clicked', () => {
     render(<WelcomeScreen />);
-
     fireEvent.click(screen.getByRole('button', { name: /Log In/i }));
-    expect(consoleSpy).toHaveBeenCalledWith('Log In clicked');
-    consoleSpy.mockRestore();
+    expect(mockPush).toHaveBeenCalledWith('/auth/login');
   });
 
-  it('calls handleGoogleLogin when Google button is clicked', () => {
-    const consoleSpy = jest.spyOn(console, 'log');
+  it('calls onGoogleAuth when Google button is clicked', () => {
     render(<WelcomeScreen />);
-
-    // Assuming the Google button can be found by its SVG content or a more specific role/label if added
-    // For now, let's target based on the presence of "Or continue with" and then find buttons
-    // This is a bit brittle, ideally, we'd add accessible names to the social buttons
-    const socialButtons = screen.getAllByRole('button');
-    // Assuming Google button is the first after Create Account and Log In
-    fireEvent.click(socialButtons[2]); // Adjust index if more buttons are added or order changes
-    expect(consoleSpy).toHaveBeenCalledWith('Google login clicked');
-    consoleSpy.mockRestore();
+    fireEvent.click(screen.getByLabelText(/Google/i));
+    expect(console.log).toHaveBeenCalledWith('Initiate Google OAuth');
   });
 
-  it('calls handleAppleLogin when Apple button is clicked', () => {
-    const consoleSpy = jest.spyOn(console, 'log');
+  it('calls onAppleAuth when Apple button is clicked', () => {
     render(<WelcomeScreen />);
+    fireEvent.click(screen.getByLabelText(/Apple/i));
+    expect(console.log).toHaveBeenCalledWith('Initiate Apple OAuth');
+  });
 
-    const socialButtons = screen.getAllByRole('button');
-    // Assuming Apple button is the second after Create Account and Log In
-    fireEvent.click(socialButtons[3]); // Adjust index if more buttons are added or order changes
-    expect(consoleSpy).toHaveBeenCalledWith('Apple login clicked');
-    consoleSpy.mockRestore();
+  it('calls onTermsOfService when "Terms of Service" link is clicked', () => {
+    render(<WelcomeScreen />);
+    fireEvent.click(screen.getByRole('link', { name: /Terms of Service/i }));
+    expect(console.log).toHaveBeenCalledWith('Navigate to Terms of Service');
+  });
+
+  it('calls onPrivacyPolicy when "Privacy Policy" link is clicked', () => {
+    render(<WelcomeScreen />);
+    fireEvent.click(screen.getByRole('link', { name: /Privacy Policy/i }));
+    expect(console.log).toHaveBeenCalledWith('Navigate to Privacy Policy');
   });
 });

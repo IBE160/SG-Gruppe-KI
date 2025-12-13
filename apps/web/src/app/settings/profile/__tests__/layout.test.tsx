@@ -1,29 +1,33 @@
 // apps/web/src/app/settings/profile/__tests__/layout.test.tsx
-
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ProfileLayout from '../layout';
+import '@testing-library/jest-dom';
+
+// Mock Next.js Link component
+jest.mock('next/link', () => {
+  return ({ children, href }: { children: React.ReactNode; href: string }) => {
+    return <a href={href}>{children}</a>;
+  };
+});
 
 describe('ProfileLayout', () => {
-  it('renders children correctly', () => {
+  it('renders the layout with correct title and back button', () => {
     render(
       <ProfileLayout>
-        <h1>Test Child Content</h1>
+        <div>Test Children</div>
       </ProfileLayout>
     );
 
-    expect(screen.getByText('Test Child Content')).toBeInTheDocument();
+    // Check if the title is rendered
+    expect(screen.getByRole('heading', { name: /user profile/i })).toBeInTheDocument();
+
+    // Check if the back button link is rendered and points to the correct href
+    const backButton = screen.getByRole('link', { name: /arrow_back_ios_new/i });
+    expect(backButton).toBeInTheDocument();
+    expect(backButton).toHaveAttribute('href', '/settings/privacy');
+
+    // Check if children are rendered
+    expect(screen.getByText('Test Children')).toBeInTheDocument();
   });
-
-  it('renders the header with correct title', () => {
-    render(
-      <ProfileLayout>
-        <h1>Test Child Content</h1>
-      </ProfileLayout>
-    );
-
-    expect(screen.getByRole('heading', { name: 'Your Profile' })).toBeInTheDocument();
-  });
-
-  // You might want to add more specific tests for the layout structure or any interactive elements in the header if they existed.
 });

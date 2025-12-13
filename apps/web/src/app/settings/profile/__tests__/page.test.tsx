@@ -1,14 +1,13 @@
 // apps/web/src/app/settings/profile/__tests__/page.test.tsx
-
 import React from 'react';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import ProfilePage from '../page';
-import { api } from '@/lib/api';
+import { render, screen, waitFor } from '@testing-library/react';
+import UserProfilePage from '../page';
 import { useAuthStore } from '@/store/auth';
-import useProfileStore from '@/store/profileStore';
-import { FullUserProfile } from '@/types/user';
+import { useProfileStore } from '@/store/profileStore';
+import { api } from '@/lib/api';
+import '@testing-library/jest-dom';
 
-// Mock the API and stores
+// Mock the API and Zustand stores
 jest.mock('@/lib/api', () => ({
   api: {
     get: jest.fn(),
@@ -20,119 +19,80 @@ jest.mock('@/store/auth', () => ({
 }));
 
 jest.mock('@/store/profileStore', () => ({
-  __esModule: true,
-  default: jest.fn(),
+  useProfileStore: jest.fn(),
 }));
 
-// Mock the ViewProfile component since its internal logic is tested separately
-jest.mock('../view-profile', () => {
-  return jest.fn(({ userProfile }) => (
-    <div data-testid="view-profile">
-      <span>{userProfile.email}</span>
-      <span>{userProfile.unit_preference}</span>
-    </div>
-  ));
+// Mock the ViewProfile component as it's tested separately
+jest.mock('@/app/settings/profile/view-profile', () => {
+  return jest.fn(() => <div>Mock ViewProfile</div>);
 });
 
-describe('ProfilePage', () => {
-  const mockAccessToken = 'mock-access-token';
-  const mockUserProfile: FullUserProfile = {
-    id: 'user-123',
-    email: 'test@example.com',
-    unit_preference: 'kg',
-    goals: [],
-    equipment: [],
-  };
+const mockSession = { access_token: 'fake-token' };
+const mockUserProfile = {
+  id: 'user123',
+  email: 'user@example.com',
+  unit_preference: 'kg',
+};
+
+describe('UserProfilePage', () => {
+  let setCurrentUserData: jest.Mock;
 
   beforeEach(() => {
-    // Reset mocks before each test
-    jest.clearAllMocks();
-
-    (useAuthStore as jest.Mock).mockReturnValue({
-      session: { access_token: mockAccessToken },
-    });
-
+    setCurrentUserData = jest.fn();
+    (useAuthStore as jest.Mock).mockReturnValue({ session: mockSession });
     (useProfileStore as jest.Mock).mockReturnValue({
-      isEditing: false,
-      setEditing: jest.fn(),
-      setTempUserData: jest.fn(),
+      setCurrentUserData,
+      currentUserData: mockUserProfile, // Ensure currentUserData is available for ViewProfile mock
     });
-
-    (api.get as jest.Mock).mockResolvedValue({ data: mockUserProfile });
+    (api.get as jest.Mock).mockClear();
+    setCurrentUserData.mockClear();
   });
 
-  it('renders loading state initially', () => {
-    (api.get as jest.Mock).mockReturnValue(new Promise(() => {})); // Never resolve
-    render(<ProfilePage />);
-    expect(screen.getByText('Loading profile...')).toBeInTheDocument();
+  it('displays loading state initially', () => {
+    (api.get as jest.Mock).mockReturnValueOnce(new Promise(() => {})); // Keep promise pending
+    render(<UserProfilePage />);
+    expect(screen.getByText(/loading profile/i)).toBeInTheDocument();
   });
 
-  it('renders error state if no access token', async () => {
+  it('fetches user profile data and sets it to store on successful load', async () => {
+    (api.get as jest.Mock).mockResolvedValueOnce({ data: mockUserProfile });
+
+    render(<UserProfilePage />);
+
+    await waitFor(() => {
+      expect(api.get).toHaveBeenCalledWith('/users/me', mockSession.access_token);
+      expect(setCurrentUserData).toHaveBeenCalledWith(mockUserProfile);
+      expect(screen.getByText('Mock ViewProfile')).toBeInTheDocument();
+    });
+  });
+
+  it('displays error message if not authenticated', async () => {
     (useAuthStore as jest.Mock).mockReturnValue({ session: null });
-    render(<ProfilePage />);
+    render(<UserProfilePage />);
+
     await waitFor(() => {
-      expect(screen.getByText('Error: User not authenticated.')).toBeInTheDocument();
+      expect(screen.getByText(/error: not authenticated/i)).toBeInTheDocument();
+      expect(api.get).not.toHaveBeenCalled();
     });
   });
 
-  it('renders error state if API call fails', async () => {
-    (api.get as jest.Mock).mockResolvedValue({ error: { message: 'Network error' } });
-    render(<ProfilePage />);
+  it('displays error message on API fetch failure', async () => {
+    (api.get as jest.Mock).mockResolvedValueOnce({ error: { message: 'Failed to fetch' } });
+
+    render(<UserProfilePage />);
+
     await waitFor(() => {
-      expect(screen.getByText('Error: Network error')).toBeInTheDocument();
+      expect(screen.getByText(/error: failed to fetch/i)).toBeInTheDocument();
     });
   });
 
-  it('renders "No profile data available" if API returns no data', async () => {
-    (api.get as jest.Mock).mockResolvedValue({ data: null });
-    render(<ProfilePage />);
-    await waitFor(() => {
-      expect(screen.getByText('No profile data available.')).toBeInTheDocument();
-    });
-  });
+  it('displays generic error message on network error', async () => {
+    (api.get as jest.Mock).mockRejectedValueOnce(new Error('Network Down'));
 
-  it('fetches and displays user profile data', async () => {
-    render(<ProfilePage />);
-    await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith('/users/me', mockAccessToken);
-      expect(screen.getByTestId('view-profile')).toBeInTheDocument();
-      expect(screen.getByText(mockUserProfile.email)).toBeInTheDocument();
-      expect(screen.getByText(mockUserProfile.unit_preference)).toBeInTheDocument();
-    });
-  });
+    render(<UserProfilePage />);
 
-  it('shows Edit Profile button when not editing', async () => {
-    render(<ProfilePage />);
     await waitFor(() => {
-      expect(screen.getByRole('button', { name: 'Edit Profile' })).toBeInTheDocument();
+      expect(screen.getByText(/error: failed to fetch profile data/i)).toBeInTheDocument();
     });
-  });
-
-  it('hides Edit Profile button when in editing mode', async () => {
-    (useProfileStore as jest.Mock).mockReturnValue({
-      isEditing: true,
-      setEditing: jest.fn(),
-      setTempUserData: jest.fn(),
-    });
-    render(<ProfilePage />);
-    await waitFor(() => {
-      expect(screen.queryByRole('button', { name: 'Edit Profile' })).not.toBeInTheDocument();
-    });
-  });
-
-  it('calls setEditing and setTempUserData when Edit Profile button is clicked', async () => {
-    const mockSetEditing = jest.fn();
-    const mockSetTempUserData = jest.fn();
-    (useProfileStore as jest.Mock).mockReturnValue({
-      isEditing: false,
-      setEditing: mockSetEditing,
-      setTempUserData: mockSetTempUserData,
-    });
-    render(<ProfilePage />);
-    await waitFor(() => {
-      fireEvent.click(screen.getByRole('button', { name: 'Edit Profile' }));
-    });
-    expect(mockSetTempUserData).toHaveBeenCalledWith(mockUserProfile);
-    expect(mockSetEditing).toHaveBeenCalledWith(true);
   });
 });

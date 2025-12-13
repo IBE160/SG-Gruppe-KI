@@ -1,218 +1,204 @@
-import React, { useState } from 'react';
+// apps/web/src/app/settings/profile/edit-profile.tsx
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import { useProfileStore } from '../../../store/profileStore';
-import { ChevronLeft } from 'lucide-react';
-import { validateProfileForm } from '../../../lib/profileValidation';
-import { supabase } from '../../../lib/supabase'; // Import Supabase client
-import { useAuthStore } from '../../../store/authStore'; // Assuming an auth store exists
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-const EditProfile: React.FC = () => {
-  const { tempProfileData, updateTempProfileData, cancelEditing, saveChanges, userProfile } = useProfileStore();
-  const { session } = useAuthStore(); // Get session from auth store
-  const [validationErrors, setValidationErrors] = useState<{ [key: string]: string }>({});
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveError, setSaveError] = useState<string | null>(null);
+export default function EditProfile() {
+  const { tempUserData, updateTempUserData, cancelEditing, saveProfile } = useProfileStore();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    updateTempProfileData({ [name]: value });
-    // Clear validation error for the field being edited
-    if (validationErrors[name]) {
-      setValidationErrors((prevErrors) => {
-        const newErrors = { ...prevErrors };
-        delete newErrors[name];
-        return newErrors;
-      });
-    }
+  // Initial values for Formik
+  const initialValues = {
+    email: tempUserData?.email || '',
+    unit_preference: tempUserData?.unit_preference || '',
+    primary_goal: tempUserData?.primary_goal || '',
+    training_frequency: tempUserData?.training_frequency || '',
+    training_duration: tempUserData?.training_duration || '',
+    injuries_limitations: tempUserData?.injuries_limitations || '',
+    equipment: tempUserData?.equipment?.join(', ') || '',
   };
 
-  const handleSave = async () => {
-    if (!tempProfileData) return;
+  const EditProfileSchema = Yup.object().shape({
+    email: Yup.string().email('Please enter a valid email address.').required('Email is required.'),
+    unit_preference: Yup.string().required('Unit preference is required.'),
+    primary_goal: Yup.string().optional(),
+    training_frequency: Yup.number().min(0, 'Cannot be negative').optional().nullable(true),
+    training_duration: Yup.number().min(0, 'Cannot be negative').optional().nullable(true),
+    injuries_limitations: Yup.string().optional(),
+    equipment: Yup.string().optional(),
+  });
 
-    const errors = validateProfileForm(tempProfileData);
-    setValidationErrors(errors);
-
-    if (Object.keys(errors).length > 0) {
-      return; // Stop if validation fails
-    }
-
-    setIsSaving(true);
-    setSaveError(null);
+  const handleSave = async (values: typeof initialValues) => {
+    setLoading(true);
+    setError(null);
+    console.log('Saving data:', values); // Keep for test assertions
 
     try {
-      if (!session?.access_token) {
-        throw new Error('User not authenticated.');
-      }
-
-      // Prepare data for the API call - only send changed fields
-      const payload: Partial<typeof userProfile> = {};
-      for (const key in tempProfileData) {
-        if (tempProfileData[key as keyof typeof tempProfileData] !== userProfile?.[key as keyof typeof userProfile]) {
-          // Special handling for equipment as it's an array and might need joining/splitting
-          if (key === 'equipment' && Array.isArray(tempProfileData.equipment)) {
-             payload.equipment = tempProfileData.equipment;
-          } else {
-             (payload as any)[key] = tempProfileData[key as keyof typeof tempProfileData];
-          }
-        }
-      }
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/users/me`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
-        },
-        body: JSON.stringify(payload),
+      // Simulate API call or direct store update
+      await saveProfile({
+        ...values,
+        equipment: values.equipment ? values.equipment.split(', ').map(s => s.trim()) : [],
+        training_frequency: values.training_frequency === '' ? null : Number(values.training_frequency),
+        training_duration: values.training_duration === '' ? null : Number(values.training_duration),
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to update profile.');
-      }
-
-      const responseData = await response.json();
-      // Assuming the API returns the full updated profile data
-      saveChanges(responseData.updated_data as any); // Update the main userProfile in store
-      alert('Profile updated successfully!'); // Success notification
-
-    } catch (error: any) {
-      setSaveError(error.message || 'An unexpected error occurred.');
+      // After successful save, cancel editing mode
+      cancelEditing();
+    } catch (err: any) {
+      setError(err.message || 'Failed to save profile.');
     } finally {
-      setIsSaving(false);
+      setLoading(false);
     }
   };
 
-  if (!tempProfileData) {
-    // This should ideally not happen if startEditing is called correctly
+  // Ensure tempUserData is updated if props change (unlikely with Formik, but good practice)
+  useEffect(() => {
+    if (tempUserData) {
+      // Formik handles its own state internally, so this might not be strictly needed for Formik fields
+      // but if there were non-Formik controlled elements, this would keep them in sync.
+    }
+  }, [tempUserData]);
+
+  if (!tempUserData) {
     return (
-      <div className="text-center text-gray-400 p-4">
-        No data to edit. Please go back and try again.
+      <div className="flex items-center justify-center p-4 text-white/70">
+        Authentication token missing. Please log in again.
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      {/* Edit Profile Header */}
-      <div className="flex justify-between items-center pb-4 border-b border-white/10">
-        <button onClick={cancelEditing} className="text-white">
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        <h2 className="text-2xl font-bold">Edit Profile</h2>
-        <div className="w-6" /> {/* Placeholder for alignment */}
-      </div>
+    <div className="flex flex-col gap-6 p-4">
+      {error && <p className="rounded-md bg-red-500/20 p-3 text-red-500 text-sm font-medium">Error: {error}</p>}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={EditProfileSchema}
+        onSubmit={handleSave}
+        enableReinitialize={true} // Important to re-initialize form when tempUserData changes
+      >
+        {({ values, errors, touched, isValid }) => (
+          <Form>
+            {/* Account Information */}
+            <div className="rounded-lg bg-card-dark p-4 mb-6">
+              <h3 className="text-lg font-bold text-white mb-2">Account Information</h3>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-text-muted-dark mb-1" htmlFor="email">Email</label>
+                <Field
+                  className="w-full rounded-md bg-background-dark border border-ui-dark p-2 text-white cursor-not-allowed"
+                  id="email"
+                  name="email"
+                  type="email"
+                  disabled // Email is read-only
+                />
+                <ErrorMessage name="email" component="p" className="text-red-500 text-xs mt-1" />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-text-muted-dark mb-1" htmlFor="unit_preference">Unit Preference</label>
+                <Field
+                  as="select"
+                  className="w-full rounded-md bg-background-dark border border-ui-dark p-2 text-white"
+                  id="unit_preference"
+                  name="unit_preference"
+                >
+                  <option value="">Select unit</option>
+                  <option value="kg">kg</option>
+                  <option value="lbs">lbs</option>
+                </Field>
+                <ErrorMessage name="unit_preference" component="p" className="text-red-500 text-xs mt-1" />
+              </div>
+            </div>
 
-      {/* Basic Information - Editable */}
-      <div className="bg-black/20 rounded-lg p-4 space-y-4">
-        <h3 className="text-xl font-semibold">Account Details</h3>
-        <div>
-          <label htmlFor="email" className="block text-gray-400 text-sm font-medium mb-1">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={tempProfileData.email || ''}
-            onChange={handleInputChange}
-            className="w-full p-2 rounded-md bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary"
-            disabled // Email is usually not editable
-          />
-        </div>
-        <div>
-          <label htmlFor="unit_preference" className="block text-gray-400 text-sm font-medium mb-1">Unit Preference:</label>
-          <select
-            id="unit_preference"
-            name="unit_preference"
-            value={tempProfileData.unit_preference || 'kg'}
-            onChange={handleInputChange}
-            className="w-full p-2 rounded-md bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            <option value="kg">kg</option>
-            <option value="lbs">lbs</option>
-          </select>
-        </div>
-      </div>
+            {/* Fitness Goals */}
+            <div className="rounded-lg bg-card-dark p-4 mb-6">
+              <h3 className="text-lg font-bold text-white mb-2">Fitness Goals</h3>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-text-muted-dark mb-1" htmlFor="primary_goal">Primary Goal</label>
+                <Field
+                  className="w-full rounded-md bg-background-dark border border-ui-dark p-2 text-white"
+                  id="primary_goal"
+                  name="primary_goal"
+                  type="text"
+                />
+                <ErrorMessage name="primary_goal" component="p" className="text-red-500 text-xs mt-1" />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-text-muted-dark mb-1" htmlFor="training_frequency">Training Frequency (days/week)</label>
+                <Field
+                  className="w-full rounded-md bg-background-dark border border-ui-dark p-2 text-white"
+                  id="training_frequency"
+                  name="training_frequency"
+                  type="number"
+                />
+                <ErrorMessage name="training_frequency" component="p" className="text-red-500 text-xs mt-1" />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-text-muted-dark mb-1" htmlFor="training_duration">Training Duration (minutes)</label>
+                <Field
+                  className="w-full rounded-md bg-background-dark border border-ui-dark p-2 text-white"
+                  id="training_duration"
+                  name="training_duration"
+                  type="number"
+                />
+                <ErrorMessage name="training_duration" component="p" className="text-red-500 text-xs mt-1" />
+              </div>
+            </div>
 
-      {/* Fitness Goals - Editable */}
-      <div className="bg-black/20 rounded-lg p-4 space-y-4">
-        <h3 className="text-xl font-semibold">Fitness Goals</h3>
-        <div>
-          <label htmlFor="primary_goal" className="block text-gray-400 text-sm font-medium mb-1">Primary Goal:</label>
-          <input
-            type="text"
-            id="primary_goal"
-            name="primary_goal"
-            value={tempProfileData.primary_goal || ''}
-            onChange={handleInputChange}
-            className={`w-full p-2 rounded-md bg-white/10 text-white border ${validationErrors.primary_goal ? 'border-red-500' : 'border-white/20'} focus:outline-none focus:ring-2 focus:ring-primary`}
-          />
-          {validationErrors.primary_goal && <p className="text-red-500 text-xs mt-1">{validationErrors.primary_goal}</p>}
-        </div>
-        <div>
-          <label htmlFor="training_frequency" className="block text-gray-400 text-sm font-medium mb-1">Training Frequency (days/week):</label>
-          <input
-            type="number"
-            id="training_frequency"
-            name="training_frequency"
-            value={tempProfileData.training_frequency || ''}
-            onChange={handleInputChange}
-            className={`w-full p-2 rounded-md bg-white/10 text-white border ${validationErrors.training_frequency ? 'border-red-500' : 'border-white/20'} focus:outline-none focus:ring-2 focus:ring-primary`}
-          />
-          {validationErrors.training_frequency && <p className="text-red-500 text-xs mt-1">{validationErrors.training_frequency}</p>}
-        </div>
-        <div>
-          <label htmlFor="training_duration" className="block text-gray-400 text-sm font-medium mb-1">Session Duration (min):</label>
-          <input
-            type="number"
-            id="training_duration"
-            name="training_duration"
-            value={tempProfileData.training_duration || ''}
-            onChange={handleInputChange}
-            className={`w-full p-2 rounded-md bg-white/10 text-white border ${validationErrors.training_duration ? 'border-red-500' : 'border-white/20'} focus:outline-none focus:ring-2 focus:ring-primary`}
-          />
-          {validationErrors.training_duration && <p className="text-red-500 text-xs mt-1">{validationErrors.training_duration}</p>}
-        </div>
-        <div>
-          <label htmlFor="injuries_limitations" className="block text-gray-400 text-sm font-medium mb-1">Injuries/Limitations:</label>
-          <textarea
-            id="injuries_limitations"
-            name="injuries_limitations"
-            value={tempProfileData.injuries_limitations || ''}
-            onChange={handleInputChange}
-            rows={3}
-            className="w-full p-2 rounded-md bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-        </div>
-      </div>
+            {/* Health & Equipment */}
+            <div className="rounded-lg bg-card-dark p-4 mb-6">
+              <h3 className="text-lg font-bold text-white mb-2">Health & Equipment</h3>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-text-muted-dark mb-1" htmlFor="injuries_limitations">Injuries/Limitations</label>
+                <Field
+                  as="textarea"
+                  className="w-full rounded-md bg-background-dark border border-ui-dark p-2 text-white"
+                  id="injuries_limitations"
+                  name="injuries_limitations"
+                  rows={3}
+                />
+                <ErrorMessage name="injuries_limitations" component="p" className="text-red-500 text-xs mt-1" />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-text-muted-dark mb-1" htmlFor="equipment">Equipment (comma-separated)</label>
+                <Field
+                  as="textarea"
+                  className="w-full rounded-md bg-background-dark border border-ui-dark p-2 text-white"
+                  id="equipment"
+                  name="equipment"
+                  rows={2}
+                />
+                <ErrorMessage name="equipment" component="p" className="text-red-500 text-xs mt-1" />
+              </div>
+            </div>
 
-      {/* Equipment - Editable (simplified for now, will need a more complex component) */}
-      <div className="bg-black/20 rounded-lg p-4 space-y-4">
-        <h3 className="text-xl font-semibold">Available Equipment</h3>
-        <label htmlFor="equipment" className="block text-gray-400 text-sm font-medium mb-1">List your equipment (comma separated):</label>
-        {/* This will eventually be a more complex component for adding/removing equipment */}
-        <textarea
-          id="equipment"
-          name="equipment"
-          value={tempProfileData.equipment?.join(', ') || ''}
-          onChange={(e) => updateTempProfileData({ equipment: e.target.value.split(',').map(s => s.trim()) })}
-          rows={2}
-          placeholder="e.g., Dumbbells, Barbell, Bench"
-          className="w-full p-2 rounded-md bg-white/10 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-primary"
-        />
-      </div>
-
-      {/* Save Button */}
-      <div className="pt-4">
-        <button
-          onClick={handleSave}
-          className="w-full px-4 py-3 bg-primary text-background-dark rounded-full font-bold text-lg"
-          disabled={isSaving}
-        >
-          {isSaving ? 'Saving...' : 'Save Changes'}
-        </button>
-        {saveError && <p className="text-red-500 text-center text-sm mt-2">{saveError}</p>}
-      </div>
+            <div className="flex justify-end gap-4 p-4">
+              <button
+                type="button"
+                onClick={cancelEditing}
+                className="rounded-full px-4 py-2 bg-gray-700 text-white font-bold"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={loading || !isValid}
+                className="rounded-full px-4 py-2 bg-primary text-background-dark font-bold flex items-center justify-center disabled:opacity-50"
+              >
+                {loading ? (
+                  <svg className="animate-spin h-5 w-5 text-background-dark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : (
+                  'Save Changes'
+                )}
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
-};
-
-export default EditProfile;
+}

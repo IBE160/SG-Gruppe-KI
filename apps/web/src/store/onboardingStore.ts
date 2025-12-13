@@ -22,10 +22,11 @@ interface OnboardingState {
   setInjuriesLimitations: (injuries: string[]) => void;
   setCustomInjuriesLimitations: (customInjuries: string | null) => void;
   setUnitPreference: (unit: 'kg' | 'lbs' | null) => void;
+  resetState: () => void;
   // Add other setters
 }
 
-export const useOnboardingStore = create<OnboardingState>((set) => ({
+const initialState: OnboardingState = {
   goal: null,
   customGoal: null,
   trainingFrequency: null,
@@ -35,6 +36,10 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
   injuriesLimitations: [],
   customInjuriesLimitations: null,
   unitPreference: null,
+};
+
+export const useOnboardingStore = create<OnboardingState>((set) => ({
+  ...initialState,
 
   setGoal: (goal) => set({ goal }),
   setCustomGoal: (customGoal) => set({ customGoal }),
@@ -45,4 +50,5 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
   setInjuriesLimitations: (injuriesLimitations) => set({ injuriesLimitations }),
   setCustomInjuriesLimitations: (customInjuriesLimitations) => set({ customInjuriesLimitations }),
   setUnitPreference: (unitPreference) => set({ unitPreference }),
+  resetState: () => set(initialState),
 }));

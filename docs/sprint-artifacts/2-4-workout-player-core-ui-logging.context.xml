@@ -1,0 +1,42 @@
+<context>
+    <!-- 
+    This context file provides the necessary file references for implementing Story 2.4: Workout Player Core UI & Logging.
+    The goal is to build the frontend UI for the workout player (Flows 7 & 9), manage its state with Zustand,
+    and create a backend API endpoint to incrementally save workout log data to the Supabase database.
+    -->
+
+    <!-- Foundational Documents -->
+    <file path="docs/architecture.md" />
+    <file path="docs/ux-design-direction.md" />
+    <file path="docs/sprint-artifacts/2-4-workout-player-core-ui-logging.md" />
+    <file path="docs/sprint-artifacts/2-3-display-review-daily-plan.context.xml" />
+    <file path="docs/sprint-artifacts/tech-spec-epic-2.md" />
+
+
+    <!-- Frontend (apps/web) -->
+
+    <!-- The primary entry point for the workout player UI. This will contain the main component for Flow 7 and Flow 9. -->
+    <file path="apps/web/src/app/workout/page.tsx" />
+
+    <!-- Zustand store for managing the state of the active workout session (e.g., current exercise, sets, reps, timer). -->
+    <file path="apps/web/src/store/workout-store.ts" />
+    
+    <!-- Centralized API client where the new `logWorkout` function will be added to call the backend. -->
+    <file path="apps/web/src/lib/api.ts" />
+
+
+    <!-- Backend (apps/api) -->
+
+    <!-- The new API router that will define the `/logs` endpoint for receiving workout data. -->
+    <file path="apps/api/app/api/logs.py" />
+
+    <!-- The service layer responsible for the business logic of processing and saving workout logs to the database. -->
+    <file path="apps/api/app/services/workout_service.py" />
+
+    <!-- The file containing Pydantic models, where the `WorkoutLogCreate` model will be defined for request validation. -->
+    <file path="apps/api/app/models/workout.py" />
+
+    <!-- Main application file where the new `logs` router will be included. -->
+    <file path="apps/api/main.py" />
+
+</context>

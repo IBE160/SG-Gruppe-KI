@@ -1,60 +1,53 @@
+// apps/web/src/store/profileStore.ts
 import { create } from 'zustand';
 
-interface UserProfile {
-  id: string;
+// Define the shape of the user profile data
+// This should eventually be replaced with a proper UserProfile type
+interface UserProfileData {
   email: string;
-  unit_preference: string; // 'kg' or 'lbs'
-  primary_goal?: string; // from Goals table
-  training_frequency?: number; // from Goals table
-  training_duration?: number; // from Goals table
-  injuries_limitations?: string; // from Goals table
-  equipment?: string[]; // from Equipment table (names)
+  unit_preference: string;
+  primary_goal?: string;
+  training_frequency?: number;
+  training_duration?: number;
+  injuries_limitations?: string;
+  equipment?: string[];
+  // Add other profile fields as they become relevant
 }
 
 interface ProfileState {
-  userProfile: UserProfile | null;
   isEditing: boolean;
-  tempProfileData: Partial<UserProfile> | null;
-  
-  // Actions
-  setProfile: (profile: UserProfile) => void;
-  startEditing: () => void;
-  cancelEditing: () => void;
-  updateTempProfileData: (data: Partial<UserProfile>) => void;
-  saveChanges: (updatedProfile: UserProfile) => void;
-  resetState: () => void; // For logout or initial load
+  // This will hold the data currently being edited, allowing to cancel without saving
+  tempUserData: UserProfileData | null;
+  // This will hold the actual current user data fetched from the backend
+  currentUserData: UserProfileData | null; 
 }
 
-export const useProfileStore = create<ProfileState>((set) => ({
-  userProfile: null,
+interface ProfileActions {
+  startEditing: (initialData: UserProfileData) => void;
+  cancelEditing: () => void;
+  updateTempUserData: (data: Partial<UserProfileData>) => void;
+  setCurrentUserData: (data: UserProfileData) => void;
+  resetTempUserData: () => void;
+}
+
+type ProfileStore = ProfileState & ProfileActions;
+
+const initialState: ProfileState = {
   isEditing: false,
-  tempProfileData: null,
+  tempUserData: null,
+  currentUserData: null,
+};
 
-  setProfile: (profile) => set({ userProfile: profile }),
-  
-  startEditing: () => set((state) => ({ 
-    isEditing: true, 
-    tempProfileData: state.userProfile ? { ...state.userProfile } : {} 
-  })),
+export const useProfileStore = create<ProfileStore>((set) => ({
+  ...initialState, // Initialize with default values
 
-  cancelEditing: () => set({ 
-    isEditing: false, 
-    tempProfileData: null 
-  }),
-
-  updateTempProfileData: (data) => set((state) => ({
-    tempProfileData: { ...state.tempProfileData, ...data }
-  })),
-
-  saveChanges: (updatedProfile) => set({
-    userProfile: updatedProfile,
-    isEditing: false,
-    tempProfileData: null,
-  }),
-
-  resetState: () => set({
-    userProfile: null,
-    isEditing: false,
-    tempProfileData: null,
-  }),
+  startEditing: (initialData) => set({ isEditing: true, tempUserData: { ...initialData } }),
+  cancelEditing: () => set((state) => ({ isEditing: false, tempUserData: state.currentUserData ? { ...state.currentUserData } : null })), // Revert to current data or null
+  updateTempUserData: (data) =>
+    set((state) => ({
+      tempUserData: state.tempUserData ? { ...state.tempUserData, ...data } : { ...data } as UserProfileData,
+    })),
+  setCurrentUserData: (data) => set({ currentUserData: data, tempUserData: data ? { ...data } : null }), // Also update temp on initial set
+  resetTempUserData: () => set((state) => ({ tempUserData: state.currentUserData ? { ...state.currentUserData } : null })),
+  resetState: () => set(initialState), // New action to reset the state
 }));

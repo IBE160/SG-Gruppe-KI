@@ -1,6 +1,6 @@
 # Story 1.2: User Authentication - Email & Google OAuth
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -75,28 +75,28 @@ This story will primarily involve:
     -   [x] Subtask 3.4: Handle successful login (redirect to Dashboard) and display error messages.
     -   [x] Subtask 3.5: Unit test `EmailLoginForm.tsx` with Jest/RTL for form submission and validation.
 
--   [ ] **Task 4: Implement Google OAuth Flow (AC: 4, 5)**
-    -   [ ] Subtask 4.1: Configure Supabase for Google OAuth integration.
-    -   [ ] Subtask 4.2: Implement frontend initiation of Google OAuth (Supabase JS client).
-    -   [ ] Subtask 4.3: Implement backend `/auth/google` and `/auth/callback` endpoints in `apps/api/app/api/auth.py` to handle the Google OAuth flow (redirect to Google, process callback).
-    -   [ ] Subtask 4.4: Handle post-OAuth redirection logic in frontend (new user -> Onboarding, returning user -> Dashboard).
-    -   [ ] Subtask 4.5: E2E test the Google OAuth flow using Playwright (mocking external redirects if necessary), verifying successful authentication and redirection.
+-   [x] **Task 4: Implement Google OAuth Flow (AC: 4, 5)**
+    -   [x] Subtask 4.1: Configure Supabase for Google OAuth integration.
+    -   [x] Subtask 4.2: Implement frontend initiation of Google OAuth (Supabase JS client).
+    -   [x] Subtask 4.3: Implement backend `/auth/google` and `/auth/callback` endpoints in `apps/api/app/api/auth.py` to handle the Google OAuth flow (redirect to Google, process callback).
+    -   [x] Subtask 4.4: Handle post-OAuth redirection logic in frontend (new user -> Onboarding, returning user -> Dashboard).
+    -   [x] Subtask 4.5: E2E test the Google OAuth flow using Playwright (mocking external redirects if necessary), verifying successful authentication and redirection.
 
--   [ ] **Task 5: Supabase Authentication Backend Service (AC: 6, 7)**
-    -   [ ] Subtask 5.1: Create/update `auth_service.py` in `apps/api/app/services` to encapsulate Supabase Auth interactions (register, login, OAuth handling).
-    -   [ ] Subtask 5.2: Create/update `auth_router.py` in `apps/api/app/api` to expose FastAPI endpoints (`/auth/register`, `/auth/login`, `/auth/google`, `/auth/callback`) that utilize the `auth_service`.
-    -   [ ] Subtask 5.3: Ensure Pydantic models are used for request/response validation on all auth endpoints.
-    -   [ ] Subtask 5.4: Implement secure JWT handling and storage on both frontend (cookies/local storage) and backend (validation middleware).
-    -   [ ] Subtask 5.5: Integration test backend auth endpoints with Pytest, verifying user creation, login, and token generation. Address `ModuleNotFoundError` during Pytest setup if possible (from previous story's tech debt).
+-   [x] **Task 5: Supabase Authentication Backend Service (AC: 6, 7)**
+    -   [x] Subtask 5.1: Create/update `auth_service.py` in `apps/api/app/services` to encapsulate Supabase Auth interactions (register, login, OAuth handling).
+    -   [x] Subtask 5.2: Create/update `auth_router.py` in `apps/api/app/api` to expose FastAPI endpoints (`/auth/register`, `/auth/login`, `/auth/google`, `/auth/callback`) that utilize the `auth_service`.
+    -   [x] Subtask 5.3: Ensure Pydantic models are used for request/response validation on all auth endpoints.
+    -   [x] Subtask 5.4: Implement secure JWT handling and storage on both frontend (cookies/local storage) and backend (validation middleware).
+    -   [x] Subtask 5.5: Integration test backend auth endpoints with Pytest, verifying user creation, login, and token generation. Address `ModuleNotFoundError` during Pytest setup if possible (from previous story's tech debt).
 
--   [ ] **Task 6: User Data Storage & Redirection (AC: 5, 7)**
-    -   [ ] Subtask 6.1: Verify `Users` table in Supabase is correctly configured to store user data, potentially leveraging Supabase's built-in `auth.users` table and extending with RLS.
-    -   [ ] Subtask 6.2: Implement a mechanism in the frontend to check if a user is new (e.g., via Supabase metadata or a flag after initial registration) to determine redirection to Onboarding or Dashboard.
-    -   [ ] Subtask 6.3: Integration test `User` data persistence and redirection logic.
+-   [x] **Task 6: User Data Storage & Redirection (AC: 5, 7)**
+    -   [x] Subtask 6.1: Verify `Users` table in Supabase is correctly configured to store user data, potentially leveraging Supabase's built-in `auth.users` table and extending with RLS.
+    -   [x] Subtask 6.2: Implement a mechanism in the frontend to check if a user is new (e.g., via Supabase metadata or a flag after initial registration) to determine redirection to Onboarding or Dashboard.
+    -   [x] Subtask 6.3: Integration test `User` data persistence and redirection logic.
 
--   [ ] **Task 7: Global Authentication State Management**
-    -   [ ] Subtask 7.1: Create a Zustand store (`apps/web/src/store/auth.ts`) to manage global authentication state (user object, JWT, loading status).
-    -   [ ] Subtask 7.2: Integrate the Zustand store with authentication components to provide a consistent user experience.
+-   [x] **Task 7: Global Authentication State Management**
+    -   [x] Subtask 7.1: Create a Zustand store (`apps/web/src/store/auth.ts`) to manage global authentication state (user object, JWT, loading status).
+    -   [x] Subtask 7.2: Integrate the Zustand store with authentication components to provide a consistent user experience.
 
 ## Dev Agent Record
 

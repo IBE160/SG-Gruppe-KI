@@ -1,91 +1,74 @@
+// apps/web/src/app/settings/profile/__tests__/view-profile.test.tsx
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import ViewProfile from '../view-profile';
-import { useProfileStore } from '../../../../store/profileStore';
-import { act } from 'react-dom/test-utils'; // Or from 'react' if updated
+import { useProfileStore } from '@/store/profileStore';
+import '@testing-library/jest-dom';
 
-// Mock Zustand store for testing
-const mockUserProfile = {
-  id: 'user-123',
+// Mock the zustand store
+jest.mock('@/store/profileStore', () => ({
+  useProfileStore: jest.fn(),
+}));
+
+const mockUserData = {
+  id: '123',
   email: 'test@example.com',
   unit_preference: 'kg',
   primary_goal: 'Build Muscle',
   training_frequency: 4,
   training_duration: 60,
-  injuries_limitations: 'Mild knee pain',
-  equipment: ['Dumbbells', 'Barbell'],
+  injuries_limitations: 'None',
+  equipment: ['Dumbbells', 'Bench'],
 };
 
 describe('ViewProfile', () => {
-  beforeEach(() => {
-    // Reset the store and set a mock profile before each test
-    act(() => {
-      useProfileStore.getState().resetState();
-      useProfileStore.getState().setProfile(mockUserProfile);
+  it('displays loading message when currentUserData is null', () => {
+    (useProfileStore as jest.Mock).mockReturnValue({
+      currentUserData: null,
     });
+
+    render(<ViewProfile />);
+    expect(screen.getByText(/loading profile data/i)).toBeInTheDocument();
   });
 
-  it('renders loading state when userProfile is null', () => {
-    act(() => {
-      useProfileStore.getState().setProfile(null);
+  it('displays user profile data correctly when currentUserData is available', () => {
+    (useProfileStore as jest.Mock).mockReturnValue({
+      currentUserData: mockUserData,
     });
-    render(<ViewProfile />);
-    expect(screen.getByText('Loading profile data...')).toBeInTheDocument();
-  });
 
-  it('renders user profile information correctly', () => {
     render(<ViewProfile />);
 
-    expect(screen.getByText('Your Profile')).toBeInTheDocument();
-    expect(screen.getByText('Edit')).toBeInTheDocument();
-
-    // Account Details
-    expect(screen.getByText('Account Details')).toBeInTheDocument();
-    expect(screen.getByText('Email:')).toBeInTheDocument();
     expect(screen.getByText('test@example.com')).toBeInTheDocument();
-    expect(screen.getByText('Unit Preference:')).toBeInTheDocument();
     expect(screen.getByText('kg')).toBeInTheDocument();
-
-    // Fitness Goals
-    expect(screen.getByText('Fitness Goals')).toBeInTheDocument();
-    expect(screen.getByText('Primary Goal:')).toBeInTheDocument();
     expect(screen.getByText('Build Muscle')).toBeInTheDocument();
-    expect(screen.getByText('Training Frequency:')).toBeInTheDocument();
     expect(screen.getByText('4 days/week')).toBeInTheDocument();
-    expect(screen.getByText('Session Duration:')).toBeInTheDocument();
-    expect(screen.getByText('60 min')).toBeInTheDocument();
-    expect(screen.getByText('Injuries/Limitations:')).toBeInTheDocument();
-    expect(screen.getByText('Mild knee pain')).toBeInTheDocument();
-
-    // Equipment
-    expect(screen.getByText('Available Equipment')).toBeInTheDocument();
-    expect(screen.getByText('Dumbbells')).toBeInTheDocument();
-    expect(screen.getByText('Barbell')).toBeInTheDocument();
+    expect(screen.getByText('60 min/session')).toBeInTheDocument();
+    expect(screen.getByText('None')).toBeInTheDocument();
+    expect(screen.getByText('Dumbbells, Bench')).toBeInTheDocument();
   });
 
-  it('does not render fitness goals section if primary_goal is missing', () => {
-    act(() => {
-      useProfileStore.getState().setProfile({ ...mockUserProfile, primary_goal: undefined });
+  it('displays "Not set" or "None" for missing optional data', () => {
+    const partialUserData = {
+      id: '123',
+      email: 'partial@example.com',
+      unit_preference: 'lbs',
+      // Missing primary_goal, training_frequency, training_duration, injuries_limitations, equipment
+    };
+    (useProfileStore as jest.Mock).mockReturnValue({
+      currentUserData: partialUserData,
     });
-    render(<ViewProfile />);
-    expect(screen.queryByText('Fitness Goals')).not.toBeInTheDocument();
-  });
 
-  it('does not render equipment section if equipment array is empty', () => {
-    act(() => {
-      useProfileStore.getState().setProfile({ ...mockUserProfile, equipment: [] });
-    });
     render(<ViewProfile />);
-    expect(screen.queryByText('Available Equipment')).not.toBeInTheDocument();
-  });
 
-  it('calls startEditing when Edit button is clicked', () => {
-    const startEditingMock = jest.fn();
-    act(() => {
-      useProfileStore.getState().startEditing = startEditingMock;
-    });
-    render(<ViewProfile />);
-    screen.getByText('Edit').click();
-    expect(startEditingMock).toHaveBeenCalledTimes(1);
+    expect(screen.getByText('partial@example.com')).toBeInTheDocument();
+    expect(screen.getByText('lbs')).toBeInTheDocument();
+
+    // Query for the text content within the paragraph that contains "Primary Goal:"
+    // Then check if its combined text content contains "Not set"
+    expect(screen.getByText(/Primary Goal:/i).textContent).toContain('Not set');
+    expect(screen.getByText(/Training Frequency:/i).textContent).toContain('Not set');
+    expect(screen.getByText(/Training Duration:/i).textContent).toContain('Not set');
+    expect(screen.getByText(/Injuries\/Limitations:/i).textContent).toContain('None');
+    expect(screen.getByText(/Equipment:/i).textContent).toContain('Not set');
   });
 });

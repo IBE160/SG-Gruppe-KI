@@ -1,85 +1,41 @@
+// apps/web/src/app/settings/profile/view-profile.tsx
 import React from 'react';
 import { useProfileStore } from '../../../store/profileStore';
 
-const ViewProfile: React.FC = () => {
-  const { userProfile, startEditing } = useProfileStore();
+export default function ViewProfile() {
+  const { currentUserData } = useProfileStore();
 
-  if (!userProfile) {
+  if (!currentUserData) {
     return (
-      <div className="text-center text-gray-400 p-4">
+      <div className="flex items-center justify-center p-4 text-white/70">
         Loading profile data...
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      {/* Profile Header */}
-      <div className="flex justify-between items-center pb-4 border-b border-white/10">
-        <h2 className="text-2xl font-bold">Your Profile</h2>
-        <button
-          onClick={startEditing}
-          className="px-4 py-2 bg-primary text-background-dark rounded-full font-medium"
-        >
-          Edit
-        </button>
-      </div>
-
-      {/* Basic Information */}
-      <div className="bg-black/20 rounded-lg p-4 space-y-3">
-        <h3 className="text-xl font-semibold">Account Details</h3>
-        <div className="flex justify-between items-center">
-          <span className="text-gray-400">Email:</span>
-          <span className="text-white">{userProfile.email}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-gray-400">Unit Preference:</span>
-          <span className="text-white uppercase">{userProfile.unit_preference}</span>
-        </div>
+    <div className="flex flex-col gap-6 p-4">
+      {/* Basic User Information */}
+      <div className="rounded-lg bg-card-dark p-4">
+        <h3 className="text-lg font-bold text-white mb-2">Account Information</h3>
+        <p className="text-sm text-text-muted-dark">Email: <span className="text-white">{currentUserData.email}</span></p>
+        <p className="text-sm text-text-muted-dark">Unit Preference: <span className="text-white">{currentUserData.unit_preference}</span></p>
       </div>
 
       {/* Fitness Goals */}
-      {userProfile.primary_goal && (
-        <div className="bg-black/20 rounded-lg p-4 space-y-3">
-          <h3 className="text-xl font-semibold">Fitness Goals</h3>
-          <div className="flex justify-between items-center">
-            <span className="text-gray-400">Primary Goal:</span>
-            <span className="text-white">{userProfile.primary_goal}</span>
-          </div>
-          {userProfile.training_frequency && (
-            <div className="flex justify-between items-center">
-              <span className="text-gray-400">Training Frequency:</span>
-              <span className="text-white">{userProfile.training_frequency} days/week</span>
-            </div>
-          )}
-          {userProfile.training_duration && (
-            <div className="flex justify-between items-center">
-              <span className="text-gray-400">Session Duration:</span>
-              <span className="text-white">{userProfile.training_duration} min</span>
-            </div>
-          )}
-          {userProfile.injuries_limitations && (
-            <div>
-              <span className="text-gray-400 block pb-1">Injuries/Limitations:</span>
-              <span className="text-white">{userProfile.injuries_limitations}</span>
-            </div>
-          )}
-        </div>
-      )}
+      <div className="rounded-lg bg-card-dark p-4">
+        <h3 className="text-lg font-bold text-white mb-2">Fitness Goals</h3>
+        <p className="text-sm text-text-muted-dark">Primary Goal: <span className="text-white">{currentUserData.primary_goal || 'Not set'}</span></p>
+        <p className="text-sm text-text-muted-dark">Training Frequency: <span className="text-white">{currentUserData.training_frequency ? `${currentUserData.training_frequency} days/week` : 'Not set'}</span></p>
+        <p className="text-sm text-text-muted-dark">Training Duration: <span className="text-white">{currentUserData.training_duration ? `${currentUserData.training_duration} min/session` : 'Not set'}</span></p>
+      </div>
 
-      {/* Equipment */}
-      {userProfile.equipment && userProfile.equipment.length > 0 && (
-        <div className="bg-black/20 rounded-lg p-4 space-y-3">
-          <h3 className="text-xl font-semibold">Available Equipment</h3>
-          <ul className="list-disc list-inside text-white ml-4">
-            {userProfile.equipment.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* Health & Equipment */}
+      <div className="rounded-lg bg-card-dark p-4">
+        <h3 className="text-lg font-bold text-white mb-2">Health & Equipment</h3>
+        <p className="text-sm text-text-muted-dark">Injuries/Limitations: <span className="text-white">{currentUserData.injuries_limitations || 'None'}</span></p>
+        <p className="text-sm text-text-muted-dark">Equipment: <span className="text-white">{currentUserData.equipment?.join(', ') || 'Not set'}</span></p>
+      </div>
     </div>
   );
-};
-
-export default ViewProfile;
+}

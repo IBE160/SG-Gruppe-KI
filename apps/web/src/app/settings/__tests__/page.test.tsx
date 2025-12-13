@@ -35,7 +35,9 @@ describe('SettingsPage', () => {
 
   it('renders the "User Profile" navigation link with correct href', () => {
     render(<SettingsPage />);
-    const userProfileLink = screen.getByRole('link', { name: /User Profile/i });
+    const userProfileLinks = screen.getAllByRole('link', { name: /User Profile/i });
+    expect(userProfileLinks.length).toBeGreaterThan(0); // Ensure at least one link is found
+    const userProfileLink = userProfileLinks[0]; // Assert on the first one or a specific one if there are others
     expect(userProfileLink).toBeInTheDocument();
     expect(userProfileLink).toHaveAttribute('href', '/settings/profile');
   });

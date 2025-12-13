@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import 'web-streams-polyfill'; // Add this import
 
 /**
  * Read environment variables from file.
@@ -11,6 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  globalSetup: './apps/web/playwright.global-setup.ts', // Add global setup
   /* Run tests in files in the order they are defined. */
   // fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

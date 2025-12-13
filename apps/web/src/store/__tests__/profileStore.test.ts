@@ -10,80 +10,68 @@ describe('useProfileStore', () => {
   });
 
   it('should initialize with default values', () => {
-    const { userProfile, isEditing, tempProfileData } = useProfileStore.getState();
-    expect(userProfile).toBeNull();
+    const { currentUserData, isEditing, tempUserData } = useProfileStore.getState();
+    expect(currentUserData).toBeNull();
     expect(isEditing).toBe(false);
-    expect(tempProfileData).toBeNull();
+    expect(tempUserData).toBeNull();
   });
 
-  it('should set the user profile', () => {
+  it('should set the current user data', () => {
     const mockProfile = { id: '1', email: 'test@example.com', unit_preference: 'kg' };
     act(() => {
-      useProfileStore.getState().setProfile(mockProfile);
+      useProfileStore.getState().setCurrentUserData(mockProfile);
     });
-    expect(useProfileStore.getState().userProfile).toEqual(mockProfile);
+    expect(useProfileStore.getState().currentUserData).toEqual(mockProfile);
   });
 
-  it('should start editing and create a temp profile data copy', () => {
+  it('should start editing and create a temp user data copy', () => {
     const mockProfile = { id: '1', email: 'test@example.com', unit_preference: 'kg' };
     act(() => {
-      useProfileStore.getState().setProfile(mockProfile);
-      useProfileStore.getState().startEditing();
+      useProfileStore.getState().setCurrentUserData(mockProfile); // Set current user data first
+      useProfileStore.getState().startEditing(mockProfile); // Pass initial data to startEditing
     });
-    const { isEditing, tempProfileData } = useProfileStore.getState();
+    const { isEditing, tempUserData } = useProfileStore.getState();
     expect(isEditing).toBe(true);
-    expect(tempProfileData).toEqual(mockProfile);
-    expect(tempProfileData).not.toBe(mockProfile); // Ensure it's a copy, not the same object
+    expect(tempUserData).toEqual(mockProfile);
+    expect(tempUserData).not.toBe(mockProfile); // Ensure it's a copy, not the same object
   });
 
-  it('should cancel editing and clear temp profile data', () => {
+  it('should cancel editing and revert temp user data to current user data', () => {
     const mockProfile = { id: '1', email: 'test@example.com', unit_preference: 'kg' };
+    const changedProfile = { ...mockProfile, unit_preference: 'lbs' };
     act(() => {
-      useProfileStore.getState().setProfile(mockProfile);
-      useProfileStore.getState().startEditing();
-      useProfileStore.getState().cancelEditing();
+      useProfileStore.getState().setCurrentUserData(mockProfile); // Set initial current data
+      useProfileStore.getState().startEditing(mockProfile);
+      useProfileStore.getState().updateTempUserData({ unit_preference: 'lbs' }); // Make changes
+      expect(useProfileStore.getState().tempUserData).toEqual(changedProfile); // Verify changes were made
+      useProfileStore.getState().cancelEditing(); // Cancel
     });
-    const { isEditing, tempProfileData } = useProfileStore.getState();
+    const { isEditing, tempUserData } = useProfileStore.getState();
     expect(isEditing).toBe(false);
-    expect(tempProfileData).toBeNull();
+    expect(tempUserData).toEqual(mockProfile); // Should revert to original current data
   });
 
-  it('should update temp profile data during editing', () => {
+  it('should update temp user data during editing', () => {
     const mockProfile = { id: '1', email: 'test@example.com', unit_preference: 'kg' };
     act(() => {
-      useProfileStore.getState().setProfile(mockProfile);
-      useProfileStore.getState().startEditing();
-      useProfileStore.getState().updateTempProfileData({ unit_preference: 'lbs' });
+      useProfileStore.getState().setCurrentUserData(mockProfile);
+      useProfileStore.getState().startEditing(mockProfile);
+      useProfileStore.getState().updateTempUserData({ unit_preference: 'lbs' });
     });
-    expect(useProfileStore.getState().tempProfileData?.unit_preference).toBe('lbs');
-    expect(useProfileStore.getState().tempProfileData?.email).toBe('test@example.com'); // Other fields remain
-  });
-
-  it('should save changes and update user profile, exiting editing mode', () => {
-    const mockProfile = { id: '1', email: 'test@example.com', unit_preference: 'kg' };
-    const updatedProfile = { ...mockProfile, unit_preference: 'lbs' };
-    act(() => {
-      useProfileStore.getState().setProfile(mockProfile);
-      useProfileStore.getState().startEditing();
-      useProfileStore.getState().updateTempProfileData({ unit_preference: 'lbs' });
-      useProfileStore.getState().saveChanges(updatedProfile);
-    });
-    const { userProfile, isEditing, tempProfileData } = useProfileStore.getState();
-    expect(userProfile).toEqual(updatedProfile);
-    expect(isEditing).toBe(false);
-    expect(tempProfileData).toBeNull();
+    expect(useProfileStore.getState().tempUserData?.unit_preference).toBe('lbs');
+    expect(useProfileStore.getState().tempUserData?.email).toBe('test@example.com'); // Other fields remain
   });
 
   it('should reset the state to initial values', () => {
     const mockProfile = { id: '1', email: 'test@example.com', unit_preference: 'kg' };
     act(() => {
-      useProfileStore.getState().setProfile(mockProfile);
-      useProfileStore.getState().startEditing();
+      useProfileStore.getState().setCurrentUserData(mockProfile);
+      useProfileStore.getState().startEditing(mockProfile);
       useProfileStore.getState().resetState();
     });
-    const { userProfile, isEditing, tempProfileData } = useProfileStore.getState();
-    expect(userProfile).toBeNull();
+    const { currentUserData, isEditing, tempUserData } = useProfileStore.getState();
+    expect(currentUserData).toBeNull();
     expect(isEditing).toBe(false);
-    expect(tempProfileData).toBeNull();
+    expect(tempUserData).toBeNull();
   });
 });

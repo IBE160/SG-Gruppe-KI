@@ -43,7 +43,7 @@ export default function SettingsPage() {
             <span className="material-symbols-outlined text-text-subtle-dark">chevron_right</span>
           </Link>
 
-          {/* User Profile - NEW ITEM */}
+          {/* User Profile */}
           <Link href="/settings/profile" className="flex cursor-pointer items-center gap-4 bg-background-dark px-4 min-h-[3.5rem] justify-between border-b border-ui-dark">
             <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-white">
               <span className="material-symbols-outlined">person</span>
@@ -51,6 +51,8 @@ export default function SettingsPage() {
             <p className="flex-1 truncate text-base font-normal leading-normal text-text-dark">User Profile</p>
             <span className="material-symbols-outlined text-text-subtle-dark">chevron_right</span>
           </Link>
+
+
 
           {/* Health */}
           <Link href="/settings/health" className="flex cursor-pointer items-center gap-4 bg-background-dark px-4 min-h-[3.5rem] justify-between border-b border-ui-dark">

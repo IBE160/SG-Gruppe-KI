@@ -1,98 +1,116 @@
 # apps/api/tests/test_user.py
-
 import pytest
 from fastapi.testclient import TestClient
-from unittest.mock import AsyncMock, patch, MagicMock
-from main import app
-from app.models.user import UserProfileUpdate, GoalCreate, EquipmentCreate
-from app.api.user import FullUserProfile, UserProfile, Goal, Equipment
+from unittest.mock import AsyncMock
+from uuid import UUID, uuid4
+import json
 
+from main import app
+from app.services.user_service import UserService
+from app.models.user import UserProfileData, UserProfileUpdate
+from app.core.auth import get_current_user_id
+
+# Create a TestClient for your FastAPI application
 client = TestClient(app)
 
-# Mock the Supabase client and its methods for user service tests
-@pytest.fixture
-def mock_user_supabase_client():
-    with patch('app.core.supabase.supabase') as mock_supabase:
-        # Mock for select operations (GET /users/me)
-        mock_supabase.from_.return_value.select.return_value.eq.return_value.limit.return_value.execute.return_value = AsyncMock(
-            data=[{'id': 'test-user-id', 'email': 'test@example.com', 'unit_preference': 'kg'}], count=1
-        )
-        mock_supabase.from_.return_value.select.return_value.eq.return_value.execute.side_effect = [
-            # First call for goals
-            AsyncMock(data=[
-                {'id': 'goal-1', 'user_id': 'test-user-id', 'primary_goal': 'Build Muscle', 'training_frequency': 4, 'training_duration': 60, 'injuries_limitations': None, 'created_at': '2023-01-01T00:00:00Z'}
-            ], count=1),
-            # Second call for equipment
-            AsyncMock(data=[
-                {'id': 'eq-1', 'user_id': 'test-user-id', 'name': 'Dumbbells'}
-            ], count=1)
-        ]
+# Mock data
+MOCK_USER_ID = uuid4()
+MOCK_USER_EMAIL = "test@example.com"
+MOCK_USER_PROFILE = UserProfileData(
+    id=MOCK_USER_ID,
+    email=MOCK_USER_EMAIL,
+    unit_preference="kg",
+    primary_goal="Build Muscle",
+    training_frequency=4,
+    training_duration=60,
+    injuries_limitations="None",
+    equipment=["Dumbbells"],
+)
 
-        # Mock for update operations (PUT /users/me)
-        mock_supabase.from_.return_value.update.return_value.eq.return_value.execute.return_value = AsyncMock(
-            data=[{'id': 'test-user-id', 'email': 'test@example.com', 'unit_preference': 'lbs'}], count=1
-        )
-        yield mock_supabase
-
-# Mock the get_current_user_id dependency
 @pytest.fixture
 def mock_get_current_user_id():
-    with patch('app.api.auth.get_current_user_id', new_callable=AsyncMock) as mock_user_id:
-        mock_user_id.return_value = "test-user-id"
-        yield mock_user_id
+    """
+    Fixture to mock get_current_user_id dependency.
+    """
+    app.dependency_overrides[get_current_user_id] = lambda: MOCK_USER_ID
+    yield
+    app.dependency_overrides.clear()
 
-# --- GET /users/me Tests ---
-def test_get_current_user_profile_success(mock_user_supabase_client, mock_get_current_user_id):
+@pytest.fixture
+def mock_user_service(mocker):
+    """
+    Fixture to mock the UserService dependency.
+    """
+    mock_service_instance = mocker.Mock(spec=UserService)
+    mock_service_instance.get_user_profile = AsyncMock(return_value=MOCK_USER_PROFILE)
+    mock_service_instance.update_user_profile = AsyncMock(return_value=MOCK_USER_PROFILE)
+
+    app.dependency_overrides[UserService] = lambda: mock_service_instance
+    yield mock_service_instance
+    app.dependency_overrides.clear()
+
+def test_get_user_profile_success(mock_get_current_user_id, mock_user_service):
+    """
+    Test successful retrieval of user profile.
+    """
     response = client.get("/api/v1/users/me")
 
     assert response.status_code == 200
-    profile_data = FullUserProfile(**response.json())
-    assert profile_data.id == "test-user-id"
-    assert profile_data.email == "test@example.com"
-    assert profile_data.unit_preference == "kg"
-    assert len(profile_data.goals) == 1
-    assert profile_data.goals[0].primary_goal == "Build Muscle"
-    assert len(profile_data.equipment) == 1
-    assert profile_data.equipment[0].name == "Dumbbells"
+    # Pydantic v2 .model_dump() serializes UUID to a UUID object, not a string by default.
+    # The HTTP response JSON will always have a string. We need to compare JSON-like dicts.
+    # A simple way is to load the dumped json string back into a dict.
+    assert response.json() == json.loads(MOCK_USER_PROFILE.model_dump_json())
+    mock_user_service.get_user_profile.assert_called_once_with(MOCK_USER_ID)
 
-    # Verify Supabase calls
-    mock_user_supabase_client.from_.assert_any_call('users')
-    mock_user_supabase_client.from_.assert_any_call('goals')
-    mock_user_supabase_client.from_.assert_any_call('equipment')
-
-
-def test_get_current_user_profile_not_found(mock_user_supabase_client, mock_get_current_user_id):
-    # Simulate user not found
-    mock_user_supabase_client.from_.return_value.select.return_value.eq.return_value.limit.return_value.execute.return_value = AsyncMock(data=[], count=0)
-    
+def test_get_user_profile_not_found(mock_get_current_user_id, mock_user_service):
+    """
+    Test user profile not found.
+    """
+    mock_user_service.get_user_profile.return_value = None
     response = client.get("/api/v1/users/me")
+
     assert response.status_code == 404
     assert response.json()["detail"] == "User profile not found"
 
-# --- PUT /users/me Tests ---
-def test_update_current_user_profile_success(mock_user_supabase_client, mock_get_current_user_id):
-    update_data = UserProfileUpdate(unit_preference="lbs")
+def test_get_user_profile_unauthenticated():
+    """
+    Test retrieval of user profile without authentication.
+    """
+    if get_current_user_id in app.dependency_overrides:
+        del app.dependency_overrides[get_current_user_id]
+    
+    response = client.get("/api/v1/users/me")
+
+    assert response.status_code == 401
+    app.dependency_overrides[get_current_user_id] = lambda: MOCK_USER_ID
+
+
+def test_update_user_profile_success(mock_get_current_user_id, mock_user_service):
+    """
+    Test successful update of user profile.
+    """
+    update_data = UserProfileUpdate(unit_preference="lbs", primary_goal="Lose Weight")
+    
+    updated_profile_data = MOCK_USER_PROFILE.model_dump()
+    updated_profile_data['unit_preference'] = "lbs"
+    updated_profile_data['primary_goal'] = "Lose Weight"
+    
+    mock_user_service.update_user_profile.return_value = UserProfileData(**updated_profile_data)
+
     response = client.put("/api/v1/users/me", json=update_data.model_dump())
 
     assert response.status_code == 200
-    updated_profile = FullUserProfile(**response.json())
-    assert updated_profile.unit_preference == "lbs"
+    assert response.json()["unit_preference"] == "lbs"
+    assert response.json()["primary_goal"] == "Lose Weight"
+    mock_user_service.update_user_profile.assert_called_once_with(MOCK_USER_ID, update_data)
 
-    # Verify Supabase update call
-    mock_user_supabase_client.from_.assert_any_call('users')
-    mock_user_supabase_client.from_.return_value.update.assert_called_once_with({'unit_preference': 'lbs'})
-    mock_user_supabase_client.from_.return_value.update.return_value.eq.assert_called_once_with('id', 'test-user-id')
+def test_update_user_profile_validation_error(mock_get_current_user_id):
+    """
+    Test update of user profile with invalid data.
+    """
+    invalid_data = {"unit_preference": "invalid_unit"}
+    response = client.put("/api/v1/users/me", json=invalid_data)
 
-
-def test_update_current_user_profile_not_found_after_update(mock_user_supabase_client, mock_get_current_user_id):
-    # Simulate user not found after update (e.g., if re-fetch fails)
-    mock_user_supabase_client.from_.return_value.update.return_value.eq.return_value.execute.return_value = AsyncMock(data=[{'id': 'test-user-id', 'email': 'test@example.com', 'unit_preference': 'lbs'}], count=1)
-    
-    # Simulate get_user_profile returning None after an attempted update
-    with patch('app.services.user_service.UserService.get_user_profile', new_callable=AsyncMock) as mock_get_profile:
-        mock_get_profile.return_value = None
-        update_data = UserProfileUpdate(unit_preference="lbs")
-        response = client.put("/api/v1/users/me", json=update_data.model_dump())
-
-        assert response.status_code == 404
-        assert response.json()["detail"] == "User profile not found after update attempt"
+    assert response.status_code == 422
+    assert "detail" in response.json()
+    assert "unit_preference" in response.json()["detail"][0]["loc"]

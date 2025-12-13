@@ -1,62 +1,64 @@
-import React from 'react';
-import { cookies } from 'next/headers';
-import ProfileContent from './profile-content'; // Import the new client component
+// apps/web/src/app/settings/profile/page.tsx
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { useProfileStore } from '../../../store/profileStore';
-import { UserProfile } from '../../../store/profileStore'; // Import the interface
+import { useAuthStore } from '../../../store/auth';
+import { api } from '../../../lib/api';
+import ProfileContent from './profile-content';
 
-// Mock API call for now. This will be replaced by actual backend API call.
-async function fetchUserProfile(): Promise<UserProfile | null> {
-  // In a real application, you would fetch data from your backend API
-  // using the JWT from cookies for authentication.
-  // const token = cookies().get('jwt')?.value; // Assuming JWT is stored in cookies
-  // const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/users/me`, {
-  //   headers: {
-  //     'Authorization': `Bearer ${token}`
-  //   }
-  // });
-  // if (!response.ok) {
-  //   return null;
-  // }
-  // const data = await response.json();
-  // return data.data;
-
-  // Mock data for development
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        id: 'user-123',
-        email: 'test@example.com',
-        unit_preference: 'kg',
-        primary_goal: 'Build Muscle',
-        training_frequency: 4,
-        training_duration: 60,
-        injuries_limitations: 'Mild knee pain on heavy squats',
-        equipment: ['Dumbbells', 'Barbell', 'Bench'],
-      });
-    }, 1000);
-  });
+interface UserProfileData {
+  id: string;
+  email: string;
+  unit_preference: string;
+  primary_goal?: string;
+  training_frequency?: number;
+  training_duration?: number;
+  injuries_limitations?: string;
+  equipment?: string[];
 }
 
-export default async function ProfilePage() {
-  const userProfile = await fetchUserProfile();
+export default function UserProfilePage() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { session } = useAuthStore();
+  const { setCurrentUserData } = useProfileStore();
 
-  // Hydrate the Zustand store on the client side
-  // This is a common pattern for Next.js App Router and Zustand
-  // where server-fetched data needs to be available in a client store.
-  function Hydration() {
-    // This component will only run on the client side
-    React.useEffect(() => {
-      if (userProfile) {
-        useProfileStore.getState().setProfile(userProfile);
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (!session?.access_token) {
+        setError('Not authenticated.');
+        setLoading(false);
+        return;
       }
-    }, [userProfile]);
-    return null;
+
+      try {
+        const response = await api.get<UserProfileData>('/users/me', session.access_token);
+        if (response.data) {
+          setCurrentUserData(response.data);
+        } else if (response.error) {
+          setError(response.error.message);
+        }
+      } catch (err) {
+        setError('Failed to fetch profile data.');
+        console.error('Failed to fetch user profile:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, [session, setCurrentUserData]);
+
+  if (loading) {
+    return <div className="p-4 text-white">Loading profile...</div>;
   }
 
-  return (
-    <>
-      <Hydration />
-      <ProfileContent />
-    </>
-  );
+  if (error) {
+    return <div className="p-4 text-red-500">Error: {error}</div>;
+  }
+
+  return <ProfileContent />;
 }
+
+
