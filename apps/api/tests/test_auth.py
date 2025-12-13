@@ -3,7 +3,7 @@ import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import MagicMock
 import uuid
-from main import app
+from app.main import app
 from app.core.supabase import get_supabase_client
 
 # This fixture will be used by all tests in this file

@@ -2,7 +2,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from uuid import uuid4, UUID
-from main import app
+from app.main import app
 from app.core.auth import get_current_user_id
 from app.models.user import UserProfileData
 

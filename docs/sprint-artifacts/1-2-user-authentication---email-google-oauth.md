@@ -1,6 +1,6 @@
 # Story 1.2: User Authentication - Email & Google OAuth
 
-Status: done
+Status: in-progress
 
 ## Story
 

@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image'; // Assuming you'll use Next.js Image component
+import { createClient } from '@/utils/supabase/client'; // Add this import
 
 export default function WelcomeScreen() {
   const router = useRouter();
@@ -15,10 +16,31 @@ export default function WelcomeScreen() {
     router.push('/auth/login');
   };
 
-  const onGoogleAuth = () => {
+  const onGoogleAuth = async () => {
     // Implement Google OAuth logic here
-    console.log('Initiate Google OAuth');
-  };
+          console.log('Initiate Google OAuth');
+          const supabase = createClient();
+    
+          try {
+            const { data, error } = await supabase.auth.signInWithOAuth({
+              provider: 'google',
+              options: {
+                redirectTo: `${window.location.origin}/auth/callback`,
+                skipBrowserRedirect: false, // Ensure browser redirect is not skipped
+              },
+            });
+    
+            if (error) {
+              console.error('Google OAuth Error (signInWithOAuth):', error.message);
+              // TODO: Display a user-friendly error message in the UI
+            } else {
+              console.log('Google OAuth initiated, data from signInWithOAuth:', data);
+              // Data should contain the URL to redirect to Google
+            }
+          } catch (e) {
+            console.error('Unexpected error during Google OAuth initiation:', e);
+          }
+        };
 
   const onAppleAuth = () => {
     // Implement Apple OAuth logic here (Phase 2)

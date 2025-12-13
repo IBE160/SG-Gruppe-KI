@@ -3,7 +3,7 @@ import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import MagicMock
 from uuid import uuid4
-from main import app
+from app.main import app
 from app.models.onboarding import OnboardingData
 from app.core.auth import get_current_user_id
 from app.core.supabase import get_supabase_client

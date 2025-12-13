@@ -5,7 +5,7 @@ from unittest.mock import AsyncMock
 from uuid import UUID, uuid4
 import json
 
-from main import app
+from app.main import app
 from app.services.user_service import UserService
 from app.models.user import UserProfileData, UserProfileUpdate
 from app.core.auth import get_current_user_id
