@@ -1,0 +1,270 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>4</epicId>
+    <storyId>2</storyId>
+    <title>Performance & Data Settings</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-14</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/4-2-Performance & Data Settings.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>user</asA>
+    <iWant>to manage offline mode and data synchronization settings</iWant>
+    <soThat>I can control my app's behavior in various network conditions and manage local data.</soThat>
+    <tasks>
+      <task category="Frontend (apps/web)">
+        <description>UI Implementation (Flow 17, Screen 1-4): Create React components for the "Performance & Data" settings sub-screen. This includes toggles for "Offline Mode" and "Auto-Sync Offline Data," a button for "Clear Local Cache," and the display of offline status indicators and "Sync Now" prompts.</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web)">
+        <description>Offline Mode Logic: Implement client-side logic for enabling/disabling offline mode, caching daily plans and workout logs using IndexedDB or similar.</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web)">
+        <description>Synchronization Logic: Develop logic for detecting network connectivity changes and automatically/manually syncing offline data to the backend `/logs` endpoint.</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web)">
+        <description>Local Cache Management: Implement functionality for clearing the local cache with user confirmation.</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web)">
+        <description>API Integration: Ensure robust API calls to the FastAPI backend for data synchronization (e.g., `/logs` endpoint from Story 2.4).</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web) - Testing">
+        <description>Write unit tests for new React components, offline logic, and synchronization logic.</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web) - Testing">
+        <description>Write integration tests for local storage interactions and API calls.</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web) - Testing">
+        <description>Write Playwright E2E tests for toggling offline mode, syncing data, and clearing cache.</description>
+        <status>pending</status>
+      </task>
+      <task category="Backend (apps/api)">
+        <description>API Endpoint Enhancement: Ensure the `/logs` endpoint (from Story 2.4) can handle incremental data synchronization from offline mode, including conflict resolution if necessary.</description>
+        <status>pending</status>
+      </task>
+      <task category="Backend (apps/api) - Testing">
+        <description>Write integration tests for the `/logs` endpoint handling offline data synchronization.</description>
+        <status>pending</status>
+      </task>
+      <task category="Refinement">
+        <description>Ensure UI adheres to `ux_design_content` principles (e.g., clear status indicators, confirmation modals).</description>
+        <status>pending</status>
+      </task>
+      <task category="Refinement">
+        <description>Implement structured JSON logging for all relevant frontend and backend actions related to offline mode and data synchronization.</description>
+        <status>pending</status>
+      </task>
+      <task category="Refinement">
+        <description>Verify consistency with naming conventions for components, functions, and API routes.</description>
+        <status>pending</status>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="1">Given I am in the "Performance & Data" settings sub-screen (Flow 17, Screen 1 - `screen_1/code.html`)</criterion>
+    <criterion id="2">When I toggle "Offline Mode"</criterion>
+    <criterion id="3">Then the app switches between online and offline functionality, caching daily plans and logs locally</criterion>
+    <criterion id="4">When I toggle "Auto-Sync Offline Data"</criterion>
+    <criterion id="5">Then offline logs are automatically synced upon reconnection or require manual initiation</criterion>
+    <criterion id="6">When I tap `[ Clear Local Cache ]`</criterion>
+    <criterion id="7">Then a confirmation modal appears, and upon confirmation, local cached data is removed</criterion>
+    <criterion id="8">And an offline status indicator is displayed in the main app UI when offline (Flow 17, Screen 2 - `screen_2/code.html`)</criterion>
+    <criterion id="9">And a "Sync Now" button/prompt appears when connection is restored and unsynced data exists (Flow 17, Screen 2 & 3 - `screen_2/code.html` & `screen_3/code.html`)</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Decision Summary (Data Persistence)</title>
+        <section>Decision Summary</section>
+        <snippet>
+          | Category | Decision | Version | Affects Epics | Rationale |
+          | -------- | -------- | ------- | ------------- | --------- |
+          | Data Persistence | Supabase (PostgreSQL) | 2.86.0 | All data-related features | Provides a managed PostgreSQL database, simplifying setup and scaling. Also includes Auth and Storage. |
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Project Structure (Backend Interaction for Logs)</title>
+        <section>FR Category to Architecture Mapping</section>
+        <snippet>
+          -   **Backend (FastAPI `api` app):** Responsible for all business logic, data processing, and AI integration.
+              -   Handles: ... Workout Log storage/retrieval ...
+              -   Interacts directly with the Supabase (PostgreSQL) database.
+              -   Provides the REST API for the frontend.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction - Flow 17: Toggle Offline Mode & Resume Sync</title>
+        <section>Flow 17: Toggle Offline Mode & Resume Sync</section>
+        <snippet>
+          *   **Purpose:** Ensure robust app functionality and data preservation even without an internet connection.
+          *   **Core User Journey:** User operates offline with local data caching, clearly indicated by a status. Upon reconnection, pending changes are synced automatically or with a prompt.
+          *   **Key UX Direction / Improvements:**
+              *   **Clear Offline Status Indicator:** A persistent visual cue (e.g., a banner) informs the user of their connectivity state.
+              *   **Automatic Sync with Notification:** Offers an option for hands-off data synchronization upon reconnection, with clear success/failure notifications.
+              *   **Easily Accessible "Sync Now" Button:** Provides immediate user control over initiating data sync when desired.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction - Flow 17, Screen 1-4 (Performance & Data Settings)</title>
+        <section>Flow 17: Toggle Offline Mode & Resume Sync</section>
+        <snippet>
+          When I am in the "Performance & Data" settings sub-screen (Flow 17, Screen 1 - `screen_1/code.html`)
+          When I toggle "Offline Mode"
+          Then the app switches between online and offline functionality, caching daily plans and logs locally
+          When I toggle "Auto-Sync Offline Data"
+          Then offline logs are automatically synced upon reconnection or require manual initiation
+          When I tap `[ Clear Local Cache ]`
+          Then a confirmation modal appears, and upon confirmation, local cached data is removed
+          And an offline status indicator is displayed in the main app UI when offline (Flow 17, Screen 2 - `screen_2/code.html`)
+          And a "Sync Now" button/prompt appears when connection is restored and unsynced data exists (Flow 17, Screen 2 & 3 - `screen_2/code.html` & `screen_3/code.html`)
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>Epic 4, Story 4.2: Performance & Data Settings</title>
+        <section>Epic 4: User Control & Settings</section>
+        <snippet>
+          ### Story 4.2: Performance & Data Settings
+          As a user,
+          I want to manage offline mode and data synchronization settings,
+          So that I can control my app's behavior in various network conditions and manage local data.
+
+          **Acceptance Criteria:**
+          Given I am in the "Performance & Data" settings sub-screen (Flow 17, Screen 1 - `screen_1/code.html`)
+          When I toggle "Offline Mode"
+          Then the app switches between online and offline functionality, caching daily plans and logs locally
+          When I toggle "Auto-Sync Offline Data"
+          Then offline logs are automatically synced upon reconnection or require manual initiation
+          When I tap `[ Clear Local Cache ]`
+          Then a confirmation modal appears, and upon confirmation, local cached data is removed
+          And an offline status indicator is displayed in the main app UI when offline (Flow 17, Screen 2 - `screen_2/code.html`)
+          And a "Sync Now" button/prompt appears when connection is restored and unsynced data exists (Flow 17, Screen 2 & 3 - `screen_2/code.html` & `screen_3/code.html`)
+
+          **Prerequisites:** Story 2.4, 4.1
+
+          **Technical Notes:** Implement frontend UI for settings based on `ux_design_content` (Flow 17, Screen 1-4). Implement client-side local storage (IndexedDB or similar) for offline caching of plans and logs. Develop logic for network detection and data synchronization with FastAPI `/logs` endpoint.
+        </snippet>
+      </artifact>
+    </docs>
+    <code>
+      <artifact>
+        <path>apps/web/src/app or apps/web/src/components</path>
+        <kind>UI Components</kind>
+        <symbol>Performance &amp; Data Settings UI</symbol>
+        <lines></lines>
+        <reason>React components for the "Performance &amp; Data" settings sub-screen</reason>
+      </artifact>
+      <artifact>
+        <path>apps/web/src/lib</path>
+        <kind>Client-side Logic</kind>
+        <symbol>Offline Mode Logic</symbol>
+        <lines></lines>
+        <reason>Enabling/disabling offline mode, caching daily plans and workout logs</reason>
+      </artifact>
+      <artifact>
+        <path>apps/web/src/lib</path>
+        <kind>Client-side Logic</kind>
+        <symbol>Synchronization Logic</symbol>
+        <lines></lines>
+        <reason>Detecting network connectivity changes and syncing offline data</reason>
+      </artifact>
+      <artifact>
+        <path>apps/api/app/api</path>
+        <kind>API Endpoint</kind>
+        <symbol>/logs</symbol>
+        <lines></lines>
+        <reason>Backend endpoint for data synchronization (enhancement for offline data)</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <dependency>
+        <name>Next.js</name>
+        <version></version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Zustand</name>
+        <version>5.0.9</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Jest</name>
+        <version>30.2.0</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>React Testing Library</name>
+        <version>16.3.0</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Playwright</name>
+        <version>1.57.0</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>FastAPI</name>
+        <version>0.123.7</version>
+        <ecosystem>Python</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Supabase (PostgreSQL)</name>
+        <version>2.86.0</version>
+        <ecosystem>Database</ecosystem>
+      </dependency>
+      <dependency>
+        <name>IndexedDB</name>
+        <version></version>
+        <ecosystem>Web API</ecosystem>
+      </dependency>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>UI adheres to `ux_design_content` principles (e.g., clear status indicators, confirmation modals).</constraint>
+    <constraint>Implement structured JSON logging for all relevant frontend and backend actions related to offline mode and data synchronization.</constraint>
+    <constraint>Verify consistency with naming conventions for components, functions, and API routes.</constraint>
+    <constraint>Robust error handling for network interruptions and data conflict resolution during synchronization.</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>Logs API</name>
+      <kind>REST endpoint (enhancement)</kind>
+      <signature>POST /logs</signature>
+      <path>apps/api/app/api</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      Frontend: Unit tests for components, offline logic, and sync; integration tests for local storage and API calls; E2E tests for full offline/sync user flows.
+      Backend: Integration tests for the `/logs` endpoint with offline data.
+    </standards>
+    <locations>
+      <location>apps/web/tests</location>
+      <location>apps/api/tests</location>
+    </locations>
+    <ideas>
+      <idea>Unit test React components for toggles, buttons, and status indicators in settings.</idea>
+      <idea>Integration test client-side caching mechanisms (IndexedDB) for daily plans and logs.</idea>
+      <idea>E2E test the full user journey of enabling/disabling offline mode, performing actions offline, and then syncing data upon reconnection.</idea>
+      <idea>Integration test the backend `/logs` endpoint for handling incremental offline data synchronization, including conflict scenarios.</idea>
+      <idea>Unit test network detection logic and auto-sync triggers.</idea>
+    </ideas>
+  </tests>
+</story-context>

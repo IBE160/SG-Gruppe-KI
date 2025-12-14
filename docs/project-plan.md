@@ -42,7 +42,7 @@
 ## Fase 3
 
 - [x] Implementation
-  - [] /run-agent-task sm *sprint-planning {prompt / user-input-file}
+  - [x] /run-agent-task sm *sprint-planning {prompt / user-input-file}
   - foreach epic in sprint planning:
      - [x] File : sprint-status.yaml
   - [x] /run-agent-task sm epic-tech-content {prompt / user-input-file}

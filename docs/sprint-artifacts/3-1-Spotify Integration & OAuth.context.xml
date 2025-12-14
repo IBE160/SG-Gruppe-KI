@@ -1,0 +1,87 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>1</storyId>
+    <title>Spotify Integration & OAuth</title>
+    <status>ready-for-dev</status>
+    <generatedAt>2025-12-14</generatedAt>
+    <generator>Manual Fallback (Quota Recovery)</generator>
+    <sourceStoryPath>docs/sprint-artifacts/3-1-Spotify Integration & OAuth.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>user</asA>
+    <iWant>to connect my Spotify account securely</iWant>
+    <soThat>the app can access my playlists and playback context.</soThat>
+
+    <tasks>
+      <task category="Task 1: Spotify OAuth Flow">
+        <description>Implement Spotify OAuth 2.0 authorization code flow.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 2: Backend Spotify Integration">
+        <description>Create backend services for exchanging auth codes and storing tokens securely.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 3: Frontend Integration">
+        <description>Add UI for connecting and disconnecting Spotify account.</description>
+        <status>pending</status>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="1">User can connect Spotify account via OAuth.</criterion>
+    <criterion id="2">Access and refresh tokens are stored securely.</criterion>
+    <criterion id="3">User can disconnect Spotify account.</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>Epic 3, Story 3.1: Spotify Integration & OAuth</title>
+        <section>Epic 3</section>
+      </artifact>
+    </docs>
+    <code>
+      <artifact>
+        <path>apps/api/app/api/spotify.py</path>
+        <kind>FastAPI Router</kind>
+      </artifact>
+      <artifact>
+        <path>apps/web/src/lib/spotify.ts</path>
+        <kind>Frontend Utility</kind>
+      </artifact>
+    </code>
+    <dependencies>
+      <dependency>
+        <name>FastAPI</name>
+        <ecosystem>Python</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Spotify Web API</name>
+        <ecosystem>External</ecosystem>
+      </dependency>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>OAuth tokens must be stored securely and refreshed automatically.</constraint>
+    <constraint>Spotify API rate limits must be respected.</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>Spotify OAuth API</name>
+      <kind>OAuth 2.0</kind>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      Backend: Integration tests for OAuth flow.
+      Frontend: Basic connection flow tests.
+    </standards>
+  </tests>
+</story-context>

@@ -1,0 +1,499 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>4</storyId>
+    <title>Workout Player Core UI &amp; Logging</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-14</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>C:\Users\Administrator\SG-Gruppe-KI\docs\sprint-artifacts\2-4-Workout Player Core UI &amp; Logging.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>user</asA>
+    <iWant>an intuitive interface to perform and log my workout sets (reps, weight, RPE) in real-time</iWant>
+    <soThat>I can accurately track my progress.</soThat>
+    <tasks>
+      <task category="Task 1: Implement Workout Player UI Shell &amp; Start Logic (AC: 1, 2, 3, 9)">
+        <description>Subtask 1.1: Create `apps/web/src/app/workout/player/page.tsx` for the main Workout Player UI.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 1: Implement Workout Player UI Shell &amp; Start Logic (AC: 1, 2, 3, 9)">
+        <description>Subtask 1.2: Implement navigation from a "Start Workout" button to this page.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 1: Implement Workout Player UI Shell &amp; Start Logic (AC: 1, 2, 3, 9)">
+        <description>Subtask 1.3: Display current exercise, set, and target values from the confirmed plan.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 1: Implement Workout Player UI Shell &amp; Start Logic (AC: 1, 2, 3, 9)">
+        <description>Subtask 1.4: Implement visual progress indicators for the workout.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 1: Implement Workout Player UI Shell &amp; Start Logic (AC: 1, 2, 3, 9)">
+        <description>Subtask 1.5: Write unit tests (Jest/RTL) for the workout player shell and navigation.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 2: Implement Set Logging UI &amp; State (AC: 4)">
+        <description>Subtask 2.1: Create `apps/web/src/components/WorkoutPlayer/SetLogger.tsx` for logging reps, weight, and RPE.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 2: Implement Set Logging UI &amp; State (AC: 4)">
+        <description>Subtask 2.2: Implement optimized input controls (e.g., large buttons, sliders) for real-time logging.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 2: Implement Set Logging UI &amp; State (AC: 4)">
+        <description>Subtask 2.3: Integrate with a new Zustand store (`apps/web/src/store/workoutStore.ts`) to manage the active workout state and logged data.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 2: Implement Set Logging UI &amp; State (AC: 4)">
+        <description>Subtask 2.4: Write unit tests (Jest/RTL) for the `SetLogger` component and `workoutStore`.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 3: Implement Rest Timer &amp; Navigation (AC: 5)">
+        <description>Subtask 3.1: Implement a rest timer component with countdown.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 3: Implement Rest Timer &amp; Navigation (AC: 5)">
+        <description>Subtask 3.2: Integrate the timer with `workoutStore` and control progression to the next set/exercise.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 3: Implement Rest Timer &amp; Navigation (AC: 5)">
+        <description>Subtask 3.3: Provide clear visual cues during rest periods (e.g., next exercise preview).</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 3: Implement Rest Timer &amp; Navigation (AC: 5)">
+        <description>Subtask 3.4: Write unit tests for the rest timer.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 4: Implement Backend `POST /logs` Endpoint (AC: 6, 7)">
+        <description>Subtask 4.1: Create Pydantic models for the workout log entry (exercise_name, set_number, actual_reps, actual_weight, rpe, etc.).</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 4: Implement Backend `POST /logs` Endpoint (AC: 6, 7)">
+        <description>Subtask 4.2: Create `apps/api/app/api/logs.py` and define a FastAPI router.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 4: Implement Backend `POST /logs` Endpoint (AC: 6, 7)">
+        <description>Subtask 4.3: Implement the `POST /logs` endpoint, protecting it with authentication and accepting incremental log entries.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 4: Implement Backend `POST /logs` Endpoint (AC: 6, 7)">
+        <description>Subtask 4.4: Create `apps/api/app/services/log_service.py` to handle storing log entries in the Supabase `WorkoutLogs` table.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 4: Implement Backend `POST /logs` Endpoint (AC: 6, 7)">
+        <description>Subtask 4.5: Update `apps/api/main.py` to include the new `logs` router.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 4: Implement Backend `POST /logs` Endpoint (AC: 6, 7)">
+        <description>Subtask 4.6: Write integration tests (Pytest) for the `POST /logs` endpoint, mocking Supabase interactions. (Prioritize resolving `ModuleNotFoundError` tech debt).</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 5: Implement Offline Persistence for Workout State (AC: 8)">
+        <description>Subtask 5.1: Implement logic to save the active workout state from `workoutStore` to local storage on every significant change (e.g., logging a set).</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 5: Implement Offline Persistence for Workout State (AC: 8)">
+        <description>Subtask 5.2: Implement logic to reload the workout state from local storage on app restart or page refresh.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 5: Implement Offline Persistence for Workout State (AC: 8)">
+        <description>Subtask 5.3: Implement a mechanism to clear local storage after a workout is completed and successfully synced.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 5: Implement Offline Persistence for Workout State (AC: 8)">
+        <description>Subtask 5.4: Write unit tests for local storage persistence logic.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 6: E2E Testing">
+        <description>Subtask 6.1: Write an E2E test (Playwright) that simulates starting a workout from a confirmed plan, logging multiple sets, progressing through exercises, and verifying that logs are sent to the backend and persisted.</description>
+        <status>pending</status>
+      </task>
+      <task category="Task 6: E2E Testing">
+        <description>Subtask 6.2: E2E test the offline persistence by simulating a browser refresh mid-workout and verifying state recovery.</description>
+        <status>pending</status>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="1">A "Start Workout" button is available (e.g., on the Dashboard or Plan Review screen) which initiates the Workout Player UI.</criterion>
+    <criterion id="2">The Workout Player UI is displayed in a full-screen, focused mode suitable for in-workout use.</criterion>
+    <criterion id="3">The UI clearly presents the current exercise, set number, and target reps/weight/RPE based on the confirmed workout plan.</criterion>
+    <criterion id="4">The UI provides intuitive controls for users to log their actual reps, weight, and RPE for each completed set in real-time.</criterion>
+    <criterion id="5">A rest timer is displayed between sets, showing a countdown and providing clear visual cues.</criterion>
+    <criterion id="6">Logged data for each set is incrementally sent to the `POST /logs` API endpoint.</criterion>
+    <criterion id="7">The logged data is successfully stored in the `WorkoutLogs` table in Supabase.</criterion>
+    <criterion id="8">The active workout state (e.g., current exercise, logged sets) is persisted in local storage to prevent data loss.</criterion>
+    <criterion id="9">The UI provides clear visual feedback (e.g., progress bars, checkmarks) on workout progress and completion.</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Decision Summary (Frontend Framework)</title>
+        <section>Decision Summary</section>
+        <snippet>
+          | Category | Decision | Version | Affects Epics | Rationale |
+          | -------- | -------- | ------- | ------------- | --------- |
+          | Framework | Next.js (with App Router) | | All frontend features | Provides a best-in-class React framework with SSR, SSG, and a strong ecosystem. |
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Decision Summary (State Management)</title>
+        <section>Decision Summary</section>
+        <snippet>
+          | Category | Decision | Version | Affects Epics | Rationale |
+          | -------- | -------- | ------- | ------------- | --------- |
+          | State Management | Zustand | 5.0.9 | All interactive frontend features | A lightweight, simple, and powerful state management solution that is easy to learn and integrates well with React/Next.js. |
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Decision Summary (Data Persistence)</title>
+        <section>Decision Summary</section>
+        <snippet>
+          | Category | Decision | Version | Affects Epics | Rationale |
+          | -------- | -------- | ------- | ------------- | --------- |
+          | Data Persistence | Supabase (PostgreSQL) | 2.86.0 | All data-related features | Provides a managed PostgreSQL database, simplifying setup and scaling. Also includes Auth and Storage. |
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Backend (FastAPI) handling Workout Log</title>
+        <section>FR Category to Architecture Mapping</section>
+        <snippet>
+          -   **Backend (FastAPI `api` app):** Responsible for all business logic, data processing, and AI integration.
+              -   Handles: ... Workout Log storage/retrieval ...
+              -   Interacts directly with the Supabase (PostgreSQL) database.
+              -   Provides the REST API for the frontend.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Security Architecture (RLS, Input Validation)</title>
+        <section>Security Architecture</section>
+        <snippet>
+          -   **Authorization:** Row Level Security (RLS) will be enabled in PostgreSQL to ensure users can only access their own data.
+          -   **Input Validation:** All incoming data to the API will be validated using **Pydantic** models in FastAPI.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Novel Architectural Patterns (Adaptive Workout Dialogue - real-time data capture)</title>
+        <section>Novel Architectural Patterns</section>
+        <snippet>
+          ### Pattern: Adaptive Workout Dialogue
+
+          ...
+
+          This story directly implements the interactive component of the "Adaptive Workout Dialogue" pattern, enabling real-time data capture.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction - Flow 7: Start Workout</title>
+        <section>Flow 7: Start Workout (Using AI Plan or Synced Plan)</section>
+        <snippet>
+          ### **Flow 7: Start Workout (Using AI Plan or Synced Plan)**
+
+          *   **Purpose:** Facilitate a smooth, prepared, and guided transition into the active workout session.
+          *   **Core User Journey:** User taps "Start Workout," sees a loading state, then proceeds to a pre-workout preparation screen that explicitly introduces the warm-up, allowing them to prepare before the main workout begins.
+          *   **Key UX Direction / Improvements:**
+              *   **Visual Loading Confirmation:** A clear loading indicator reassures the user that the app is preparing the workout.
+              *   **Explicit Warm-up Phase:** Guides users through a distinct warm-up, promoting safety and proper workout structure.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction - Flow 9: Perform & Log Workout</title>
+        <section>Flow 9: Perform & Log Workout</section>
+        <snippet>
+          ### **Flow 9: Perform & Log Workout**
+
+          *   **Purpose:** Provide an intuitive, efficient, and adaptable interface for logging workout sets during a session.
+          *   **Core User Journey:** User performs a set, quickly logs reps/weight/RPE via optimized inputs, and enters a rest period where the next exercise is previewed. Allows on-the-fly modifications.
+          *   **Key UX Direction / Improvements:**
+              *   **Optimized Input for Reps/Weight/RPE:** Uses large buttons, sliders, and smart pre-fills for rapid, error-free data entry.
+              *   **Clear Next Exercise Preview:** Displays upcoming exercises during rest periods, allowing for preparation and smoother transitions.
+              *   **Visual Progress Cues:** Shows current set progress and overall workout completion via progress bars/indicators.
+              *   **Integrated Mid-Workout Modification:** Provides a seamless UI to edit the plan mid-session without disrupting flow.
+              *   **Audio Cues/Guidance:** Optional spoken cues for rest timers, next exercises, and motivational prompts, reducing screen interaction.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>Epic 2, Story 2.4: Workout Player Core UI & Logging</title>
+        <section>Epic 2: AI-Powered Training & Logging</section>
+        <snippet>
+          ### Story 2.4: Workout Player Core UI & Logging
+          As a user,
+          I want an intuitive interface to perform and log my workout sets (reps, weight, RPE) in real-time,
+          So that I can accurately track my progress.
+
+          **Acceptance Criteria:**
+          *   **AC2.4.1:** A "Start Workout" button initiates the Workout Player UI.
+          *   **AC2.4.2:** The UI allows users to log reps, weight, and RPE for each set.
+          *   **AC2.4.3:** Logged data is sent to the `POST /logs` endpoint and stored in the `WorkoutLogs` table.
+
+          **Prerequisites:** Story 2.3, 4.1
+
+          **Technical Notes:** Implement frontend UI for settings based on `ux_design_content` (Flow 17, Screen 1-4). Implement client-side local storage (IndexedDB or similar) for offline caching of plans and logs. Develop logic for network detection and data synchronization with FastAPI `/logs` endpoint.
+        </snippet>
+      </artifact>
+    </docs>
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Decision Summary (Frontend Framework)</title>
+        <section>Decision Summary</section>
+        <snippet>
+          | Category | Decision | Version | Affects Epics | Rationale |
+          | -------- | -------- | ------- | ------------- | --------- |
+          | Framework | Next.js (with App Router) | | All frontend features | Provides a best-in-class React framework with SSR, SSG, and a strong ecosystem. |
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Decision Summary (State Management)</title>
+        <section>Decision Summary</section>
+        <snippet>
+          | Category | Decision | Version | Affects Epics | Rationale |
+          | -------- | -------- | ------- | ------------- | --------- |
+          | State Management | Zustand | 5.0.9 | All interactive frontend features | A lightweight, simple, and powerful state management solution that is easy to learn and integrates well with React/Next.js. |
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Decision Summary (Data Persistence)</title>
+        <section>Decision Summary</section>
+        <snippet>
+          | Category | Decision | Version | Affects Epics | Rationale |
+          | -------- | -------- | ------- | ------------- | --------- |
+          | Data Persistence | Supabase (PostgreSQL) | 2.86.0 | All data-related features | Provides a managed PostgreSQL database, simplifying setup and scaling. Also includes Auth and Storage. |
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Backend (FastAPI) handling Workout Log</title>
+        <section>FR Category to Architecture Mapping</section>
+        <snippet>
+          -   **Backend (FastAPI `api` app):** Responsible for all business logic, data processing, and AI integration.
+              -   Handles: ... Workout Log storage/retrieval ...
+              -   Interacts directly with the Supabase (PostgreSQL) database.
+              -   Provides the REST API for the frontend.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Security Architecture (RLS, Input Validation)</title>
+        <section>Security Architecture</section>
+        <snippet>
+          -   **Authorization:** Row Level Security (RLS) will be enabled in PostgreSQL to ensure users can only access their own data.
+          -   **Input Validation:** All incoming data to the API will be validated using **Pydantic** models in FastAPI.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Novel Architectural Patterns (Adaptive Workout Dialogue - real-time data capture)</title>
+        <section>Novel Architectural Patterns</section>
+        <snippet>
+          ### Pattern: Adaptive Workout Dialogue
+
+          ...
+
+          This story directly implements the interactive component of the "Adaptive Workout Dialogue" pattern, enabling real-time data capture.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction - Flow 7: Start Workout</title>
+        <section>Flow 7: Start Workout (Using AI Plan or Synced Plan)</section>
+        <snippet>
+          ### **Flow 7: Start Workout (Using AI Plan or Synced Plan)**
+
+          *   **Purpose:** Facilitate a smooth, prepared, and guided transition into the active workout session.
+          *   **Core User Journey:** User taps "Start Workout," sees a loading state, then proceeds to a pre-workout preparation screen that explicitly introduces the warm-up, allowing them to prepare before the main workout begins.
+          *   **Key UX Direction / Improvements:**
+              *   **Visual Loading Confirmation:** A clear loading indicator reassures the user that the app is preparing the workout.
+              *   **Explicit Warm-up Phase:** Guides users through a distinct warm-up, promoting safety and proper workout structure.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction - Flow 9: Perform & Log Workout</title>
+        <section>Flow 9: Perform & Log Workout</section>
+        <snippet>
+          ### **Flow 9: Perform & Log Workout**
+
+          *   **Purpose:** Provide an intuitive, efficient, and adaptable interface for logging workout sets during a session.
+          *   **Core User Journey:** User performs a set, quickly logs reps/weight/RPE via optimized inputs, and enters a rest period where the next exercise is previewed. Allows on-the-fly modifications.
+          *   **Key UX Direction / Improvements:**
+              *   **Optimized Input for Reps/Weight/RPE:** Uses large buttons, sliders, and smart pre-fills for rapid, error-free data entry.
+              *   **Clear Next Exercise Preview:** Displays upcoming exercises during rest periods, allowing for preparation and smoother transitions.
+              *   **Visual Progress Cues:** Shows current set progress and overall workout completion via progress bars/indicators.
+              *   **Integrated Mid-Workout Modification:** Provides a seamless UI to edit the plan mid-session without disrupting flow.
+              *   **Audio Cues/Guidance:** Optional spoken cues for rest timers, next exercises, and motivational prompts, reducing screen interaction.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>Epic 2, Story 2.4: Workout Player Core UI & Logging</title>
+        <section>Epic 2: AI-Powered Training & Logging</section>
+        <snippet>
+          ### Story 2.4: Workout Player Core UI & Logging
+          As a user,
+          I want an intuitive interface to perform and log my workout sets (reps, weight, RPE) in real-time,
+          So that I can accurately track my progress.
+
+          **Acceptance Criteria:**
+          *   **AC2.4.1:** A "Start Workout" button initiates the Workout Player UI.
+          *   **AC2.4.2:** The UI allows users to log reps, weight, and RPE for each set.
+          *   **AC2.4.3:** Logged data is sent to the `POST /logs` endpoint and stored in the `WorkoutLogs` table.
+
+          **Prerequisites:** Story 2.3, 4.1
+
+          **Technical Notes:** Implement frontend UI for settings based on `ux_design_content` (Flow 17, Screen 1-4). Implement client-side local storage (IndexedDB or similar) for offline caching of plans and logs. Develop logic for network detection and data synchronization with FastAPI `/logs` endpoint.
+        </snippet>
+      </artifact>
+    </docs>
+    <code>
+      <artifact>
+        <path>apps/web/src/app/workout/player/page.tsx</path>
+        <kind>UI Page</kind>
+        <symbol>WorkoutPlayerPage</symbol>
+        <lines></lines>
+        <reason>Main Workout Player UI</reason>
+      </artifact>
+      <artifact>
+        <path>apps/web/src/components/WorkoutPlayer/SetLogger.tsx</path>
+        <kind>UI Component</kind>
+        <symbol>SetLogger</symbol>
+        <lines></lines>
+        <reason>Component for logging reps, weight, and RPE</reason>
+      </artifact>
+      <artifact>
+        <path>apps/web/src/store/workoutStore.ts</path>
+        <kind>Zustand Store</kind>
+        <symbol>workoutStore</symbol>
+        <lines></lines>
+        <reason>Manages the active workout session state and logged data</reason>
+      </artifact>
+      <artifact>
+        <path>apps/api/app/api/logs.py</path>
+        <kind>FastAPI Router</kind>
+        <symbol>POST /logs</symbol>
+        <lines></lines>
+        <reason>Endpoint to receive and store workout log entries</reason>
+      </artifact>
+      <artifact>
+        <path>apps/api/app/services/log_service.py</path>
+        <kind>Log Service</kind>
+        <symbol>LogService</symbol>
+        <lines></lines>
+        <reason>Handles storing log entries in the Supabase `WorkoutLogs` table</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <dependency>
+        <name>Next.js</name>
+        <version></version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Zustand</name>
+        <version>5.0.9</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Jest</name>
+        <version>30.2.0</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>React Testing Library</name>
+        <version>16.3.0</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Playwright</name>
+        <version>1.57.0</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>FastAPI</name>
+        <version>0.123.7</version>
+        <ecosystem>Python</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Supabase (PostgreSQL)</name>
+        <version>2.86.0</version>
+        <ecosystem>Database</ecosystem>
+      </dependency>
+      <dependency>
+        <name>IndexedDB</name>
+        <version></version>
+        <ecosystem>Web API</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Pydantic</name>
+        <version></version>
+        <ecosystem>Python</ecosystem>
+      </dependency>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Real-time Logging: Frontend must provide highly responsive and intuitive experience (UI interactions < 200ms).</constraint>
+    <constraint>Frontend-Backend Contract: `POST /logs` endpoint's payload must match `WorkoutLogs` table schema and backend's Pydantic model.</constraint>
+    <constraint>State Management Complexity: `workoutStore` must be designed for clarity and testability.</constraint>
+    <constraint>Error Handling: Robust error handling for API calls; queue locally and retry if backend unreachable.</constraint>
+    <constraint>Backend testing issue persists; prioritize comprehensive frontend unit tests and E2E tests.</constraint>
+    <constraint>Optimized input for reps/weight/RPE.</constraint>
+    <constraint>Strict RLS policies in Supabase for `WorkoutLogs` by `user_id`.</constraint>
+    <constraint>UI adheres to `ux_design_content` principles (Flow 7 & 9).</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>Log Workout Data API</name>
+      <kind>REST endpoint</kind>
+      <signature>POST /logs</signature>
+      <path>apps/api/app/api/logs.py</path>
+    </interface>
+    <interface>
+      <name>Supabase WorkoutLogs Table</name>
+      <kind>Database Table</kind>
+      <signature>Schema for workout log entries</signature>
+      <path></path>
+    </interface>
+    <interface>
+      <name>Local Storage API</name>
+      <kind>Browser API</kind>
+      <signature>setItem, getItem, removeItem</signature>
+      <path></path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      Frontend: Unit tests for components, offline logic, and sync; integration tests for local storage and API calls; E2E tests for full offline/sync user flows.
+      Backend: Integration tests for the `/logs` endpoint with offline data.
+    </standards>
+    <locations>
+      <location>apps/web/tests</location>
+      <location>apps/api/tests</location>
+    </locations>
+    <ideas>
+      <idea>Unit test `WorkoutPlayer` and `SetLogger` components for UI rendering and interaction.</idea>
+      <idea>Unit test `workoutStore` for managing active workout state and logged data.</idea>
+      <idea>Integration test local storage persistence and recovery of workout state.</idea>
+      <idea>E2E test starting a workout, logging multiple sets, and verifying data persistence and API calls.</idea>
+      <idea>Integration test `POST /logs` endpoint for correct data storage and RLS application.</idea>
+    </ideas>
+  </tests>
+</story-context>
