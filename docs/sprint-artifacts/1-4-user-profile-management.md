@@ -10,36 +10,40 @@ so that I can keep my personal data up-to-date and influence AI plan generation.
 
 ## Requirements Context Summary
 
-This story focuses on providing users with the ability to view and edit their personal profile information, fitness goals, and equipment settings. This is crucial for maintaining accurate user data, which directly influences the AI's personalized plan generation.
+**Epic 1: Core Platform & User Foundation**
 
-**Key Requirements from Epics.md:**
-*   **User Goal:** View and edit profile information, goals, and equipment settings.
-*   **Purpose:** Keep personal data up-to-date and influence AI plan generation.
-*   **Acceptance Criteria:**
-    *   Logged-in users can navigate to a User Profile Management section.
-    *   Users can view their current goals, equipment, and personal information.
-    *   Users can modify these details.
-    *   Changes are persisted in the Supabase `Users` and `Goals` tables.
-    *   Validation is applied to updated fields.
-*   **Prerequisites:** Story 1.3 (Conversational Onboarding - Goals & Preferences)
+**Story 1.4: User Profile Management**
 
-**Architectural Guidance (from architecture.md):**
-*   **Data Models:**
-    *   `Users` table: `id`, `email`, `unit_preference`, `updated_at`.
-    *   `Goals` table: `id`, `user_id`, `primary_goal`, `training_frequency`, `training_duration`, `injuries_limitations`, `created_at`.
-    *   `Equipment` table: `id`, `user_id`, `name`.
-*   **APIs:**
-    *   `GET /users/me`: To retrieve current user profile data.
-    *   `PUT /users/me`: To update user profile data.
-*   **Frontend Components:** A `Profile UI Module` within `apps/web` will handle viewing and editing.
-*   **State Management:** Frontend state for profile management will use Zustand.
-*   **Backend Services:** `User & Goals Service` (within `apps/api`) will handle CRUD operations for user data.
+**Story Statement:**
+As a user,
+I want to view and edit my profile information, goals, and equipment settings,
+So that I can keep my personal data up-to-date and influence AI plan generation.
 
-**UX Design Considerations (from ux-design-direction.md):**
-*   While a dedicated "User Profile Management" flow is not explicitly detailed, `Flow 18: Change Settings (General, Health, Playback & Privacy)` includes `Privacy & Account Settings` (sub-screen `privacy/code.html`) which implies a location for user data management. The actual editing UI components will need to be designed to integrate with the existing app's dark theme and interaction patterns. This will likely involve forms with input fields for editable information.
+**Acceptance Criteria (from tech-spec-epic-1.md):**
+*   **AC1.4.1:** A logged-in user can navigate to a profile management page.
+*   **AC1.4.2:** The page displays the user's current goals, equipment, and personal information.
+*   **AC1.4.3:** The user can successfully modify their details, and the changes are persisted in the database.
 
-**Derived User Story Statement:**
-As a logged-in user, I want to manage my personal profile, fitness goals, and available equipment through a dedicated interface, so that I can ensure my AI-powered training plans are always based on my most current information.
+**Architectural Constraints & Guidance (from architecture.md & tech-spec-epic-1.md):**
+*   **Frontend (Next.js `apps/web`):**
+    *   Responsible for the Profile UI Module.
+    *   Utilizes Zustand (ADR-004) for state management.
+    *   UI components will reside within `apps/web/src/app/profile/` or similar.
+    *   Communicates with the backend via REST API calls (e.g., `GET /users/me`, `PUT /users/me`).
+*   **Backend (FastAPI `apps/api`):**
+    *   Handles `GET /users/me` and `PUT /users/me` API endpoints.
+    *   `User & Goals Service` in `apps/api` will manage CRUD operations for user profiles, goals, and preferences.
+    *   Interacts directly with the Supabase (PostgreSQL) database.
+    *   Uses Pydantic for input validation of user data.
+*   **Data Persistence (Supabase PostgreSQL):**
+    *   User profile data stored in the `Users` table.
+    *   Goals in `Goals` table, Equipment in `Equipment` table.
+*   **Security:**
+    *   API endpoints for user profile management (`/users/me`) MUST be protected and require a valid JWT `Bearer` token.
+    *   Backend logic will validate that the user ID in the token matches the requested resource.
+    *   RLS will ensure users can only access/modify their own data.
+    *   Input validation with Pydantic; Secrets management via environment variables.
+*   **Testing:** Jest/React Testing Library for frontend UI, Pytest for backend API and service logic. Playwright for E2E tests.
 ### Structure Alignment and Lessons Learned
 
 This section outlines how the current story (1.4: User Profile Management) aligns with the existing project structure and incorporates lessons learned from previous stories, particularly the `in-progress` and `review` status of Story 1.2 (User Authentication) and Story 1.3 (Conversational Onboarding), respectively.
@@ -153,3 +157,4 @@ Gemini
 
 - 2025-12-09 - BIP - Initial draft created from epic 1.4, including requirements context, architectural alignment, tasks, and learnings from previous story 1.3.
 - 2025-12-09 - BIP - Corrected story status to 'drafted', added missing 'Dev Agent Record' section, and enhanced testing subtasks to ensure full AC coverage.
+- 2025-12-14 - SM Agent - Reviewed and updated during create-story workflow run.

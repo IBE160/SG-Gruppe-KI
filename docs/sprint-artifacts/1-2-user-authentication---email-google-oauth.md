@@ -8,6 +8,152 @@ As a new user,
 I want to create an account or log in using my email/password or Google,
 So that I can securely access the application.
 
+### Requirements Context Summary
+
+**Epic 1: Core Platform & User Foundation**
+
+**Story 1.2: User Authentication - Email & Google OAuth**
+
+**Story Statement:**
+As a new user,
+I want to create an account or log in using my email/password or Google,
+So that I can securely access the application.
+
+**Acceptance Criteria:**
+*   Given I am on the Welcome/Authentication Gateway screen (Flow 1, Screen 1 - `welcome_screen/code.html`)
+*   When I choose "Create Account" or "Log In" using email and password
+*   Then I am presented with the Email Sign-up (Flow 1, Screen 2A - `email_signup/code.html`) or Email Login (Flow 1, Screen 2B - `email_authentication/code.html`) forms
+*   And I can successfully register or log in with valid credentials
+*   And I am redirected to either Onboarding (new user) or Dashboard (returning user)
+*   When I choose "Continue with Google"
+*   Then I am redirected to the Google OAuth flow
+*   And I can successfully authenticate with my Google account
+*   And I am redirected to either Onboarding (new user) or Dashboard (returning user)
+*   Then authentication is handled via Supabase Auth
+*   And user data is stored in the Supabase `Users` table
+
+**Architectural Constraints & Guidance:**
+*   **Authentication Mechanism:** Supabase Auth (Version 2.86.0) is the chosen solution for email/password and Google OAuth.
+*   **API Security:** All protected API endpoints will expect a `Bearer` token in the `Authorization` header, provided by Supabase Auth.
+*   **Data Model:** User data will be stored in the Supabase `Users` table. Row Level Security (RLS) should be enabled.
+*   **Input Validation:** Pydantic models in FastAPI will validate all incoming data to the API.
+*   **Error Handling:** Backend will return errors in a consistent JSON format (`{"error": {"message": ..., "code": ...}}`). Frontend will use React Error Boundaries for graceful recovery.
+*   **Project Structure:** Frontend (Next.js `web` app) and Backend (FastAPI `api` app) will handle authentication logic in their respective layers, communicating via REST API calls. Test files should be co-located (`*.test.ts` or `*.spec.ts`).
+*   **Environment Variables:** API keys and secrets for Supabase will be managed via environment variables.
+
+**UX/UI Context (from ux-design-direction.md):**
+*   **Flow 1: Account Creation & Authentication:**
+    *   Primary Brand Aesthetic: Dark theme with vibrant green primary accent.
+    *   Direct Account Actions: Prioritizes "Create Account" and "Log In" buttons, followed by social login icons.
+    *   Dedicated Sign-up & Login Screens: Distinct, optimized forms for email sign-up (with password strength) and email login (with forgot password option).
+    *   Prominent Forgot Password: Easy access to account recovery.
+
+### Project Structure Alignment and Lessons Learned
+
+**Based on Architectural Guidance:**
+
+*   **Frontend (Next.js `apps/web`):**
+    *   Authentication UI components (Welcome, Login, Sign-up, Google OAuth) will reside within `apps/web/src/app/auth/` or a similar dedicated directory following the App Router conventions.
+    *   State management related to authentication (e.g., user session, login status) will use Zustand and be defined in `apps/web/src/store/authStore.ts`.
+    *   API calls to the backend for authentication will be encapsulated in a service or utility within `apps/web/src/lib/authApi.ts`.
+    *   UI components will adhere to Tailwind CSS for styling and `PascalCase` naming conventions.
+    *   Testing for frontend components will use Jest/React Testing Library, with files co-located (e.g., `ComponentName.test.tsx`).
+
+*   **Backend (FastAPI `apps/api`):**
+    *   Authentication API routes (register, login, oauth/google) will be defined within a router (e.g., `apps/api/app/api/auth.py`) and included in `main.py` with a `/api/v1` prefix.
+    *   Authentication logic (e.g., interacting with Supabase Auth, JWT handling) will be in a service layer (e.g., `apps/api/app/services/auth_service.py`).
+    *   Pydantic models for request/response validation will be defined for authentication endpoints.
+    *   Interaction with Supabase for user data will be via direct Supabase client calls or a dedicated repository/ORM layer.
+    *   Testing for backend endpoints will use Pytest, with files co-located (e.g., `test_auth.py` in `apps/api/tests/api/`).
+
+**Lessons Learned from Previous Stories:**
+
+*   This is the first feature story for implementation. No previous story learnings are directly applicable. We will establish best practices for documentation and code patterns within this story.
+
+## Acceptance Criteria
+
+1.  Given I am on the Welcome/Authentication Gateway screen (Flow 1, Screen 1 - `welcome_screen/code.html`)
+2.  When I choose "Create Account" or "Log In" using email and password
+3.  Then I am presented with the Email Sign-up (Flow 1, Screen 2A - `email_signup/code.html`) or Email Login (Flow 1, Screen 2B - `email_authentication/code.html`) forms
+4.  And I can successfully register or log in with valid credentials
+5.  And I am redirected to either Onboarding (new user) or Dashboard (returning user)
+6.  When I choose "Continue with Google"
+7.  Then I am redirected to the Google OAuth flow
+8.  And I can successfully authenticate with my Google account
+9.  And I am redirected to either Onboarding (new user) or Dashboard (returning user)
+10. Then authentication is handled via Supabase Auth
+11. And user data is stored in the Supabase `Users` table
+
+## Tasks / Subtasks
+
+**Frontend (Next.js - `apps/web`):**
+
+- [ ] **Implement Welcome/Authentication Gateway Screen (AC: 1, UX: Direct Account Actions)**
+  - [ ] Create `apps/web/src/app/auth/welcome/page.tsx`
+  - [ ] Implement UI with "Create Account", "Log In" buttons, and "Continue with Google" option.
+  - [ ] Apply dark theme and green accent branding.
+  - [ ] Ensure navigation to appropriate email forms or Google OAuth flow.
+- [ ] **Implement Email Sign-up Form (AC: 2, UX: Dedicated Sign-up Screens)**
+  - [ ] Create `apps/web/src/app/auth/signup/page.tsx`
+  - [ ] Implement form fields for email and password (with strength indicator).
+  - [ ] Integrate with Supabase client for user registration (`authApi.ts`).
+  - [ ] Handle successful registration (redirection to Onboarding/Dashboard).
+  - [ ] Implement error handling and display user-friendly messages.
+- [ ] **Implement Email Login Form (AC: 3, UX: Dedicated Login Screens)**
+  - [ ] Create `apps/web/src/app/auth/login/page.tsx`
+  - [ ] Implement form fields for email and password.
+  - [ ] Include "Forgot Password" link.
+  - [ ] Integrate with Supabase client for user login (`authApi.ts`).
+  - [ ] Handle successful login (redirection to Onboarding/Dashboard).
+  - [ ] Implement error handling and display user-friendly messages.
+- [ ] **Implement Google OAuth Client-side Flow (AC: 4)**
+  - [ ] Integrate Supabase client for Google OAuth redirection.
+  - [ ] Handle callback from Google OAuth and process session.
+- [ ] **Manage Frontend Authentication State (AC: 5)**
+  - [ ] Create `apps/web/src/store/authStore.ts` using Zustand to manage user session.
+  - [ ] Implement logic to store and retrieve JWTs securely.
+  - [ ] Implement protected routes/components based on authentication status.
+
+**Backend (FastAPI - `apps/api`):**
+
+- [ ] **Setup Supabase Client & Configuration**
+  - [ ] Ensure Supabase URL and anonymous key are configured as environment variables.
+  - [ ] Initialize Supabase client in the backend.
+- [ ] **Implement Register Endpoint (`/api/v1/auth/register`) (AC: 2)**
+  - [ ] Create Pydantic models for request body (email, password).
+  - [ ] Integrate with Supabase Auth for user creation.
+  - [ ] Handle successful user creation (return relevant user data/status).
+  - [ ] Implement error handling for registration failures.
+- [ ] **Implement Login Endpoint (`/api/v1/auth/login`) (AC: 3)**
+  - [ ] Create Pydantic models for request body (email, password).
+  - [ ] Integrate with Supabase Auth for user sign-in.
+  - [ ] Handle successful login (return relevant user data/JWT).
+  - [ ] Implement error handling for login failures.
+- [ ] **Implement Google OAuth Callback Endpoint (`/api/v1/auth/oauth/google`) (AC: 4)**
+  - [ ] Handle the callback from Google OAuth.
+  - [ ] Integrate with Supabase Auth to exchange code for session.
+  - [ ] Ensure user data is stored/updated in Supabase `Users` table.
+- [ ] **Ensure Data Storage in Supabase `Users` Table (AC: 5)**
+  - [ ] Verify user data is correctly persisted in the `Users` table upon registration/login.
+  - [ ] (Future) Implement Row Level Security (RLS) for user data (Architectural Mandate).
+
+**Testing:**
+
+- [ ] **Frontend Unit/Integration Tests**
+  - [ ] Write tests for authentication UI components (Jest/React Testing Library).
+  - [ ] Write tests for Zustand auth store.
+  - [ ] Write tests for Supabase client integration (mocking API calls).
+- [ ] **Backend Unit/Integration Tests**
+  - [ ] Write tests for `/api/v1/auth/register` endpoint (Pytest).
+  - [ ] Write tests for `/api/v1/auth/login` endpoint (Pytest).
+  - [ ] Write tests for `/api/v1/auth/oauth/google` endpoint (Pytest).
+  - [ ] Mock Supabase interactions in tests.
+- [ ] **End-to-End Tests (Playwright)**
+  - [ ] Write Playwright tests for successful user registration via email.
+  - [ ] Write Playwright tests for successful user login via email.
+  - [ ] Write Playwright tests for successful user login via Google OAuth (if feasible in E2E).
+  - [ ] Verify redirection to Onboarding/Dashboard after successful authentication.
+
 ## Acceptance Criteria
 
 1.  The Welcome screen provides options for email/password and Google authentication (Flow 1, Screen 1 - `welcome_screen/code.html`).
@@ -122,3 +268,5 @@ Gemini
 
 
 ## Change Log
+- **2025-12-14**: Story drafted/updated by SM agent.
+

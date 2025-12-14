@@ -1,6 +1,6 @@
 # Story 4.4: General & Appearance Settings
 
-Status: drafted
+Status: ready-for-dev
 
 ## Story
 
@@ -67,3 +67,8 @@ No explicit lessons learned from previous stories are available as Story 4.3 ("P
 *   `docs/ux-design-direction.md`
 *   `docs/validation-report-architecture.md`
 *   `docs/sprint-artifacts/sprint-status.yaml`
+
+## Dev Agent Record
+
+### Context Reference
+- docs/sprint-artifacts/4-4-General & Appearance Settings.context.xml

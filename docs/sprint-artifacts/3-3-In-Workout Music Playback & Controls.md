@@ -1,6 +1,6 @@
 # Story 3.3: In-Workout Music Playback & Controls
 
-Status: drafted
+Status: ready-for-dev
 
 ## Story
 
@@ -80,3 +80,8 @@ No explicit lessons learned from previous stories are available as Story 3.2 ("A
 *   `docs/ux-design-direction.md`
 *   `docs/validation-report-architecture.md`
 *   `docs/sprint-artifacts/sprint-status.yaml`
+
+## Dev Agent Record
+
+### Context Reference
+- docs/sprint-artifacts/3-3-In-Workout Music Playback & Controls.context.xml

@@ -1,6 +1,6 @@
 # Story 3.2: AI-Driven Session Mix Generation
 
-Status: drafted
+Status: ready-for-dev
 
 ## Story
 
@@ -102,3 +102,8 @@ No explicit lessons learned from previous stories are available as Story 3.1 ("S
 *   `docs/ux-design-direction.md`
 *   `docs/validation-report-architecture.md`
 *   `docs/sprint-artifacts/sprint-status.yaml`
+
+## Dev Agent Record
+
+### Context Reference
+- docs/sprint-artifacts/3-2-AI-Driven Session Mix Generation.context.xml
