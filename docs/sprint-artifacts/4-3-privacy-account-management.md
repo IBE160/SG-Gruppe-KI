@@ -1,5 +1,7 @@
 # Story 4.3: Privacy & Account Management
 
+Status: ready-for-dev
+
 ## 1. Story Summary
 As a user, I want full control over my privacy settings, including data export and account deletion, so that I can manage my personal information in compliance with GDPR.
 
@@ -48,3 +50,24 @@ As a user, I want full control over my privacy settings, including data export a
 - [ ] Code has been peer-reviewed and approved.
 - [ ] Code is merged into the main development branch.
 - [ ] The `sprint-status.yaml` is updated to reflect the story's new status.
+
+## Dev Agent Record
+
+### Context Reference
+- `docs/architecture.md`
+- `docs/epics.md`
+- `docs/ux-design-direction.md`
+- `docs/sprint-artifacts/4-3-privacy-account-management.context.xml`
+
+### Agent Model Used
+Gemini
+
+### Debug Log References
+- No debug logs for this story yet.
+
+### Completion Notes List
+- Not started.
+
+### File List
+- Not started.
+

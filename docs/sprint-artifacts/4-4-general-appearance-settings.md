@@ -1,5 +1,7 @@
 # Story 4.4: General & Appearance Settings
 
+Status: ready-for-dev
+
 ## 1. Story Summary
 As a user, I want to customize general application preferences like language and appearance (theme, accent color, font size), so that I can personalize my app experience.
 
@@ -40,3 +42,24 @@ As a user, I want to customize general application preferences like language and
 - [ ] Code has been peer-reviewed and approved.
 - [ ] Code is merged into the main development branch.
 - [ ] The `sprint-status.yaml` is updated to reflect the story's new status.
+
+## Dev Agent Record
+
+### Context Reference
+- `docs/architecture.md`
+- `docs/epics.md`
+- `docs/ux-design-direction.md`
+- `docs/sprint-artifacts/4-4-general-appearance-settings.context.xml`
+
+### Agent Model Used
+Gemini
+
+### Debug Log References
+- No debug logs for this story yet.
+
+### Completion Notes List
+- Not started.
+
+### File List
+- Not started.
+
