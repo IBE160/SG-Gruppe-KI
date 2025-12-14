@@ -1,0 +1,27 @@
+<StoryContext>
+  <StorySummary>As a backend service, I want to expose an API endpoint that generates a structured daily workout plan based on user profile, historical data, and contextual inputs, including simulated recovery, so that the frontend can display a personalized plan.</StorySummary>
+  <FrontendContext>This story has no direct frontend deliverable, but the JSON contract of the API response is critical for the frontend stories that will consume it (2.2, 2.3).</FrontendContext>
+  <BackendContext>This is a backend-heavy story. It involves creating a new FastAPI endpoint, a service for orchestrating AI interaction (`AI Orchestrator`), and integrating with an external AI provider's API. Pydantic models will be used for strict data validation.</BackendContext>
+  <DataContext>The process will read user data (profile, goals, history) and write to the `WorkoutPlans` table in the Supabase PostgreSQL database.</DataContext>
+  <UXContext>The quality and structure of the AI-generated explanation for plan adaptations are key to fulfilling the "transparent AI" UX principle.</UXContext>
+  <Dependencies>
+    - Story 1.1 (Project Setup): The FastAPI `apps/api` project structure must exist.
+    - Story 1.3 (Onboarding): Requires user profile, goal, and equipment data to be available in the database to feed the AI prompt.
+    - External: Requires access and API keys for an external AI provider (e.g., OpenAI).
+  </Dependencies>
+  <Risks>
+    - The external AI API may be slow or unavailable, violating the latency requirements. Mitigation: Implement proper timeouts and error handling.
+    - The AI model may return an unexpectedly formatted JSON response, causing errors. Mitigation: Implement strict Pydantic validation on the response and robust error handling.
+    - The existing backend testing environment is broken (`ModuleNotFoundError`), which will make validating this complex endpoint difficult. Mitigation: Prioritize fixing the test environment as the first task of this story.
+  </Risks>
+  <Assumptions>
+    - The data required for the prompt (user goals, history, etc.) is available and in a queryable format from the database.
+    - We have a clear understanding of how to structure the prompt to get a consistent, high-quality response from the AI model.
+  </Assumptions>
+  <TechnicalNotes>
+    - The API endpoint will be `POST /plans/generate`.
+    - The response must include a structured JSON workout plan and a human-readable explanation for any adaptations.
+    - API latency for non-AI components should be < 300ms, and for the entire call ≤ 10s.
+    - Generated plans must be stored in the `WorkoutPlans` database table.
+  </TechnicalNotes>
+</StoryContext>

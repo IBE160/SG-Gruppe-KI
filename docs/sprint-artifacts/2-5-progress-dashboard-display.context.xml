@@ -1,0 +1,23 @@
+<StoryContext>
+  <StorySummary>As a user, I want to view a personalized dashboard with key metrics, progress visualizations, and a weekly review summary, so that I can monitor my performance and understand my progress over time.</StorySummary>
+  <FrontendContext>This story involves creating the main dashboard UI, which will be the primary landing page for returning users. It will feature data visualizations (charts, graphs) and summary statistics, such as total volume, intensity, and workout streaks. A charting library will be needed.</FrontendContext>
+  <BackendContext>New backend endpoints are required to provide aggregated data from `WorkoutLogs`. Calculating stats like total volume, streaks, and PRs on the backend will be more efficient than doing it on the client. An endpoint for the AI-driven "Weekly Review" will also be needed.</BackendContext>
+  <DataContext>This story is read-heavy. The backend will perform aggregation queries on the `WorkoutLogs` table to calculate stats. No new data is written.</DataContext>
+  <UXContext>The dashboard must be motivating and easy to understand at a glance. Data visualization is key to making the information digestible and engaging. It should feature a "Celebrate Your Wins" section for PRs and milestones, and provide access to a "Weekly Review".</UXContext>
+  <Dependencies>
+    - Story 2.4 (Workout Player): Requires workout data to be logged in the `WorkoutLogs` table to have anything to display.
+  </Dependencies>
+  <Risks>
+    - Database queries for aggregating dashboard stats could be slow, leading to a long load time for the dashboard. Mitigation: Use proper database indexing and efficient queries. Consider caching aggregated results if necessary.
+    - The logic for calculating PRs and streaks can be complex. Mitigation: Write clear business logic and comprehensive tests for these calculations on the backend.
+  </Risks>
+  <Assumptions>
+    - The data stored in `WorkoutLogs` is sufficient and structured correctly to calculate all the required metrics for the dashboard.
+    - A suitable chart/graph library (e.g., Recharts, Chart.js) has been chosen for the frontend.
+  </Assumptions>
+  <TechnicalNotes>
+    - Backend endpoints must be created to serve aggregated stats (total volume, intensity, streaks, PRs).
+    - A separate backend process or endpoint might be needed to generate the AI-driven "Weekly Review".
+    - The frontend will consume these endpoints and render the data using visualization components.
+  </TechnicalNotes>
+</StoryContext>

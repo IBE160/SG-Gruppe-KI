@@ -1,0 +1,23 @@
+<StoryContext>
+  <StorySummary>As a user, I want to input my daily mood, energy, and soreness levels via a Context Window, so that the AI can adapt my daily workout plan accordingly.</StorySummary>
+  <FrontendContext>This is a frontend-heavy story. It involves creating a new, reusable React component for the Context Window, managing its state with Zustand, and handling the API call to the backend.</FrontendContext>
+  <BackendContext>This story consumes the `/plans/generate` endpoint created in Story 2.1. It does not require any new backend development.</BackendContext>
+  <DataContext>The component will gather user input (mood, energy, text) and send it to the backend. It does not directly interact with the database.</DataContext>
+  <UXContext>The component must be intuitive and provide clear feedback, especially a loading indicator to manage user expectations during the AI's processing time (up to 10s). The "smart suggestions" feature mentioned in the UX spec is a key part of the experience and should be considered.</UXContext>
+  <Dependencies>
+    - Story 2.1 (AI Daily Plan Generation API): The `/plans/generate` backend endpoint must be available and its contract stable.
+  </Dependencies>
+  <Risks>
+    - The backend API from Story 2.1 might not be ready, blocking frontend development. Mitigation: Use a mock API server (e.g., using MSW - Mock Service Worker) to simulate the backend response and allow for parallel development.
+    - The 10-second latency from the AI can make the app feel unresponsive. Mitigation: A clear, non-blocking loading state in the UI is critical.
+  </Risks>
+  <Assumptions>
+    - The UI/UX designs for the Context Window (Flow 6, Screen 1) are finalized and available.
+    - A mechanism exists to get the current `userId` on the frontend to send with the API request.
+  </Assumptions>
+  <TechnicalNotes>
+    - The component should allow selection of mood (emoticons), energy level (segmented buttons), and optional free-text input.
+    - Submitting the context must trigger the AI Daily Plan generation API call.
+    - A visible loading state is required while the plan is being generated.
+  </TechnicalNotes>
+</StoryContext>

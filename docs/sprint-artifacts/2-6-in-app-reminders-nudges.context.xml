@@ -1,0 +1,23 @@
+<StoryContext>
+  <StorySummary>As a user, I want to receive subtle in-app reminders and nudges about my training plan or progress, so that I stay motivated and consistent.</StorySummary>
+  <FrontendContext>This is a frontend-focused story. It involves creating a system for displaying conditional UI elements (banners, notification dots) based on business logic. A "nudge manager" or similar client-side service would be appropriate to encapsulate the trigger logic.</FrontendContext>
+  <BackendContext>The backend might need to provide some supporting data to the frontend to help it decide which nudges to show (e.g., "last_login_date", "is_plan_generated_today"), but the core display logic will be on the client.</BackendContext>
+  <DataContext>The feature will read user state data, potentially fetched from various backend endpoints (e.g., related to `WorkoutPlans`, `WorkoutLogs`), to determine if a trigger condition for a nudge is met.</DataContext>
+  <UXContext>The key is subtlety. Nudges should feel like helpful suggestions, not annoying alerts. They must be easily dismissible and not block the user from their primary task. The dashboard is a likely location for these UI elements.</UXContext>
+  <Dependencies>
+    - Story 2.3 (Display & Review Daily Plan): A concept of an "active training plan" is needed to determine if a user should be nudged.
+    - Story 2.5 (Progress Dashboard Display): The dashboard is the most likely place to display these nudges.
+  </Dependencies>
+  <Risks>
+    - The logic for triggering conditions could become complex and hard to manage. Mitigation: Start with a few simple, clear triggers (e.g., `is_workout_day`, `is_plan_generated`) and build a scalable system for adding more.
+    - The nudges could become annoying to the user. Mitigation: Keep the design subtle and ensure the triggers are genuinely helpful and not overly frequent.
+  </Risks>
+  <Assumptions>
+    - We can clearly define an initial set of trigger conditions (e.g., "It's a workout day", "You haven't generated a plan yet today", "You hit a new PR yesterday!").
+  </Assumptions>
+  <TechnicalNotes>
+    - This is not for OS-level push notifications in this phase. All reminders are contained within the app's UI.
+    - A client-side service should be developed to check for trigger conditions when the app loads or specific events occur.
+    - The UI components (banners, badges) should be designed to be reusable.
+  </TechnicalNotes>
+</StoryContext>

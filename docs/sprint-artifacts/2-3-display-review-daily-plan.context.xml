@@ -1,0 +1,23 @@
+<StoryContext>
+  <StorySummary>As a user, I want to review the AI-generated daily workout plan, including any adaptations, and have the option to confirm or edit it, so that I maintain control over my training.</StorySummary>
+  <FrontendContext>This story involves creating the UI to display the workout plan received from the backend. It requires rendering a structured set of data (exercises, sets, reps, etc.) and providing clear `[ Confirm Plan ]` or `[ Edit Plan ]` calls to action.</FrontendContext>
+  <BackendContext>No new backend work is required. This story consumes the data provided by the `/plans/generate` endpoint from Story 2.1.</BackendContext>
+  <DataContext>The component will receive the structured JSON workout plan from the backend and manage it in its state, likely using a Zustand store to hold the plan data while it's being reviewed.</DataContext>
+  <UXContext>A key UX requirement is to transparently explain *why* the AI made changes to the plan. The UI must visually highlight these adaptations and present the AI's reasoning clearly, separating it from the core workout details. The flow should proceed to a "Plan Confirmed!" screen upon user approval.</UXContext>
+  <Dependencies>
+    - Story 2.1 (AI Daily Plan Generation API): The API must return a predictable and structured JSON object containing the plan and the explanation for any adaptations.
+    - Story 2.2 (Context Window): The workflow of this story immediately follows the completion of the Context Window flow.
+  </Dependencies>
+  <Risks>
+    - The data structure from the AI might be complex or inconsistent, making it difficult to render reliably. Mitigation: Work closely with the backend developer to ensure a stable and well-documented API contract.
+  </Risks>
+  <Assumptions>
+    - The plan data from the API contains all necessary fields for display (exercise name, sets, reps, weight, RPE, AI explanation, etc.).
+    - The `[ Edit Plan ]` functionality can be simplified for this story to navigate to an editing interface, with the actual editing logic handled in a subsequent story.
+  </Assumptions>
+  <TechnicalNotes>
+    - The UI must be able to render a nested structure of exercises and sets.
+    - State management (e.g., Zustand) should be used to hold the plan data during the review process.
+    - The component should handle the user's choice to either confirm or edit the plan.
+  </TechnicalNotes>
+</StoryContext>

@@ -1,0 +1,23 @@
+<StoryContext>
+  <StorySummary>As a user, I want an intuitive interface to perform and log my workout sets (reps, weight, RPE) in real-time, so that I can accurately track my progress.</StorySummary>
+  <FrontendContext>This is a very UI/UX-heavy story, creating the core interactive component of the application. It will involve complex state management (e.g., with Zustand) to track the user's progress through the workout, including the current exercise, set, and rest timers.</FrontendContext>
+  <BackendContext>A new backend endpoint (`POST /logs`) is required to receive and store the workout data as the user logs it. This endpoint should be designed for high-frequency, incremental updates.</BackendContext>
+  <DataContext>The frontend will send individual set results (reps, weight, RPE) to the backend. The backend will write this data to the `WorkoutLogs` table in the Supabase database.</DataContext>
+  <UXContext>The UI must be highly optimized for in-workout use: large touch targets, minimal typing, smart pre-fills, and clear visual hierarchy. A distinct Warm-up phase and a preview of the next exercise during rest periods are key UX elements. It needs to be usable while the user is physically active and potentially fatigued.</UXContext>
+  <Dependencies>
+    - Story 2.3 (Display & Review Daily Plan): This story's workflow begins after a plan is confirmed in Story 2.3. The confirmed plan data is the primary input.
+    - A new `/logs` backend endpoint needs to be created.
+  </Dependencies>
+  <Risks>
+    - Real-time data synchronization could fail, leading to lost workout data. Mitigation: Implement a robust client-side caching or queuing strategy for pending logs.
+    - The complexity of the workout player state could lead to bugs. Mitigation: Use a state machine or a well-structured state management pattern and write comprehensive tests.
+  </Risks>
+  <Assumptions>
+    - The UI/UX designs for the workout player (Flows 7 and 9) are detailed and cover all interaction states (active set, rest, exercise complete, workout finished).
+  </Assumptions>
+  <TechnicalNotes>
+    - The player needs to handle different phases of the workout (Warm-up, Main Workout, Cooldown).
+    - UI inputs for reps, weight, and RPE must be optimized for quick interaction (e.g., sliders, steppers).
+    - A new `/logs` API endpoint is required to persist data incrementally.
+  </TechnicalNotes>
+</StoryContext>
