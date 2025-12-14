@@ -1,0 +1,276 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>4</epicId>
+    <storyId>5</storyId>
+    <title>AI & Personalization Settings</title>
+    <status>drafted</status>
+    <generatedAt>2025-12-14</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/4-5-AI & Personalization Settings.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>user</asA>
+    <iWant>to understand and manage how the AI learns from my interactions, including viewing and resetting learned preferences and constraints</iWant>
+    <soThat>I can have transparent control over my personalized experience.</soThat>
+    <tasks>
+      <task category="Frontend (apps/web)">
+        <description>UI Implementation (Flow 18, Screen 4): Create React components for the "AI &amp; Personalization" settings sub-screen. This includes: Displaying "Learned Preferences" and "Learned Constraints" lists; Implementing "Edit" and "Delete" functionality for individual preferences/constraints; Implementing a "Reset All AI Learning" button with a confirmation modal.</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web)">
+        <description>API Integration: Implement client-side API calls to the FastAPI backend for viewing, editing, deleting, and resetting AI learned preferences.</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web) - Testing">
+        <description>Write unit tests for new React components and interaction logic.</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web) - Testing">
+        <description>Write integration tests for API calls.</description>
+        <status>pending</status>
+      </task>
+      <task category="Frontend (apps/web) - Testing">
+        <description>Write Playwright E2E tests for viewing, editing, deleting, and resetting AI preferences.</description>
+        <status>pending</status>
+      </task>
+      <task category="Backend (apps/api)">
+        <description>API Endpoints: Create API endpoints to store, retrieve, edit, delete, and reset AI learned preferences (e.g., `/user-preferences/ai`).</description>
+        <status>pending</status>
+      </task>
+      <task category="Backend (apps/api)">
+        <description>Data Persistence: Implement logic to store, retrieve, and manage AI learned preferences in Supabase (e.g., in a `UserPreferences` table or as part of the `Users` table metadata).</description>
+        <status>pending</status>
+      </task>
+      <task category="Backend (apps/api)">
+        <description>Robust Handling: Ensure robust handling of deleting AI memory and resetting preferences.</description>
+        <status>pending</status>
+      </task>
+      <task category="Backend (apps/api) - Testing">
+        <description>Write unit tests for AI preference management logic.</description>
+        <status>pending</status>
+      </task>
+      <task category="Backend (apps/api) - Testing">
+        <description>Write integration tests for the new API endpoints and Supabase interactions.</description>
+        <status>pending</status>
+      </task>
+      <task category="Refinement">
+        <description>Ensure all API communication adheres to the standard format `{"data": { ... }}` and `{"error": { ... }}`.</description>
+        <status>pending</status>
+      </task>
+      <task category="Refinement">
+        <description>Implement structured JSON logging for all relevant backend actions related to AI personalization settings.</description>
+        <status>pending</status>
+      </task>
+      <task category="Refinement">
+        <description>Verify consistency with naming conventions for components, functions, and API routes.</description>
+        <status>pending</status>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="1">Given I am in the "AI &amp; Personalization" settings sub-screen (Flow 18, Screen 4 - `ai/code.html`)</criterion>
+    <criterion id="2">When I view "Learned Preferences" and "Learned Constraints"</criterion>
+    <criterion id="3">Then I can see a list of rules the AI has developed based on my feedback</criterion>
+    <criterion id="4">When I tap `[ Edit ]` or `[ Delete ]` on a specific preference/constraint</criterion>
+    <criterion id="5">Then I can modify or remove that learning rule</criterion>
+    <criterion id="6">When I tap `[ Reset All AI Learning ]`</criterion>
+    <criterion id="7">Then a confirmation modal appears, and upon confirmation, all learned AI preferences and constraints are cleared</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Decision Summary (API Pattern)</title>
+        <section>Decision Summary</section>
+        <snippet>
+          | Category | Decision | Version | Affects Epics | Rationale |
+          | -------- | -------- | ------- | ------------- | --------- |
+          | API Pattern | FastAPI | 0.123.7 | AI Planning, Workout Logging, All Backend Services | Recommended in proposal; Excellent for AI/ML integration and high performance. |
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Decision Summary (Data Persistence)</title>
+        <section>Decision Summary</section>
+        <snippet>
+          | Category | Decision | Version | Affects Epics | Rationale |
+          | -------- | -------- | ------- | ------------- | --------- |
+          | Data Persistence | Supabase (PostgreSQL) | 2.86.0 | All data-related features | Provides a managed PostgreSQL database, simplifying setup and scaling. Also includes Auth and Storage. |
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Backend (FastAPI) for AI Integration</title>
+        <section>FR Category to Architecture Mapping</section>
+        <snippet>
+          -   **Backend (FastAPI `api` app):** Responsible for all business logic, data processing, and AI integration.
+              -   Handles: AI Daily-Plan Generation...
+              -   Interacts directly with the Supabase (PostgreSQL) database.
+              -   Provides the REST API for the frontend.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Security Architecture (Input Validation)</title>
+        <section>Security Architecture</section>
+        <snippet>
+          -   **Input Validation:** All incoming data to the API will be validated using **Pydantic** models in FastAPI.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction - Flow 18: Change Settings (General, Health, Playback & Privacy)</title>
+        <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
+        <snippet>
+          ### **Flow 18: Change Settings (General, Health, Playback & Privacy)**
+
+          *   **Purpose:** Provide a comprehensive and intuitive control panel for personalization and data management.
+          ...
+          *   **Key UX Direction / Improvements:**
+              ...
+              *   **Transparent AI Preference Management:** Allows users to easily edit or delete learned AI rules, fostering control.
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/ux-design-direction.md</path>
+        <title>UX Design Direction - Flow 18, Screen 4 (AI & Personalization Settings)</title>
+        <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
+        <snippet>
+          Given I am in the "AI & Personalization" settings sub-screen (Flow 18, Screen 4 - `ai/code.html`)
+          When I view "Learned Preferences" and "Learned Constraints"
+          Then I can see a list of rules the AI has developed based on my feedback
+          When I tap `[ Edit ]` or `[ Delete ]` on a specific preference/constraint
+          Then I can modify or remove that learning rule
+          When I tap `[ Reset All AI Learning ]`
+          Then a confirmation modal appears, and upon confirmation, all learned AI preferences and constraints are cleared
+        </snippet>
+      </artifact>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>Epic 4, Story 4.5: AI & Personalization Settings</title>
+        <section>Epic 4: User Control & Settings</section>
+        <snippet>
+          ### Story 4.5: AI & Personalization Settings
+          As a user,
+          I want to understand and manage how the AI learns from my interactions, including viewing and resetting learned preferences and constraints,
+          So that I have transparent control over my personalized experience.
+
+          **Acceptance Criteria:**
+          Given I am in the "AI & Personalization" settings sub-screen (Flow 18, Screen 4 - `ai/code.html`)
+          When I view "Learned Preferences" and "Learned Constraints"
+          Then I can see a list of rules the AI has developed based on my feedback
+          When I tap `[ Edit ]` or `[ Delete ]` on a specific preference/constraint
+          Then I can modify or remove that learning rule
+          When I tap `[ Reset All AI Learning ]`
+          Then a confirmation modal appears, and upon confirmation, all learned AI preferences and constraints are cleared
+
+          **Prerequisites:** Story 2.1, 4.1
+
+          **Technical Notes:** Implement frontend UI for AI & Personalization settings based on `ux_design_content` (Flow 18, Screen 4). Implement backend API endpoints to store, retrieve, and reset AI learned preferences (e.g., in a `UserPreferences` table or `Users` metadata column). Ensure robust handling of deleting AI memory.
+        </snippet>
+      </artifact>
+    </docs>
+    <code>
+      <artifact>
+        <path>apps/web/src/app or apps/web/src/components</path>
+        <kind>UI Components</kind>
+        <symbol>AI &amp; Personalization Settings UI</symbol>
+        <lines></lines>
+        <reason>React components for displaying and managing AI preferences</reason>
+      </artifact>
+      <artifact>
+        <path>apps/web/src/lib</path>
+        <kind>Client-side API integration</kind>
+        <symbol></symbol>
+        <lines></lines>
+        <reason>Client-side API calls to FastAPI backend for managing AI learned preferences</reason>
+      </artifact>
+      <artifact>
+        <path>apps/api/app/api</path>
+        <kind>API Endpoints</kind>
+        <symbol>/user-preferences/ai</symbol>
+        <lines></lines>
+        <reason>Endpoints to store, retrieve, edit, delete, and reset AI learned preferences</reason>
+      </artifact>
+      <artifact>
+        <path>apps/api/app/services</path>
+        <kind>Logic</kind>
+        <symbol></symbol>
+        <lines></lines>
+        <reason>Logic to store, retrieve, edit, delete, and reset AI learned preferences in Supabase</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <dependency>
+        <name>Next.js</name>
+        <version></version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>FastAPI</name>
+        <version>0.123.7</version>
+        <ecosystem>Python</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Supabase (PostgreSQL)</name>
+        <version>2.86.0</version>
+        <ecosystem>Database</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Zustand</name>
+        <version>5.0.9</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Jest</name>
+        <version>30.2.0</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>React Testing Library</name>
+        <version>16.3.0</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+      <dependency>
+        <name>Playwright</name>
+        <version>1.57.0</version>
+        <ecosystem>JS/TS</ecosystem>
+      </dependency>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>API communication adheres to standard format `{"data": { ... }}` and `{"error": { ... }}`.</constraint>
+    <constraint>Structured JSON logging for all relevant backend actions related to AI personalization settings.</constraint>
+    <constraint>Verify consistency with naming conventions for components, functions, and API routes.</constraint>
+    <constraint>Robust handling of deleting AI memory and resetting preferences.</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>AI Preferences Management API</name>
+      <kind>REST endpoint</kind>
+      <signature>GET/POST/PUT/DELETE /user-preferences/ai</signature>
+      <path>apps/api/app/api</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Frontend: Unit tests for components and interaction logic; integration tests for API calls; E2E tests for viewing, editing, deleting, and resetting AI preferences.
+      Backend: Unit tests for AI preference management logic; integration tests for API endpoints and Supabase interactions.
+    </standards>
+    <locations>
+      <location>apps/web/tests</location>
+      <location>apps/api/tests</location>
+    </locations>
+    <ideas>
+      <idea>Unit test React components for displaying learned preferences/constraints, and for the edit/delete/reset functionality.</idea>
+      <idea>Integration test API calls for managing AI preferences, including error handling.</idea>
+      <idea>E2E test the full user journey of viewing, editing, deleting, and resetting AI preferences through the UI.</idea>
+      <idea>Unit test backend logic for storing, retrieving, and manipulating AI preferences in Supabase.</idea>
+      <idea>Integration test API endpoints for AI preference management with Supabase interaction.</idea>
+    </ideas>
+  </tests>
+</story-context>
