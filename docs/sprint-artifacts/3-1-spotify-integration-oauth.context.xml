@@ -1,0 +1,24 @@
+<StoryContext>
+  <StorySummary>As a user, I want to securely connect my Spotify account to the app, so that I can enable AI-powered music features for my workouts.</StorySummary>
+  <FrontendContext>This story requires creating the UI for the connection flow, including the explainer screen (Flow 3, Screen 1) and the confirmation/error screen (Flow 3, Screen 3). This involves guiding the user to the external Spotify consent page and handling their return.</FrontendContext>
+  <BackendContext>This story is also backend-heavy. It requires an endpoint to initiate the OAuth flow and a callback endpoint to handle the authorization code from Spotify. A new service will be needed to manage the token exchange and securely store the credentials.</BackendContext>
+  <DataContext>A new `Integrations` table will be required in the Supabase database to store the user's Spotify `access_token` and `refresh_token` securely.</DataContext>
+  <UXContext>The initial explainer screen is critical for user trust. It must clearly articulate the value of the integration and the permissions being requested before redirecting the user away from the app.</UXContext>
+  <Dependencies>
+    - Story 1.2 (User Authentication): A logged-in user is required to associate the Spotify integration with an account.
+    - External: Requires a Spotify Developer account and a configured application to get a `Client ID` and `Client Secret`.
+  </Dependencies>
+  <Risks>
+    - The OAuth 2.0 PKCE flow is complex and prone to configuration errors (e.g., incorrect redirect URIs). Mitigation: Follow Spotify's documentation meticulously and use a well-vetted OAuth library if possible.
+    - Storing third-party credentials (tokens) is a security risk. Mitigation: Ensure tokens are encrypted at rest in the database and that access to the `Integrations` table is highly restricted.
+  </Risks>
+  <Assumptions>
+    - The required scopes (`user-read-playback-state`, etc.) provide all the necessary permissions for the music features planned in subsequent stories.
+    - The backend testing environment issues may complicate testing the callback endpoint.
+  </Assumptions>
+  <TechnicalNotes>
+    - The implementation must use the OAuth 2.0 PKCE flow for security.
+    - Requested scopes must include `user-read-playback-state`, `user-modify-playback-state`, and `user-read-recently-played`.
+    - Spotify tokens must be stored securely in the `Integrations` database table.
+  </TechnicalNotes>
+</StoryContext>

@@ -1,0 +1,25 @@
+<StoryContext>
+  <StorySummary>As a user, I want to control music playback and receive visual feedback on BPM matching during my workout, so that I can maintain focus and optimize my performance.</StorySummary>
+  <FrontendContext>This story involves augmenting the existing Workout Player UI (from Story 2.4) with new music-related controls (play/pause, skip, volume) and displays (BPM matching). It will require integration with a playback mechanism, likely the Spotify Web Playback SDK.</FrontendContext>
+  <BackendContext>A new endpoint (e.g., `POST /music/feedback`) is needed to receive feedback signals from the frontend, such as when a user skips a track. This data will be used to improve the AI Music Scorer in the future.</BackendContext>
+  <DataContext>The frontend will send music interaction events (e.g., `{ "track_id": "...", "action": "skipped" }`) to the new backend feedback endpoint. The backend will store this feedback, likely in a new `MusicFeedback` table or by adjusting scores in the `MusicPreferences` table.</DataContext>
+  <UXContext>The controls must be large, easily accessible, and integrated smoothly into the workout flow without being distracting. The BPM matching feedback should be a subtle, ambient indicator that enhances the experience without demanding attention.</UXContext>
+  <Dependencies>
+    - Story 2.4 (Workout Player): The core Workout Player UI must exist to be augmented with music controls.
+    - Story 3.2 (Session Mix Generation): A generated playlist is required to be played.
+    - External: The Spotify Web Playback SDK or a similar library is needed for in-browser playback control.
+  </Dependencies>
+  <Risks>
+    - The Spotify Web Playback SDK can have browser compatibility issues or require a premium Spotify account for full functionality. Mitigation: Thoroughly test on target browsers and clearly document the premium account requirement to users.
+    - Integrating music controls into the already-complex Workout Player UI could make it cluttered. Mitigation: Follow UX designs carefully to ensure a clean and intuitive layout.
+  </Risks>
+  <Assumptions>
+    - The playback SDK provides sufficient events and controls to meet all acceptance criteria.
+    - We can reliably link a "skip" action to a specific track and log it for the feedback loop.
+  </Assumptions>
+  <TechnicalNotes>
+    - The Spotify Web Playback SDK will need to be initialized with a valid token from Story 3.1.
+    - The frontend needs to manage the state of the music playback (playing, paused, current track, etc.).
+    - A new backend endpoint and corresponding service logic are required to handle the user feedback loop.
+  </TechnicalNotes>
+</StoryContext>

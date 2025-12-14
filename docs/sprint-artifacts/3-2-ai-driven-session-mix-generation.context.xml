@@ -1,0 +1,24 @@
+<StoryContext>
+  <StorySummary>As a user with a connected Spotify account, I want the AI to generate personalized, phase-aligned workout playlists ("Session Mix"), so that my music enhances my training experience.</StorySummary>
+  <FrontendContext>This story requires a new UI flow where the user can initiate the mix generation, set preferences (seeding with artists/genres), and review/customize the generated playlist before confirming.</FrontendContext>
+  <BackendContext>This is a highly complex backend story. It requires a new "AI Music Scorer" service that can fetch a user's listening history from Spotify, get audio features for tracks, rank tracks based on a scoring model, generate a final playlist matching the user's workout phases, and create a new playlist in the user's Spotify account.</BackendContext>
+  <DataContext>A new `MusicPreferences` table might be needed to store user-seeded artists/genres. The backend will heavily read from the Spotify API, requiring management of API tokens and potential caching strategies.</DataContext>
+  <UXContext>The ability to preview and customize the playlist is key to user agency. The AI should feel like a helpful DJ, not a dictator. The user must be able to see the proposed playlist and make changes before it is created in their Spotify account.</UXContext>
+  <Dependencies>
+    - Story 2.1 (AI Daily Plan): Requires an active workout plan to align the music with workout phases.
+    - Story 3.1 (Spotify OAuth): Requires valid Spotify API tokens to interact with the user's account.
+  </Dependencies>
+  <Risks>
+    - The "AI Music Scorer" logic is complex and may not produce good results initially. Mitigation: Start with a simple scoring model (e.g., based only on BPM) and iterate. Make the model's parameters configurable.
+    - Making numerous calls to the Spotify API could lead to rate-limiting issues. Mitigation: Implement caching for track audio features and other relatively static data. Use batch API endpoints where available.
+  </Risks>
+  <Assumptions>
+    - The Spotify API provides all the necessary audio features (BPM, energy, danceability) for the scoring model.
+    - We can create a "good enough" V1 of the AI scorer that provides tangible value to the user.
+  </Assumptions>
+  <TechnicalNotes>
+    - The backend service needs to handle Spotify token refreshes if an access token has expired.
+    - The "AI Music Scorer" should be designed to be extensible for future improvements.
+    - The frontend will need to handle the state of the playlist during customization.
+  </TechnicalNotes>
+</StoryContext>
