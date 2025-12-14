@@ -1,28 +1,48 @@
-// apps/web/src/app/auth/EmailSignupForm.tsx
 'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
+
+const supabase = createClient();
 
 const EmailSignupForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Supabase signup logic will go here
-    console.log({ email, password, confirmPassword });
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      alert(`Signup error: ${error.message}`);
+    } else {
+      alert("Account created! Check your email to confirm.");
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+
+      // Etter bekreftelse, redirect til onboarding
+      router.push('/onboarding');
+    }
   };
 
   return (
     <div className="flex min-h-screen w-full flex-col font-display bg-background-dark text-white">
       <header className="sticky top-0 z-10 p-4">
         <div className="relative flex items-center justify-center">
-            <Link href="/" passHref className="absolute left-0 flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
-                <span className="material-symbols-outlined">arrow_back_ios_new</span>
-            </Link>
+          <Link href="/" className="absolute left-0 flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+            <span className="material-symbols-outlined">arrow_back_ios_new</span>
+          </Link>
         </div>
       </header>
       <main className="flex flex-grow flex-col justify-between p-4">
@@ -47,6 +67,7 @@ const EmailSignupForm: React.FC = () => {
                 />
               </div>
             </div>
+
             <div>
               <label className="text-sm font-medium text-zinc-300" htmlFor="password">Password</label>
               <div className="relative mt-2">
@@ -65,18 +86,7 @@ const EmailSignupForm: React.FC = () => {
                 </button>
               </div>
             </div>
-            <div className="pt-1">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-zinc-300">Password strength</p>
-                <p className="text-sm font-bold text-primary">Strong</p>
-              </div>
-              <div className="mt-2 grid grid-cols-4 gap-2">
-                <div className="h-1.5 rounded-full bg-primary"></div>
-                <div className="h-1.5 rounded-full bg-primary"></div>
-                <div className="h-1.5 rounded-full bg-primary"></div>
-                <div className="h-1.5 rounded-full bg-white/20"></div>
-              </div>
-            </div>
+
             <div>
               <label className="text-sm font-medium text-zinc-300" htmlFor="confirm-password">Confirm Password</label>
               <div className="relative mt-2">
@@ -90,19 +100,15 @@ const EmailSignupForm: React.FC = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                {password === confirmPassword && confirmPassword !== '' && (
-                    <button className="absolute right-3 top-1/2 -translate-y-1/2 text-primary" type="button">
-                        <span className="material-symbols-outlined">check_circle</span>
-                    </button>
-                )}
               </div>
             </div>
+
             <div className="w-full pb-6 pt-8">
               <button
                 type="submit"
                 className="flex h-14 w-full cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-full bg-primary text-base font-bold leading-normal text-background-dark"
               >
-                <span className="truncate">Create Account</span>
+                Create Account
               </button>
               <p className="mt-4 text-center text-sm text-zinc-400">
                 Already have an account? <Link className="font-bold text-primary" href="/auth/login">Log in</Link>

@@ -1,4 +1,4 @@
-// File: C:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\apps\web\src\app\page.tsx
+// File: C:\Users\Administrator\SG-Gruppe-KI-main\apps\web\src\app\page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
