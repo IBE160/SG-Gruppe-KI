@@ -1,0 +1,23 @@
+<StoryContext>
+  <StorySummary>As a user, I want full control over my privacy settings, including data export and account deletion, so that I can manage my personal information in compliance with GDPR.</StorySummary>
+  <FrontendContext>This story involves creating UI for sensitive actions: a data export request page, a multi-step account deletion process with strong confirmation, and a simple logout button. This will require new pages and modal components.</FrontendContext>
+  <BackendContext>New backend endpoints are required for initiating a data export (`POST /export`) and handling account deletion (`DELETE /auth/user`). A logout endpoint may also be needed to invalidate server-side sessions or tokens, complementing the client-side token removal.</BackendContext>
+  <DataContext>Data export will involve querying the entire user's data from Supabase across multiple tables. Account deletion is a destructive, cascading operation that must remove records from all related tables (`Users`, `Goals`, `WorkoutPlans`, `WorkoutLogs`, `Integrations`).</DataContext>
+  <UXContext>Due to the sensitive nature of these actions, the UX must prioritize clarity, provide explicit warnings (e.g., "This action is irreversible"), and require strong confirmation (e.g., typing a specific phrase like "DELETE") to prevent accidental data loss.</UXContext>
+  <Dependencies>
+    - Story 1.2 (User Authentication): A secure authentication system is critical for these actions to ensure users can only affect their own accounts.
+    - Story 4.1 (Main Settings Menu): Requires the settings menu and navigation to access this sub-screen.
+  </Dependencies>
+  <Risks>
+    - Accidental data deletion or privacy breaches are significant risks. Mitigation: Implement robust backend logic with database transactions for deletion, and ensure strict authorization checks on all endpoints.
+    - GDPR compliance can be complex. Mitigation: Ensure all data related to the user is covered in the export and deletion processes. The export should be in a machine-readable format like JSON.
+  </Risks>
+  <Assumptions>
+    - Supabase's capabilities (Row Level Security, data functions) are sufficient for implementing GDPR-compliant data export and deletion.
+  </Assumptions>
+  <TechnicalNotes>
+    - The account deletion process on the backend should be handled within a database transaction to ensure atomicity.
+    - The data export process should likely be an asynchronous task (e.g., triggered by the API, processed in the background, with a notification sent to the user when the export is ready).
+    - Logout functionality should ensure the client-side JWT and any other session information are properly cleared.
+  </TechnicalNotes>
+</StoryContext>

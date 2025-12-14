@@ -1,0 +1,23 @@
+<StoryContext>
+  <StorySummary>As a user, I want to customize general application preferences like language and appearance (theme, accent color, font size), so that I can personalize my app experience.</StorySummary>
+  <FrontendContext>This is a frontend-heavy story. It involves creating UI components for various settings (dropdowns for language, toggles for notifications, color pickers for accent color, sliders for font size). It requires implementing logic to apply these preferences globally to the app's styling and internationalization.</FrontendContext>
+  <BackendContext>No new backend development is required unless preferences are to be persisted in the user's profile on the server. The existing user update endpoint could be used for this.</BackendContext>
+  <DataContext>User preferences will be stored, preferably in client-side local storage for immediate effect, with a possible backup to the `Users` table in Supabase for persistence across devices.</DataContext>
+  <UXContext>Real-time visual feedback for appearance changes (theme, color, font size) is crucial for a good user experience. The settings UI should be intuitive and allow for easy customization without having to navigate away to see the changes.</UXContext>
+  <Dependencies>
+    - Story 4.1 (Main Settings Menu): Requires the settings menu and navigation to access these sub-screens.
+  </Dependencies>
+  <Risks>
+    - Implementing theme and accent color changes across the entire application can be complex and error-prone if the styling system is not robust. Mitigation: Leverage CSS variables and a well-defined theming system (e.g., using Tailwind CSS theming capabilities).
+    - Language changes require a fully implemented internationalization (i18n) system. Mitigation: If i18n is not ready, this part of the story may need to be deferred or simplified to only save the preference without applying it.
+  </Risks>
+  <Assumptions>
+    - The UI/UX designs for the General and Appearance settings (Flow 18, Screens 2 &amp; 3) are finalized.
+    - A basic internationalization framework (like i18next) is or will be in place.
+  </Assumptions>
+  <TechnicalNotes>
+    - A global state management solution (e.g., Zustand) or React Context should be used to provide theme and language preferences throughout the application.
+    - Changes to theme/colors should be applied by changing a class on the `<body>` or root element and using CSS variables.
+    - User preferences should be persisted in local storage to be available on subsequent visits.
+  </TechnicalNotes>
+</StoryContext>

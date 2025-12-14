@@ -1,0 +1,24 @@
+<StoryContext>
+  <StorySummary>As a user, I want to understand and manage how the AI learns from my interactions, including viewing and resetting learned preferences and constraints, so that I have transparent control over my personalized experience.</StorySummary>
+  <FrontendContext>This story requires UI components to display a list of AI-learned preferences/constraints, plus forms or controls for editing, deleting, and resetting them. Confirmation modals for destructive actions (delete, reset all) are essential.</FrontendContext>
+  <BackendContext>New backend endpoints are required to fetch the user's learned AI preferences, update/delete a specific preference, and trigger a full reset of all AI learning for the user. These endpoints must be secure and properly authorized.</BackendContext>
+  <DataContext>A new database table (e.g., `UserAIPreferences`) or a structured JSON field within the existing `Users` table will be needed to store the AI's learned rules and constraints.</DataContext>
+  <UXContext>Transparency and user control are paramount. The UI should make it clear to the user, in simple terms, what the AI has "learned" and provide an easy way to influence or erase that learning. Destructive actions must have clear warnings and require confirmation.</UXContext>
+  <Dependencies>
+    - Story 2.1 (AI Daily Plan Generation API): Requires a mechanism for the AI to "learn" preferences and constraints based on user interactions. This story provides the "control panel" for that learning.
+    - Story 4.1 (Main Settings Menu): Requires the settings menu and navigation to access this sub-screen.
+  </Dependencies>
+  <Risks>
+    - Defining what "Learned Preferences" and "Learned Constraints" are, and how they are represented in data and to the user, can be abstract and difficult. Mitigation: Work closely with the AI Orchestrator developer and product team to clarify the data model and user-facing language.
+    - Resetting AI learning might be a complex operation affecting multiple data points or models. Mitigation: Ensure the backend logic for resetting is robust and atomic.
+  </Risks>
+  <Assumptions>
+    - The AI Orchestrator service (from Story 2.1) has a defined mechanism for how it "learns" from user feedback, making it possible to expose these learnings via an API.
+    - The "learned rules" can be presented to the user in a human-readable format.
+  </Assumptions>
+  <TechnicalNotes>
+    - The backend will need CRUD-like endpoints for managing AI preferences.
+    - The frontend will need to fetch and display a list of these preferences.
+    - A confirmation modal component should be used for `[Delete]` and `[Reset All]` actions.
+  </TechnicalNotes>
+</StoryContext>

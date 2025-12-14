@@ -1,0 +1,24 @@
+<StoryContext>
+  <StorySummary>As a user, I want to manage offline mode and data synchronization settings, so that I can control my app's behavior in various network conditions and manage local data.</StorySummary>
+  <FrontendContext>This story is primarily frontend. It requires UI components for toggling settings (Offline Mode, Auto-Sync), a confirmation modal for clearing the cache, and UI indicators for offline status and sync prompts. It also involves implementing the core client-side logic for offline storage using IndexedDB or a similar robust mechanism.</FrontendContext>
+  <BackendContext>The existing `/logs` API from Story 2.4 can likely be reused for sending individual cached log entries. A dedicated `POST /logs/sync` endpoint might be considered for batch updates, but is not strictly necessary for V1.</BackendContext>
+  <DataContext>This story involves heavy client-side data management. Workout plans and logs must be cached locally when offline. A synchronization queue should be managed to push data to the backend upon reconnection.</DataContext>
+  <UXContext>Clear visual cues for offline status (e.g., a banner or icon) and pending synchronizations are critical for user trust. The "Clear Local Cache" action is destructive and MUST be protected by a clear confirmation modal to prevent accidental data loss.</UXContext>
+  <Dependencies>
+    - Story 2.4 (Workout Player): Requires the ability to log workout data to implement offline caching.
+    - Story 4.1 (Main Settings Menu): Requires the settings menu and navigation to access this sub-screen.
+  </Dependencies>
+  <Risks>
+    - Implementing a robust offline mode with reliable synchronization is complex and can lead to data inconsistencies or race conditions. Mitigation: Choose a well-vetted client-side database/storage solution (like IndexedDB) and thoroughly test edge cases.
+    - Users might accidentally clear important unsynced data. Mitigation: The confirmation modal for "Clear Local Cache" must be explicit about the consequences.
+  </Risks>
+  <Assumptions>
+    - The existing `/logs` API endpoint from Story 2.4 is suitable for receiving individual or batched offline workout log entries during synchronization.
+  </Assumptions>
+  <TechnicalNotes>
+    - Implement a network status listener on the client.
+    - Use a service worker to handle offline caching and background sync if possible.
+    - The UI should clearly indicate when content is being served from the local cache.
+    - The "Sync Now" button should provide feedback on the sync progress and result.
+  </TechnicalNotes>
+</StoryContext>
