@@ -1,12 +1,37 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image'; // Assuming you'll use Next.js Image component
-import { createClient } from '@/utils/supabase/client'; // Add this import
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/utils/supabase/client';
+import { useState, useEffect } from 'react'; // Import useState and useEffect
 
-export default function WelcomeScreen() {
+// Helper function to generate PKCE code verifier and challenge
+const generateCodeVerifier = () => {
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  let randomString = '';
+  for (let i = 0; i < 128; i++) {
+    randomString += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return randomString;
+};
+
+const generateCodeChallenge = async (verifier: string) => {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(verifier);
+  const digest = await window.crypto.subtle.digest('SHA-256', data);
+  return btoa(String.fromCharCode(...new Uint8Array(digest)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+};
+
+const WelcomeScreen = () => {
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false); // To ensure window is defined
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const onCreateAccount = () => {
     router.push('/auth/signup');
@@ -16,35 +41,59 @@ export default function WelcomeScreen() {
     router.push('/auth/login');
   };
 
+
+
+
+
   const onGoogleAuth = async () => {
-    // Implement Google OAuth logic here
-          console.log('Initiate Google OAuth');
-          const supabase = createClient();
-    
-          try {
-            const { data, error } = await supabase.auth.signInWithOAuth({
-              provider: 'google',
-              options: {
-                redirectTo: `${window.location.origin}/auth/callback`,
-                skipBrowserRedirect: false, // Ensure browser redirect is not skipped
-              },
-            });
-    
-            if (error) {
-              console.error('Google OAuth Error (signInWithOAuth):', error.message);
-              // TODO: Display a user-friendly error message in the UI
-            } else {
-              console.log('Google OAuth initiated, data from signInWithOAuth:', data);
-              // Data should contain the URL to redirect to Google
-            }
-          } catch (e) {
-            console.error('Unexpected error during Google OAuth initiation:', e);
-          }
-        };
+    console.log('Initiate Google OAuth (Manual PKCE)');
+    const supabase = createClient();
+
+    try {
+      if (!isClient) {
+        console.warn('Cannot initiate OAuth: Not in client environment yet.');
+        return;
+      }
+
+      // 1. Manually generate code_verifier and code_challenge
+      const codeVerifier = generateCodeVerifier();
+      const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+      // 2. Explicitly store code_verifier in localStorage
+      localStorage.setItem('pkce_code_verifier', codeVerifier);
+      console.log('Stored code_verifier in localStorage:', codeVerifier);
+
+      // Debugging localStorage before initiating OAuth
+      console.log('localStorage before signInWithOAuth (manual):', JSON.stringify(localStorage));
+
+
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+          skipBrowserRedirect: false,
+          // 3. Pass code_challenge
+          queryParams: {
+            code_challenge: codeChallenge,
+            code_challenge_method: 'S256',
+          },
+        },
+      });
+
+      if (error) {
+        console.error('Google OAuth Error (signInWithOAuth):', error.message);
+      } else {
+        console.log('Google OAuth initiated, data from signInWithOAuth:', data);
+        console.log('localStorage after signInWithOAuth (manual):', JSON.stringify(localStorage));
+      }
+    } catch (e) {
+      console.error('Unexpected error during Google OAuth initiation (manual PKCE):', e);
+    }
+  };
 
   const onAppleAuth = () => {
-    // Implement Apple OAuth logic here (Phase 2)
     console.log('Initiate Apple OAuth');
+    // Implement Apple OAuth logic here
   };
 
   const onTermsOfService = () => {
@@ -133,4 +182,6 @@ export default function WelcomeScreen() {
       </div>
     </div>
   );
-}
+};
+
+export default WelcomeScreen;

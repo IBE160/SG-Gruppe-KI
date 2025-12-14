@@ -27,8 +27,17 @@ const AuthCallbackPage = () => {
       }
 
       if (code) {
+        // Retrieve the manually stored code_verifier
+        const codeVerifier = localStorage.getItem('pkce_code_verifier');
+        if (!codeVerifier) {
+          console.error('Code verifier not found in localStorage.');
+          router.push(`/auth/error?message=Code+verifier+missing+from+localStorage`);
+          return;
+        }
+        localStorage.removeItem('pkce_code_verifier'); // Clean up
+
         // This is a PKCE flow, exchange the code for a session
-        const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+        const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code, codeVerifier);
 
         if (exchangeError) {
           console.error('Error exchanging code for session:', exchangeError.message);
