@@ -1,312 +1,81 @@
-<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+<story-context id="4-3-privacy-account-management" v="1.0">
   <metadata>
     <epicId>4</epicId>
     <storyId>3</storyId>
     <title>Privacy & Account Management</title>
-    <status>drafted</status>
-    <generatedAt>2025-12-14</generatedAt>
-    <generator>BMAD Story Context Workflow</generator>
+    <status>ready-for-dev</status>
+    <generatedAt>2025-12-15</generatedAt>
+    <generator>BMAD Story Context Workflow (Regenerated)</generator>
     <sourceStoryPath>docs/sprint-artifacts/4-3-Privacy & Account Management.md</sourceStoryPath>
   </metadata>
-
   <story>
     <asA>user</asA>
     <iWant>full control over my privacy settings, including data export and account deletion</iWant>
     <soThat>I can manage my personal information in compliance with GDPR.</soThat>
     <tasks>
-      <task category="Frontend (apps/web)">
-        <description>UI Implementation (Flow 18, Screen 5): Create React components for the "Privacy &amp; Account" settings sub-screen, including buttons for "Export My Data," "Delete My Account," and "Logout."</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>UI Implementation (Flow 15, Screen 1-2): Create React components for the "Export Data Information &amp; Request" flow, including confirmation and timeline display.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>UI Implementation (Flow 16, Screen 1-4): Create React components for the "Delete My Account" flow, including warnings, explicit user input confirmation, and post-deletion screens.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>API Integration: Implement client-side API calls to the FastAPI backend for data export (`/export`), account deletion (`/auth/user`), and logout (Supabase Auth integration).</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write unit tests for new React components and confirmation flows.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write integration tests for API calls and Supabase Auth interactions.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write Playwright E2E tests for data export, account deletion, and logout user journeys.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api)">
-        <description>API Endpoints: Implement `/export` endpoint for GDPR-compliant data export, fetching user data from Supabase.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api)">
-        <description>API Endpoints: Implement `/auth/user` endpoint for account deletion, ensuring all associated data is removed from Supabase and tokens are invalidated.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api)">
-        <description>Supabase Integration: Ensure secure integration with Supabase for data operations (export, deletion) and authentication (logout).</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api)">
-        <description>GDPR Compliance: Implement logic to ensure data export and deletion adhere to GDPR requirements (`NFR002`, `NFR010`).</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api) - Testing">
-        <description>Write unit tests for data export and account deletion logic.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api) - Testing">
-        <description>Write integration tests for the new API endpoints and Supabase interactions.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Ensure all API communication adheres to the standard format `{"data": { ... }}` and `{"error": { ... }}`.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Implement structured JSON logging for all relevant backend actions related to privacy and account management.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Verify consistency with naming conventions for components, functions, and API routes.</description>
-        <status>pending</status>
-      </task>
+      - Frontend (apps/web):
+        - UI Implementation (Flow 18, Screen 5): Create React components for the "Privacy & Account" settings sub-screen.
+        - UI Implementation (Flow 15, Screen 1-2): Create React components for the "Export Data Information & Request" flow.
+        - UI Implementation (Flow 16, Screen 1-4): Create React components for the "Delete My Account" flow.
+        - API Integration: Implement client-side API calls to the FastAPI backend for data export, account deletion, and logout.
+        - Testing: Write unit tests, integration tests, and Playwright E2E tests.
+      - Backend (apps/api):
+        - API Endpoints: Implement `/export` endpoint and `/auth/user` endpoint for account deletion.
+        - Supabase Integration: Ensure secure integration with Supabase for data operations and authentication.
+        - GDPR Compliance: Implement logic to ensure data export and deletion adhere to GDPR requirements.
+        - Testing: Write unit tests and integration tests.
+      - Refinement: Ensure API communication adheres to standard format, implement structured JSON logging, verify consistency with naming conventions.
     </tasks>
   </story>
-
   <acceptanceCriteria>
-    <criterion id="1">Given I am in the "Privacy & Account" settings sub-screen (Flow 18, Screen 5 - `privacy/code.html`)</criterion>
-    <criterion id="2">When I tap `[ Export My Data ]`</criterion>
-    <criterion id="3">Then I am taken to the "Export Data Information & Request" screen (Flow 15, Screen 1 - `screen_1/code.html`)</criterion>
-    <criterion id="4">And I can request a GDPR-compliant export of my data, receiving confirmation and a timeline for delivery (Flow 15, Screen 2 - `screen_2/code.html`)</criterion>
-    <criterion id="5">When I tap `[ Delete My Account ]`</criterion>
-    <criterion id="6">Then I am presented with warnings and required to confirm deletion with explicit user input (Flow 16, Screen 1 & 2 - `screen_1/code.html` & `screen_2/code.html`)</criterion>
-    <criterion id="7">And upon confirmation, my account and all associated data are permanently removed as per GDPR (Flow 16, Screen 3 & 4 - `screen_3/code.html` & `screen_4/code.html`)</criterion>
-    <criterion id="8">When I tap `[ Logout ]`</criterion>
-    <criterion id="9">Then I am securely logged out of the application</criterion>
+    <criterion>AC4.3.1: The "Privacy & Account" settings sub-screen is accessible.</criterion>
+    <criterion>AC4.3.2: Tapping "[ Export My Data ]" navigates to the data export flow, allowing GDPR-compliant data export.</criterion>
+    <criterion>AC4.3.3: Tapping "[ Delete My Account ]" initiates the account deletion flow, requiring explicit confirmation and ensuring permanent removal as per GDPR.</criterion>
+    <criterion>AC4.3.4: Tapping "[ Logout ]" securely logs the user out of the application.</criterion>
   </acceptanceCriteria>
-
   <artifacts>
     <docs>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary (Authentication)</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | Authentication | Supabase Auth | 2.86.0 | User Onboarding, Security | Tightly integrated with our chosen database provider (Supabase), offering a seamless solution for handling logins with Google and Email/Password. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary (Data Persistence)</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | Data Persistence | Supabase (PostgreSQL) | 2.86.0 | All data-related features | Provides a managed PostgreSQL database, simplifying setup and scaling. Also includes Auth and Storage. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Security Architecture</title>
-        <section>Security Architecture</section>
-        <snippet>
-          ## Security Architecture
-
-          -   **Authentication:** Handled by **Supabase Auth**.
-          -   **Authorization:** Row Level Security (RLS) will be enabled in PostgreSQL to ensure users can only access their own data.
-          -   **Secrets Management:** API keys and other secrets will be managed via environment variables and will not be checked into source control.
-          -   **Input Validation:** All incoming data to the API will be validated using **Pydantic** models in FastAPI.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 15: Export Data (GDPR Compliance)</title>
-        <section>Flow 15: Export Data (GDPR Compliance)</section>
-        <snippet>
-          *   **Purpose:** Provide a clear, transparent, and secure process for users to export their personal data.
-          *   **Core User Journey:** User requests data export, receives confirmation with timeline, and later gets a secure link via email and in-app notification.
-          *   **Key UX Direction / Improvements:**
-              *   **Clear Scope of Exported Data:** Explicitly states what Phase 1 data will be included and what (e.g., wearables) will not, managing expectations.
-              *   **Estimated Generation Time:** Informs the user of the expected time for their data export to be compiled, reducing anxiety.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 16: Delete Account (Full GDPR Removal)</title>
-        <section>Flow 16: Delete Account (Full GDPR Removal)</section>
-        <snippet>
-          *   **Purpose:** Provide a secure, transparent, and irreversible process for users to permanently delete their account.
-          *   **Core User Journey:** User navigates to deletion option, receives strong warnings, is prompted for a deliberate confirmation (e.g., typing "DELETE"), then receives a timeline for data purging and is logged out.
-          *   **Key UX Direction / Improvements:**
-              *   **Enhanced Confirmation with User Input:** Requires typing a specific word or re-entering a password for final confirmation, preventing accidental deletion.
-              *   **Clear Deletion Timeline & Communication:** Informs the user of the timeframe for full data purging and confirms the process via email/in-app notification.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 18: Change Settings (Privacy & Account)</title>
-        <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
-        <snippet>
-          *   **Purpose:** Provide a comprehensive and intuitive control panel for personalization and data management.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/epics.md</path>
-        <title>Epic 4, Story 4.3: Privacy & Account Management</title>
-        <section>Epic 4: User Control & Settings</section>
-        <snippet>
-          ### Story 4.3: Privacy & Account Management
-          As a user,
-          I want full control over my privacy settings, including data export and account deletion,
-          So that I can manage my personal information in compliance with GDPR.
-
-          **Acceptance Criteria:**
-          Given I am in the "Privacy & Account" settings sub-screen (Flow 18, Screen 5 - `privacy/code.html`)
-          When I tap `[ Export My Data ]`
-          Then I am taken to the "Export Data Information & Request" screen (Flow 15, Screen 1 - `screen_1/code.html`)
-          And I can request a GDPR-compliant export of my data, receiving confirmation and a timeline for delivery (Flow 15, Screen 2 - `screen_2/code.html`)
-          When I tap `[ Delete My Account ]`
-          Then I am presented with warnings and required to confirm deletion with explicit user input (Flow 16, Screen 1 & 2 - `screen_1/code.html` & `screen_2/code.html`)
-          And upon confirmation, my account and all associated data are permanently removed as per GDPR (Flow 16, Screen 3 & 4 - `screen_3/code.html` & `screen_4/code.html`)
-          When I tap `[ Logout ]`
-          Then I am securely logged out of the application
-
-          **Prerequisites:** Story 1.2, 4.1
-
-          **Technical Notes:** Implement frontend UI for privacy and account settings based on `ux_design_content` (Flow 15, Flow 16, Flow 18 `code.html` files). Implement backend API endpoints for data export (`/export`) and account deletion (`/auth/user`), ensuring GDPR compliance (`NFR002`, `NFR010`). Integrate with Supabase for data deletion and token invalidation.
-        </snippet>
-      </artifact>
+        <doc>
+            <path>docs/architecture.md</path>
+            <title>Architecture</title>
+            <section>Security Architecture</section>
+            <snippet>Emphasis on GDPR compliance, secure handling of user data, and Pydantic validation for API endpoints.</snippet>
+        </doc>
+        <doc>
+            <path>docs/ux-design-direction.md</path>
+            <title>UX Design Direction</title>
+            <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
+            <snippet>The "Privacy & Account" settings sub-screen is detailed in Flow 18, Screen 5 - `privacy/code.html`.</snippet>
+        </doc>
     </docs>
     <code>
-      <artifact>
-        <path>apps/web/src/app or apps/web/src/components</path>
-        <kind>UI Components</kind>
-        <symbol>Privacy &amp; Account Settings UI</symbol>
-        <lines></lines>
-        <reason>React components for privacy and account management, data export, and account deletion flows</reason>
-      </artifact>
-      <artifact>
-        <path>apps/web/src/lib</path>
-        <kind>Client-side API integration</kind>
-        <symbol></symbol>
-        <lines></lines>
-        <reason>Client-side API calls for data export and deletion</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/api</path>
-        <kind>API Endpoint</kind>
-        <symbol>/export</symbol>
-        <lines></lines>
-        <reason>GDPR-compliant data export</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/api</path>
-        <kind>API Endpoint</kind>
-        <symbol>/auth/user</symbol>
-        <lines></lines>
-        <reason>Account deletion</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/services</path>
-        <kind>Logic</kind>
-        <symbol></symbol>
-        <lines></lines>
-        <reason>Logic for data export, account deletion, and Supabase integration</reason>
-      </artifact>
+      <!-- No existing code artifacts found relevant to this story. -->
     </code>
-    <dependencies>
-      <dependency>
-        <name>Next.js</name>
-        <version></version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>FastAPI</name>
-        <version>0.123.7</version>
-        <ecosystem>Python</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Supabase (PostgreSQL)</name>
-        <version>2.86.0</version>
-        <ecosystem>Database</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Zustand</name>
-        <version>5.0.9</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Jest</name>
-        <version>30.2.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>React Testing Library</name>
-        <version>16.3.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Playwright</name>
-        <version>1.57.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-    </dependencies>
   </artifacts>
-
   <constraints>
-    <constraint>API communication adheres to standard format `{"data": { ... }}` and `{"error": { ... }}`.</constraint>
-    <constraint>Structured JSON logging for all relevant backend actions related to privacy and account management.</constraint>
-    <constraint>Verify consistency with naming conventions for components, functions, and API routes.</constraint>
-    <constraint>GDPR compliance (`NFR002`, `NFR010`) for data export and deletion.</constraint>
-    <constraint>Secure handling of user data.</constraint>
-    <constraint>Pydantic validation for API endpoints.</constraint>
-    <constraint>Robust error handling during data export and account deletion processes.</constraint>
+    <constraint>GDPR compliance is paramount for data export and account deletion processes.</constraint>
+    <constraint>Account deletion must be irreversible and remove all associated user data.</constraint>
   </constraints>
   <interfaces>
-    <interface>
-      <name>Data Export API</name>
-      <kind>REST endpoint</kind>
-      <signature>POST /export</signature>
-      <path>apps/api/app/api</path>
-    </interface>
-    <interface>
-      <name>Account Deletion API</name>
-      <kind>REST endpoint</kind>
-      <signature>DELETE /auth/user</signature>
-      <path>apps/api/app/api</path>
-    </interface>
-    <interface>
-      <name>Supabase Auth (Logout)</name>
-      <kind>Auth Integration</kind>
-      <signature>Supabase client logout method</signature>
-      <path></path>
-    </interface>
+      <interface>
+        <name>Data Export API</name>
+        <kind>REST Endpoint</kind>
+        <signature>GET /export</signature>
+        <path>apps/api/app/api/export.py</path>
+      </interface>
+      <interface>
+        <name>Account Deletion API</name>
+        <kind>REST Endpoint</kind>
+        <signature>DELETE /auth/user</signature>
+        <path>apps/api/app/api/auth.py</path>
+      </interface>
   </interfaces>
   <tests>
-    <standards>
-      Frontend: Unit tests for components and confirmation flows; integration tests for API calls and Supabase Auth interactions; E2E tests for data export, account deletion, and logout user journeys.
-      Backend: Unit tests for data export and account deletion logic; integration tests for `/export` and `/auth/user` API endpoints.
-    </standards>
-    <locations>
-      <location>apps/web/tests</location>
-      <location>apps/api/tests</location>
-    </locations>
-    <ideas>
-      <idea>Unit test React components for data export and account deletion confirmation modals.</idea>
-      <idea>Integration test API calls for data export and deletion, including edge cases (e.g., invalid user ID).</idea>
-      <idea>E2E test the full user journey for account deletion, ensuring all warnings and confirmations are presented.</idea>
-      <idea>Unit test backend logic for GDPR compliance in data export and deletion.</idea>
-      <idea>Integration test Supabase interaction for data removal and token invalidation.</idea>
-    </ideas>
+      <standards>Unit tests for components and confirmation flows; integration tests for API calls and Supabase Auth; E2E tests for data export, account deletion, and logout user journeys.</standards>
+      <locations><location>apps/web/src/app/settings/privacy/</location></locations>
+      <ideas>
+          <idea>E2E test the full data export flow, including request, confirmation, and data delivery.</idea>
+          <idea>E2E test the account deletion flow, verifying warnings, explicit confirmation, and permanent data removal.</idea>
+      </ideas>
   </tests>
 </story-context>

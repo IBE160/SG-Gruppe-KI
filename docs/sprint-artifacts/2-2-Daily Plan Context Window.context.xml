@@ -1,373 +1,51 @@
-<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+<story-context id="2-2-daily-plan-context-window" v="1.1">
   <metadata>
     <epicId>2</epicId>
     <storyId>2</storyId>
     <title>Daily Plan Context Window</title>
-    <status>drafted</status>
-    <generatedAt>2025-12-14</generatedAt>
-    <generator>BMAD Story Context Workflow</generator>
-    <sourceStoryPath>C:\Users\Administrator\SG-Gruppe-KI\docs\sprint-artifacts\2-2-Daily Plan Context Window.md</sourceStoryPath>
+    <status>ready-for-dev</status>
+    <generatedAt>2025-12-15</generatedAt>
+    <generator>BMAD Story Context Workflow (Regenerated)</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-2-Daily Plan Context Window.md</sourceStoryPath>
   </metadata>
-
   <story>
     <asA>user</asA>
     <iWant>to input my daily mood, energy, and soreness levels via a Context Window</iWant>
     <soThat>the AI can adapt my daily workout plan accordingly.</soThat>
     <tasks>
-      <task category="Task 1: Implement Context Window UI Component (AC: 1, 2, 3, 4, 5)">
-        <description>Subtask 1.1: Create `apps/web/src/components/ContextWindow/ContextWindow.tsx` based on `Flow 6, Screen 1` (`screen_1/code.html`) from `ux-design-direction.md`.</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 1: Implement Context Window UI Component (AC: 1, 2, 3, 4, 5)">
-        <description>Subtask 1.2: Implement UI for mood input (emoticons/segmented buttons).</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 1: Implement Context Window UI Component (AC: 1, 2, 3, 4, 5)">
-        <description>Subtask 1.3: Implement UI for energy level input (segmented buttons).</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 1: Implement Context Window UI Component (AC: 1, 2, 3, 4, 5)">
-        <description>Subtask 1.4: Implement UI for soreness input (multi-select/free text).</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 1: Implement Context Window UI Component (AC: 1, 2, 3, 4, 5)">
-        <description>Subtask 1.5: Implement logic for "smart suggestions" based on mock data or a simple rule for Phase 1.</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 1: Implement Context Window UI Component (AC: 1, 2, 3, 4, 5)">
-        <description>Subtask 1.6: Write unit tests (Jest/RTL) for the Context Window component, verifying UI rendering and interaction with input fields.</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 2: Implement Context Window State Management">
-        <description>Subtask 2.1: Create `apps/web/src/store/contextStore.ts` using Zustand to manage the temporary state of mood, energy, and soreness inputs within the Context Window.</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 2: Implement Context Window State Management">
-        <description>Subtask 2.2: Integrate the `contextStore` with the `ContextWindow.tsx` component to capture user inputs.</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 2: Implement Context Window State Management">
-        <description>Subtask 2.3: Write unit tests for `contextStore.ts` to ensure state updates correctly.</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 3: Implement Context Submission Logic (AC: 6, 7)">
-        <description>Subtask 3.1: Implement an API utility or hook (e.g., in `apps/web/src/lib/planApi.ts`) to send the collected context data from `contextStore` to the `POST /api/v1/plans/generate` endpoint.</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 3: Implement Context Submission Logic (AC: 6, 7)">
-        <description>Subtask 3.2: Add a "Submit" button to the `ContextWindow.tsx` that triggers the API call.</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 3: Implement Context Submission Logic (AC: 6, 7)">
-        <description>Subtask 3.3: Handle loading and error states for the API call in the UI.</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 3: Implement Context Submission Logic (AC: 6, 7)">
-        <description>Subtask 3.4: Write integration tests (Jest) for the submission logic, mocking the API call.</description>
-        <status>pending</status>
-      </task>
-      <task category="Task 4: E2E Testing">
-        <description>Subtask 4.1: Write an E2E test (Playwright) that navigates to the dashboard, interacts with the Context Window, inputs data, and verifies that a `POST` request to `/plans/generate` is successfully made with the correct payload.</description>
-        <status>pending</status>
-      </task>
+      - [ ] **Task 1: Implement Context Window UI Component (AC: 1, 2, 3, 4, 5)**
+      - [ ] **Task 2: Implement Context Window State Management**
+      - [ ] **Task 3: Implement Context Submission Logic (AC: 6, 7)**
+      - [ ] **Task 4: E2E Testing**
     </tasks>
   </story>
-
   <acceptanceCriteria>
-    <criterion id="1">A "Context Window" UI is available on the dashboard.</criterion>
-    <criterion id="2">The Context Window allows users to input their mood (e.g., via emoticons or segmented buttons).</criterion>
-    <criterion id="3">The Context Window allows users to input their energy level (e.g., via segmented buttons).</criterion>
-    <criterion id="4">The Context Window allows users to input any soreness levels (e.g., via multi-select or free text).</criterion>
-    <criterion id="5">The Context Window includes "smart suggestions" based on historical patterns or contextual prompts.</criterion>
-    <criterion id="6">Submitting the context triggers a `POST` request to the `/plans/generate` endpoint with the collected context data.</criterion>
-    <criterion id="7">The context data sent to the backend adheres to the expected format of the `POST /plans/generate` endpoint.</criterion>
+    <criterion>AC2.2.1: A "Context Window" UI is available on the dashboard for the user to input mood, energy, and soreness.</criterion>
+    <criterion>AC2.2.2: Submitting the context triggers a call to the /plans/generate endpoint.</criterion>
   </acceptanceCriteria>
-
   <artifacts>
     <docs>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary (Frontend Framework)</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | Framework | Next.js (with App Router) | | All frontend features | Provides a best-in-class React framework with SSR, SSG, and a strong ecosystem. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary (State Management)</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | State Management | Zustand | 5.0.9 | All interactive frontend features | A lightweight, simple, and powerful state management solution that is easy to learn and integrates well with React/Next.js. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Project Structure (Frontend)</title>
-        <section>Project Structure</section>
-        <snippet>
-          my-ai-trainer/
-          ├── apps/
-          │   ├── web/                     # Next.js Frontend
-          │   │   ├── src/
-          │   │   │   ├── app/             # App Router: pages, layouts, components
-          │   │   │   ├── components/      # Shared UI components
-          │   │   │   ├── lib/             # Helper functions, utilities
-          │   │   │   ├── store/           # Zustand state management stores
-          │   │   │   └── styles/          # Global styles
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Backend (FastAPI) for AI Integration</title>
-        <section>FR Category to Architecture Mapping</section>
-        <snippet>
-          -   **Backend (FastAPI `api` app):** Responsible for all business logic, data processing, and AI integration.
-              -   Handles: AI Daily-Plan Generation...
-              -   Interacts directly with the Supabase (PostgreSQL) database.
-              -   Provides the REST API for the frontend.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Novel Architectural Patterns (Adaptive Workout Dialogue)</title>
-        <section>Novel Architectural Patterns</section>
-        <snippet>
-          ### Pattern: Adaptive Workout Dialogue
-
-          This pattern formalizes the conversational loop between the user and the AI, ensuring the AI's adaptations are transparent, effective, and continuously learning.
-
-          **Components:**
-          1.  **Context Window (Frontend):** The UI where the user inputs their daily qualitative feedback (mood, energy, soreness, etc.).
-          2.  **AI Orchestrator (Backend):** A service in the FastAPI backend that receives the user's context, fuses it with their profile and history, and constructs the prompt for the AI model.
-          ...
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 6: Generate AI Daily Plan</title>
-        <section>Flow 6: Generate AI Daily Plan</section>
-        <snippet>
-          ### **Flow 6: Generate AI Daily Plan**
-
-          *   **Purpose:** Enable users to provide real-time context to the AI and receive an adaptive, personalized workout plan.
-          *   **Core User Journey:** User accesses a "Context Window," inputs their current state (mood, energy) with smart suggestions. AI generates a plan, which is presented for review and optional adjustment before confirmation.
-          *   **Key UX Direction / Improvements:**
-              *   **Smart Context Window:** Pre-fills suggestions based on historical patterns and contextual prompts (e.g., "how are your legs feeling after yesterday's workout?").
-              *   **Transparent Plan Changes:** Visually highlights and explains *why* the AI adapted the plan based on user context, fostering trust.
-              *   **"Edit Plan" Option:** Provides users with the ability to make granular adjustments to the AI's proposed plan before confirmation, ensuring final control.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 6, Screen 1 (Context Window UI)</title>
-        <section>Flow 6: Generate AI Daily Plan</section>
-        <snippet>
-          The UI for the Context Window should be based on `Flow 6, Screen 1 - screen_1/code.html` (top section) from `ux_design_content`.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/epics.md</path>
-        <title>Epic 2, Story 2.2: Daily Plan Context Window</title>
-        <section>Epic 2: AI-Powered Training & Logging</section>
-        <snippet>
-          ### Story 2.2: Daily Plan Context Window
-          As a user,
-          I want to input my daily mood, energy, and soreness levels via a Context Window,
-          So that the AI can adapt my daily workout plan accordingly.
-
-          **Acceptance Criteria:**
-          Given I am on the Dashboard (or accessing the context window via other triggers)
-          When I interact with the Context Window UI (Flow 6, Screen 1 - `screen_1/code.html` top section)
-          Then I can select mood (emoticons) and energy level (segmented buttons)
-          And I can optionally add free-text input for specific details
-          And submitting this context triggers the AI Daily Plan generation (Story 2.1)
-          And the UI allows for smart suggestions based on historical patterns (`Flow 6, Screen 1`).
-
-          **Prerequisites:** Story 1.1, 1.3, 2.1.
-
-          **Technical Notes:** Implement frontend UI components for the Context Window as per `ux_design_content` (Flow 6, Screen 1). Implement client-side logic to capture inputs and send to `/context` API endpoint.
-        </snippet>
-      </artifact>
-    </docs>
-  <artifacts>
-    <docs>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary (Frontend Framework)</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | Framework | Next.js (with App Router) | | All frontend features | Provides a best-in-class React framework with SSR, SSG, and a strong ecosystem. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary (State Management)</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | State Management | Zustand | 5.0.9 | All interactive frontend features | A lightweight, simple, and powerful state management solution that is easy to learn and integrates well with React/Next.js. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Project Structure (Frontend)</title>
-        <section>Project Structure</section>
-        <snippet>
-          my-ai-trainer/
-          ├── apps/
-          │   ├── web/                     # Next.js Frontend
-          │   │   ├── src/
-          │   │   │   ├── app/             # App Router: pages, layouts, components
-          │   │   │   ├── components/      # Shared UI components
-          │   │   │   ├── lib/             # Helper functions, utilities
-          │   │   │   ├── store/           # Zustand state management stores
-          │   │   │   └── styles/          # Global styles
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Backend (FastAPI) for AI Integration</title>
-        <section>FR Category to Architecture Mapping</section>
-        <snippet>
-          -   **Backend (FastAPI `api` app):** Responsible for all business logic, data processing, and AI integration.
-              -   Handles: AI Daily-Plan Generation...
-              -   Interacts directly with the Supabase (PostgreSQL) database.
-              -   Provides the REST API for the frontend.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Novel Architectural Patterns (Adaptive Workout Dialogue)</title>
-        <section>Novel Architectural Patterns</section>
-        <snippet>
-          ### Pattern: Adaptive Workout Dialogue
-
-          This pattern formalizes the conversational loop between the user and the AI, ensuring the AI's adaptations are transparent, effective, and continuously learning.
-
-          **Components:**
-          1.  **Context Window (Frontend):** The UI where the user inputs their daily qualitative feedback (mood, energy, soreness, etc.).
-          2.  **AI Orchestrator (Backend):** A service in the FastAPI backend that receives the user's context, fuses it with their profile and history, and constructs the prompt for the AI model.
-          ...
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 6: Generate AI Daily Plan</title>
-        <section>Flow 6: Generate AI Daily Plan</section>
-        <snippet>
-          ### **Flow 6: Generate AI Daily Plan**
-
-          *   **Purpose:** Enable users to provide real-time context to the AI and receive an adaptive, personalized workout plan.
-          *   **Core User Journey:** User accesses a "Context Window," inputs their current state (mood, energy) with smart suggestions. AI generates a plan, which is presented for review and optional adjustment before confirmation.
-          *   **Key UX Direction / Improvements:**
-              *   **Smart Context Window:** Pre-fills suggestions based on historical patterns and contextual prompts (e.g., "how are your legs feeling after yesterday's workout?").
-              *   **Transparent Plan Changes:** Visually highlights and explains *why* the AI adapted the plan based on user context, fostering trust.
-              *   **"Edit Plan" Option:** Provides users with the ability to make granular adjustments to the AI's proposed plan before confirmation, ensuring final control.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 6, Screen 1 (Context Window UI)</title>
-        <section>Flow 6: Generate AI Daily Plan</section>
-        <snippet>
-          The UI for the Context Window should be based on `Flow 6, Screen 1 - screen_1/code.html` (top section) from `ux_design_content`.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/epics.md</path>
-        <title>Epic 2, Story 2.2: Daily Plan Context Window</title>
-        <section>Epic 2: AI-Powered Training & Logging</section>
-        <snippet>
-          ### Story 2.2: Daily Plan Context Window
-          As a user,
-          I want to input my daily mood, energy, and soreness levels via a Context Window,
-          So that the AI can adapt my daily workout plan accordingly.
-
-          **Acceptance Criteria:**
-          Given I am on the Dashboard (or accessing the context window via other triggers)
-          When I interact with the Context Window UI (Flow 6, Screen 1 - `screen_1/code.html` top section)
-          Then I can select mood (emoticons) and energy level (segmented buttons)
-          And I can optionally add free-text input for specific details
-          And submitting this context triggers the AI Daily Plan generation (Story 2.1)
-          And the UI allows for smart suggestions based on historical patterns (`Flow 6, Screen 1`).
-
-          **Prerequisites:** Story 1.1, 1.3, 2.1.
-
-          **Technical Notes:** Implement frontend UI components for the Context Window as per `ux_design_content` (Flow 6, Screen 1). Implement client-side logic to capture inputs and send to `/context` API endpoint.
-        </snippet>
-      </artifact>
+        <doc>
+            <path>docs/architecture.md</path>
+            <title>Architecture</title>
+            <section>Novel Architectural Patterns</section>
+            <snippet>Pattern: Adaptive Workout Dialogue - This pattern formalizes the conversational loop between the user and the AI, ensuring the AI's adaptations are transparent, effective, and continuously learning.</snippet>
+        </doc>
+        <doc>
+            <path>docs/ux-design-direction.md</path>
+            <title>UX Design Direction</title>
+            <section>Flow 6: Generate AI Daily Plan</section>
+            <snippet>The UI for the Plan Review should be based on Flow 6, Screen 3 - screen_3/code.html from ux_design_content.</snippet>
+        </doc>
     </docs>
     <code>
-      <artifact>
-        <path>apps/web/src/components/ContextWindow/ContextWindow.tsx</path>
-        <kind>UI Component</kind>
-        <symbol>ContextWindow</symbol>
-        <lines></lines>
-        <reason>React component for the Context Window UI</reason>
-      </artifact>
-      <artifact>
-        <path>apps/web/src/store/contextStore.ts</path>
-        <kind>Zustand Store</kind>
-        <symbol>contextStore</symbol>
-        <lines></lines>
-        <reason>Manages the temporary state of mood, energy, and soreness inputs</reason>
-      </artifact>
-      <artifact>
-        <path>apps/web/src/lib/planApi.ts</path>
-        <kind>API Utility/Hook</kind>
-        <symbol></symbol>
-        <lines></lines>
-        <reason>Sends collected context data to `POST /api/v1/plans/generate`</reason>
-      </artifact>
+      <!-- No existing code artifacts found relevant to this story. -->
     </code>
-    <dependencies>
-      <dependency>
-        <name>Next.js</name>
-        <version></version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Zustand</name>
-        <version>5.0.9</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Jest</name>
-        <version>30.2.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>React Testing Library</name>
-        <version>16.3.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Playwright</name>
-        <version>1.57.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>FastAPI</name>
-        <version>0.123.7</version>
-        <ecosystem>Python</ecosystem>
-      </dependency>
-    </dependencies>
   </artifacts>
-
   <constraints>
     <constraint>Strict adherence to the UX design specifications for the Context Window (Flow 6, Screen 1).</constraint>
-    <constraint>Frontend-Backend Contract: context data sent to `POST /plans/generate` must match backend's expected Pydantic model.</constraint>
-    <constraint>Backend testing issue (`ModuleNotFoundError` in Pytest setup) persists; prioritize comprehensive frontend unit tests and E2E tests.</constraint>
+    <constraint>Frontend-Backend Contract: context data sent to POST /plans/generate must match backend's expected Pydantic model.</constraint>
   </constraints>
-
   <interfaces>
     <interface>
       <name>Daily Plan Generation API</name>
@@ -376,19 +54,12 @@
       <path>apps/api/app/api/plans.py</path>
     </interface>
   </interfaces>
-
   <tests>
-    <standards>
-      Frontend: Unit tests (Jest/RTL) for Context Window component, verifying UI rendering and interaction with input fields. Unit tests for Zustand store. Integration tests for submission logic, mocking API call. E2E test (Playwright) for full user journey.
-    </standards>
-    <locations>
-      <location>apps/web/tests</location>
-    </locations>
-    <ideas>
-      <idea>Unit test `ContextWindow.tsx` for correct rendering of input fields (mood, energy, soreness).</idea>
-      <idea>Unit test `contextStore.ts` for state updates and data management.</idea>
-      <idea>Integration test submission logic, mocking the `POST /plans/generate` API call.</idea>
-      <idea>E2E test user interaction with the Context Window and successful submission of data.</idea>
-    </ideas>
+      <standards>Frontend: Unit tests (Jest/RTL) for Context Window component, verifying UI rendering and interaction with input fields. Unit tests for Zustand store. Integration tests for submission logic, mocking API call. E2E test (Playwright) for full user journey.</standards>
+      <locations><location>apps/web/tests</location></locations>
+      <ideas>
+          <idea>Unit test ContextWindow.tsx for correct rendering of input fields (mood, energy, soreness).</idea>
+          <idea>E2E test user interaction with the Context Window and successful submission of data.</idea>
+      </ideas>
   </tests>
 </story-context>

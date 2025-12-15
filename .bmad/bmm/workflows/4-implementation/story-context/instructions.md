@@ -98,6 +98,7 @@
     <action>Extract relevant sections from: {prd_content}, {tech_spec_content}, {architecture_content}, {ux_design_content}, {document_project_content}</action>
     <action>Note: Tech-Spec ({tech_spec_content}) is used for Level 0-1 projects (instead of PRD). It contains comprehensive technical context, brownfield analysis, framework details, existing patterns, and implementation guidance.</action>
     <action>For each discovered document: convert absolute paths to project-relative format by removing {project-root} prefix. Store only relative paths (e.g., "docs/prd.md" not "/Users/.../docs/prd.md").</action>
+    <action>CRITICAL: Ensure that if ux_design_content is found, its path is always recorded as "docs/ux-design-direction.md" in the generated context, if that is the correct canonical path.</action>
     <template-output file="{default_output_file}">
       Add artifacts.docs entries with {path, title, section, snippet}:
       - path: PROJECT-RELATIVE path only (strip {project-root} prefix)
@@ -112,6 +113,7 @@
     <action>Identify existing interfaces/APIs the story should reuse rather than recreate.</action>
     <action>Extract development constraints from Dev Notes and architecture (patterns, layers, testing requirements).</action>
     <action>For all discovered code artifacts: convert absolute paths to project-relative format (strip {project-root} prefix).</action>
+    <action>CRITICAL: For artifacts.code entries, ONLY add code files that ACTUALLY EXIST in the project and are RELEVANT to the story. Dynamically search using glob/search_file_content if needed. If a file is mentioned in the story but doesn't exist, DO NOT add it as an artifact. If the code artifact list is empty, leave the &lt;code&gt; section empty.</action>
     <template-output file="{default_output_file}">
       Add artifacts.code entries with {path, kind, symbol, lines, reason}:
       - path: PROJECT-RELATIVE path only (e.g., "src/services/api.js" not full path)
@@ -168,6 +170,7 @@
 
     <!-- Update sprint status to mark ready-for-dev -->
     <action>Load the FULL file: {{output_folder}}/sprint-status.yaml</action>
+    <action>CRITICAL: Regenerate the .context.xml file to reflect the updated status and any newly discovered artifacts. This means re-executing steps 1.5 through 5 and then saving to {default_output_file} again.</action>
     <action>Find development_status key matching {{story_key}}</action>
     <action>Verify current status is "drafted" (expected previous state)</action>
     <action>Update development_status[{{story_key}}] = "ready-for-dev"</action>

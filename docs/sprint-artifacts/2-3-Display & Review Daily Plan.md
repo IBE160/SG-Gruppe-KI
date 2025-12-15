@@ -1,6 +1,4 @@
-# Story 2.3: Display & Review Daily Plan
-
-Status: drafted
+Status: ready-for-dev
 
 ## Story
 

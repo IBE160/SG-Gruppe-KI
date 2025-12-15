@@ -1,6 +1,4 @@
-# Story 2.5: Progress Dashboard Display
-
-Status: drafted
+Status: ready-for-dev
 
 ## Story
 

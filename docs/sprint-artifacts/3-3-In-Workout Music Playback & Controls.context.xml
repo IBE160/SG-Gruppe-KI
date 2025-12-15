@@ -1,294 +1,73 @@
-<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+<story-context id="3-3-in-workout-music-playback-controls" v="1.0">
   <metadata>
     <epicId>3</epicId>
     <storyId>3</storyId>
     <title>In-Workout Music Playback & Controls</title>
-    <status>drafted</status>
-    <generatedAt>2025-12-14</generatedAt>
-    <generator>BMAD Story Context Workflow</generator>
+    <status>ready-for-dev</status>
+    <generatedAt>2025-12-15</generatedAt>
+    <generator>BMAD Story Context Workflow (Regenerated)</generator>
     <sourceStoryPath>docs/sprint-artifacts/3-3-In-Workout Music Playback & Controls.md</sourceStoryPath>
   </metadata>
-
   <story>
     <asA>user</asA>
     <iWant>to control music playback and receive visual feedback on BPM matching during my workout</iWant>
     <soThat>I can maintain focus and optimize my performance.</soThat>
     <tasks>
-      <task category="Frontend (apps/web)">
-        <description>UI Integration: Integrate music playback controls (play/pause, skip, volume) into the Workout Player UI (Flow 9).</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>Visual Feedback: Implement visual feedback on BPM matching for the current workout phase (e.g., a gauge or text) within the Workout Player.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>Spotify SDK Integration: Integrate Spotify Web Playback SDK or equivalent for in-app music controls.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>API Integration: Implement client-side API calls to the FastAPI backend to log user music interactions (skips, completions).</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write unit tests for new UI components and Spotify SDK integration.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write integration tests for API calls and state management.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write Playwright E2E tests for in-workout music playback and controls.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api) - API Endpoint">
-        <description>Create `/music/feedback` endpoint to receive and log user music interactions (skips, completions).</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api) - API Endpoint">
-        <description>Implement backend logic to process `/music/play` and `/music/pause` commands if direct backend control is desired.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api)">
-        <description>Music Interaction Logging: Store logged user interactions in the database to refine future AI scoring (Playback Feedback Loop).</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api) - Testing">
-        <description>Write unit tests for music interaction logging logic.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api) - Testing">
-        <description>Write integration tests for the new API endpoints and database interactions.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Ensure all API communication adheres to the standard format `{"data": { ... }}` and `{"error": { ... }}`.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Implement structured JSON logging for all new backend services.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Verify consistency with naming conventions (kebab-case routes, PascalCase tables, snake_case columns).</description>
-        <status>pending</status>
-      </task>
+      - Frontend (apps/web):
+        - UI Integration: Integrate music playback controls into the Workout Player UI (Flow 9).
+        - Visual Feedback: Implement visual feedback on BPM matching.
+        - Spotify SDK Integration: Integrate Spotify Web Playback SDK.
+        - API Integration: Implement client-side API calls to log user music interactions.
+        - Testing: Write unit tests, integration tests, and Playwright E2E tests.
+      - Backend (apps/api):
+        - API Endpoint: Create `/music/feedback` endpoint to receive and log user music interactions.
+        - Music Interaction Logging: Store logged user interactions in the database.
+        - Testing: Write unit tests and integration tests.
+      - Refinement: Ensure API communication adheres to standard format, implement structured logging, verify naming conventions.
     </tasks>
   </story>
-
   <acceptanceCriteria>
-    <criterion id="1">Given I have an active workout session and a generated Session Mix (Story 3.2)</criterion>
-    <criterion id="2">When I am in the Workout Player (Flow 9, with conceptual integration from Flow 11, Screen 3)</criterion>
-    <criterion id="3">Then music playback controls (play/pause, skip, volume) are available and functional</criterion>
-    <criterion id="4">And I can see visual feedback on BPM matching for the current workout phase (e.g., a gauge or text)</criterion>
-    <criterion id="5">And user interactions (skips, completions) are logged to refine future AI scoring</criterion>
+    <criterion>AC3.3.1: Music playback controls (play/pause, skip, volume) are available and functional within the Workout Player UI.</criterion>
+    <criterion>AC3.3.2: Visual feedback on BPM matching for the current workout phase is displayed.</criterion>
+    <criterion>AC3.3.3: User music interactions (skips, completions) are logged via the backend to refine future AI scoring.</criterion>
   </acceptanceCriteria>
-
   <artifacts>
     <docs>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - AI-Driven Music Matching ("Smart Radio") - Playback Feedback Loop</title>
-        <section>Novel Architectural Patterns</section>
-        <snippet>
-          ### Pattern: AI-Driven Music Matching ("Smart Radio")
-
-          This pattern defines a system that learns from user behavior to create personalized, phase-aware workout playlists, moving beyond simple BPM matching.
-
-          ...
-
-          **Playback Feedback Loop (Frontend/Backend):** A system that captures in-workout user actions (e.g., skipping a track) and translates them into negative signals for the AI Music Scorer.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | API Pattern | FastAPI | 0.123.7 | AI Planning, Workout Logging, All Backend Services | Recommended in proposal; Excellent for AI/ML integration and high performance. |
-          | Data Persistence | Supabase (PostgreSQL) | 2.86.0 | All data-related features | Provides a managed PostgreSQL database, simplifying setup and scaling. Also includes Auth and Storage. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 9: Perform & Log Workout</title>
-        <section>Flow 9: Perform & Log Workout</section>
-        <snippet>
-          *   **Purpose:** Provide an intuitive, efficient, and adaptable interface for logging workout sets during a session.
-          *   **Core User Journey:** User performs a set, quickly logs reps/weight/RPE via optimized inputs, and enters a rest period where the next exercise is previewed. Allows on-the-fly modifications.
-          *   **Key UX Direction / Improvements:**
-              *   **Optimized Input for Reps/Weight/RPE:** Uses large buttons, sliders, and smart pre-fills for rapid, error-free data entry.
-              *   **Clear Next Exercise Preview:** Displays upcoming exercises during rest periods, allowing for preparation and smoother transitions.
-              *   **Visual Progress Cues:** Shows current set progress and overall workout completion via progress bars/indicators.
-              *   **Integrated Mid-Workout Modification:** Provides a seamless UI to edit the plan mid-session without disrupting flow.
-              *   **Audio Cues/Guidance:** Optional spoken cues for rest timers, next exercises, and motivational prompts, reducing screen interaction.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 11: Generate Session Mix (Conceptual Integration)</title>
-        <section>Flow 11: Generate Session Mix (Optional AI-Based Playlist)</section>
-        <snippet>
-          *   **Core User Journey:** User selects playlist mode, views a customizable tracklist preview, then plays the mix within the workout player, with real-time BPM feedback.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/epics.md</path>
-        <title>Epic 3, Story 3.3: In-Workout Music Playback & Controls</title>
-        <section>Epic 3: Enhanced Experience & Personalization</section>
-        <snippet>
-          ### Story 3.3: In-Workout Music Playback & Controls
-          As a user,
-          I want to control music playback and receive visual feedback on BPM matching during my workout,
-          So that I can maintain focus and optimize my performance.
-
-          **Acceptance Criteria:**
-          Given I have an active workout session and a generated Session Mix (Story 3.2)
-          When I am in the Workout Player (Flow 9, with conceptual integration from Flow 11, Screen 3)
-          Then music playback controls (play/pause, skip, volume) are available and functional
-          And I can see visual feedback on BPM matching for the current workout phase (e.g., a gauge or text)
-          And user interactions (skips, completions) are logged to refine future AI scoring
-
-          **Prerequisites:** Story 2.4, 3.2
-
-          **Technical Notes:** Integrate Spotify Web Playback SDK or equivalent for in-app controls. Implement UI overlays for music controls and BPM feedback in the Workout Player. Implement backend API endpoint (`/music/play`, `/music/pause`, (`/music/feedback`) to log music interactions.
-        </snippet>
-      </artifact>
+        <doc>
+            <path>docs/architecture.md</path>
+            <title>Architecture</title>
+            <section>Novel Architectural Patterns</section>
+            <snippet>Pattern: AI-Driven Music Matching ("Smart Radio") - Specifically, the "Playback Feedback Loop" component is critical, capturing in-workout user actions...</snippet>
+        </doc>
+        <doc>
+            <path>docs/ux-design-direction.md</path>
+            <title>UX Design Direction</title>
+            <section>Flow 9: Perform & Log Workout</section>
+            <snippet>This screen provides an intuitive, efficient, and adaptable interface for logging workout sets during a session, with conceptual integration of music controls and BPM feedback from Flow 11.</snippet>
+        </doc>
     </docs>
     <code>
-      <artifact>
-        <path>apps/web/src/app or apps/web/src/components</path>
-        <kind>UI Components</kind>
-        <symbol>Workout Player UI (Flow 9)</symbol>
-        <lines></lines>
-        <reason>Frontend UI for music playback controls and BPM feedback</reason>
-      </artifact>
-      <artifact>
-        <path>apps/web/src/lib</path>
-        <kind>Spotify SDK Integration</kind>
-        <symbol></symbol>
-        <lines></lines>
-        <reason>Integrate Spotify Web Playback SDK for in-app controls</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/api</path>
-        <kind>API Endpoint</kind>
-        <symbol>/music/feedback</symbol>
-        <lines></lines>
-        <reason>Receives and logs user music interactions</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/api</path>
-        <kind>API Endpoint</kind>
-        <symbol>/music/play</symbol>
-        <lines></lines>
-        <reason>Backend control for music playback (if desired)</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/api</path>
-        <kind>API Endpoint</kind>
-        <symbol>/music/pause</symbol>
-        <lines></lines>
-        <reason>Backend control for music playback (if desired)</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/services</path>
-        <kind>Logic</kind>
-        <symbol></symbol>
-        <lines></lines>
-        <reason>Stores logged user interactions in the database (Playback Feedback Loop)</reason>
-      </artifact>
+      <!-- No existing code artifacts found relevant to this story. -->
     </code>
-    <dependencies>
-      <dependency>
-        <name>FastAPI</name>
-        <version>0.123.7</version>
-        <ecosystem>Python</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Supabase (PostgreSQL)</name>
-        <version>2.86.0</version>
-        <ecosystem>Database</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Zustand</name>
-        <version>5.0.9</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Jest</name>
-        <version>30.2.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>React Testing Library</name>
-        <version>16.3.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Playwright</name>
-        <version>1.57.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Next.js</name>
-        <version></version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Spotify Web Playback SDK</name>
-        <version></version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-    </dependencies>
   </artifacts>
-
   <constraints>
-    <constraint>API communication adheres to standard format `{"data": { ... }}` and `{"error": { ... }}`.</constraint>
-    <constraint>Structured JSON logging for all new backend services.</constraint>
-    <constraint>Consistency with naming conventions (kebab-case routes, PascalCase tables, snake_case columns).</constraint>
-    <constraint>Use Pydantic for validation in FastAPI.</constraint>
-    <constraint>Environment variables for secrets management.</constraint>
-    <constraint>Leverage FastAPI's asynchronous nature for performance.</constraint>
+    <constraint>Frontend must integrate music playback controls and BPM feedback into the existing Workout Player UI.</constraint>
+    <constraint>All Spotify API calls for playback and feedback must be proxied through the FastAPI backend to ensure token security.</constraint>
   </constraints>
   <interfaces>
-    <interface>
-      <name>Music Feedback API</name>
-      <kind>REST endpoint</kind>
-      <signature>POST /music/feedback</signature>
-      <path>apps/api/app/api</path>
-    </interface>
-    <interface>
-      <name>Music Play API</name>
-      <kind>REST endpoint</kind>
-      <signature>POST /music/play</signature>
-      <path>apps/api/app/api</path>
-    </interface>
-    <interface>
-      <name>Music Pause API</name>
-      <kind>REST endpoint</kind>
-      <signature>POST /music/pause</signature>
-      <path>apps/api/app/api</path>
-    </interface>
+      <interface>
+        <name>Music Feedback</name>
+        <kind>REST Endpoint</kind>
+        <signature>POST /music/feedback</signature>
+        <path>apps/api/app/api/music.py</path>
+      </interface>
   </interfaces>
   <tests>
-    <standards>
-      Frontend: Unit tests (Jest/React Testing Library) for music control components, integration tests for Spotify SDK and API calls, E2E tests (Playwright) for in-workout music playback flow.
-      Backend: Unit tests for music interaction logging logic, integration tests for `/music/feedback` API endpoint.
-    </standards>
-    <locations>
-      <location>apps/web/tests</location>
-      <location>apps/api/tests</location>
-    </locations>
-    <ideas>
-      <idea>Unit test music playback control components within the Workout Player.</idea>
-      <idea>Integration test Spotify Web Playback SDK functionality.</idea>
-      <idea>E2E test the full in-workout music playback and controls user journey, including BPM feedback.</idea>
-      <idea>Unit test the backend logic for logging music interactions.</idea>
-      <idea>Integration test the `/music/feedback` API endpoint for accurate data capture.</idea>
-    </ideas>
+      <standards>Frontend unit tests (Jest/RTL) for music control components, integration tests for Spotify SDK and API calls, E2E tests (Playwright) for in-workout music playback flow.</standards>
+      <locations><location>apps/web/src/app/workout/player/</location></locations>
+      <ideas>
+          <idea>Unit test music playback controls (play/pause, skip) within the Workout Player UI.</idea>
+          <idea>E2E test the full in-workout music playback and feedback loop, verifying proper logging of user interactions.</idea>
+      </ideas>
   </tests>
 </story-context>

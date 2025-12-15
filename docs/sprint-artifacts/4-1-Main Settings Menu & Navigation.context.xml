@@ -1,217 +1,69 @@
-<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+<story-context id="4-1-main-settings-menu-navigation" v="1.0">
   <metadata>
     <epicId>4</epicId>
     <storyId>1</storyId>
     <title>Main Settings Menu & Navigation</title>
-    <status>drafted</status>
-    <generatedAt>2025-12-14</generatedAt>
-    <generator>BMAD Story Context Workflow</generator>
+    <status>ready-for-dev</status>
+    <generatedAt>2025-12-15</generatedAt>
+    <generator>BMAD Story Context Workflow (Regenerated)</generator>
     <sourceStoryPath>docs/sprint-artifacts/4-1-Main Settings Menu & Navigation.md</sourceStoryPath>
   </metadata>
-
   <story>
     <asA>user</asA>
     <iWant>to access a comprehensive settings menu with categorized options and a search function</iWant>
     <soThat>I can easily find and manage my app preferences.</soThat>
     <tasks>
-      <task category="Frontend (apps/web)">
-        <description>UI Implementation (Flow 18, Screen 1): Create React components for the main settings menu. This includes: Displaying categorized settings options (e.g., General, Appearance, Performance & Data, Privacy & Account); Implementing navigation to respective sub-screens upon category tap.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>Search Functionality: Implement a client-side search bar to filter settings options.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>API Integration: Ensure proper authentication (Prerequisite: Story 1.2) for accessing settings.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write unit tests for new React components.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write integration tests for navigation logic and search functionality.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write Playwright E2E tests for navigating to and within the settings menu.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Ensure UI adheres to `ux_design_content` principles (e.g., visual consistency, clear navigation).</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Implement structured JSON logging for relevant frontend actions (e.g., settings changes).</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Verify consistency with naming conventions for components and files.</description>
-        <status>pending</status>
-      </task>
+      - Frontend (apps/web):
+        - UI Implementation (Flow 18, Screen 1): Create React components for the main settings menu.
+        - Search Functionality: Implement a client-side search bar to filter settings options.
+        - API Integration: Ensure proper authentication for accessing settings.
+        - Testing: Write unit tests, integration tests, and Playwright E2E tests.
+      - Refinement: Ensure UI adheres to `ux_design_content` principles, implement structured JSON logging, verify naming conventions.
     </tasks>
   </story>
-
   <acceptanceCriteria>
-    <criterion id="1">Given I am a logged-in user</criterion>
-    <criterion id="2">When I navigate to the main Settings menu (Flow 18, Screen 1 - `general/code.html`)</criterion>
-    <criterion id="3">Then I am presented with categorized settings options (e.g., General, Appearance, Performance & Data, Privacy & Account)</criterion>
-    <criterion id="4">And I can use a search bar to quickly find specific settings</criterion>
-    <criterion id="5">And tapping on a category navigates me to its respective sub-screen</criterion>
+    <criterion>AC4.1.1: The main Settings menu is accessible to logged-in users.</criterion>
+    <criterion>AC4.1.2: Categorized settings options are displayed.</criterion>
+    <criterion>AC4.1.3: A search bar is available and functional for filtering settings.</criterion>
+    <criterion>AC4.1.4: Tapping on a category navigates to its respective sub-screen.</criterion>
   </acceptanceCriteria>
-
   <artifacts>
     <docs>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary (Frontend Framework)</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | Framework | Next.js (with App Router) | | All frontend features | Provides a best-in-class React framework with SSR, SSG, and a strong ecosystem. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Project Structure (Frontend)</title>
-        <section>Project Structure</section>
-        <snippet>
-          my-ai-trainer/
-          ├── apps/
-          │   ├── web/                     # Next.js Frontend
-          │   │   ├── src/
-          │   │   │   ├── app/             # App Router: pages, layouts, components
-          │   │   │   ├── components/      # Shared UI components
-          │   │   │   ├── lib/             # Helper functions, utilities
-          │   │   │   ├── store/           # Zustand state management stores
-          │   │   │   └── styles/          # Global styles
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 18: Change Settings</title>
-        <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
-        <snippet>
-          *   **Purpose:** Provide a comprehensive and intuitive control panel for personalization and data management.
-          *   **Core User Journey:** User navigates through categorized settings, easily finds options via search, and makes changes with clear feedback and helpful context.
-          *   **Key UX Direction / Improvements:**
-              *   **Contextual Help & "Learn More":** Provides in-app explanations for complex settings, guiding informed decisions.
-              *   **Search Functionality for Settings:** Enables quick discovery of specific settings.
-              *   **Preview for Appearance Settings:** Shows live visual feedback for theme and color changes.
-              *   **Confirmation for Destructive Actions:** Reinforces warnings and requires explicit confirmation for actions like clearing cache or resetting AI memory.
-              *   **Transparent AI Preference Management:** Allows users to easily edit or delete learned AI rules, fostering control.
-              *   **Prominent Logout Option:** Ensures easy and secure session termination.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 18, Screen 1 (Main Settings Menu)</title>
-        <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
-        <snippet>
-          When I navigate to the main Settings menu (Flow 18, Screen 1 - `general/code.html`)
-          Then I am presented with categorized settings options (e.g., General, Appearance, Performance & Data, Privacy & Account)
-          And I can use a search bar to quickly find specific settings
-          And tapping on a category navigates me to its respective sub-screen
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/epics.md</path>
-        <title>Epic 4, Story 4.1: Main Settings Menu & Navigation</title>
-        <section>Epic 4: User Control & Settings</section>
-        <snippet>
-          ### Story 4.1: Main Settings Menu & Navigation
-          As a user,
-          I want to access a comprehensive settings menu with categorized options and a search function,
-          So that I can easily find and manage my app preferences.
-
-          **Acceptance Criteria:**
-          Given I am a logged-in user
-          When I navigate to the main Settings menu (Flow 18, Screen 1 - `general/code.html`)
-          Then I am presented with categorized settings options (e.g., General, Appearance, Performance & Data, Privacy & Account)
-          And I can use a search bar to quickly find specific settings
-          And tapping on a category navigates me to its respective sub-screen
-
-          **Prerequisites:** Story 1.2
-
-          **Technical Notes:** Implement frontend UI for the main settings menu and its navigation as per `ux_design_content` (Flow 18, Screen 1). Use a client-side filtering mechanism for the search bar.
-        </snippet>
-      </artifact>
+        <doc>
+            <path>docs/architecture.md</path>
+            <title>Architecture</title>
+            <section>FR Category to Architecture Mapping</section>
+            <snippet>Frontend (Next.js `web` app): Responsible for all user-facing features. Handles: Onboarding, Workout Player UI, Dashboard, Settings, User Profile UI, Context Window.</snippet>
+        </doc>
+        <doc>
+            <path>docs/ux-design-direction.md</path>
+            <title>UX Design Direction</title>
+            <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
+            <snippet>The main settings menu is detailed in Flow 18, Screen 1 - `general/code.html`. Key UX improvements include contextual help, search functionality, and preview for appearance settings.</snippet>
+        </doc>
     </docs>
     <code>
-      <artifact>
-        <path>apps/web/src/app or apps/web/src/components</path>
-        <kind>UI Components</kind>
-        <symbol>Main Settings Menu</symbol>
-        <lines></lines>
-        <reason>React components for the main settings menu and navigation</reason>
-      </artifact>
-      <artifact>
-        <path>apps/web/src/lib</path>
-        <kind>Client-side logic</kind>
-        <symbol>Search functionality</symbol>
-        <lines></lines>
-        <reason>Client-side search bar to filter settings options</reason>
-      </artifact>
+      <!-- No existing code artifacts found relevant to this story. -->
     </code>
-    <dependencies>
-      <dependency>
-        <name>Next.js</name>
-        <version></version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Zustand</name>
-        <version>5.0.9</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Jest</name>
-        <version>30.2.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>React Testing Library</name>
-        <version>16.3.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Playwright</name>
-        <version>1.57.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-    </dependencies>
   </artifacts>
-
   <constraints>
-    <constraint>Adhere to defined naming conventions for React Components (`PascalCase`).</constraint>
-    <constraint>UI adheres to `ux_design_content` principles (e.g., visual consistency, clear navigation).</constraint>
-    <constraint>Implement structured JSON logging for relevant frontend actions (e.g., settings changes).</constraint>
-    <constraint>Verify consistency with naming conventions for components and files.</constraint>
-    <constraint>Ensure proper authentication (Prerequisite: Story 1.2) for accessing settings.</constraint>
+    <constraint>UI must adhere to the dark theme and conversational patterns defined in `ux-design-direction.md`.</constraint>
+    <constraint>Settings categories should be clearly defined and easily navigable.</constraint>
   </constraints>
-
   <interfaces>
-    <interface>
-      <name>Authentication</name>
-      <kind>Prerequisite</kind>
-      <signature>User is logged in (Story 1.2)</signature>
-      <path></path>
-    </interface>
+      <interface>
+        <name>Settings Navigation</name>
+        <kind>UI Navigation</kind>
+        <signature>Navigation to sub-screens for different settings categories.</signature>
+        <path>apps/web/src/app/settings/</path>
+      </interface>
   </interfaces>
-
   <tests>
-    <standards>
-      Frontend: Unit tests (Jest/React Testing Library) for settings components, integration tests for navigation and search, E2E tests (Playwright) for the settings menu flow.
-    </standards>
-    <locations>
-      <location>apps/web/tests</location>
-    </locations>
-    <ideas>
-      <idea>Unit test React components for displaying settings options and handling navigation.</idea>
-      <idea>Integration test search functionality to ensure accurate filtering of settings.</idea>
-      <idea>E2E test the full user journey of navigating to and within the settings menu.</idea>
-    </ideas>
+      <standards>Unit tests (Jest/RTL) for settings components, integration tests for navigation and search, E2E tests (Playwright) for the settings menu flow.</standards>
+      <locations><location>apps/web/src/app/settings/</location></locations>
+      <ideas>
+          <idea>Unit test settings menu rendering and category navigation.</idea>
+          <idea>E2E test searching for settings and navigating to a specific setting sub-screen.</idea>
+      </ideas>
   </tests>
 </story-context>

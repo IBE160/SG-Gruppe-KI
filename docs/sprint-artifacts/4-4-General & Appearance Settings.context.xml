@@ -1,266 +1,71 @@
-<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+<story-context id="4-4-general-appearance-settings" v="1.0">
   <metadata>
     <epicId>4</epicId>
     <storyId>4</storyId>
     <title>General & Appearance Settings</title>
-    <status>drafted</status>
-    <generatedAt>2025-12-14</generatedAt>
-    <generator>BMAD Story Context Workflow</generator>
+    <status>ready-for-dev</status>
+    <generatedAt>2025-12-15</generatedAt>
+    <generator>BMAD Story Context Workflow (Regenerated)</generator>
     <sourceStoryPath>docs/sprint-artifacts/4-4-General & Appearance Settings.md</sourceStoryPath>
   </metadata>
-
   <story>
     <asA>user</asA>
     <iWant>to customize general application preferences like language and appearance (theme, accent color, font size)</iWant>
     <soThat>I can personalize my app experience.</soThat>
     <tasks>
-      <task category="Frontend (apps/web)">
-        <description>UI Implementation (Flow 18, Screen 2): Create React components for the "General" settings sub-screen, including language selection and notification preference toggles.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>UI Implementation (Flow 18, Screen 3): Create React components for the "Appearance" settings sub-screen, including theme selection (light/dark/system), accent color picker, and font size adjustment.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>State Management (Zustand): Implement Zustand stores to manage and persist theme, language, font size, and notification preferences.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>Persistence: Integrate with local storage or Supabase `Users` table to persist user preferences across sessions.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>Live Preview: Implement logic to immediately reflect appearance changes in a live preview within the app.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write unit tests for new React components and Zustand stores.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write integration tests for persistence mechanisms (local storage/Supabase).</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write Playwright E2E tests for customizing general and appearance settings.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Ensure UI adheres to `ux_design_content` principles (e.g., visual consistency, intuitive controls).</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Implement structured JSON logging for relevant frontend actions (e.g., settings changes).</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Verify consistency with naming conventions for components and functions.</description>
-        <status>pending</status>
-      </task>
+      - Frontend (apps/web):
+        - UI Implementation (Flow 18, Screen 2): Create React components for the "General" settings sub-screen.
+        - UI Implementation (Flow 18, Screen 3): Create React components for the "Appearance" settings sub-screen.
+        - State Management (Zustand): Implement Zustand stores to manage and persist theme, language, font size, and notification preferences.
+        - Persistence: Integrate with local storage or Supabase `Users` table to persist user preferences.
+        - Live Preview: Implement logic to immediately reflect appearance changes in a live preview.
+        - Testing: Write unit tests, integration tests, and Playwright E2E tests.
+      - Refinement: Ensure UI adheres to `ux_design_content` principles, implement structured JSON logging, verify consistency with naming conventions.
     </tasks>
   </story>
-
   <acceptanceCriteria>
-    <criterion id="1">Given I am in the "General" settings sub-screen (Flow 18, Screen 2 - `genreralsettings/code.html`)</criterion>
-    <criterion id="2">When I select a different language or toggle notification preferences</criterion>
-    <criterion id="3">Then the changes are applied to the app</criterion>
-    <criterion id="4">Given I am in the "Appearance" settings sub-screen (Flow 18, Screen 3 - `apperance/code.html`)</criterion>
-    <criterion id="5">When I select a theme (light/dark/system), accent color, or adjust font size</criterion>
-    <criterion id="6">Then these changes are immediately reflected in a live preview and applied to the app's UI</criterion>
+    <criterion>AC4.4.1: The "General" settings sub-screen is accessible and allows language selection and notification preference toggles.</criterion>
+    <criterion>AC4.4.2: The "Appearance" settings sub-screen is accessible and allows theme selection, accent color picking, and font size adjustment.</criterion>
+    <criterion>AC4.4.3: Changes to language, theme, accent color, and font size are immediately reflected in the app's UI.</criterion>
+    <criterion>AC4.4.4: User preferences are persisted across sessions (local storage or Supabase `Users` table).</criterion>
   </acceptanceCriteria>
-
   <artifacts>
     <docs>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary (State Management)</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | State Management | Zustand | 5.0.9 | All interactive frontend features | A lightweight, simple, and powerful state management solution that is easy to learn and integrates well with React/Next.js. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary (Frontend Framework)</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | Framework | Next.js (with App Router) | | All frontend features | Provides a best-in-class React framework with SSR, SSG, and a strong ecosystem. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Project Structure (Frontend)</title>
-        <section>Project Structure</section>
-        <snippet>
-          my-ai-trainer/
-          ├── apps/
-          │   ├── web/                     # Next.js Frontend
-          │   │   ├── src/
-          │   │   │   ├── app/             # App Router: pages, layouts, components
-          │   │   │   ├── components/      # Shared UI components
-          │   │   │   ├── lib/             # Helper functions, utilities
-          │   │   │   ├── store/           # Zustand state management stores
-          │   │   │   └── styles/          # Global styles
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 18: Change Settings (General, Health, Playback & Privacy)</title>
-        <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
-        <snippet>
-          ### **Flow 18: Change Settings (General, Health, Playback & Privacy)**
-
-          *   **Purpose:** Provide a comprehensive and intuitive control panel for personalization and data management.
-          ...
-          *   **Key UX Direction / Improvements:**
-              ...
-              *   **Preview for Appearance Settings:** Shows live visual feedback for theme and color changes.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 18, Screen 2 (General Settings)</title>
-        <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
-        <snippet>
-          Given I am in the "General" settings sub-screen (Flow 18, Screen 2 - `genreralsettings/code.html`)
-          When I select a different language or toggle notification preferences
-          Then the changes are applied to the app
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 18, Screen 3 (Appearance Settings)</title>
-        <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
-        <snippet>
-          Given I am in the "Appearance" settings sub-screen (Flow 18, Screen 3 - `apperance/code.html`)
-          When I select a theme (light/dark/system), accent color, or adjust font size
-          Then these changes are immediately reflected in a live preview and applied to the app's UI
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/epics.md</path>
-        <title>Epic 4, Story 4.4: General & Appearance Settings</title>
-        <section>Epic 4: User Control & Settings</section>
-        <snippet>
-          ### Story 4.4: General & Appearance Settings
-          As a user,
-          I want to customize general application preferences like language and appearance (theme, accent color, font size),
-          So that I can personalize my app experience.
-
-          **Acceptance Criteria:**
-          Given I am in the "General" settings sub-screen (Flow 18, Screen 2 - `genreralsettings/code.html`)
-          When I select a different language or toggle notification preferences
-          Then the changes are applied to the app
-          Given I am in the "Appearance" settings sub-screen (Flow 18, Screen 3 - `apperance/code.html`)
-          When I select a theme (light/dark/system), accent color, or adjust font size
-          Then these changes are immediately reflected in a live preview and applied to the app's UI
-
-          **Prerequisites:** Story 4.1
-
-          **Technical Notes:** Implement frontend UI for general and appearance settings based on `ux_design_content` (Flow 18, Screen 2 & 3). Use client-side state management (Zustand) for theme, language, and font preferences. Persist these settings in `Users` table or local storage.
-        </snippet>
-      </artifact>
+        <doc>
+            <path>docs/architecture.md</path>
+            <title>Architecture</title>
+            <section>FR Category to Architecture Mapping</section>
+            <snippet>Frontend (Next.js `web` app): Responsible for all user-facing features. Handles: Onboarding, Workout Player UI, Dashboard, Settings, User Profile UI, Context Window.</snippet>
+        </doc>
+        <doc>
+            <path>docs/ux-design-direction.md</path>
+            <title>UX Design Direction</title>
+            <section>Flow 18: Change Settings (General, Health, Playback & Privacy)</section>
+            <snippet>The "General" settings sub-screen is detailed in Flow 18, Screen 2 - `genreralsettings/code.html`, and the "Appearance" settings sub-screen is detailed in Flow 18, Screen 3 - `apperance/code.html`.</snippet>
+        </doc>
     </docs>
     <code>
-      <artifact>
-        <path>apps/web/src/app or apps/web/src/components</path>
-        <kind>UI Components</kind>
-        <symbol>General Settings UI</symbol>
-        <lines></lines>
-        <reason>React components for language selection and notification preference toggles</reason>
-      </artifact>
-      <artifact>
-        <path>apps/web/src/app or apps/web/src/components</path>
-        <kind>UI Components</kind>
-        <symbol>Appearance Settings UI</symbol>
-        <lines></lines>
-        <reason>React components for theme selection, accent color picker, and font size adjustment</reason>
-      </artifact>
-      <artifact>
-        <path>apps/web/src/lib</path>
-        <kind>Zustand Store</kind>
-        <symbol>userPreferencesStore</symbol>
-        <lines></lines>
-        <reason>Manage and persist theme, language, font size, and notification preferences</reason>
-      </artifact>
-      <artifact>
-        <path>apps/web/src/lib</path>
-        <kind>Persistence Logic</kind>
-        <symbol></symbol>
-        <lines></lines>
-        <reason>Integrate with local storage or Supabase `Users` table to persist user preferences</reason>
-      </artifact>
+      <!-- No existing code artifacts found relevant to this story. -->
     </code>
-    <dependencies>
-      <dependency>
-        <name>Next.js</name>
-        <version></version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Zustand</name>
-        <version>5.0.9</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Jest</name>
-        <version>30.2.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>React Testing Library</name>
-        <version>16.3.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Playwright</name>
-        <version>1.57.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Supabase</name>
-        <version>2.86.0</version>
-        <ecosystem>Database</ecosystem>
-      </dependency>
-    </dependencies>
   </artifacts>
-
   <constraints>
-    <constraint>UI adheres to `ux_design_content` principles (e.g., visual consistency, intuitive controls).</constraint>
-    <constraint>Implement structured JSON logging for relevant frontend actions (e.g., settings changes).</constraint>
-    <constraint>Verify consistency with naming conventions for components and functions.</constraint>
-    <constraint>Adhere to defined naming conventions for React Components (`PascalCase`).</constraint>
+    <constraint>Frontend must manage client-side state for theme, language, and font preferences using Zustand.</constraint>
+    <constraint>User preferences should be persisted across sessions.</constraint>
   </constraints>
   <interfaces>
-    <interface>
-      <name>Supabase User Table</name>
-      <kind>Database table</kind>
-      <signature>User preference fields</signature>
-      <path></path>
-    </interface>
-    <interface>
-      <name>Local Storage</name>
-      <kind>Browser API</kind>
-      <signature>setItem, getItem</signature>
-      <path></path>
-    </interface>
+      <interface>
+        <name>Settings Persistence</name>
+        <kind>State Management/Data Persistence</kind>
+        <signature>Zustand store for settings, integrated with local storage or Supabase `Users` table.</signature>
+        <path>apps/web/src/store/settings.ts (to be created)</path>
+      </interface>
   </interfaces>
   <tests>
-    <standards>
-      Frontend: Unit tests for components, Zustand stores; integration tests for persistence; E2E tests for customization flows.
-    </standards>
-    <locations>
-      <location>apps/web/tests</location>
-    </locations>
-    <ideas>
-      <idea>Unit test React components for language selection, theme toggling, and font size adjustment.</idea>
-      <idea>Integration test Zustand stores to ensure state is managed and persisted correctly.</idea>
-      <idea>E2E test the full user journey of customizing general and appearance settings and verifying changes are applied.</idea>
-    </ideas>
+      <standards>Unit tests for components and Zustand stores; integration tests for persistence; E2E tests for customization flows.</standards>
+      <locations><location>apps/web/src/app/settings/</location></locations>
+      <ideas>
+          <idea>Unit test settings components to verify UI rendering and interaction.</idea>
+          <idea>E2E test the full flow of customizing general and appearance settings and verifying persistence.</idea>
+      </ideas>
   </tests>
 </story-context>

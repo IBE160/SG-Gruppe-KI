@@ -1,337 +1,78 @@
-<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+<story-context id="3-2-ai-driven-session-mix-generation" v="1.0">
   <metadata>
     <epicId>3</epicId>
     <storyId>2</storyId>
     <title>AI-Driven Session Mix Generation</title>
-    <status>drafted</status>
-    <generatedAt>2025-12-14</generatedAt>
-    <generator>BMAD Story Context Workflow</generator>
+    <status>ready-for-dev</status>
+    <generatedAt>2025-12-15</generatedAt>
+    <generator>BMAD Story Context Workflow (Regenerated)</generator>
     <sourceStoryPath>docs/sprint-artifacts/3-2-AI-Driven Session Mix Generation.md</sourceStoryPath>
   </metadata>
-
   <story>
     <asA>user with a connected Spotify account</asA>
     <iWant>the AI to generate personalized, phase-aligned workout playlists ("Session Mix")</iWant>
     <soThat>my music enhances my training experience.</soThat>
     <tasks>
-      <task category="Frontend (apps/web)">
-        <description>UI Implementation (Flow 11, Screen 1): Create React components for "Generate Session Mix" initiation, including mix type selection. Refer to `ux_design_content` Flow 11, Screen 1 `code.html`.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>UI Implementation (Flow 11, Screen 2): Create React components for "Session Mix Preview & Customization," including tracklist display, seed input for artists/genres, and track review/customization. Refer to `ux_design_content` Flow 11, Screen 2 `code.html`.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>API Integration: Implement client-side API calls to the FastAPI backend for generating the session mix and handling user customizations.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web)">
-        <description>State Management: Use Zustand to manage frontend state for mix generation, preview, and customization.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write unit tests for new React components.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write integration tests for API calls and state management.</description>
-        <status>pending</status>
-      </task>
-      <task category="Frontend (apps/web) - Testing">
-        <description>Write Playwright E2E tests for the entire Flow 11 user journey.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api) - API Endpoints">
-        <description>Create `/music/generate-session-mix` endpoint to handle session mix generation requests.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api) - API Endpoints">
-        <description>Create endpoints for Spotify API interactions: `/music/recently-played`, `/music/audio-features`, `/music/create-playlist`.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api)">
-        <description>AI Music Scorer Logic: Implement the core AI Music Scorer logic to: Fetch user's Spotify listening history and preferences; Analyze audio features of potential tracks; Generate a playlist based on BPM, workout phase, and user feedback.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api)">
-        <description>Spotify API Integration: Implement secure interactions with the Spotify API (using stored tokens from Story 3.1).</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api)">
-        <description>Data Persistence: Define and implement the `MusicPreferences` model (and potentially `MasterLists`) using Supabase/Prisma.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api) - Testing">
-        <description>Write unit tests for AI Music Scorer logic and Spotify API integration.</description>
-        <status>pending</status>
-      </task>
-      <task category="Backend (apps/api) - Testing">
-        <description>Write integration tests for API endpoints and database interactions.</description>
-        <status>pending</status>
-      </task>
-      <task category="Data Model">
-        <description>Define `MusicPreferences` table structure in Supabase (or extend existing `Users` table with preferences).</description>
-        <status>pending</status>
-      </task>
-      <task category="Data Model">
-        <description>Consider schema for `MasterLists` if implemented in the database.</description>
-        <status>pending</status>
-      </task>
-      <task category="Documentation">
-        <description>Update API documentation with new endpoints.</description>
-        <status>pending</status>
-      </task>
-      <task category="Documentation">
-        <description>Add comments to complex AI Music Scorer logic.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Ensure all API communication adheres to the standard format `{"data": { ... }}` and `{"error": { ... }}`.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Implement structured JSON logging for all new backend services.</description>
-        <status>pending</status>
-      </task>
-      <task category="Refinement">
-        <description>Verify consistency with naming conventions (kebab-case routes, PascalCase tables, snake_case columns).</description>
-        <status>pending</status>
-      </task>
+      - Frontend (apps/web):
+        - UI Implementation (Flow 11, Screen 1): Create React components for "Generate Session Mix" initiation, including mix type selection.
+        - UI Implementation (Flow 11, Screen 2): Create React components for "Session Mix Preview & Customization," including tracklist display, seed input for artists/genres, and track review/customization.
+        - API Integration: Implement client-side API calls to the FastAPI backend for generating the session mix and handling user customizations.
+        - State Management: Use Zustand to manage frontend state for mix generation, preview, and customization.
+        - Testing: Write unit tests, integration tests, and Playwright E2E tests.
+      - Backend (apps/api):
+        - API Endpoints: Create `/music/generate-session-mix` endpoint and Spotify API interaction endpoints.
+        - AI Music Scorer Logic: Implement core AI logic for playlist generation.
+        - Spotify API Integration: Implement secure interactions with the Spotify API.
+        - Data Persistence: Define and implement the `MusicPreferences` model.
+        - Testing: Write unit tests and integration tests.
+      - Data Model: Define `MusicPreferences` table structure.
+      - Documentation: Update API documentation, add comments.
+      - Refinement: Ensure API communication adheres to standard format, implement structured logging, verify naming conventions.
     </tasks>
   </story>
-
   <acceptanceCriteria>
-    <criterion id="1">Given I have a connected Spotify account (Story 3.1) and an active workout plan</criterion>
-    <criterion id="2">When I initiate "Generate Session Mix" (Flow 11, Screen 1 - `screen_1/code.html`)</criterion>
-    <criterion id="3">Then I can select the mix type (e.g., Warm-up only, Full Session)</criterion>
-    <criterion id="4">And the AI Music Scorer (backend) generates a playlist based on BPM, audio features, listening history, and user feedback</criterion>
-    <criterion id="5">And I am presented with a "Session Mix Preview & Customization" screen (Flow 11, Screen 2 - `screen_2/code.html`)</criterion>
-    <criterion id="6">And I can seed the mix with artists/genres, and review/customize individual tracks</criterion>
-    <criterion id="7">And a custom playlist is created in my Spotify account (private or public)</criterion>
+    <criterion>AC3.2.1: A user is presented with a "Generate Session Mix" screen where they can select the mix type.</criterion>
+    <criterion>AC3.2.2: The AI Music Scorer (backend) generates a playlist based on BPM, audio features, listening history, and user feedback.</criterion>
+    <criterion>AC3.2.3: The user is presented with a "Session Mix Preview & Customization" screen where they can review and customize individual tracks.</criterion>
   </acceptanceCriteria>
-
-  <artifacts>
   <artifacts>
     <docs>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - AI-Driven Music Matching ("Smart Radio")</title>
-        <section>Novel Architectural Patterns</section>
-        <snippet>
-          ### Pattern: AI-Driven Music Matching ("Smart Radio")
-
-          This pattern defines a system that learns from user behavior to create personalized, phase-aware workout playlists, moving beyond simple BPM matching.
-
-          **Purpose:** To create a "Smart Radio" experience that feels like a DJ is personally curating a soundtrack for the user's workout, enhancing motivation and flow state.
-
-          **Components:**
-          1.  **Music Source (Spotify API):** Provides access to the user's listening history, playlists, and a vast library of tracks.
-          2.  **Master Lists (Database):** Large, persistent playlists of candidate tracks for each workout phase (Warm-up, Main, Cooldown), stored in the database.
-          3.  **AI Music Scorer (Backend):** A service that ranks tracks in the Master Lists based on BPM, audio features (energy, danceability), and user feedback signals.
-          4.  **Session Playlist Generator (Backend):** A service that queries the ranked Master Lists to build a "Session Playlist" for the upcoming workout.
-          5.  **Pre-Workout Review UI (Frontend):** A screen where the user can see, approve, and make minor edits to the generated Session Playlist.
-          6.  **Playback Feedback Loop (Frontend/Backend):** A system that captures in-workout user actions (e.g., skipping a track) and translates them into negative signals for the AI Music Scorer.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/architecture.md</path>
-        <title>Architecture - Decision Summary</title>
-        <section>Decision Summary</section>
-        <snippet>
-          | Category | Decision | Version | Affects Epics | Rationale |
-          | -------- | -------- | ------- | ------------- | --------- |
-          | API Pattern | FastAPI | 0.123.7 | AI Planning, Workout Logging, All Backend Services | Recommended in proposal; Excellent for AI/ML integration and high performance. |
-          | Data Persistence | Supabase (PostgreSQL) | 2.86.0 | All data-related features | Provides a managed PostgreSQL database, simplifying setup and scaling. Also includes Auth and Storage. |
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/ux-design-direction.md</path>
-        <title>UX Design Direction - Flow 11: Generate Session Mix</title>
-        <section>Flow 11: Generate Session Mix (Optional AI-Based Playlist)</section>
-        <snippet>
-          *   **Purpose:** Offer highly personalized, AI-generated workout music that adapts to workout phases.
-          *   **Core User Journey:** User selects playlist mode, views a customizable tracklist preview, then plays the mix within the workout player, with real-time BPM feedback.
-          *   **Key UX Direction / Improvements:**
-              *   **Pre-Generation Preview & Customization:** Allows users to review and make quick changes (remove/replace tracks) to the AI-generated playlist before playback.
-              *   **"Seed" Music Preferences:** Enables users to explicitly define preferred genres/artists for AI to use, enhancing personalization.
-              *   **Visual BPM Matching Feedback:** Provides real-time visual cues (e.g., a gauge) showing how the music's BPM aligns with the workout phase.
-        </snippet>
-      </artifact>
-      <artifact>
-        <path>docs/epics.md</path>
-        <title>Epic 3, Story 3.2: AI-Driven Session Mix Generation</title>
-        <section>Epic 3: Enhanced Experience & Personalization</section>
-        <snippet>
-          ### Story 3.2: AI-Driven Session Mix Generation
-          As a user with a connected Spotify account,
-          I want the AI to generate personalized, phase-aligned workout playlists ("Session Mix"),
-          So that my music enhances my training experience.
-
-          **Acceptance Criteria:**
-          Given I have a connected Spotify account (Story 3.1) and an active workout plan
-          When I initiate "Generate Session Mix" (Flow 11, Screen 1 - `screen_1/code.html`)
-          Then I can select the mix type (e.g., Warm-up only, Full Session)
-          And the AI Music Scorer (backend) generates a playlist based on BPM, audio features, listening history, and user feedback
-          And I am presented with a "Session Mix Preview & Customization" screen (Flow 11, Screen 2 - `screen_2/code.html`)
-          And I can seed the mix with artists/genres, and review/customize individual tracks
-          And a custom playlist is created in my Spotify account (private or public)
-
-          **Prerequisites:** Story 2.1, 3.1
-
-          **Technical Notes:** Implement frontend UI for Session Mix generation and preview (Flow 11, Screen 1 & 2). Implement backend API endpoints (`/music/recently-played`, `/music/audio-features`, `/music/create-playlist`) to interact with Spotify API. Develop AI Music Scorer logic in FastAPI to rank tracks and generate playlists. Store music preferences in `MusicPreferences` table.
-        </snippet>
-      </artifact>
+        <doc>
+            <path>docs/architecture.md</path>
+            <title>Architecture</title>
+            <section>Novel Architectural Patterns</section>
+            <snippet>Pattern: AI-Driven Music Matching ("Smart Radio") - This pattern defines a system that learns from user behavior to create personalized, phase-aware workout playlists...</snippet>
+        </doc>
+        <doc>
+            <path>docs/ux-design-direction.md</path>
+            <title>UX Design Direction</title>
+            <section>Flow 11: Generate Session Mix (Optional AI-Based Playlist)</section>
+            <snippet>This screen allows users to preview the AI-generated session mix, select a playlist mode, seed the mix with artists/genres, and review/customize the individual tracks...</snippet>
+        </doc>
     </docs>
     <code>
-      <artifact>
-        <path>apps/web/src/app or apps/web/src/components</path>
-        <kind>UI Components</kind>
-        <symbol>Flow 11 UI</symbol>
-        <lines></lines>
-        <reason>Frontend UI for Session Mix generation and preview</reason>
-      </artifact>
-      <artifact>
-        <path>apps/web/src/lib</path>
-        <kind>Client-side API integration logic</kind>
-        <symbol></symbol>
-        <lines></lines>
-        <reason>Client-side API calls to backend</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/api</path>
-        <kind>API Endpoints</kind>
-        <symbol>/music/generate-session-mix</symbol>
-        <lines></lines>
-        <reason>Handles session mix generation requests</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/api</path>
-        <kind>API Endpoints</kind>
-        <symbol>/music/recently-played</symbol>
-        <lines></lines>
-        <reason>Spotify API interaction</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/api</path>
-        <kind>API Endpoints</kind>
-        <symbol>/music/audio-features</symbol>
-        <lines></lines>
-        <reason>Spotify API interaction</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/api</path>
-        <kind>API Endpoints</kind>
-        <symbol>/music/create-playlist</symbol>
-        <lines></lines>
-        <reason>Spotify API interaction</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/services</path>
-        <kind>AI Music Scorer logic</kind>
-        <symbol></symbol>
-        <lines></lines>
-        <reason>Core logic to fetch, analyze, and generate playlists</reason>
-      </artifact>
-      <artifact>
-        <path>apps/api/app/models.py</path>
-        <kind>Pydantic models</kind>
-        <symbol></symbol>
-        <lines></lines>
-        <reason>Request/response validation</reason>
-      </artifact>
+      <!-- No existing code artifacts found relevant to this story. -->
     </code>
-    <dependencies>
-      <dependency>
-        <name>FastAPI</name>
-        <version>0.123.7</version>
-        <ecosystem>Python</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Supabase (PostgreSQL)</name>
-        <version>2.86.0</version>
-        <ecosystem>Database</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Zustand</name>
-        <version>5.0.9</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Jest</name>
-        <version>30.2.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>React Testing Library</name>
-        <version>16.3.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Playwright</name>
-        <version>1.57.0</version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-      <dependency>
-        <name>Next.js</name>
-        <version></version>
-        <ecosystem>JS/TS</ecosystem>
-      </dependency>
-    </dependencies>
   </artifacts>
-
   <constraints>
-    <constraint>API communication adheres to standard format `{"data": { ... }}` and `{"error": { ... }}`.</constraint>
-    <constraint>Structured JSON logging for all new backend services.</constraint>
-    <constraint>Consistency with naming conventions (kebab-case routes, PascalCase tables, snake_case columns).</constraint>
-    <constraint>Use Pydantic for request/response validation in FastAPI.</constraint>
-    <constraint>Environment variables for secrets management.</constraint>
-    <constraint>Leverage FastAPI's asynchronous nature for performance.</constraint>
-    <constraint>Consider database indexing for frequently queried columns.</constraint>
+    <constraint>All external API calls must be proxied through the FastAPI backend to ensure token security.</constraint>
+    <constraint>AI Music Scorer must continuously re-rank tracks based on user feedback, ensuring playlists get smarter over time.</constraint>
   </constraints>
-
   <interfaces>
-    <interface>
-      <name>Generate Session Mix API</name>
-      <kind>REST endpoint</kind>
-      <signature>POST /music/generate-session-mix</signature>
-      <path>apps/api/app/api</path>
-    </interface>
-    <interface>
-      <name>Spotify Recently Played API</name>
-      <kind>REST endpoint</kind>
-      <signature>GET /music/recently-played</signature>
-      <path>apps/api/app/api</path>
-    </interface>
-    <interface>
-      <name>Spotify Audio Features API</name>
-      <kind>REST endpoint</kind>
-      <signature>GET /music/audio-features</signature>
-      <path>apps/api/app/api</path>
-    </interface>
-    <interface>
-      <name>Spotify Create Playlist API</name>
-      <kind>REST endpoint</kind>
-      <signature>POST /music/create-playlist</signature>
-      <path>apps/api/app/api</path>
-    </interface>
+      <interface>
+        <name>Generate Session Mix</name>
+        <kind>REST Endpoint</kind>
+        <signature>POST /music/generate-session-mix</signature>
+        <path>apps/api/app/api/music.py</path>
+      </interface>
   </interfaces>
-
   <tests>
-    <standards>
-      Frontend: Unit tests (Jest/React Testing Library) for components and hooks, integration tests for API interactions and state, E2E tests (Playwright) for critical user flows (Flow 11).
-      Backend: Unit tests for individual functions (AI Music Scorer, Spotify integrations), integration tests for API endpoints and database interactions.
-    </standards>
-    <locations>
-      <location>apps/web/tests</location>
-      <location>apps/api/tests</location>
-    </locations>
-    <ideas>
-      <idea>Unit test AI Music Scorer logic for track ranking and playlist generation.</idea>
-      <idea>Integration test the `/music/generate-session-mix` API endpoint with mock Spotify responses.</idea>
-      <idea>E2E test the full Flow 11 user journey from mix initiation to preview and customization.</idea>
-      <idea>Unit test React components for mix type selection and track customization.</idea>
-      <idea>Integration test Zustand stores for managing mix generation state.</idea>
-    </ideas>
+      <standards>Frontend unit tests (Jest/React Testing Library), backend unit tests for AI Music Scorer logic, integration tests for API endpoints, and E2E tests (Playwright) for the entire Flow 11 user journey.</standards>
+      <locations><location>apps/web/src/app/music/mix/</location></locations>
+      <ideas>
+          <idea>Unit test frontend components for mix type selection and customization.</idea>
+          <idea>Integration test `POST /music/generate-session-mix` with mocked Spotify API and AI Music Scorer logic.</idea>
+          <idea>E2E test the full Flow 11 user journey, verifying playlist generation, customization, and integration with Spotify.</idea>
+      </ideas>
   </tests>
 </story-context>

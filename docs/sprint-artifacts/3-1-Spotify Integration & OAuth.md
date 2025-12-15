@@ -1,6 +1,4 @@
-# Story 3.1: Spotify Integration & OAuth
-
-Status: drafted
+Status: ready-for-dev
 
 ## Story
 
