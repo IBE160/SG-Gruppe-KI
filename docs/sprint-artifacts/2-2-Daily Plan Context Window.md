@@ -1,6 +1,6 @@
 # Story 2.2: Daily Plan Context Window
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -86,24 +86,24 @@ So that the AI can adapt my daily workout plan accordingly.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Implement Context Window UI Component (AC: 1, 2, 3, 4, 5)**
-  - [ ] Subtask 1.1: Create `apps/web/src/components/ContextWindow/ContextWindow.tsx` based on `Flow 6, Screen 1` (`screen_1/code.html`) from `ux-design-direction.md`.
-  - [ ] Subtask 1.2: Implement UI for mood input (emoticons/segmented buttons).
-  - [ ] Subtask 1.3: Implement UI for energy level input (segmented buttons).
-  - [ ] Subtask 1.4: Implement UI for soreness input (multi-select/free text).
-  - [ ] Subtask 1.5: Implement logic for "smart suggestions" based on mock data or a simple rule for Phase 1.
-  - [ ] Subtask 1.6: Write unit tests (Jest/RTL) for the Context Window component, verifying UI rendering and interaction with input fields.
-- [ ] **Task 2: Implement Context Window State Management**
-  - [ ] Subtask 2.1: Create `apps/web/src/store/contextStore.ts` using Zustand to manage the temporary state of mood, energy, and soreness inputs within the Context Window.
-  - [ ] Subtask 2.2: Integrate the `contextStore` with the `ContextWindow.tsx` component to capture user inputs.
-  - [ ] Subtask 2.3: Write unit tests for `contextStore.ts` to ensure state updates correctly.
-- [ ] **Task 3: Implement Context Submission Logic (AC: 6, 7)**
-  - [ ] Subtask 3.1: Implement an API utility or hook (e.g., in `apps/web/src/lib/planApi.ts`) to send the collected context data from `contextStore` to the `POST /api/v1/plans/generate` endpoint.
-  - [ ] Subtask 3.2: Add a "Submit" button to the `ContextWindow.tsx` that triggers the API call.
-  - [ ] Subtask 3.3: Handle loading and error states for the API call in the UI.
-  - [ ] Subtask 3.4: Write integration tests (Jest) for the submission logic, mocking the API call.
-- [ ] **Task 4: E2E Testing**
-  - [ ] Subtask 4.1: Write an E2E test (Playwright) that navigates to the dashboard, interacts with the Context Window, inputs data, and verifies that a `POST` request to `/plans/generate` is successfully made with the correct payload.
+- [x] **Task 1: Implement Context Window UI Component (AC: 1, 2, 3, 4, 5)**
+  - [x] Subtask 1.1: Create `apps/web/src/components/ContextWindow/ContextWindow.tsx` based on `Flow 6, Screen 1` (`screen_1/code.html`) from `ux-design-direction.md`.
+  - [x] Subtask 1.2: Implement UI for mood input (emoticons/segmented buttons).
+  - [x] Subtask 1.3: Implement UI for energy level input (segmented buttons).
+  - [x] Subtask 1.4: Implement UI for soreness input (multi-select/free text).
+  - [x] Subtask 1.5: Implement logic for "smart suggestions" based on mock data or a simple rule for Phase 1.
+  - [x] Subtask 1.6: Write unit tests (Jest/RTL) for the Context Window component, verifying UI rendering and interaction with input fields.
+- [x] **Task 2: Implement Context Window State Management**
+  - [x] Subtask 2.1: Create `apps/web/src/store/contextStore.ts` using Zustand to manage the temporary state of mood, energy, and soreness inputs within the Context Window.
+  - [x] Subtask 2.2: Integrate the `contextStore` with the `ContextWindow.tsx` component to capture user inputs.
+  - [x] Subtask 2.3: Write unit tests for `contextStore.ts` to ensure state updates correctly.
+- [x] **Task 3: Implement Context Submission Logic (AC: 6, 7)**
+  - [x] Subtask 3.1: Implement an API utility or hook (e.g., in `apps/web/src/lib/planApi.ts`) to send the collected context data from `contextStore` to the `POST /api/v1/plans/generate` endpoint.
+  - [x] Subtask 3.2: Add a "Submit" button to the `ContextWindow.tsx` that triggers the API call.
+  - [x] Subtask 3.3: Handle loading and error states for the API call in the UI.
+  - [x] Subtask 3.4: Write integration tests (Jest) for the submission logic, mocking the API call.
+- [x] **Task 4: E2E Testing**
+  - [x] Subtask 4.1: Write an E2E test (Playwright) that navigates to the dashboard, interacts with the Context Window, inputs data, and verifies that a `POST` request to `/plans/generate` is successfully made with the correct payload.
 
 ## Dev Notes
 
@@ -150,10 +150,24 @@ Gemini
 - No debug logs for this story yet.
 
 ### Completion Notes List
-- Not started.
+- Implemented Context Window UI (`ContextWindow.tsx`) with mood, energy, and soreness inputs.
+- Added smart suggestions logic based on the day of the week.
+- Implemented Zustand store (`contextStore.ts`) for state management.
+- Integrated Zustand store with `ContextWindow.tsx`.
+- Developed API utility (`planApi.ts`) for `POST /api/v1/plans/generate` endpoint.
+- Integrated API call and handled loading/error states in `ContextWindow.tsx`.
+- Authored comprehensive unit tests for `ContextWindow.tsx` and `contextStore.ts`.
+- Created E2E test (`context-window.spec.ts`) for the feature.
 
 ### File List
-- Not started.
+- Added: `apps/web/src/components/ContextWindow/ContextWindow.tsx`
+- Added: `apps/web/src/components/MaterialSymbol.tsx`
+- Added: `apps/web/src/components/ContextWindow/ContextWindow.test.tsx`
+- Added: `apps/web/src/store/contextStore.ts`
+- Added: `apps/web/src/store/contextStore.test.ts`
+- Added: `apps/web/src/lib/planApi.ts`
+- Added: `tests/e2e/context-window.spec.ts`
+- Modified: `c:\Users\Robert\Documents\AI-Powered Personal Training Advisor\SG-Gruppe-KI\docs\sprint-artifacts\2-2-Daily Plan Context Window.md`
 
 ## Change Log
 

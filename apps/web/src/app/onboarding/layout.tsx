@@ -1,3 +1,4 @@
+"use client";
 // apps/web/src/app/onboarding/layout.tsx
 import React from 'react';
 import Link from 'next/link';
