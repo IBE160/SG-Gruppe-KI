@@ -40,7 +40,7 @@ development_status:
   1-1-project-setup-core-infrastructure: ready-for-dev
   1-2-user-authentication-email-google-oauth: drafted
   1-3-conversational-onboarding-goals-preferences: backlog
-  1-4-user-profile-management: backlog
+  1-4-user-profile-management: review
   epic-1-retrospective: optional
 
   epic-2: backlog

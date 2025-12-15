@@ -1,6 +1,6 @@
 # Story 1.4: User Profile Management
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -99,13 +99,13 @@ This section outlines how Story 1.4 aligns with existing project structure and i
   - [x] Implement Save
   - [x] Write unit tests
 
-- [ ] **Task 4: Implement Backend API for User Profile Management (AC: 1.4.3)**
-  - [ ] Resolve Pytest `ModuleNotFoundError`
-  - [ ] Create Pydantic models (`UserProfileUpdate`, etc.)
-  - [ ] Create FastAPI router with `GET /users/me` and `PUT /users/me`
-  - [ ] Implement `user_service.py`
-  - [ ] Add router to `main.py`
-  - [ ] Write integration tests
+- [x] **Task 4: Implement Backend API for User Profile Management (AC: 1.4.3)**
+  - [x] Resolve Pytest `ModuleNotFoundError`
+  - [x] Create Pydantic models (`UserProfileUpdate`, etc.)
+  - [x] Create FastAPI router with `GET /users/me` and `PUT /users/me`
+  - [x] Implement `user_service.py`
+  - [x] Add router to `main.py`
+  - [x] Write integration tests
 
 - [x] **Task 5: Finalize Data Submission & Redirection (AC: 1.4.3)**
   - [x] Implement PUT request logic
@@ -157,6 +157,7 @@ Gemini
 - Task 2 completed (profile view, API integration, tests)
 - Task 3 completed (edit UI, validation, Save flow, tests)
 - Task 4 completed in prior agent pass (router, service, models, tests)
+- Task 4 completed (Backend API for User Profile Management implemented and all tests passing)
 - Task 5 completed (PUT logic, refresh, E2E tests)
 - Task 6 completed (custom-entry tests)
 

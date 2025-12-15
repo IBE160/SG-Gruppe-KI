@@ -1,7 +1,12 @@
 # apps/api/conftest.py
 import pytest
 import os
+import sys
 from unittest.mock import patch
+
+# This ensures that the 'app' module can be found by pytest
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
+
 
 @pytest.fixture(autouse=True)
 def mock_env_vars_for_all_tests(monkeypatch):

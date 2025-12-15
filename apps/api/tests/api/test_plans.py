@@ -48,7 +48,7 @@ def test_generate_plan_success(client: FastAPIClient):
             }
         }
 
-        response = client.post("/plans/generate", json=request_data)
+        response = client.post("/api/v1/plans/generate", json=request_data)
         
         assert response.status_code == 200
         response_json = response.json()
@@ -73,7 +73,7 @@ def test_generate_plan_ai_validation_error(client: FastAPIClient):
             }
         }
 
-        response = client.post("/plans/generate", json=request_data)
+        response = client.post("/api/v1/plans/generate", json=request_data)
         
         assert response.status_code == 422
         assert "AI response validation failed" in response.json()["detail"]
@@ -106,7 +106,7 @@ def test_generate_plan_storage_failure(client: FastAPIClient):
             }
         }
 
-        response = client.post("/plans/generate", json=request_data)
+        response = client.post("/api/v1/plans/generate", json=request_data)
         
         assert response.status_code == 500
         assert "Failed to generate or store workout plan" in response.json()["detail"]
@@ -128,7 +128,7 @@ def test_generate_plan_general_exception(client: FastAPIClient):
             }
         }
 
-        response = client.post("/plans/generate", json=request_data)
+        response = client.post("/api/v1/plans/generate", json=request_data)
         
         assert response.status_code == 500
         assert "Failed to generate or store workout plan" in response.json()["detail"]
@@ -136,6 +136,6 @@ def test_generate_plan_general_exception(client: FastAPIClient):
         mock_plan_instance.store_workout_plan.assert_not_awaited()
 
 def test_read_root(client: FastAPIClient):
-    response = client.get("/plans/")
+    response = client.get("/api/v1/plans/")
     assert response.status_code == 200
     assert response.json() == {"message": "Plans API is working!"}
