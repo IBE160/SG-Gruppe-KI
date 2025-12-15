@@ -4,8 +4,8 @@ from typing import List
 from postgrest import APIResponse
 from fastapi import HTTPException, status # Explicitly import HTTPException and status
 
-from apps.api.app.models.workout_log import WorkoutLogCreate, WorkoutLogResponse
-from apps.api.app.core.supabase import get_supabase_client
+from ..models.workout_log import WorkoutLogCreate, WorkoutLogResponse
+from ..core.supabase import get_supabase_client
 
 class LogService:
     def __init__(self):

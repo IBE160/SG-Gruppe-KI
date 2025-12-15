@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
 from uuid import UUID
 
-from apps.api.app.models.workout_log import WorkoutLogCreate, WorkoutLogResponse
-from apps.api.app.services.log_service import LogService
+from ..models.workout_log import WorkoutLogCreate, WorkoutLogResponse
+from ..services.log_service import LogService
 from app.core.supabase import get_current_user_id
 
 logs_router = APIRouter(prefix="/logs", tags=["Workout Logs"])

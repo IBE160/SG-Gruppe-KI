@@ -21,58 +21,63 @@ So that I can have transparent control over my personalized experience.
 ## Tasks / Subtasks
 
 -   **Frontend (apps/web):**
-    -   [ ] **UI Implementation (Flow 18, Screen 4):** Create React components for the "AI & Personalization" settings sub-screen. This includes:
+    -   [x] **UI Implementation (Flow 18, Screen 4):** Create `apps/web/src/app/settings/ai-personalization/page.tsx` with React components for the "AI & Personalization" settings sub-screen. This includes:
         *   Displaying "Learned Preferences" and "Learned Constraints" lists.
         *   Implementing "Edit" and "Delete" functionality for individual preferences/constraints.
         *   Implementing a "Reset All AI Learning" button with a confirmation modal.
-    -   [ ] **API Integration:** Implement client-side API calls to the FastAPI backend for viewing, editing, deleting, and resetting AI learned preferences.
+    -   [x] **API Integration:** Implement client-side API calls to the FastAPI backend for viewing, editing, deleting, and resetting AI learned preferences.
     -   **Testing:**
-        *   [ ] Write unit tests for new React components and interaction logic.
-        *   [ ] Write integration tests for API calls.
-        *   [ ] Write Playwright E2E tests for viewing, editing, deleting, and resetting AI preferences.
+        *   [x] Write unit tests for new React components and interaction logic.
+        *   [x] Write integration tests for API calls.
+        *   [x] Write Playwright E2E tests for viewing, editing, deleting, and resetting AI preferences.
 
 -   **Backend (apps/api):**
-    -   [ ] **API Endpoints:**
-        *   Create API endpoints to store, retrieve, edit, delete, and reset AI learned preferences (e.g., `/user-preferences/ai`).
-    -   [ ] **Data Persistence:** Implement logic to store, retrieve, and manage AI learned preferences in Supabase (e.g., in a `UserPreferences` table or as part of the `Users` table metadata).
-    -   [ ] **Robust Handling:** Ensure robust handling of deleting AI memory and resetting preferences.
+    -   [x] **API Endpoints:**
+        *   Create `apps/api/app/api/ai_preferences.py` with API endpoints to store, retrieve, edit, delete, and reset AI learned preferences (e.g., `POST /ai-preferences`, `GET /ai-preferences`, `PUT /ai-preferences/{id}`, `DELETE /ai-preferences/{id}`, `POST /ai-preferences/reset`).
+    -   [x] **Service Logic:** Implement `apps/api/app/services/ai_preference_service.py` to handle the business logic for AI preference management.
+    -   [x] **Data Model (Pydantic):** Define Pydantic models in `apps/api/app/models/ai_preference.py` for representing AI preferences.
+    -   [x] **Data Persistence:** Implement logic to store, retrieve, and manage AI learned preferences in Supabase (e.g., in a new `AIPreferences` table).
+    -   [x] **Robust Handling:** Ensure robust handling of deleting AI memory and resetting preferences.
     -   **Testing:**
-        *   [ ] Write unit tests for AI preference management logic.
-        *   [ ] Write integration tests for the new API endpoints and Supabase interactions.
+        *   [x] Write unit tests for AI preference management logic in `apps/api/app/services/ai_preference_service.py`.
+        *   [x] Write integration tests for the new API endpoints (`apps/api/app/api/ai_preferences.py`) and Supabase interactions.
 
 -   **Refinement:**
-    -   [ ] Ensure all API communication adheres to the standard format `{"data": { ... }}` and `{"error": { ... }}`.
-    -   [ ] Implement structured JSON logging for all relevant backend actions related to AI personalization settings.
-    -   [ ] Verify consistency with naming conventions for components, functions, and API routes.
+    -   [x] Ensure all API communication adheres to the standard format `{"data": { ... }}` and `{"error": { ... }}`.
+    -   [x] Implement structured JSON logging for all relevant backend actions related to AI personalization settings.
+    -   [x] Verify consistency with naming conventions for components, functions, and API routes.
 
 ## Dev Notes
 
 **Relevant Architecture Patterns and Constraints:**
-*   **Frontend:** Next.js `apps/web` for UI components (Flow 18, Screen 4) to display and manage AI preferences.
-*   **Backend:** FastAPI `apps/api` for API endpoints to store, retrieve, edit, and reset AI learned preferences (e.g., in a `UserPreferences` table or `Users` metadata column).
-*   **Data Persistence:** Supabase (PostgreSQL) for storing `UserPreferences` or similar data structures.
+*   **Frontend:** Next.js `apps/web` for UI components (`apps/web/src/app/settings/ai-personalization/page.tsx`) to display and manage AI preferences.
+*   **Backend:** FastAPI `apps/api` for API endpoints (`apps/api/app/api/ai_preferences.py`) to store, retrieve, edit, and reset AI learned preferences.
+*   **Data Persistence:** Supabase (PostgreSQL) for storing `AIPreferences` table.
 *   **Project Structure:** Monorepo (`apps/web` for frontend, `apps/api` for backend).
 *   **Consistency Rules:** Adhere to defined naming conventions and structured logging.
 
 **Source Tree Components to Touch:**
-*   `apps/web/src/app` or `apps/web/src/components`: New React components for "AI & Personalization" settings.
-*   `apps/web/src/lib`: Client-side API integration for AI preference management.
+*   `apps/web/src/app/settings/ai-personalization/page.tsx`: New page for AI & Personalization settings.
+*   `apps/web/src/lib/api/aiPreferencesApi.ts` (or similar): New client-side API integration for AI preference management.
 *   `apps/web/tests`: Frontend unit, integration, and E2E tests for AI settings.
-*   `apps/api/app/api`: New API endpoints for AI preference management.
-*   `apps/api/app/services`: Logic for AI preference management and Supabase integration.
+*   `apps/api/app/api/ai_preferences.py`: New API endpoints for AI preference management.
+*   `apps/api/app/services/ai_preference_service.py`: New service for AI preference management.
+*   `apps/api/app/models/ai_preference.py`: New Pydantic models for AI preferences.
 *   `apps/api/tests`: Backend unit and integration tests.
-
-**Testing Standards Summary:**
-*   **Frontend:** Unit tests for components and interaction logic; integration tests for API calls; E2E tests for viewing, editing, deleting, and resetting AI preferences.
-*   **Backend:** Unit tests for AI preference management logic; integration tests for API endpoints and Supabase interactions.
 
 ### Project Structure Notes
 
 **Project Structure Alignment:**
-This story aligns with the monorepo structure, impacting both the `apps/web` (Next.js frontend) for UI components (Flow 18, Screen 4) to display and manage AI preferences, and the `apps/api` (FastAPI backend) for providing API endpoints to store, retrieve, edit, and reset AI learned preferences. Data persistence will involve Supabase (PostgreSQL) to store `UserPreferences` or similar data structures.
+This story aligns with the monorepo structure, impacting both the `apps/web` (Next.js frontend) for UI components (`apps/web/src/app/settings/ai-personalization/page.tsx`) to display and manage AI preferences, and the `apps/api` (FastAPI backend) for providing API endpoints to store, retrieve, edit, and reset AI learned preferences. Data persistence will involve Supabase (PostgreSQL) to store a new `AIPreferences` table.
 
-**Lessons Learned from Previous Stories:**
-No explicit lessons learned from previous stories are available as Story 4.4 ("General & Appearance Settings") was recently drafted and is not yet implemented. Therefore, this story will proceed based on the architectural guidelines and design principles established in the `architecture.md` and `ux-design-direction.md` documents. The implementation should prioritize clear API contracts for managing AI preferences and robust data handling to ensure user control and transparency.
+**Data Model Suggestion (AIPreferences Table in Supabase):**
+*   `id` (uuid, PK): Primary key.
+*   `user_id` (uuid, FK to `Users.id`): Foreign key linking to the user.
+*   `type` (varchar): 'preference' or 'constraint'.
+*   `key` (varchar): A unique identifier for the preference/constraint (e.g., 'exercise_avoidance', 'preferred_intensity').
+*   `value` (jsonb): JSON object storing the details of the preference/constraint (e.g., `{"exercise": "burpees"}`, `{"level": "high"}`).
+*   `created_at` (timestamp with time zone): Timestamp of creation.
+*   `updated_at` (timestamp with time zone): Timestamp of last update.
 
 ### References
 

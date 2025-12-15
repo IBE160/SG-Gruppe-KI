@@ -20,20 +20,23 @@ So that I can personalize my app experience.
 ## Tasks / Subtasks
 
 -   **Frontend (apps/web):**
-    -   [ ] **UI Implementation (Flow 18, Screen 2):** Create React components for the "General" settings sub-screen, including language selection and notification preference toggles.
-    -   [ ] **UI Implementation (Flow 18, Screen 3):** Create React components for the "Appearance" settings sub-screen, including theme selection (light/dark/system), accent color picker, and font size adjustment.
-    -   [ ] **State Management (Zustand):** Implement Zustand stores to manage and persist theme, language, font size, and notification preferences.
-    -   [ ] **Persistence:** Integrate with local storage or Supabase `Users` table to persist user preferences across sessions.
-    -   [ ] **Live Preview:** Implement logic to immediately reflect appearance changes in a live preview within the app.
+    -   [x] **UI Implementation (Flow 18, Screen 2 - General Settings Page):** Create `apps/web/src/app/settings/general/page.tsx` with React components for language selection and notification preference toggles.
+    -   [x] **UI Implementation (Flow 18, Screen 3 - Appearance Settings Page):** Create `apps/web/src/app/settings/appearance/page.tsx` with React components for theme selection (light/dark/system), accent color picker, and font size adjustment.
+    -   [x] **State Management (Zustand - Settings Store):** Create `apps/web/src/store/settingsStore.ts` to manage and persist theme, language, font size, and notification preferences. This store should utilize Zustand's `persist` middleware.
+    -   [x] **Persistence (Client-side):** Implement logic within `settingsStore.ts` to persist user preferences to `localStorage`.
+    -   [x] **Dynamic Styling:** Implement logic to dynamically apply selected theme, accent color, and font size changes across the application.
+    -   [x] **Live Preview:** Implement logic to immediately reflect appearance changes in a live preview within the `apps/web/src/app/settings/appearance/page.tsx`.
+    -   [x] **Internationalization (i18n) Setup:** Integrate a suitable i18n library (e.g., `react-i18next` or Next.js's built-in i18n) if not already present, and set up basic language switching functionality.
     -   **Testing:**
-        *   [ ] Write unit tests for new React components and Zustand stores.
-        *   [ ] Write integration tests for persistence mechanisms (local storage/Supabase).
-        *   [ ] Write Playwright E2E tests for customizing general and appearance settings.
+        *   [x] Write unit tests for new React components in `apps/web/src/app/settings/general/page.tsx` and `apps/web/src/app/settings/appearance/page.tsx`.
+        *   [x] Write unit tests for `apps/web/src/store/settingsStore.ts` and its persistence logic.
+        *   [x] Write integration tests for persistence mechanisms using mocked `localStorage`.
+        *   [x] Write Playwright E2E tests for customizing general and appearance settings, including verifying live preview.
 
 -   **Refinement:**
-    -   [ ] Ensure UI adheres to `ux_design_content` principles (e.g., visual consistency, intuitive controls).
-    -   [ ] Implement structured JSON logging for relevant frontend actions (e.g., settings changes).
-    -   [ ] Verify consistency with naming conventions for components and functions.
+    -   [x] Ensure UI adheres to `ux_design_content` principles (e.g., visual consistency, intuitive controls).
+    -   [x] Implement structured JSON logging for relevant frontend actions (e.g., settings changes).
+    -   [x] Verify consistency with naming conventions for components and functions.
 
 ## Dev Notes
 
@@ -41,12 +44,14 @@ So that I can personalize my app experience.
 *   **Frontend:** Next.js `apps/web` for UI components (Flow 18, Screen 2 & 3) and client-side logic.
 *   **Project Structure:** Monorepo (`apps/web` for frontend).
 *   **State Management:** Zustand for client-side state management for theme, language, and font preferences.
-*   **Data Persistence:** Persist these settings in the `Users` table (Supabase) or local storage.
+*   **Data Persistence:** Prioritize `localStorage` for frontend-centric settings like theme, language, and font size.
 *   **Consistency Rules:** Adhere to defined naming conventions for React Components.
 
 **Source Tree Components to Touch:**
-*   `apps/web/src/app` or `apps/web/src/components`: New React components for general and appearance settings.
-*   `apps/web/src/lib`: Zustand store definitions, persistence logic.
+*   `apps/web/src/app/settings/general/page.tsx`: New page for General settings.
+*   `apps/web/src/app/settings/appearance/page.tsx`: New page for Appearance settings.
+*   `apps/web/src/store/settingsStore.ts`: New Zustand store for managing settings.
+*   `apps/web/src/lib/i18n.ts` (or similar): New file for i18n configuration if needed.
 *   `apps/web/tests`: Frontend unit, integration, and E2E tests for general/appearance settings.
 
 **Testing Standards Summary:**

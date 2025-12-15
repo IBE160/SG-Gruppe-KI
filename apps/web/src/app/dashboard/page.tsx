@@ -14,7 +14,6 @@ export default function DashboardPage() {
             <div
               className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
               data-alt="User's profile picture"
-              style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCQErvFjyzX5lgQRyqBM8MbaqzhAd_xTX9wYNq67fdqqtQFwsWnSuztvD2KXviJEBBdO1fXhYrVbd7AwzDTZscM24LHe_MoxkHucZmCwU-jmHAUyMaWTLETI8wX0iUNJ9wbKWIeX_gGg5M5NvcW5664OxnKY4GCXboHSfj_5c7DYM9rbhh5ichGMEzfXa8Sro8Y0iUNJ9wbKWIeX_gGg5M5NvcW5664OxnKY4GCXboHSfj_5c7DYM9rbhh5ichGMEzfXa8Sro8Y0xXuSdIj7oo1sXJvbK2driNOAU2MNQAQq4GiID5rQp8ZIPuKPCUIXgtWKW0DrgrV2mSsvN9mGBnH")' }}
             ></div>
           </div>
           <h1 className="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Dashboard</h1>
@@ -32,8 +31,7 @@ export default function DashboardPage() {
             <div className="flex h-full flex-1 flex-col gap-3 rounded-lg min-w-60 bg-card-dark p-4">
               <div
                 className="w-full bg-center bg-no-repeat aspect-[1.5/1] bg-cover rounded-lg flex flex-col"
-                data-alt="Abstract graphic of a barbell"
-                style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBjgFXYXkucz7B8jbRGgSApzLguMHpmA6o3oUzPUVbhg9rVNTmwXxIYMl3rD89yFB6JKLWBuiKULLhXpUt7fNgE1NKjsZZ_VsqBkcIYxtvYxNhgvPREwa79VPhxMMzg7ive3_cXiDEgp7gszptq97bYvic8uVDvkqJff8k4hOUiDapwK1k9TCUv_9OqLwZGP4Mp1QpROmaP_HtWlV4jRnR4ksIi4RRKfWh0B5xymw2Uq26DbMqPdtAm-oer-zIzPpCjqFaWQnIcaOCKOl0xDbjJ_B3jtZk7oCBTV_cjdV9izKhC8kmdbAnO0lV_0e_amNrhR63b062F")' }}
+                data-alt="User's profile picture"
               ></div>
               <div>
                 <p className="text-white text-base font-medium leading-normal">New PR: Squat!</p>
@@ -44,7 +42,6 @@ export default function DashboardPage() {
               <div
                 className="w-full bg-center bg-no-repeat aspect-[1.5/1] bg-cover rounded-lg flex flex-col"
                 data-alt="Graphic with a flame icon"
-                style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuAdYzDDFg8U2ghHuopG4QBHdseC3ixdPCM04Cmp25gaCjevHIWl-q9kZt5iep50O6hO4ltmXUfVEn13InLA8tKkeaARO3J2reUzYOizDfZeY7dl-D7x4i4XnG63sCl7Dvuy7cuEFJcTdV0UNlPh1yNHoz4Ue9DLP_Q5zXQ7ER7hBqqQovM-jKhwTOWN6hRAKyoxyqjJMgdmjTwS_cvmrXP96HJ7ltda6O7PrrWrpXuP7qUrJ7CL0MVn1RjT0wkaxxbHJpctvoUlWJ7s")' }}
               ></div>
               <div>
                 <p className="text-white text-base font-medium leading-normal">5 Day Streak!</p>
@@ -55,7 +52,6 @@ export default function DashboardPage() {
               <div
                 className="w-full bg-center bg-no-repeat aspect-[1.5/1] bg-cover rounded-lg flex flex-col"
                 data-alt="Graphic of a medal"
-                style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuA9B1Ocx5sJIJyHOMQf1ZkF1jCPIhj5IsIcpoLSNOXLESbbwWApWfkCqvt8-G2M9wbKTfsYeedujWj99O9zHoaNXk9yLGFvua-jWnbpb7Afe5FtmL8eK6rC0aD5yYwH7EZDUagTmW1gLEp0_aymu4x9zS1FNDUbfhJkw4V6FxUyJOklMeJZPsa0lr9oVQske3y8tzYtlHoXvFH4fe91XyfONgrIlimO4Ro9Va9iimbjd3uOHXPYCxFC1ADLyg-ECacH5ZtkfQzG-8gn")' }}
               ></div>
               <div>
                 <p className="text-white text-base font-medium leading-normal">50 Workouts Logged</p>

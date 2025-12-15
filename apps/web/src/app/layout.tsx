@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Lexend } from "next/font/google"; // Import Lexend from Google Fonts
 import "./globals.css";
-import { AuthProvider } from '../../context/AuthContext'; // Import AuthProvider
+import { AuthProvider } from '../context/AuthContext'; // Import AuthProvider
 
 const lexend = Lexend({
   subsets: ["latin"],

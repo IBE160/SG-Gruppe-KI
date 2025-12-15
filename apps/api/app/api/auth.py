@@ -95,19 +95,19 @@ async def delete_account(
         # that reference this user_id.
 
         # Delete from Goals table
-        goals_delete_response = supabase_admin.from("Goals").delete().eq("user_id", user_id).execute()
+        goals_delete_response = supabase_admin.table("Goals").delete().eq("user_id", user_id).execute()
         if goals_delete_response.error:
             logger.error(f"Error deleting goals for user {user_id}: {goals_delete_response.error.message}")
             raise HTTPException(status_code=500, detail="Failed to delete associated goals.")
 
         # Delete from WorkoutLogs table
-        workout_logs_delete_response = supabase_admin.from("WorkoutLogs").delete().eq("user_id", user_id).execute()
+        workout_logs_delete_response = supabase_admin.table("WorkoutLogs").delete().eq("user_id", user_id).execute()
         if workout_logs_delete_response.error:
             logger.error(f"Error deleting workout logs for user {user_id}: {workout_logs_delete_response.error.message}")
             raise HTTPException(status_code=500, detail="Failed to delete associated workout logs.")
 
         # Delete from Equipment table
-        equipment_delete_response = supabase_admin.from("Equipment").delete().eq("user_id", user_id).execute()
+        equipment_delete_response = supabase_admin.table("Equipment").delete().eq("user_id", user_id).execute()
         if equipment_delete_response.error:
             logger.error(f"Error deleting equipment for user {user_id}: {equipment_delete_response.error.message}")
             raise HTTPException(status_code=500, detail="Failed to delete associated equipment.")
