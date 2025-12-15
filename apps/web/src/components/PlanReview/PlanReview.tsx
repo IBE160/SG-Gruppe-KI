@@ -1,5 +1,5 @@
-// apps/web/src/components/PlanReview/PlanReview.tsx
 import React from 'react';
+import { useRouter } from 'next/navigation'; // Import useRouter
 import { MaterialSymbol } from '@/components/MaterialSymbol';
 
 // This is a placeholder for the actual WorkoutPlan model
@@ -20,7 +20,15 @@ const mockPlan = {
 };
 
 export const PlanReview: React.FC = () => {
+  const router = useRouter(); // Initialize router
   const plan = mockPlan; // Use the mock plan for now
+
+  const onConfirm = () => {
+    // In a real scenario, this would involve sending confirmation to the backend
+    // and then navigating to the workout player.
+    console.log('Plan confirmed! Navigating to workout player.');
+    router.push('/dashboard'); // Navigate to the dashboard page
+  };
 
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col bg-background-dark group/design-root overflow-x-hidden font-display text-white">
@@ -90,7 +98,7 @@ export const PlanReview: React.FC = () => {
         <button className="flex-1 h-14 w-full items-center justify-center rounded-full bg-white/10 text-white text-lg font-bold transition-transform active:scale-95">
           Edit Plan
         </button>
-        <button className="flex-1 h-14 w-full items-center justify-center rounded-full bg-primary text-background-dark text-lg font-bold transition-transform active:scale-95">
+        <button onClick={onConfirm} className="flex-1 h-14 w-full items-center justify-center rounded-full bg-primary text-background-dark text-lg font-bold transition-transform active:scale-95">
           Confirm Plan
         </button>
       </div>

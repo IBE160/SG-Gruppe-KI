@@ -59,10 +59,10 @@ test-results/
 docs/sprint-artifacts/validation-report-*.md
 
 # Python
-/apps/api/.venv
-/apps/api/app/
-__pycache__/
-*.pyc
-*.pyo
-.pytest_cache/
-.mypy_cache/
+# /apps/api/.venv
+# 
+# __pycache__/
+# *.pyc
+# *.pyo
+# .pytest_cache/
+# .mypy_cache/

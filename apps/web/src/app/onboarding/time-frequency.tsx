@@ -44,18 +44,19 @@ const TimeFrequency: React.FC<TimeFrequencyProps> = ({ onNext, onBack }) => {
         <div className="@container">
           <div className="relative flex w-full flex-col items-start justify-between gap-3 p-4">
             <div className="flex w-full shrink-[3] items-center justify-between">
-              <p className="text-white text-base font-medium leading-normal">Days per week</p>
+              <label htmlFor="training-frequency-slider" className="text-white text-base font-medium leading-normal">Days per week</label>
               <p className="text-white text-sm font-normal leading-normal">{trainingFrequency || 4} days</p>
             </div>
             <div className="flex h-4 w-full items-center gap-4">
               <input
+                id="training-frequency-slider" // Added ID
                 type="range"
                 min="1"
                 max="7"
                 step="1"
                 value={trainingFrequency || 4}
                 onChange={handleFrequencyChange}
-                className="flex-1 h-1 rounded-sm bg-primary/20 appearance-none cursor-pointer [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary"
+                className="flex-1 h-1 rounded-sm bg-primary/20 appearance-none cursor-pointer [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-moz-range-thumb]:size-4 [&::-::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary"
               />
             </div>
           </div>
@@ -65,11 +66,12 @@ const TimeFrequency: React.FC<TimeFrequencyProps> = ({ onNext, onBack }) => {
         <div className="@container">
           <div className="relative flex w-full flex-col items-start justify-between gap-3 p-4">
             <div className="flex w-full shrink-[3] items-center justify-between">
-              <p className="text-white text-base font-medium leading-normal">Minutes per session</p>
+              <label htmlFor="training-duration-slider" className="text-white text-base font-medium leading-normal">Minutes per session</label>
               <p className="text-white text-sm font-normal leading-normal">{trainingDuration || 45} min</p>
             </div>
             <div className="flex h-4 w-full items-center gap-4">
               <input
+                id="training-duration-slider" // Added ID
                 type="range"
                 min="15"
                 max="120"

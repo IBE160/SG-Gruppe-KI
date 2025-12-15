@@ -16,8 +16,8 @@ const config: Config = {
     '^@/store/(.*)$': '<rootDir>/src/store/$1',
     '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
     '^@/types/(.*)$': '<rootDir>/src/types/$1',
-    '^next/link$': '<rootDir>/__mocks__/next/link.tsx',
-    '^next/navigation$': '<rootDir>/__mocks__/next/navigation.ts',
+    // Force a single instance of React
+    '^react$': '<rootDir>/node_modules/react',
   },
   moduleDirectories: ['node_modules', '<rootDir>'],
 };

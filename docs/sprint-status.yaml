@@ -47,8 +47,8 @@ development_status:
   2-1-ai-daily-plan-generation-api: backlog
   2-2-daily-plan-context-window: review
   2-3-display-review-daily-plan: review
-  2-4-workout-player-core-ui-logging: backlog
-  2-5-progress-dashboard-display: backlog
+  2-4-workout-player-core-ui-logging: review
+  2-5-progress-dashboard-display: review
   2-6-in-app-reminders-nudges: backlog
   epic-2-retrospective: optional
 

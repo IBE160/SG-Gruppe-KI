@@ -1,8 +1,22 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import WelcomeScreen from './WelcomeScreen';
 import '@testing-library/jest-dom';
 import { useRouter } from 'next/navigation';
+
+// Polyfill TextEncoder for JSDOM environment
+const { TextEncoder } = require('util');
+global.TextEncoder = TextEncoder;
+
+// Mock web crypto for PKCE functions
+Object.defineProperty(global.window, 'crypto', {
+  value: {
+    subtle: {
+      digest: jest.fn(() => Promise.resolve(new ArrayBuffer(32))), // Mock SHA-256 digest
+    },
+  },
+});
+
 
 // Mock the useRouter hook
 jest.mock('next/navigation', () => ({
@@ -63,10 +77,12 @@ describe('WelcomeScreen', () => {
     expect(mockPush).toHaveBeenCalledWith('/auth/login');
   });
 
-  it('calls onGoogleAuth when Google button is clicked', () => {
+  it('calls onGoogleAuth when Google button is clicked', async () => { // Added async
     render(<WelcomeScreen />);
     fireEvent.click(screen.getByLabelText(/Google/i));
-    expect(console.log).toHaveBeenCalledWith('Initiate Google OAuth');
+    await waitFor(() => { // Added waitFor for async operations
+      expect(console.log).toHaveBeenCalledWith('Initiate Google OAuth (Manual PKCE)');
+    });
   });
 
   it('calls onAppleAuth when Apple button is clicked', () => {
