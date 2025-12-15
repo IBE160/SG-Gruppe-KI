@@ -6,6 +6,8 @@ from app.api.onboarding import router as onboarding_router
 from app.api.user import router as user_router
 from app.api.plans import router as plans_router
 from app.api.music import router as music_router
+from app.api.logs import logs_router # Import logs_router
+from app.api.export import router as export_router # Import export_router
 
 def create_app() -> FastAPI:
     app = FastAPI()
@@ -14,6 +16,8 @@ def create_app() -> FastAPI:
     app.include_router(user_router, prefix="/api/v1", tags=["users"])
     app.include_router(plans_router, prefix="/api/v1/plans", tags=["plans"])
     app.include_router(music_router, prefix="/api/v1/music", tags=["music"])
+    app.include_router(logs_router, prefix="/api/v1", tags=["logs"]) # Include logs_router
+    app.include_router(export_router, prefix="/api/v1", tags=["export"]) # Include export_router
 
     return app
 

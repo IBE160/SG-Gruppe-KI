@@ -3,7 +3,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import SettingsPage from '../page';
-import '@testing-library/jest-dom'; // For extended DOM matchers
+import '@testing-library/jest-dom';
+import { AuthProvider } from '@/context/AuthContext'; // Import the mock AuthProvider
 
 // Mock Next.js Link component since it's used for navigation
 jest.mock('next/link', () => {
@@ -14,17 +15,29 @@ jest.mock('next/link', () => {
 
 describe('SettingsPage', () => {
   it('renders the main heading', () => {
-    render(<SettingsPage />);
+    render(
+      <AuthProvider>
+        <SettingsPage />
+      </AuthProvider>
+    );
     expect(screen.getByRole('heading', { name: 'Settings' })).toBeInTheDocument();
   });
 
   it('renders a search input', () => {
-    render(<SettingsPage />);
+    render(
+      <AuthProvider>
+        <SettingsPage />
+      </AuthProvider>
+    );
     expect(screen.getByPlaceholderText('Search Settings...')).toBeInTheDocument();
   });
 
   it('renders navigation links to various settings sections', () => {
-    render(<SettingsPage />);
+    render(
+      <AuthProvider>
+        <SettingsPage />
+      </AuthProvider>
+    );
     expect(screen.getByRole('link', { name: /General/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Appearance/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Health/i })).toBeInTheDocument();
@@ -34,11 +47,16 @@ describe('SettingsPage', () => {
   });
 
   it('renders the "User Profile" navigation link with correct href', () => {
-    render(<SettingsPage />);
+    render(
+      <AuthProvider>
+        <SettingsPage />
+      </AuthProvider>
+    );
     const userProfileLinks = screen.getAllByRole('link', { name: /User Profile/i });
-    expect(userProfileLinks.length).toBeGreaterThan(0); // Ensure at least one link is found
-    const userProfileLink = userProfileLinks[0]; // Assert on the first one or a specific one if there are others
+    expect(userProfileLinks.length).toBeGreaterThan(0);
+    const userProfileLink = userProfileLinks[0];
     expect(userProfileLink).toBeInTheDocument();
     expect(userProfileLink).toHaveAttribute('href', '/settings/profile');
   });
 });
+

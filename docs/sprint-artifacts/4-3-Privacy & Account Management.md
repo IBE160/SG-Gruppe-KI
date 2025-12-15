@@ -23,29 +23,29 @@ So that I can manage my personal information in compliance with GDPR.
 ## Tasks / Subtasks
 
 -   **Frontend (apps/web):**
-    -   [ ] **UI Implementation (Flow 18, Screen 5):** Create React components for the "Privacy & Account" settings sub-screen, including buttons for "Export My Data," "Delete My Account," and "Logout."
-    -   [ ] **UI Implementation (Flow 15, Screen 1-2):** Create React components for the "Export Data Information & Request" flow, including confirmation and timeline display.
-    -   [ ] **UI Implementation (Flow 16, Screen 1-4):** Create React components for the "Delete My Account" flow, including warnings, explicit user input confirmation, and post-deletion screens.
-    -   [ ] **API Integration:** Implement client-side API calls to the FastAPI backend for data export (`/export`), account deletion (`/auth/user`), and logout (Supabase Auth integration).
+        - [x] **UI Implementation (Flow 18, Screen 5):** Create React components for the "Privacy & Account" settings sub-screen, including buttons for "Export My Data," "Delete My Account," and "Logout."
+        - [x] **UI Implementation (Flow 15, Screen 1-2):** Create React components for the "Export Data Information & Request" flow, including confirmation and timeline display.
+        - [x] **UI Implementation (Flow 16, Screen 1-4):** Create React components for the "Delete My Account" flow, including warnings, explicit user input confirmation, and post-deletion screens.
+    -   [x] **API Integration:** Implement client-side API calls to the FastAPI backend for data export (`/export`), account deletion (`/auth/user`), and logout (Supabase Auth integration).
     -   **Testing:**
-        *   [ ] Write unit tests for new React components and confirmation flows.
-        *   [ ] Write integration tests for API calls and Supabase Auth interactions.
-        *   [ ] Write Playwright E2E tests for data export, account deletion, and logout user journeys.
+        *   [x] Write unit tests for new React components and confirmation flows.
+        *   [x] Write integration tests for API calls and Supabase Auth interactions.
+        *   [x] Write Playwright E2E tests for data export, account deletion, and logout user journeys.
 
 -   **Backend (apps/api):**
-    -   [ ] **API Endpoints:**
-        *   Implement `/export` endpoint for GDPR-compliant data export, fetching user data from Supabase.
-        *   Implement `/auth/user` endpoint for account deletion, ensuring all associated data is removed from Supabase and tokens are invalidated.
-    *   [ ] **Supabase Integration:** Ensure secure integration with Supabase for data operations (export, deletion) and authentication (logout).
-    -   [ ] **GDPR Compliance:** Implement logic to ensure data export and deletion adhere to GDPR requirements (`NFR002`, `NFR010`).
+    -   [x] **API Endpoints:**
+        *   [x] Implement `/export` endpoint for GDPR-compliant data export, fetching user data from Supabase.
+        *   [x] Implement `/auth/user` endpoint for account deletion, ensuring all associated data is removed from Supabase and tokens are invalidated.
+    *   [x] Ensure secure integration with Supabase for data operations (export, deletion) and authentication (logout).
+    -   [x] Implement logic to ensure data export and deletion adhere to GDPR requirements (`NFR002`, `NFR010`).
     -   **Testing:**
-        *   [ ] Write unit tests for data export and account deletion logic.
-        *   [ ] Write integration tests for the new API endpoints and Supabase interactions.
+        *   [x] Write unit tests for data export and account deletion logic.
+        *   [x] Write integration tests for the new API endpoints and Supabase interactions.
 
 -   **Refinement:**
-    -   [ ] Ensure all API communication adheres to the standard format `{"data": { ... }}` and `{"error": { ... }}`.
-    -   [ ] Implement structured JSON logging for all relevant backend actions related to privacy and account management.
-    -   [ ] Verify consistency with naming conventions for components, functions, and API routes.
+    -   [x] Ensure all API communication adheres to the standard format `{"data": { ... }}` and `{"error": { ... }}`.
+    -   [x] Implement structured JSON logging for all relevant backend actions related to privacy and account management.
+    -   [x] Verify consistency with naming conventions for components, functions, and API routes.
 
 ## Dev Notes
 

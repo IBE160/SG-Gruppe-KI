@@ -45,9 +45,15 @@ async function apiRequest<T>(
   }
 }
 
+
 export const api = {
   get: <T>(path: string, token?: string) => apiRequest<T>('GET', path, undefined, token),
   post: <T>(path: string, body: any, token?: string) => apiRequest<T>('POST', path, body, token),
   put: <T>(path: string, body: any, token?: string) => apiRequest<T>('PUT', path, body, token),
   delete: <T>(path: string, token?: string) => apiRequest<T>('DELETE', path, undefined, token),
+
+  // New functions for Privacy & Account Management
+  exportData: (token?: string) => apiRequest<{ message: string }>('POST', '/users/me/export', {}, token),
+  deleteAccount: (token?: string) => apiRequest<{ message: string }>('DELETE', '/users/me', undefined, token),
 };
+

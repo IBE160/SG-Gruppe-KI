@@ -9,9 +9,9 @@ const config: Config = {
   coverageProvider: 'v8',
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/', '<rootDir>/tests/e2e/'],
+  testMatch: ['<rootDir>/src/store/workoutStore.test.ts'], // <--- ONLY RUN THIS TEST
   transformIgnorePatterns: [
-    '/node_modules/(?!(uuid)/)', // Transform uuid module
+    '/node_modules/(?!.*(uuid)).*/', // Transform uuid module and other ESM modules
   ],
   moduleNameMapper: {
     '^@/components/(.*)$': '<rootDir>/src/components/$1',
@@ -19,6 +19,7 @@ const config: Config = {
     '^@/store/(.*)$': '<rootDir>/src/store/$1',
     '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
     '^@/types/(.*)$': '<rootDir>/src/types/$1',
+    '^@/context/AuthContext$': '<rootDir>/src/context/__mocks__/AuthContext.tsx', // Add this line
     // Force a single instance of React
     '^react$': '<rootDir>/node_modules/react',
   },

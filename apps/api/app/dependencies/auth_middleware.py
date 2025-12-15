@@ -4,7 +4,7 @@ from supabase import create_client, Client
 import os
 import jwt
 
-async def verify_jwt(authorization: str = Header(...)):
+async def get_current_user_id(authorization: str = Header(...)):
     """
     FastAPI dependency to verify a Supabase JWT from the Authorization header.
     """

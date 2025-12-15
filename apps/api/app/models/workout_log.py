@@ -13,12 +13,14 @@ class WorkoutLogBase(BaseModel):
     rpe: float = Field(..., ge=0.0, le=10.0)
 
 class WorkoutLogCreate(WorkoutLogBase):
-    plan_id: UUID
+    id: Optional[UUID] = Field(None) # Optional ID for client-generated IDs in offline mode
+    plan_id: Optional[UUID] = Field(None)
+    completed_at: datetime = Field(default_factory=datetime.utcnow) # When the log was completed
 
 class WorkoutLogResponse(WorkoutLogBase):
     id: UUID
     user_id: UUID
-    plan_id: UUID
+    plan_id: Optional[UUID] # Make plan_id optional in response as well
     completed_at: datetime
 
     class Config:

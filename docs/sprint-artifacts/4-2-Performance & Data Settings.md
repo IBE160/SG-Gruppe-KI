@@ -23,25 +23,25 @@ So that I can control my app's behavior in various network conditions and manage
 ## Tasks / Subtasks
 
 -   **Frontend (apps/web):**
-    -   [ ] **UI Implementation (Flow 17, Screen 1-4):** Create React components for the "Performance & Data" settings sub-screen. This includes toggles for "Offline Mode" and "Auto-Sync Offline Data," a button for "Clear Local Cache," and the display of offline status indicators and "Sync Now" prompts.
-    -   [ ] **Offline Mode Logic:** Implement client-side logic for enabling/disabling offline mode, caching daily plans and workout logs using IndexedDB or similar.
-    -   [ ] **Synchronization Logic:** Develop logic for detecting network connectivity changes and automatically/manually syncing offline data to the backend `/logs` endpoint.
-    -   [ ] **Local Cache Management:** Implement functionality for clearing the local cache with user confirmation.
-    -   [ ] **API Integration:** Ensure robust API calls to the FastAPI backend for data synchronization (e.g., `/logs` endpoint from Story 2.4).
+    -   [x] **UI Implementation (Flow 17, Screen 1-4):** Create React components for the "Performance & Data" settings sub-screen. This includes toggles for "Offline Mode" and "Auto-Sync Offline Data," a button for "Clear Local Cache," and the display of offline status indicators and "Sync Now" prompts.
+    -   [x] **Offline Mode Logic:** Implement client-side logic for enabling/disabling offline mode, caching daily plans and workout logs using IndexedDB or similar.
+    -   [x] **Synchronization Logic:** Develop logic for detecting network connectivity changes and automatically/manually syncing offline data to the backend `/logs` endpoint.
+    -   [x] **Local Cache Management:** Implement functionality for clearing the local cache with user confirmation.
+    -   [x] **API Integration:** Ensure robust API calls to the FastAPI backend for data synchronization (e.g., `/logs` endpoint from Story 2.4).
     -   **Testing:**
-        *   [ ] Write unit tests for new React components, offline logic, and synchronization logic.
-        *   [ ] Write integration tests for local storage interactions and API calls.
-        *   [ ] Write Playwright E2E tests for toggling offline mode, syncing data, and clearing cache.
+        *   [x] Write unit tests for new React components, offline logic, and synchronization logic.
+        *   [x] Write integration tests for local storage interactions and API calls.
+        *   [x] Write Playwright E2E tests for toggling offline mode, syncing data, and clearing cache.
 
 -   **Backend (apps/api):**
-    -   [ ] **API Endpoint Enhancement:** Ensure the `/logs` endpoint (from Story 2.4) can handle incremental data synchronization from offline mode, including conflict resolution if necessary.
+    -   [x] **API Endpoint Enhancement:** Ensure the `/logs` endpoint (from Story 2.4) can handle incremental data synchronization from offline mode, including conflict resolution if necessary.
     -   **Testing:**
-        *   [ ] Write integration tests for the `/logs` endpoint handling offline data synchronization.
+        *   [x] Write integration tests for the `/logs` endpoint handling offline data synchronization.
 
 -   **Refinement:**
-    -   [ ] Ensure UI adheres to `ux_design_content` principles (e.g., clear status indicators, confirmation modals).
-    -   [ ] Implement structured JSON logging for all relevant frontend and backend actions related to offline mode and data synchronization.
-    -   [ ] Verify consistency with naming conventions for components, functions, and API routes.
+    -   [x] Ensure UI adheres to `ux_design_content` principles (e.g., clear status indicators, confirmation modals).
+    -   [x] Implement structured JSON logging for all relevant frontend and backend actions related to offline mode and data synchronization.
+    -   [x] Verify consistency with naming conventions for components, functions, and API routes.
 
 ## Dev Notes
 
