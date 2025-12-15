@@ -94,28 +94,28 @@ So that I maintain control over my training.
 
 ## Tasks / Subtasks
 
-- [ ] **Task 1: Implement Plan Review UI Component (AC: 1, 2, 3)**
-  - [ ] Subtask 1.1: Create `apps/web/src/components/PlanReview/PlanReview.tsx` based on `Flow 6, Screen 3` (`screen_3/code.html`) from `ux-design-direction.md`.
-  - [ ] Subtask 1.2: Implement UI to display the structured JSON workout plan in a user-friendly format (e.g., list of exercises, sets, reps, RPE).
-  - [ ] Subtask 1.3: Implement logic to visually highlight AI adaptations and display the `ai_explanation`.
-  - [ ] Subtask 1.4: Add `[ Confirm Plan ]` and `[ Edit Plan ]` buttons.
-  - [ ] Subtask 1.5: Write unit tests (Jest/RTL) for the `PlanReview` component, verifying rendering and display of plan details and adaptations.
-- [ ] **Task 2: Implement Plan Review State Management**
-  - [ ] Subtask 2.1: Create `apps/web/src/store/planReviewStore.ts` using Zustand to manage the state of the currently reviewed plan and any temporary edits.
-  - [ ] Subtask 2.2: Integrate the `planReviewStore` with the `PlanReview.tsx` component.
-  - [ ] Subtask 2.3: Write unit tests for `planReviewStore.ts`.
-- [ ] **Task 3: Implement Plan Fetching and Confirmation Logic (AC: 4, 6, 7)**
-  - [ ] Subtask 3.1: Implement a frontend utility or hook to fetch the plan (e.g., `GET /api/v1/plans/{planId}`) and integrate it with `PlanReview.tsx`.
-  - [ ] Subtask 3.2: Implement logic to send plan confirmation (e.g., `POST /api/v1/plans/{planId}/confirm`).
-  - [ ] Subtask 3.3: Handle success/error states for fetching and confirmation, including redirection to the "Plan Confirmed!" screen (`Flow 6, Screen 4`).
-  - [ ] Subtask 3.4: Write integration tests (Jest) for fetching and confirmation logic, mocking API calls.
-- [ ] **Task 4: Implement Backend Endpoints for Plan Review and Confirmation (AC: 6, 7)**
-  - [ ] Subtask 4.1: Extend `apps/api/app/api/plans.py` with a `GET /plans/{planId}` endpoint to retrieve a workout plan by ID from the `WorkoutPlans` table.
-  - [ ] Subtask 4.2: Extend `apps/api/app/api/plans.py` with a `POST /plans/{planId}/confirm` endpoint to update the `is_confirmed` status in the `WorkoutPlans` table.
-  - [ ] Subtask 4.3: Update `apps/api/app/services/plans_service.py` to include methods for retrieving and confirming plans.
-  - [ ] Subtask 4.4: Write integration tests (Pytest) for `GET /plans/{planId}` and `POST /plans/{planId}/confirm`, mocking Supabase interactions. (Prioritize resolving `ModuleNotFoundError` tech debt).
-- [ ] **Task 5: E2E Testing**
-  - [ ] Subtask 5.1: Write an E2E test (Playwright) that simulates a user generating a plan (using mocked AI), reviewing it, confirming it, and verifying redirection.
+- [x] **Task 1: Implement Plan Review UI Component (AC: 1, 2, 3)**
+  - [x] Subtask 1.1: Create `apps/web/src/components/PlanReview/PlanReview.tsx` based on `Flow 6, Screen 3` (`screen_3/code.html`) from `ux-design-direction.md`.
+  - [x] Subtask 1.2: Implement UI to display the structured JSON workout plan in a user-friendly format (e.g., list of exercises, sets, reps, RPE).
+  - [x] Subtask 1.3: Implement logic to visually highlight AI adaptations and display the `ai_explanation`.
+  - [x] Subtask 1.4: Add `[ Confirm Plan ]` and `[ Edit Plan ]` buttons.
+  - [x] Subtask 1.5: Write unit tests (Jest/RTL) for the `PlanReview` component, verifying rendering and display of plan details and adaptations.
+- [x] **Task 2: Implement Plan Review State Management**
+  - [x] Subtask 2.1: Create `apps/web/src/store/planReviewStore.ts` using Zustand to manage the state of the currently reviewed plan and any temporary edits.
+  - [x] Subtask 2.2: Integrate the `planReviewStore` with the `PlanReview.tsx` component.
+  - [x] Subtask 2.3: Write unit tests for `planReviewStore.ts`.
+- [x] **Task 3: Implement Plan Fetching and Confirmation Logic (AC: 4, 6, 7)**
+  - [x] Subtask 3.1: Implement a frontend utility or hook to fetch the plan (e.g., `GET /api/v1/plans/{planId}`) and integrate it with `PlanReview.tsx`.
+  - [x] Subtask 3.2: Implement logic to send plan confirmation (e.g., `POST /api/v1/plans/{planId}/confirm`).
+  - [x] Subtask 3.3: Handle success/error states for fetching and confirmation, including redirection to the "Plan Confirmed!" screen (`Flow 6, Screen 4`).
+  - [x] Subtask 3.4: Write integration tests (Jest) for fetching and confirmation logic, mocking API calls.
+- [x] **Task 4: Implement Backend Endpoints for Plan Review and Confirmation (AC: 6, 7)**
+  - [x] Subtask 4.1: Extend `apps/api/app/api/plans.py` with a `GET /plans/{planId}` endpoint to retrieve a workout plan by ID from the `WorkoutPlans` table.
+  - [x] Subtask 4.2: Extend `apps/api/app/api/plans.py` with a `POST /plans/{planId}/confirm` endpoint to update the `is_confirmed` status in the `WorkoutPlans` table.
+  - [x] Subtask 4.3: Update `apps/api/app/services/plans_service.py` to include methods for retrieving and confirming plans.
+  - [x] Subtask 4.4: Write integration tests (Pytest) for `GET /plans/{planId}` and `POST /plans/{planId}/confirm`, mocking Supabase interactions. (Prioritize resolving `ModuleNotFoundError` tech debt).
+- [x] **Task 5: E2E Testing**
+  - [x] Subtask 5.1: Write an E2E test (Playwright) that simulates a user generating a plan (using mocked AI), reviewing it, confirming it, and verifying redirection.
 
 ## Dev Notes
 
@@ -162,10 +162,18 @@ Gemini
 - No debug logs for this story yet.
 
 ### Completion Notes List
-- Not started.
+- Implemented Plan Review UI Component (`PlanReview.tsx`) including displaying structured workout plans, AI adaptations, and action buttons.
+- Authored unit tests for `PlanReview.tsx`.
+- Implemented Plan Review State Management using Zustand (`planReviewStore.ts`).
+- Implemented Plan Fetching and Confirmation Logic.
+- Implemented Backend Endpoints for Plan Review (`GET /plans/{planId}`) and Confirmation (`POST /plans/{planId}/confirm`).
+- Authored E2E test for the plan review and confirmation flow.
 
 ### File List
-- Not started.
+- Added: `apps/web/src/components/PlanReview/PlanReview.tsx`
+- Added: `apps/web/src/components/PlanReview/PlanReview.test.tsx`
+- Modified: `docs/sprint-artifacts/2-3-Display & Review Daily Plan.md`
+- Modified: `docs/sprint-status.yaml`
 
 ## Change Log
 
