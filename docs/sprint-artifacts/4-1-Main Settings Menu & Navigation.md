@@ -19,20 +19,20 @@ So that I can easily find and manage my app preferences.
 ## Tasks / Subtasks
 
 -   **Frontend (apps/web):**
-    -   [ ] **UI Implementation (Flow 18, Screen 1):** Create React components for the main settings menu. This includes:
+    -   [x] **UI Implementation (Flow 18, Screen 1):** Create React components for the main settings menu. This includes:
         *   Displaying categorized settings options (e.g., General, Appearance, Performance & Data, Privacy & Account).
         *   Implementing navigation to respective sub-screens upon category tap.
-    -   [ ] **Search Functionality:** Implement a client-side search bar to filter settings options.
-    -   [ ] **API Integration:** Ensure proper authentication (Prerequisite: Story 1.2) for accessing settings.
+    -   [x] **Search Functionality:** Implement a client-side search bar to filter settings options.
+    -   [x] **API Integration:** Ensure proper authentication (Prerequisite: Story 1.2) for accessing settings.
     -   **Testing:**
         -   [ ] Write unit tests for new React components.
         -   [ ] Write integration tests for navigation logic and search functionality.
         -   [ ] Write Playwright E2E tests for navigating to and within the settings menu.
 
 -   **Refinement:**
-    -   [ ] Ensure UI adheres to `ux_design_content` principles (e.g., visual consistency, clear navigation).
-    -   [ ] Implement structured JSON logging for relevant frontend actions (e.g., settings changes).
-    -   [ ] Verify consistency with naming conventions for components and files.
+    -   [x] Ensure UI adheres to `ux_design_content` principles (e.g., visual consistency, clear navigation).
+    -   [x] Implement structured JSON logging for relevant frontend actions (e.g., settings changes).
+    -   [x] Verify consistency with naming conventions for components and files.
 
 ## Dev Notes
 

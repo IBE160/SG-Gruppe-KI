@@ -19,28 +19,28 @@ So that I can maintain focus and optimize my performance.
 ## Tasks / Subtasks
 
 -   **Frontend (apps/web):**
-    -   [ ] **UI Integration:** Integrate music playback controls (play/pause, skip, volume) into the Workout Player UI (Flow 9).
-    -   [ ] **Visual Feedback:** Implement visual feedback on BPM matching for the current workout phase (e.g., a gauge or text) within the Workout Player.
-    -   [ ] **Spotify SDK Integration:** Integrate Spotify Web Playback SDK or equivalent for in-app music controls.
-    -   [ ] **API Integration:** Implement client-side API calls to the FastAPI backend to log user music interactions (skips, completions).
+    -   [x] **UI Integration:** Integrate music playback controls (play/pause, skip, volume) into the Workout Player UI (Flow 9).
+    -   [x] **Visual Feedback:** Implement visual feedback on BPM matching for the current workout phase (e.g., a gauge or text) within the Workout Player.
+    -   [x] **Spotify SDK Integration:** Integrate Spotify Web Playback SDK or equivalent for in-app music controls.
+    -   [x] **API Integration:** Implement client-side API calls to the FastAPI backend to log user music interactions (skips, completions).
     -   **Testing:**
-        -   [ ] Write unit tests for new UI components and Spotify SDK integration.
-        -   [ ] Write integration tests for API calls and state management.
+        -   [x] Write unit tests for new UI components and Spotify SDK integration.
+        -   [x] Write integration tests for API calls and state management.
         -   [ ] Write Playwright E2E tests for in-workout music playback and controls.
 
 -   **Backend (apps/api):**
     -   **API Endpoint:**
-        -   [ ] Create `/music/feedback` endpoint to receive and log user music interactions (skips, completions).
+        -   [x] Create `/music/feedback` endpoint to receive and log user music interactions (skips, completions).
         -   [ ] Implement backend logic to process `/music/play` and `/music/pause` commands if direct backend control is desired.
-    -   [ ] **Music Interaction Logging:** Store logged user interactions in the database to refine future AI scoring (Playback Feedback Loop).
+    -   [x] **Music Interaction Logging:** Store logged user interactions in the database to refine future AI scoring (Playback Feedback Loop).
     -   **Testing:**
-        -   [ ] Write unit tests for music interaction logging logic.
-        -   [ ] Write integration tests for the new API endpoints and database interactions.
+        -   [x] Write unit tests for music interaction logging logic.
+        -   [x] Write integration tests for the new API endpoints and database interactions.
 
 -   **Refinement:**
-    -   [ ] Ensure all API communication adheres to the standard format `{"data": { ... }}` and `{"error": { ... }}`.
-    -   [ ] Implement structured JSON logging for all new backend services.
-    -   [ ] Verify consistency with naming conventions (kebab-case routes, PascalCase tables, snake_case columns).
+    -   [x] Ensure all API communication adheres to the standard format `{"data": { ... }}` and `{"error": { ... }}`.
+    -   [x] Implement structured JSON logging for all new backend services.
+    -   [x] Verify consistency with naming conventions (kebab-case routes, PascalCase tables, snake_case columns).
 
 ## Dev Notes
 
