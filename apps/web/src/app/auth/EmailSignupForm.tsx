@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase'; // Import Supabase client
 
 export default function EmailSignupForm() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function EmailSignupForm() {
     router.back();
   };
 
-  const onSignup = (e: React.FormEvent) => {
+  const onSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -31,10 +32,25 @@ export default function EmailSignupForm() {
       return;
     }
 
-    // Placeholder for Supabase registration logic
-    console.log('Attempting to sign up with:', { email, password });
-    // Simulate successful registration, then redirect to onboarding
-    router.push('/onboarding');
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        setError(error.message);
+        return;
+      }
+
+      if (data.user) {
+        // Successfully registered, redirect to onboarding for new user setup
+        router.push('/onboarding');
+      }
+
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   const onLoginLinkClick = () => {

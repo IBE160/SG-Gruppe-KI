@@ -80,22 +80,22 @@ export default function DashboardPage() {
       {/* Bottom Navigation Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-black/50 backdrop-blur-lg border-t border-white/10">
         <div className="flex justify-around items-center h-20 px-4">
-          <div className="flex flex-col items-center gap-1 text-primary">
+          <Link href="/dashboard" className="flex flex-col items-center gap-1 text-primary">
             <span className="material-symbols-outlined fill">dashboard</span>
             <span className="text-xs font-medium">Dashboard</span>
-          </div>
-          <div className="flex flex-col items-center gap-1 text-white/70">
+          </Link>
+          <Link href="/workout/player" className="flex flex-col items-center gap-1 text-white/70">
             <span className="material-symbols-outlined">play_circle</span>
             <span className="text-xs font-medium">Workout</span>
-          </div>
-          <div className="flex flex-col items-center gap-1 text-white/70">
+          </Link>
+          <Link href="/history" className="flex flex-col items-center gap-1 text-white/70">
             <span className="material-symbols-outlined">history</span>
             <span className="text-xs font-medium">History</span>
-          </div>
-          <div className="flex flex-col items-center gap-1 text-white/70">
+          </Link>
+          <Link href="/settings" className="flex flex-col items-center gap-1 text-white/70">
             <span className="material-symbols-outlined">settings</span>
             <span className="text-xs font-medium">Settings</span>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

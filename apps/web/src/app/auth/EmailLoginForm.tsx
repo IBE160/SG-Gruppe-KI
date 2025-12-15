@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase'; // Import Supabase client
 
 export default function EmailLoginForm() {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function EmailLoginForm() {
     router.back();
   };
 
-  const onLogin = (e: React.FormEvent) => {
+  const onLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -24,10 +25,38 @@ export default function EmailLoginForm() {
       return;
     }
 
-    // Placeholder for Supabase login logic
-    console.log('Attempting to log in with:', { email, password });
-    // Simulate successful login, then redirect to dashboard
-    router.push('/dashboard');
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        setError(error.message);
+        return;
+      }
+
+      if (data.user) {
+        // Here, we need to check if the user has completed onboarding.
+        // This will involve querying the backend for user profile/goals.
+        // For now, let's assume all users after login are redirected to dashboard.
+        // In a later step, we will implement the actual check.
+
+        // Placeholder for onboarding check:
+        // const hasCompletedOnboarding = await checkOnboardingStatus(data.user.id);
+        // if (hasCompletedOnboarding) {
+        //   router.push('/dashboard');
+        // } else {
+        //   router.push('/onboarding');
+        // }
+        
+        // For now, always redirect to dashboard after successful login.
+        router.push('/dashboard');
+      }
+
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   const onForgotPassword = () => {

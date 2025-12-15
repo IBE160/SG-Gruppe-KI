@@ -1,3 +1,5 @@
+'use client';
+
 // apps/web/src/components/MusicControls.tsx
 import React, { useEffect } from 'react';
 import { useSpotifyPlayer } from '../lib/useSpotifyPlayer'; // Adjust path as necessary

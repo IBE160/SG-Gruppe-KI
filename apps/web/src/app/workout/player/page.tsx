@@ -13,7 +13,7 @@ const mockWorkoutPlan = {
         { target_reps: 8, target_weight: 105, rpe: 7 },
         { target_reps: 6, target_weight: 110, rpe: 8 },
       ],
-      video_url: 'https://via.placeholder.com/400x200?text=Barbell+Squat+Video',
+      video_url: 'https://placehold.co/400x200?text=Barbell+Squat+Video',
     },
     {
       name: 'Bench Press',
@@ -22,7 +22,7 @@ const mockWorkoutPlan = {
         { target_reps: 10, target_weight: 75, rpe: 7 },
         { target_reps: 8, target_weight: 80, rpe: 8 },
       ],
-      video_url: 'https://via.placeholder.com/400x200?text=Bench+Press+Video',
+      video_url: 'https://placehold.co/400x200?text=Bench+Press+Video',
     },
     // Add more exercises as needed for a full mock plan
   ],

@@ -6,14 +6,18 @@ import { useRouter } from 'next/navigation';
 
 export default function SettingsPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { accessToken } = useAuth();
+  const { accessToken, loading } = useAuth(); // Destructure loading as well
   const router = useRouter();
 
   useEffect(() => {
-    if (!accessToken) {
+    if (!loading && !accessToken) { // Check loading state before redirecting
+      console.log("SettingsPage: No accessToken, redirecting to login.");
       router.push('/auth/login');
     }
-  }, [accessToken, router]);
+  }, [accessToken, loading, router]); // Add loading to dependency array
+
+  console.log("SettingsPage: Current AccessToken", accessToken);
+  console.log("SettingsPage: Loading state", loading);
 
   const settingsCategories = [
     { href: '/settings/general', icon: 'settings', title: 'General', color: 'bg-blue-500' },
