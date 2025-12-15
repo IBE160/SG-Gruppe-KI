@@ -49,7 +49,7 @@ const GenerateSessionMixPage: React.FC = () => {
       });
 
       // Navigate to the preview page. Mix details are already in Zustand.
-      router.push('/settings/music/mix/preview');
+      router.push(`/settings/music/mix/preview?mixId=${data.playlist_id}`);
     } catch (err: any) {
       setError(err.message || "Failed to create mix.");
       console.error('Create mix error:', err);

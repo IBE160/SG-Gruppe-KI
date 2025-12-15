@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lexend } from "next/font/google"; // Import Lexend from Google Fonts
 import "./globals.css";
+import { AuthProvider } from '../../context/AuthContext'; // Import AuthProvider
 
 const lexend = Lexend({
   subsets: ["latin"],
@@ -23,7 +24,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
       </head>
       <body className={`${lexend.className} antialiased`}>
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

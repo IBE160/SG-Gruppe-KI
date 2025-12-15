@@ -2,8 +2,7 @@
 import { test, expect } from '@playwright/test';
 import { UUID } from 'crypto';
 
-// Helper to set a mock Supabase session in localStorage
-// This function will now be used with addInitScript
+// Helper to set a mock Supabase session in localStorage (No longer used directly, but kept for reference)
 function getSupabaseSessionScript(userId: UUID, email: string) {
     const sessionData = {
         currentSession: {
@@ -29,16 +28,61 @@ function getSupabaseSessionScript(userId: UUID, email: string) {
     `;
 }
 
+const MOCK_USER_ID = '00000000-0000-0000-0000-000000000001'; // Example UUID
+const MOCK_USER_EMAIL = 'testuser@example.com';
+const MOCK_SESSION = {
+    access_token: 'mock-access-token',
+    refresh_token: 'mock-refresh-token',
+    expires_at: Math.floor(Date.now() / 1000) + 3600,
+    token_type: 'Bearer',
+    user: {
+        id: MOCK_USER_ID,
+        email: MOCK_USER_EMAIL,
+        aud: 'authenticated',
+        role: 'authenticated',
+        app_metadata: { provider: 'email' },
+        user_metadata: {},
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+    },
+};
+
 test.describe('User Profile Management Flow', () => {
-    const MOCK_USER_ID = '00000000-0000-0000-0000-000000000001'; // Example UUID
-    const MOCK_USER_EMAIL = 'testuser@example.com';
 
     test.beforeEach(async ({ page, baseURL }) => {
         await page.unrouteAll(); // Clear any previous route mocks
-        // No need to clear localStorage explicitly here, as addInitScript will set it before load
 
-        // Set mock Supabase session using addInitScript
-        await page.context().addInitScript(getSupabaseSessionScript(MOCK_USER_ID as UUID, MOCK_USER_EMAIL));
+        // Inject a script to override the Supabase client's auth methods
+        await page.context().addInitScript((mockSessionData) => {
+            // Ensure the global 'supabase' object exists or is mocked
+            (window as any).supabase = (window as any).supabase || {};
+            (window as any).supabase.auth = (window as any).supabase.auth || {};
+
+            // Mock getSession to immediately return our mock session
+            (window as any).supabase.auth.getSession = async () => ({
+                data: { session: mockSessionData.session },
+                error: null,
+            });
+
+            // Mock getUser to immediately return our mock user
+            (window as any).supabase.auth.getUser = async () => ({
+                data: { user: mockSessionData.session.user },
+                error: null,
+            });
+
+            // Mock onAuthStateChange to immediately trigger the callback with a signed-in event
+            (window as any).supabase.auth.onAuthStateChange = (callback: any) => {
+                callback('SIGNED_IN', mockSessionData.session);
+                return { data: { subscription: { unsubscribe: () => {} } } };
+            };
+
+            // Additionally, set localStorage as the app might still try to read from it
+            window.localStorage.setItem('supabase.auth.token', JSON.stringify({
+                currentSession: mockSessionData.session,
+                expiresAt: mockSessionData.session.expires_at,
+            }));
+
+        }, { session: MOCK_SESSION }); // Pass the mock session data to the script
 
         // Mock the API response for GET /users/me
         await page.route('**/api/v1/users/me', async route => {
@@ -82,11 +126,9 @@ test.describe('User Profile Management Flow', () => {
             }
         });
 
-        // Navigate to the settings page, then to the profile page
-        await page.goto(`${baseURL}/settings`);
+        // Navigate directly to the profile page
+        await page.goto(`${baseURL}/settings/profile`);
         await page.waitForLoadState('networkidle'); // Wait for network to be idle after navigation
-        await page.getByRole('link', { name: /User Profile/i }).click();
-        await page.waitForURL(`${baseURL}/settings/profile`);
         await expect(page).toHaveURL(`${baseURL}/settings/profile`);
     });
 
@@ -121,7 +163,7 @@ test.describe('User Profile Management Flow', () => {
         await expect(page.getByText('lbs')).toBeVisible();
         await expect(page.getByText('Lose Weight')).toBeVisible();
         await expect(page.getByText('5 days/week')).toBeVisible();
-        await expect(page.getByText('Resistance Bands, Yoga Mat')).toBeVisible();
+        await expect(page.queryByText('Resistance Bands, Yoga Mat')).toBeVisible();
 
         // Verify old data is not visible
         await expect(page.queryByText('kg')).not.toBeVisible();

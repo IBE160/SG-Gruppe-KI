@@ -3,10 +3,12 @@ from fastapi.responses import RedirectResponse
 from loguru import logger
 from typing import Optional, List
 from pydantic import BaseModel
+from datetime import datetime # Import datetime
 
 from app.services.music_service import MusicService
 from app.core.config import settings
 from app.core.supabase import get_current_user_id # Import the dependency
+from app.models.music import MusicFeedbackRequest # Import MusicFeedbackRequest
 
 # Initialize MusicService
 music_service = MusicService()
@@ -17,6 +19,28 @@ router = APIRouter()
 class GenerateSessionMixRequest(BaseModel):
     mix_type: str
     workout_plan_id: Optional[str] = None # Assuming a workout plan context
+
+@router.post("/feedback", summary="Log user music interaction feedback")
+async def log_music_feedback(
+    feedback: MusicFeedbackRequest,
+    user_id: str = Depends(get_current_user_id)
+):
+    """
+    Receives and logs user music interaction feedback (e.g., skips, completions, likes)
+    to refine future AI music scoring.
+    """
+    logger.info(f"Received music feedback from user {user_id}: {feedback.feedback_type} for track {feedback.track_id}")
+    try:
+        await music_service.log_music_feedback(user_id, feedback)
+        return {"message": "Music feedback logged successfully"}
+    except HTTPException as e:
+        logger.error(f"Failed to log music feedback: {e.detail}")
+        raise e
+    except Exception as e:
+        logger.error(f"Unexpected error logging music feedback: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error logging music feedback"
+        )
 
 @router.get("/connect/spotify", summary="Initiate Spotify OAuth process")
 async def connect_spotify():

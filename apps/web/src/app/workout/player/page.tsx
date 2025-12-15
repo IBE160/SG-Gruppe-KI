@@ -1,5 +1,6 @@
 // apps/web/src/app/workout/player/page.tsx
 import React from 'react';
+import MusicControls from '../../../components/MusicControls';
 
 // Mock workout plan for demonstration purposes
 const mockWorkoutPlan = {
@@ -112,6 +113,9 @@ const WorkoutPlayerPage: React.FC = () => {
         <button className="w-full bg-primary text-background-dark h-14 rounded-full flex items-center justify-center text-lg font-bold mt-6">
           START SET {currentSetIndex + 1}
         </button>
+
+        {/* Music Controls Integration */}
+        <MusicControls />
       </main>
 
       {/* Bottom Navigation Bar Placeholder (copied from Flow_7/screen_4/code.html) */}

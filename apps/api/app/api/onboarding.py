@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
 from typing import Dict, Any
 
-from app.core.security import get_current_user_id
+from app.core.supabase import get_current_user_id
 
 router = APIRouter()
 

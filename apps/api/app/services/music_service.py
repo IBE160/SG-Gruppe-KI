@@ -12,7 +12,7 @@ from app.core.config import settings
 from app.utils.encryption import encryption_util
 from app.core.supabase import get_supabase_client # Assuming Supabase client is used for DB interaction
 from supabase import Client, create_client
-
+from app.models.music import MusicFeedbackRequest # Import MusicFeedbackRequest
 
 class MusicService:
     def __init__(self):
@@ -24,6 +24,31 @@ class MusicService:
         self.spotify_token_url = "https://accounts.spotify.com/api/token"
         self.spotify_api_base_url = "https://api.spotify.com/v1"
         self.supabase: Client = get_supabase_client()
+
+    async def log_music_feedback(self, user_id: str, feedback: MusicFeedbackRequest):
+        """
+        Logs user music interaction feedback to the database.
+        """
+        try:
+            feedback_data = {
+                "user_id": user_id,
+                "session_id": feedback.session_id,
+                "track_id": feedback.track_id,
+                "feedback_type": feedback.feedback_type,
+                "timestamp": feedback.timestamp.isoformat(),
+                "context": feedback.context,
+            }
+            # TODO: Re-enable actual Supabase insertion and ensure MusicInteractions table exists and schema is defined.
+            # response_db = self.supabase.table("MusicInteractions").insert(feedback_data).execute()
+            # if response_db.data:
+            #     logger.info(f"Music feedback logged for user {user_id}: {feedback.feedback_type} for track {feedback.track_id}")
+            # else:
+            #     logger.error(f"Failed to log music feedback for user {user_id}: {response_db.error}")
+            #     raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to log music feedback")
+            logger.debug(f"Simulating music feedback logging for user {user_id}: {feedback.feedback_type} for track {feedback.track_id}")
+        except Exception as e:
+            logger.error(f"Error logging music feedback: {e}")
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error logging music feedback")
 
 
     def _generate_code_verifier(self) -> str:
