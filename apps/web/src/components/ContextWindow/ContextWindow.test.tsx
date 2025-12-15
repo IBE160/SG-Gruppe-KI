@@ -1,7 +1,7 @@
-// apps/web/src/components/ContextWindow/ContextWindow.test.tsx
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { generatePlan } from '@/lib/planApi';
 import { ContextWindow } from './ContextWindow';
 
 // Mock the MaterialSymbol component as it's an external dependency
@@ -10,6 +10,10 @@ jest.mock('@/components/MaterialSymbol', () => ({
     <span className={`mock-material-symbol ${className}`}>{icon}</span>
   ),
 }));
+
+// Mock the generatePlan API utility
+jest.mock('@/lib/planApi');
+const mockedGeneratePlan = generatePlan as jest.Mock;
 
 describe('ContextWindow', () => {
   beforeEach(() => {
@@ -35,7 +39,9 @@ describe('ContextWindow', () => {
 
     expect(neutralMood).toBeChecked(); 
 
-    fireEvent.click(motivatedMood);
+    act(() => {
+      fireEvent.click(motivatedMood);
+    });
     expect(motivatedMood).toBeChecked();
     expect(neutralMood).not.toBeChecked();
 
@@ -54,7 +60,9 @@ describe('ContextWindow', () => {
 
     expect(mediumEnergy).toBeChecked();
 
-    fireEvent.click(highEnergy);
+    act(() => {
+      fireEvent.click(highEnergy);
+    });
     expect(highEnergy).toBeChecked();
     expect(mediumEnergy).not.toBeChecked();
 
@@ -65,7 +73,9 @@ describe('ContextWindow', () => {
     render(<ContextWindow />);
     const sorenessInput = screen.getByPlaceholderText(/Any specific muscle soreness/i);
 
-    fireEvent.change(sorenessInput, { target: { value: 'Lower back is tight' } });
+    act(() => {
+      fireEvent.change(sorenessInput, { target: { value: 'Lower back is tight' } });
+    });
     expect(sorenessInput).toHaveValue('Lower back is tight');
   });
 
@@ -99,16 +109,20 @@ describe('ContextWindow', () => {
 
   it('calls generatePlan with correct context on submit', async () => {
     // Mock generatePlan to resolve successfully
-    (generatePlan as jest.Mock).mockResolvedValue({ message: 'Plan generated', data: {} });
+    mockedGeneratePlan.mockResolvedValue({ message: 'Plan generated', data: {} });
 
     render(<ContextWindow />);
 
     // Simulate user input
-    fireEvent.click(screen.getByLabelText(/Motivated/i));
-    fireEvent.click(screen.getByLabelText(/High/i));
-    fireEvent.change(screen.getByPlaceholderText(/Any specific muscle soreness/i), { target: { value: 'Arms are sore' } });
+    act(() => {
+      fireEvent.click(screen.getByLabelText(/Motivated/i));
+      fireEvent.click(screen.getByLabelText(/High/i));
+      fireEvent.change(screen.getByPlaceholderText(/Any specific muscle soreness/i), { target: { value: 'Arms are sore' } });
+    });
 
-    fireEvent.click(screen.getByText("Generate Today's Plan"));
+    await act(async () => {
+      fireEvent.click(screen.getByText("Generate Today's Plan"));
+    });
 
     await waitFor(() => {
       expect(generatePlan).toHaveBeenCalledTimes(1);
@@ -122,12 +136,13 @@ describe('ContextWindow', () => {
 
   it('shows loading state during API call', async () => {
     // Mock generatePlan to be a pending promise
-    (generatePlan as jest.Mock).mockReturnValue(new Promise(() => {}));
+    mockedGeneratePlan.mockReturnValue(new Promise(() => {}));
 
     render(<ContextWindow />);
     const submitButton = screen.getByText("Generate Today's Plan");
-
-    fireEvent.click(submitButton);
+    act(() => {
+      fireEvent.click(submitButton);
+    });
 
     expect(submitButton).toBeDisabled();
     expect(submitButton).toHaveTextContent('Generating Plan...');
@@ -136,12 +151,13 @@ describe('ContextWindow', () => {
   it('displays error message on API call failure', async () => {
     // Mock generatePlan to reject with an error
     const errorMessage = 'Network error occurred!';
-    (generatePlan as jest.Mock).mockRejectedValue(new Error(errorMessage));
+    mockedGeneratePlan.mockRejectedValue(new Error(errorMessage));
 
     render(<ContextWindow />);
     const submitButton = screen.getByText("Generate Today's Plan");
-
-    fireEvent.click(submitButton);
+    await act(async () => {
+      fireEvent.click(submitButton);
+    });
 
     await waitFor(() => {
       expect(screen.getByText(errorMessage)).toBeInTheDocument();
