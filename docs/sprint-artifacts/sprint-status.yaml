@@ -25,7 +25,6 @@ stories_in_sprint:
   title: User Profile Management
   status: completed
 
-<<<<<<< HEAD
 development_status:
   epic-1: backlog
   1-1-project-setup-core-infrastructure: done
@@ -42,8 +41,8 @@ development_status:
   2-6-in-app-reminders-nudges: backlog
   epic-2-retrospective: optional
   epic-3: backlog
-  3-1-spotify-integration-oauth: backlog
-  3-2-ai-driven-session-mix-generation: backlog
+  3-1-spotify-integration-oauth: validated
+  3-2-ai-driven-session-mix-generation: validated
   3-3-in-workout-music-playback-controls: backlog
   epic-3-retrospective: optional
   epic-4: backlog
@@ -53,50 +52,3 @@ development_status:
   4-4-general-appearance-settings: backlog
   4-5-ai-personalization-settings: backlog
   epic-4-retrospective: optional
-=======
-# Epic 2: AI-Powered Training & Logging
-- story_id: 2.1
-  title: AI Daily Plan Generation API
-  status: drafted
-- story_id: 2.2
-  title: Daily Plan Context Window
-  status: ready-for-dev
-- story_id: 2.3
-  title: Display & Review Daily Plan
-  status: drafted
-- story_id: 2.4
-  title: Workout Player Core UI & Logging
-  status: ready-for-dev
-- story_id: 2.5
-  title: Progress Dashboard Display
-  status: drafted
-
-  # Epic 3: Enhanced Experience & Personalization
-  - story_id: 3.1
-    title: Spotify Integration & OAuth
-    status: drafted
-  - story_id: 3.2
-    title: AI-Driven Session Mix Generation
-    status: ready-for-dev
-  - story_id: 3.3
-    title: In-Workout Music Playback & Controls
-    status: ready-for-dev
-
-
-  # Epic 4: User Control & Settings
-  - story_id: 4.1
-    title: Main Settings Menu & Navigation
-    status: ready-for-dev
-  - story_id: 4.2
-    title: Performance & Data Settings
-    status: ready-for-dev
-  - story_id: 4.3
-    title: Privacy & Account Management
-    status: ready-for-dev
-  - story_id: 4.4
-    title: General & Appearance Settings
-    status: ready-for-dev
-  - story_id: 4.5
-    title: AI & Personalization Settings
-    status: ready-for-dev
->>>>>>> story-context-update

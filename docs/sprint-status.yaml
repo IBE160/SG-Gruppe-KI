@@ -53,8 +53,8 @@ development_status:
   epic-2-retrospective: optional
 
   epic-3: backlog
-  3-1-spotify-integration-oauth: backlog
-  3-2-ai-driven-session-mix-generation: backlog
+  3-1-spotify-integration-oauth: review
+  3-2-ai-driven-session-mix-generation: in-progress
   3-3-in-workout-music-playback-controls: backlog
   epic-3-retrospective: optional
 

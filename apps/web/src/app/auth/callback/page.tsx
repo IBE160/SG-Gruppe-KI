@@ -16,46 +16,30 @@ const AuthCallbackPage = () => {
       console.log('AuthCallbackPage: Search:', window.location.search);
 
       const supabase = createClient();
-      const params = new URLSearchParams(window.location.search || window.location.hash.substring(1)); // Prioritize search for 'code', then hash for tokens
-      const code = params.get('code');
-      const error = params.get('error_description') || params.get('error');
+      // Supabase's signInWithOAuth handles the PKCE exchange automatically on redirect.
+      // We just need to ensure the session is retrieved and updated.
+      const { data: { session }, error: getSessionError } = await supabase.auth.getSession();
 
-      if (error) {
-        console.error('Auth Callback Error:', error);
-        router.push(`/auth/error?message=${error}`);
+      if (getSessionError) {
+        console.error('Error getting session:', getSessionError.message);
+        router.push(`/auth/error?message=${getSessionError.message}`);
         return;
       }
 
-      if (code) {
-        // Retrieve the manually stored code_verifier
-        const codeVerifier = localStorage.getItem('pkce_code_verifier');
-        if (!codeVerifier) {
-          console.error('Code verifier not found in localStorage.');
-          router.push(`/auth/error?message=Code+verifier+missing+from+localStorage`);
-          return;
-        }
-        localStorage.removeItem('pkce_code_verifier'); // Clean up
-
-        // This is a PKCE flow, exchange the code for a session
-        const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code, codeVerifier);
-
-        if (exchangeError) {
-          console.error('Error exchanging code for session:', exchangeError.message);
-          router.push(`/auth/error?message=${exchangeError.message}`);
-          return;
-        }
-
-        // Successfully exchanged code, now set the session (though setSession might be redundant after exchangeCodeForSession)
+      if (session) {
+        // Successfully got session, now set the session in the store
         setSession({
-          accessToken: data.session?.access_token || null,
-          refreshToken: data.session?.refresh_token || null,
-          user: data.session?.user || null,
+          accessToken: session.access_token || null,
+          refreshToken: session.refresh_token || null,
+          user: session.user || null,
         });
 
-        // Redirect based on whether the user is new or returning
-        router.push('/dashboard'); 
+        // For now, always redirect to onboarding if a new session is established.
+        // The actual onboarding_complete check will be re-introduced once the DB schema is updated.
+        router.push('/onboarding');
+
       } else {
-        console.warn('Auth callback received without code or tokens. Redirecting to login.');
+        console.warn('Auth callback received without a session. Redirecting to login.');
         router.push('/auth/login');
       }
     };

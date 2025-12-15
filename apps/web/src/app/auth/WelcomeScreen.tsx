@@ -6,24 +6,24 @@ import { createClient } from '@/utils/supabase/client';
 import { useState, useEffect } from 'react'; // Import useState and useEffect
 
 // Helper function to generate PKCE code verifier and challenge
-const generateCodeVerifier = () => {
-  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
-  let randomString = '';
-  for (let i = 0; i < 128; i++) {
-    randomString += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return randomString;
-};
+// const generateCodeVerifier = () => {
+//   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+//   let randomString = '';
+//   for (let i = 0; i < 128; i++) {
+//     randomString += possible.charAt(Math.floor(Math.random() * possible.length));
+//   }
+//   return randomString;
+// };
 
-const generateCodeChallenge = async (verifier: string) => {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(verifier);
-  const digest = await window.crypto.subtle.digest('SHA-256', data);
-  return btoa(String.fromCharCode(...new Uint8Array(digest)))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
-};
+// const generateCodeChallenge = async (verifier: string) => {
+//   const encoder = new TextEncoder();
+//   const data = encoder.encode(verifier);
+//   const digest = await window.crypto.subtle.digest('SHA-256', data);
+//   return btoa(String.fromCharCode(...new Uint8Array(digest)))
+//     .replace(/\+/g, '-')
+//     .replace(/\//g, '_')
+//     .replace(/=+$/, '');
+// };
 
 const WelcomeScreen = () => {
   const router = useRouter();
@@ -46,7 +46,7 @@ const WelcomeScreen = () => {
 
 
   const onGoogleAuth = async () => {
-    console.log('Initiate Google OAuth (Manual PKCE)');
+    console.log('Initiate Google OAuth');
     const supabase = createClient();
 
     try {
@@ -55,28 +55,12 @@ const WelcomeScreen = () => {
         return;
       }
 
-      // 1. Manually generate code_verifier and code_challenge
-      const codeVerifier = generateCodeVerifier();
-      const codeChallenge = await generateCodeChallenge(codeVerifier);
-
-      // 2. Explicitly store code_verifier in localStorage
-      localStorage.setItem('pkce_code_verifier', codeVerifier);
-      console.log('Stored code_verifier in localStorage:', codeVerifier);
-
-      // Debugging localStorage before initiating OAuth
-      console.log('localStorage before signInWithOAuth (manual):', JSON.stringify(localStorage));
-
-
+      // Supabase handles PKCE automatically with signInWithOAuth
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
           skipBrowserRedirect: false,
-          // 3. Pass code_challenge
-          queryParams: {
-            code_challenge: codeChallenge,
-            code_challenge_method: 'S256',
-          },
         },
       });
 
@@ -84,10 +68,9 @@ const WelcomeScreen = () => {
         console.error('Google OAuth Error (signInWithOAuth):', error.message);
       } else {
         console.log('Google OAuth initiated, data from signInWithOAuth:', data);
-        console.log('localStorage after signInWithOAuth (manual):', JSON.stringify(localStorage));
       }
     } catch (e) {
-      console.error('Unexpected error during Google OAuth initiation (manual PKCE):', e);
+      console.error('Unexpected error during Google OAuth initiation:', e);
     }
   };
 

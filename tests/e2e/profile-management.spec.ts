@@ -3,7 +3,8 @@ import { test, expect } from '@playwright/test';
 import { UUID } from 'crypto';
 
 // Helper to set a mock Supabase session in localStorage
-async function setMockSupabaseSession(page, userId: UUID, email: string) {
+// This function will now be used with addInitScript
+function getSupabaseSessionScript(userId: UUID, email: string) {
     const sessionData = {
         currentSession: {
             access_token: 'mock-access-token',
@@ -23,9 +24,9 @@ async function setMockSupabaseSession(page, userId: UUID, email: string) {
         },
         expiresAt: Math.floor(Date.now() / 1000) + 3600,
     };
-    await page.evaluate(data => {
-        localStorage.setItem('supabase.auth.token', JSON.stringify(data));
-    }, sessionData);
+    return `
+        window.localStorage.setItem('supabase.auth.token', JSON.stringify(${JSON.stringify(sessionData)}));
+    `;
 }
 
 test.describe('User Profile Management Flow', () => {
@@ -34,10 +35,10 @@ test.describe('User Profile Management Flow', () => {
 
     test.beforeEach(async ({ page, baseURL }) => {
         await page.unrouteAll(); // Clear any previous route mocks
-        await page.evaluate(() => localStorage.clear()); // Clear local storage for clean state
+        // No need to clear localStorage explicitly here, as addInitScript will set it before load
 
-        // Set mock Supabase session
-        await setMockSupabaseSession(page, MOCK_USER_ID as UUID, MOCK_USER_EMAIL);
+        // Set mock Supabase session using addInitScript
+        await page.context().addInitScript(getSupabaseSessionScript(MOCK_USER_ID as UUID, MOCK_USER_EMAIL));
 
         // Mock the API response for GET /users/me
         await page.route('**/api/v1/users/me', async route => {
@@ -83,6 +84,7 @@ test.describe('User Profile Management Flow', () => {
 
         // Navigate to the settings page, then to the profile page
         await page.goto(`${baseURL}/settings`);
+        await page.waitForLoadState('networkidle'); // Wait for network to be idle after navigation
         await page.getByRole('link', { name: /User Profile/i }).click();
         await page.waitForURL(`${baseURL}/settings/profile`);
         await expect(page).toHaveURL(`${baseURL}/settings/profile`);

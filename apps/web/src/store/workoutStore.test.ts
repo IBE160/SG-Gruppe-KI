@@ -65,46 +65,41 @@ describe('useWorkoutStore', () => {
 
   it('should set a workout plan', () => {
     act(() => {
-      useWorkoutStore.getState().setPlan(mockPlan);
+      useWorkoutStore.setPlan(mockPlan);
     });
     expect(useWorkoutStore.getState().plan).toEqual(mockPlan);
   });
 
-  it('should update currentExerciseIndex', () => {
-    act(() => {
-      useWorkoutStore.getState().setCurrentExerciseIndex(1);
-    });
-    expect(useWorkoutStore.getState().currentExerciseIndex).toBe(1);
-  });
-
-  it('should update currentSetIndex', () => {
-    act(() => {
-      useWorkoutStore.getState().setCurrentSetIndex(2);
-    });
-    expect(useWorkoutStore.getState().currentSetIndex).toBe(2);
-  });
-
-  it('should update currentWeight', () => {
-    act(() => {
-      useWorkoutStore.getState().setCurrentWeight(120);
-    });
-    expect(useWorkoutStore.getState().currentWeight).toBe(120);
-  });
-
-  it('should update currentReps', () => {
-    act(() => {
-      useWorkoutStore.getState().setCurrentReps(12);
-    });
-    expect(useWorkoutStore.getState().currentReps).toBe(12);
-  });
-
-  it('should update currentRPE', () => {
-    act(() => {
-      useWorkoutStore.getState().setCurrentRPE(9);
-    });
-    expect(useWorkoutStore.getState().currentRPE).toBe(9);
-  });
-
+      it('should update currentExerciseIndex', () => {
+        act(() => {
+          useWorkoutStore.setCurrentExerciseIndex(1);
+        });
+        expect(useWorkoutStore.getState().currentExerciseIndex).toBe(1);
+      });
+      it('should update currentSetIndex', () => {
+        act(() => {
+          useWorkoutStore.setCurrentSetIndex(2);
+        });
+        expect(useWorkoutStore.getState().currentSetIndex).toBe(2);
+      });
+      it('should update currentWeight', () => {
+        act(() => {
+          useWorkoutStore.setCurrentWeight(120);
+        });
+        expect(useWorkoutStore.getState().currentWeight).toBe(120);
+      });
+      it('should update currentReps', () => {
+        act(() => {
+          useWorkoutStore.setCurrentReps(12);
+        });
+        expect(useWorkoutStore.getState().currentReps).toBe(12);
+      });
+      it('should update currentRPE', () => {
+        act(() => {
+          useWorkoutStore.setCurrentRPE(9);
+        });
+        expect(useWorkoutStore.getState().currentRPE).toBe(9);
+      });
   it('should add a logged set', () => {
     const newSet = {
       exercise_name: 'Squat',
@@ -114,7 +109,7 @@ describe('useWorkoutStore', () => {
       rpe: 7,
     };
     act(() => {
-      useWorkoutStore.getState().addLoggedSet(newSet);
+      useWorkoutStore.addLoggedSet(newSet);
     });
     expect(useWorkoutStore.getState().loggedSets).toEqual([newSet]);
   });
@@ -122,9 +117,9 @@ describe('useWorkoutStore', () => {
   it('should persist and rehydrate state from localStorage', async () => {
     // Set some state
     act(() => {
-      useWorkoutStore.getState().setPlan(mockPlan);
-      useWorkoutStore.getState().setCurrentExerciseIndex(1);
-      useWorkoutStore.getState().setCurrentReps(8);
+      useWorkoutStore.setPlan(mockPlan);
+      useWorkoutStore.setCurrentExerciseIndex(1);
+      useWorkoutStore.setCurrentReps(8);
     });
 
     // Manually get the persisted state from the store and put it into localStorageMock
@@ -155,7 +150,7 @@ describe('useWorkoutStore', () => {
   it('should clear persisted state from localStorage', async () => {
     // Set some state
     act(() => {
-      useWorkoutStore.getState().setPlan(mockPlan);
+      useWorkoutStore.setPlan(mockPlan);
     });
 
     // Clear persisted state
@@ -175,9 +170,9 @@ describe('useWorkoutStore', () => {
 
   it('should reset the workout state', () => {
     act(() => {
-      useWorkoutStore.getState().setPlan(mockPlan);
-      useWorkoutStore.getState().setCurrentExerciseIndex(1);
-      useWorkoutStore.getState().addLoggedSet({
+      useWorkoutStore.setPlan(mockPlan);
+      useWorkoutStore.setCurrentExerciseIndex(1);
+      useWorkoutStore.addLoggedSet({
         exercise_name: 'Bench',
         set_number: 1,
         actual_reps: 8,

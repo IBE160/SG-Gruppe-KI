@@ -56,7 +56,7 @@ const TimeFrequency: React.FC<TimeFrequencyProps> = ({ onNext, onBack }) => {
                 step="1"
                 value={trainingFrequency || 4}
                 onChange={handleFrequencyChange}
-                className="flex-1 h-1 rounded-sm bg-primary/20 appearance-none cursor-pointer [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-moz-range-thumb]:size-4 [&::-::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary"
+                className="flex-1 h-1 rounded-sm bg-primary/20 appearance-none cursor-pointer [&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary"
               />
             </div>
           </div>

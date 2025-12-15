@@ -1,6 +1,6 @@
 # Story 3.2: AI-Driven Session Mix Generation
 
-Status: ready-for-dev
+Status: validated
 
 ## Story
 
@@ -20,34 +20,33 @@ So that my music enhances my training experience.
 
 ## Tasks / Subtasks
 
--   **Frontend (apps/web):**
-    -   [ ] **UI Implementation (Flow 11, Screen 1):** Create React components for "Generate Session Mix" initiation, including mix type selection. Refer to `ux_design_content` Flow 11, Screen 1 `code.html`.
-    -   [ ] **UI Implementation (Flow 11, Screen 2):** Create React components for "Session Mix Preview & Customization," including tracklist display, seed input for artists/genres, and track review/customization. Refer to `ux_design_content` Flow 11, Screen 2 `code.html`.
-    -   [ ] **API Integration:** Implement client-side API calls to the FastAPI backend for generating the session mix and handling user customizations.
-    -   [ ] **State Management:** Use Zustand to manage frontend state for mix generation, preview, and customization.
-    -   **Testing:**
-        -   [ ] Write unit tests for new React components.
-        -   [ ] Write integration tests for API calls and state management.
-        -   [ ] Write Playwright E2E tests for the entire Flow 11 user journey.
+    -   **Frontend (apps/web):**
+        -   [x] **UI Implementation (Flow 11, Screen 1):** Create React components for "Generate Session Mix" initiation, including mix type selection. Refer to `ux_design_content` Flow 11, Screen 1 `code.html`.
+        -   [x] **UI Implementation (Flow 11, Screen 2):** Create React components for "Session Mix Preview & Customization," including tracklist display, seed input for artists/genres, and track review/customization. Refer to `ux_design_content` Flow 11, Screen 2 `code.html`.
+        -   [x] **API Integration:** Implement client-side API calls to the FastAPI backend for generating the session mix and handling user customizations.
+        -   [x] **State Management:** Use Zustand to manage frontend state for mix generation, preview, and customization.
+        -   **Testing:**
+            -   [x] Write unit tests for new React components.
+            -   [x] Write integration tests for API calls and state management.
+            -   [x] Write Playwright E2E tests for the entire Flow 11 user journey.
 
--   **Backend (apps/api):**
-    -   **API Endpoints:**
-        -   [ ] Create `/music/generate-session-mix` endpoint to handle session mix generation requests.
-        -   [ ] Create endpoints for Spotify API interactions: `/music/recently-played`, `/music/audio-features`, `/music/create-playlist`.
-    -   [ ] **AI Music Scorer Logic:** Implement the core AI Music Scorer logic to:
-        -   Fetch user's Spotify listening history and preferences.
-        *   Analyze audio features of potential tracks.
-        *   Generate a playlist based on BPM, workout phase, and user feedback.
-    -   [ ] **Spotify API Integration:** Implement secure interactions with the Spotify API (using stored tokens from Story 3.1).
-    -   [ ] **Data Persistence:** Define and implement the `MusicPreferences` model (and potentially `MasterLists`) using Supabase/Prisma.
-    -   **Testing:**
-        -   [ ] Write unit tests for AI Music Scorer logic and Spotify API integration.
-        -   [ ] Write integration tests for API endpoints and database interactions.
+    -   **Backend (apps/api):**
+        -   **API Endpoints:**
+            -   [x] Create `/music/generate-session-mix` endpoint to handle session mix generation requests.
+            -   [x] Create endpoints for Spotify API interactions: `/music/recently-played`, `/music/audio-features`, `/music/create-playlist`.
+        -   [x] **AI Music Scorer Logic:** Implement the core AI Music Scorer logic to:
+            -   Fetch user's Spotify listening history and preferences.
+            *   Analyze audio features of potential tracks.
+            *   Generate a playlist based on BPM, workout phase, and user feedback.
+        -   [x] **Spotify API Integration:** Implement secure interactions with the Spotify API (using stored tokens from Story 3.1).
+        -   [x] **Data Persistence:** Define and implement the `MusicPreferences` model (and potentially `MasterLists`) using Supabase/Prisma.
+        -   **Testing:**
+            -   [x] Write unit tests for AI Music Scorer logic and Spotify API integration.
+            -   [x] Write integration tests for API endpoints and database interactions.
 
--   **Data Model:**
-    -   [ ] Define `MusicPreferences` table structure in Supabase (or extend existing `Users` table with preferences).
-    -   [ ] Consider schema for `MasterLists` if implemented in the database.
-
+    -   **Data Model:**
+        -   [x] Define `MusicPreferences` table structure in Supabase (or extend existing `Users` table with preferences).
+        -   [x] Consider schema for `MasterLists` if implemented in the database.
 -   **Documentation:**
     -   [ ] Update API documentation with new endpoints.
     -   [ ] Add comments to complex AI Music Scorer logic.

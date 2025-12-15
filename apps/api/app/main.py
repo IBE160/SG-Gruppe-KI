@@ -5,6 +5,7 @@ from app.api.auth import router as auth_router
 from app.api.onboarding import router as onboarding_router
 from app.api.user import router as user_router
 from app.api.plans import router as plans_router
+from app.api.music import router as music_router
 
 def create_app() -> FastAPI:
     app = FastAPI()
@@ -12,10 +13,11 @@ def create_app() -> FastAPI:
     app.include_router(onboarding_router, prefix="/api/v1", tags=["onboarding"])
     app.include_router(user_router, prefix="/api/v1", tags=["users"])
     app.include_router(plans_router, prefix="/api/v1/plans", tags=["plans"])
+    app.include_router(music_router, prefix="/api/v1/music", tags=["music"])
+
     return app
 
 app = create_app()
-
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
@@ -27,4 +29,3 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 @app.get("/")
 async def root():
     return {"message": "Hello FastAPI from apps/api!"}
-

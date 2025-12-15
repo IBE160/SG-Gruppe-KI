@@ -10,25 +10,40 @@ jest.mock('@/store/workoutStore', () => ({
   useWorkoutStore: jest.fn(),
 }));
 
-const mockSetRestDuration = jest.fn();
-const mockAddTimeRest = jest.fn();
-const mockEndRest = jest.fn();
-const mockNextExercise = jest.fn();
-const mockNextExerciseDetails = jest.fn();
-
 describe('RestTimer', () => {
-  const initialRestDuration = 60; // 60 seconds for tests
+  const initialRestDuration = 60; // Default for most tests
+  let currentRestDuration: number; // Mutable variable for rest duration
+
+  // Define mocks here so they are in scope for the mockImplementation
+  let mockSetRestDuration: jest.Mock;
+  let mockAddTimeRest: jest.Mock;
+  let mockEndRest: jest.Mock;
+  let mockNextExercise: jest.Mock;
+  let mockNextExerciseDetails: jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.useFakeTimers(); // Mock timers for consistent testing
+    jest.useFakeTimers();
+
+    // Initialize mock functions inside beforeEach
+    mockSetRestDuration = jest.fn();
+    mockAddTimeRest = jest.fn();
+    mockEndRest = jest.fn();
+    mockNextExercise = jest.fn();
+    mockNextExerciseDetails = jest.fn();
+
+    // Reset currentRestDuration for each test
+    currentRestDuration = initialRestDuration;
 
     (useWorkoutStore as jest.Mock).mockImplementation((selector) => {
       const state = {
-        restDuration: initialRestDuration,
-        endRest: mockEndRest,
+        restDuration: currentRestDuration, // Use the mutable variable
+        endRest: mockEndRest, // Now mockEndRest is defined
         addTimeRest: mockAddTimeRest,
-        setRestDuration: mockSetRestDuration,
+        setRestDuration: jest.fn((duration) => {
+            currentRestDuration = duration; // Update the mutable variable
+            mockSetRestDuration(duration); // Call the original mock fn to track calls
+        }),
         nextExercise: mockNextExercise,
         nextExerciseDetails: mockNextExerciseDetails,
       };
@@ -37,8 +52,8 @@ describe('RestTimer', () => {
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers(); // Clear any pending timers
-    jest.useRealTimers(); // Restore real timers
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   it('renders correctly with initial duration', () => {
@@ -57,27 +72,20 @@ describe('RestTimer', () => {
     expect(mockSetRestDuration).toHaveBeenCalledWith(initialRestDuration - 1);
   });
 
-  it('calls nextExercise when timer reaches 0', () => {
+  it('calls nextExercise when timer reaches 0', async () => {
+    // Set the specific initial restDuration for this test BEFORE rendering
+    currentRestDuration = 1;
+
     render(<RestTimer />);
 
     act(() => {
-      // Simulate timer running down to 0
-      (useWorkoutStore as jest.Mock).mockImplementation((selector) => {
-        const state = {
-          restDuration: 1, // Start at 1 second
-          endRest: mockEndRest,
-          addTimeRest: mockAddTimeRest,
-          setRestDuration: mockSetRestDuration,
-          nextExercise: mockNextExercise,
-          nextExerciseDetails: mockNextExerciseDetails,
-        };
-        return selector ? selector(state) : state;
-      });
       jest.advanceTimersByTime(1000); // Advance 1 second
     });
 
-    expect(mockSetRestDuration).toHaveBeenCalledWith(0);
-    expect(mockNextExercise).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockSetRestDuration).toHaveBeenCalledWith(0); // The mockSetRestDuration from beforeEach is now called
+      expect(mockNextExercise).toHaveBeenCalledTimes(1);
+    });
   });
 
   it('calls addTimeRest when +30s button is clicked', () => {
